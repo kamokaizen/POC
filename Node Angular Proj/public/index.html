@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="birrdy">
+
+<head>
+    <title>Tweets...</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js'></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div ng-controller="TweetLocationController as birdCtrl">
+        	<div class="birdyBox form-group clearfix">        		
+        		<label for="message">Location here..</label>
+                <input name="message" ng-model="location" class="form-control">
+                <button class="btn btn-success pull-right" ng-click="getTweets()">Send</button>
+            </div>
+            <div ng-repeat="tweet in tweets" class="birdyBox">
+                <div class="panel">
+                    <img src="{{tweet.img}}" alt="tweet.img">
+                    <h3 class="text-primary">{{tweet.name}}</h3>
+                </div>
+                <p>{{tweet.text}}</p>
+                <div class="clearfix">
+                    <h6 class="label label-default pull-right">{{tweet.date | date:'yyyy-MM-dd HH:mm:ss'}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
