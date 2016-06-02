@@ -1,0 +1,8 @@
+[2016-06-02 15:14:54.000] [INFO] app - Configuration is set for staging-dev
+[2016-06-02 15:14:54.020] [INFO] app - cWatch Portal is listening on port 18070
+[2016-06-02 15:14:54.021] [INFO] app - cWatch Portal started at Thu Jun 02 2016 15:14:54 GMT+0300 (Turkey Daylight Time)
+[2016-06-02 15:18:59.698] [INFO] app - Configuration is set for staging-dev
+[2016-06-02 15:18:59.718] [INFO] app - SearchPhoto is listening on port 18070
+[2016-06-02 15:18:59.719] [INFO] app - SearchPhoto started at Thu Jun 02 2016 15:18:59 GMT+0300 (Turkey Daylight Time)
+[2016-06-02 15:19:39.140] [ERROR] http - ::1 - - "GET / HTTP/1.1" 404 13 "" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+[2016-06-02 15:19:41.227] [ERROR] http - ::1 - - "GET / HTTP/1.1" 404 13 "" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"

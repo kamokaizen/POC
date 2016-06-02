@@ -1,0 +1,95 @@
+<div class="row row-eq-height" ng-init="init()">
+    <modal-generic templateHtml="card-detailed.modal.html" ng-class="postLoadingFlag ? 'modal-refresh' : ''"> </modal-generic>
+    <!-- top right control-->
+    <div class="topright-buttons-group">
+        <ul>
+            <!--<li>
+            <select class="form-control input-sm" ng-model="selectedFilterTime" 
+                    ng-options="item.label for item in filterTime"
+                    ng-change="changeSelectedTimeFilter()">
+            </select>  
+            </li>-->
+            <li>
+                <button ng-click="exportPage()" class="btn btn-success btn-sm waves-effect waves-light export-btn" ng-disabled="callCount > 0"><i class="fa" ng-class="callCount > 0 ? 'fa-refresh fa-spin-left' : 'fa-file-pdf-o'"></i> Export PDF</button>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <!-- END top right control-->
+    <div class="col-md-4">
+        <div class="panel panel-overwiew protection">
+            <div class="panel-heading">
+                <h3 class="panel-title">Protection Status</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('protection', 'monitored', 'Monitored')"><span class="counter" data-start="0" data-end="{{cardData.protection.monitored}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Monitored</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('protection', 'protected', 'Protected')"><span class="counter" data-start="0" data-end="{{cardData.protection.protected}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Protected</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('protection', 'attacksBlocked', 'Attacks Blocked')"><span class="counter" data-start="0" data-end="{{cardData.protection.attacksBlocked}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Attacks Blocked</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('protection', 'attacksMonitored', 'Attacks Monitored')"><span class="counter" data-start="0" data-end="{{cardData.protection.attacksMonitored}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Attacks Monitored</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-overwiew scan-overwiew">
+            <div class="panel-heading">
+                <h3 class="panel-title">Scan Overwiew</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('scanOverview', 'driveByDownload', 'Drive by Download Detected')"><span class="counter" data-start="0" data-end="{{cardData.scanOverview.driveByDownload}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Drive by Download Detected</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('scanOverview', 'malwares', 'Malwares Detected')"><span class="counter" data-start="0" data-end="{{cardData.scanOverview.malwares}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Malwares Detected</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('scanOverview', 'trojan', 'Trojan, Virus, Worms, Backdoors Found')"><span class="counter" data-start="0" data-end="{{cardData.scanOverview.trojan}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Trojan, Virus, Worms, Backdoors Found</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('scanOverview', 'injections', 'Iframe Injections Found')"><span class="counter" data-start="0" data-end="{{cardData.scanOverview.injections}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Iframe Injections Found</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('scanOverview', 'injectedCode', 'Injected Code Found')"><span class="counter" data-start="0" data-end="{{cardData.scanOverview.injectedCode}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Injected Code Found</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-overwiew blacklist-status">
+            <div class="panel-heading">
+                <h3 class="panel-title">Blacklist Status</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('blacklist', 'domains', 'Blacklisted Domains')"><span class="counter" data-start="0" data-end="{{cardData.blacklist.domains}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Blacklisted Domains</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#cardDetailedModal" ng-click="getDetailedData('blacklist', 'phishing', 'Domains Used for Phishing')"><span class="counter" data-start="0" data-end="{{cardData.blacklist.phishing}}" data-postfix="" data-duration="1000" data-delay="0">0</span>Domains Used for Phising</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<h3 class="block-title m-b-10">Threat Levels</h3>
+<div class="row sticky-level-list">
+    <div class="col-md-12">
+        <ul class="level-list">
+            <li ng-repeat="(key,val) in legendMap"><span class="label legend" ng-style="{'background-color': legendMap[key]}" data-toggle="tooltip" data-placement="top" title="{{key}}"></span> <span class="txt">{{key}}</span></li>
+        </ul>
+    </div>
+</div>
+<div class="row overview-charts">
+    <div class="col-md-12 ">
+        <div class="row row-h440">
+            <div class="col-lg-4" ng-repeat="panel in panels">
+                <div class="block" ng-class="panel['isLoading'] ? 'block-opt-refresh' : ''">
+                    <div class="block-header">
+                        <h4 class="header-title">{{panel.parentId}} <div class="level-label"><span ng-class="threatLevels[panel.level].class"></span><i class="txt">{{threatLevels[panel.level].label}}</i></div></h4>
+                        
+                    </div>
+                    <div class="block-content">
+                        <div ng-if='panel["chartType"] != "TABLE" && panel["chartData"]' class="chart-cnt">
+                            <highchart id='{{"chart_" + panel["uid"]}}' config='panel["chartData"]' disable-data-watch="true"></highchart>
+                        </div>
+                        <table-chart class="chart-cnt" ng-if='panel["chartType"] == "TABLE" && panel["chartData"]' id='{{"chart_" + panel["uid"]}}' chart-data='panel["chartData"]["series"]["0"]["data"]' chart-header="[getFieldName(panel), panel['aggregationFunction']]" chart-id="panel['uid']" click-callback="pointClickCallback(panelId, pointData, isTable)"></table-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     
+</script>

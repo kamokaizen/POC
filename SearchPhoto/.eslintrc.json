@@ -1,0 +1,37 @@
+{
+    "extends": "eslint:recommended",
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "indent": 0,
+        "no-console": 0
+    },
+    "globals": {
+        "angular": true,
+        "LegendMap": true,
+        "DEFAULT_CHART_OPTIONS": true,
+        "CHART_OPTIONS_MAP": true,
+        "Highcharts": true,
+        "Uint8Array": true,
+        "TimeFilter": true,
+        "ReportType": true,
+        "GraphTypeMap": true,
+        "ThreatLevels": true,
+        "'ClusterStyles": true,
+        "MapStyle": true,
+        "NFormatter": true,
+        "_":true,
+        "google":true,
+        "ClusterStyles":true,
+        "MarkerWithLabel":true,
+        "MarkerClusterer":true,
+        "overviewSticky":true,
+        "cardViewCounter":true
+    }
+}

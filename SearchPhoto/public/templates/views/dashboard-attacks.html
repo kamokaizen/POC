@@ -1,0 +1,81 @@
+<div class="row row-eq-height" ng-init="init()">
+    <!-- top right control-->
+    <div class="topright-buttons-group">
+        <ul>
+            <li class="timeFilterContainer">
+                <div class="timeFilter">
+                    <ol>
+                        <li ng-class="{'active':timeIndex==0}"><a href="#" ng-click="changeSelectedTimeFilter(0,12)"><span>12 Hours</span></a></li>
+                        <li ng-class="{'active':timeIndex==1}"><a href="#" ng-click="changeSelectedTimeFilter(1,24)"><span>24 Hours</span></a></li>
+                        <li ng-class="{'active':timeIndex==2}"><a href="#" ng-click="changeSelectedTimeFilter(2,48)"><span>2 Days</span></a></li>
+                        <li ng-class="{'active':timeIndex==3}"><a href="#" ng-click="changeSelectedTimeFilter(3,72)"><span>3 Days</span></a></li>
+                        <li ng-class="{'active':timeIndex==4}"><a href="#" ng-click="changeSelectedTimeFilter(4,120)"><span>5 Days</span></a></li>
+                        <li ng-class="{'active':timeIndex==5}"><a href="#" ng-click="changeSelectedTimeFilter(5,168)"><span>7 Days</span></a></li>
+                    </ol>
+                    
+                </div>
+            </li>
+            <li>
+                <button ng-click="exportPage()" class="btn btn-success btn-sm waves-effect waves-light export-btn" ng-disabled="callCount > 0"><i class="fa" ng-class="callCount > 0 ? 'fa-refresh fa-spin-left' : 'fa-file-pdf-o'"></i> Export PDF</button>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <!-- END top right control-->
+    <div class="col-md-9">
+        <div class="block" ng-class="mapLoading ? 'block-opt-refresh' : ''">
+            <div class="block-header">
+                <h4 class="block-title m-b-10">Where does the attacks come from?</h4>
+            </div>
+            <div class="block-content">
+                <ng-map zoom="2" min-zoom="2" max-zoom="6" style="height:450px;" styles="{{mapStyle}}" disable-default-u-i="true"></ng-map>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="block" ng-class="mapLoading ? 'block-opt-refresh' : ''">
+            <div class="block-header">
+                <h4 class="block-title m-b-10">Top Attacker List</h4>
+            </div>
+            <div class="block-content">
+                <div class="scroll-table">
+                    <table class="table table-bordered table-striped m-0">
+                        <thead>
+                            <tr>
+                                <th>Ip</th>
+                                <th>Country</th>
+                                <th class="text-right">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in tableData">
+                                <td>{{data.src_ip}}</td>
+                                <td>{{data.country}}</td>
+                                <td class="text-right">{{data.value}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row row-h440">
+    <div class="col-md-12">
+        <div class="block" ng-class="panel['isLoading'] ? 'block-opt-refresh' : ''">
+            <div class="block-header">
+                <h4 class="block-title m-b-10">Attack Trends (7 days)</h4>
+            </div>
+            <div class="block-content">
+                <div ng-if='panel["chartType"] != "TABLE" && panel["chartData"]' class="chart-cnt">
+                    <highchart id='{{"chart_" + panel["uid"]}}' config='panel["chartData"]' disable-data-watch="true"></highchart>
+                </div>
+                <table-chart class="chart-cnt" ng-if='panel["chartType"] == "TABLE" && panel["chartData"]' id='{{"chart_" + panel["uid"]}}'
+                    chart-data='panel["chartData"]["series"]["0"]["data"]' chart-header="[getFieldName(panel), panel['aggregationFunction']]"
+                    chart-id="panel['uid']" click-callback="pointClickCallback(panelId, pointData, isTable)"></table-chart>
+            </div>
+        </div>
+    </div>
+</div>

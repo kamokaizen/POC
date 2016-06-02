@@ -1,0 +1,26 @@
+{
+    "instaconf": {
+        "CLIENT_ID": "f81542af889244cf9a167331e50defef",
+        "CLIENT_SECRET": "1f6f87f14ab74291a345f6f39c3c05c7",
+        "WEBSITE_URL": "http://searchphoto.com",
+        "REDIRECT_URI": "http://searchphoto.com",
+        "SUPPORT_EMAIL": "kamil.inal@gmail.com"
+    },
+    "mysql": {
+        "database": "portal_cwatch",
+        "connectionLimit": 100,
+        "queueLimit": 100,
+        "host": "209.126.110.244",
+        "port": 3306,
+        "user": "comododev",
+        "password": "ComodoNxSIEM16"
+    },
+    "redis": {
+        "sessionTimeout": 20,
+        "sessionSecretKey": "!seSsion_Scrt_Ky!",
+        "host": "209.126.111.46",
+        "port": "9500"
+    },
+    "rejectUnauthorized": true,
+    "listenPort": 18070
+}

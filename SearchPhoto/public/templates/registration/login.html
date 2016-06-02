@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" ng-app="customerportal">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="cWATCH - Customer Portal">
+    <meta name="author" content="Comodo">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <title>cWATCH - Customer Portal</title>
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
+    <script src="assets/js/modernizr.min.js"></script>
+    
+    
+    <script type="text/javascript" src="assets/js/core/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/angular-1.4.8.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/angular-animate.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/angular-route.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/angular-resource.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/plugins/pace/pace.min.js"></script>
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+    <script src="assets/js/plugins/ng-sortable/ng-sortable.min.js"></script>
+    <script src="assets/js/plugins/highcharts/highcharts.js"></script>
+    <script src="assets/js/plugins/angular-poller/angular-poller.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/angular-inform/angular-inform.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/angular-underscore.min.js"></script>
+    <!-- Load Angular Related Scripts -->
+    <script type="text/javascript" src="js/portal.js"></script>
+    <script type="text/javascript" src="js/controllers/login.controller.js"></script>
+    <script type="text/javascript" src="js/services/call-service.js"></script>
+    <script type="text/javascript" src="js/services/authentication-service.js"></script>
+    <script src="js/directives/highcharts-ng.js"></script>
+    <script src="assets/js/plugins/gmaps/ng-map.min.js"></script>
+</head>
+
+<body>
+    <div ng-controller="LoginController" ng-init="init()">
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        <div class="wrapper-page">
+            <div class="text-center">
+                <a href="/" class="logo"><span>cWATCH - Customer Portal</span></a>
+            </div>
+            <div class="m-t-40 card-box">
+                <div class="text-center">
+                    <h4 class="text-uppercase font-bold m-b-0">Sign In</h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal m-t-20" ng-submit="login()">
+                        <div class="alert alert-danger" ng-if="errorMessage.length != 0">
+                            {{errorMessage}}
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="email" required="" placeholder="Username" ng-model="username" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" required="" placeholder="Password" ng-model="password">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <div class="checkbox checkbox-danger">
+                                    <input id="checkbox-signup" type="checkbox" ng-model="remember.check">
+                                    <label for="checkbox-signup">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center m-t-30">
+                            <div class="col-xs-12">
+                                <button type="submit" ng-disabled="loginPreloaderFlag" class="btn btn-danger btn-bordred btn-block waves-effect waves-light login-btn"><i ng-if="loginPreloaderFlag" class="fa fa-refresh fa-spin-left"></i> Log In</button>
+                            </div>
+                        </div>
+                        <div class="form-group m-t-30 m-b-0">
+                            <div class="col-sm-12">
+                                <a href="recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end card-box-->
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p class="text-muted">Don't have an account? <a href="register.html" class="text-primary m-l-5"><b>Sign Up</b></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end wrapper page -->
+
+</body>
+
+</html>

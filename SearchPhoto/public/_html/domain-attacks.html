@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="cWATCH - Customer Portal">
+    <meta name="author" content="Comodo">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <title>cWATCH - Customer Portal</title>
+    <!-- App css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/core.css" rel="stylesheet" type="text/css" />
+    <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    <script src="/assets/js/modernizr.min.js"></script>
+</head>
+
+<body>
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Top Bar Start -->
+        <div class="topbar">
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <a href="/" class="logo"><span>cWATCH - Customer Portal</span><i class="logo-small"></i></a>
+            </div>
+            <!-- Button mobile view to collapse sidebar menu -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <!-- Page title -->
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <button class="button-menu-mobile open-left">
+                                <i class="zmdi zmdi-menu"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <h4 class="page-title">Attacks</h4>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end navbar -->
+        </div>
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <ul>
+                        <li class="text-muted menu-title">Navigation</li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect active"><i class="zmdi zmdi-view-dashboard"></i> <span class="txt"> Dashboard </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li class="active"><a href="#">Overview</a></li>
+                                <li><a href="#">Attack Summary</a></li>
+                                <li><a href="#">Service Summary</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-safe" data-toggle="tooltip" data-placement="top" title="Safe">S</span> <span class="txt" data-toggle="tooltip" data-placement="top" title="domain.hebelehubele.box.sk"> domain.hebelehubele.box.sk </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Attacks</a></li>
+                                <li><a href="#">Vulnerabilities</a></li>
+                                <li><a href="#">WebSite Scans</a></li>
+                                <li><a href="#">Incidents</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-low" data-toggle="tooltip" data-placement="top" title="Low">L</span> <span class="txt" data-toggle="tooltip" data-placement="top" title="domain2.com"> domain2.com </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Attacks</a></li>
+                                <li><a href="#">Vulnerabilities</a></li>
+                                <li><a href="#">WebSite Scans</a></li>
+                                <li><a href="#">Incidents</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-medium" data-toggle="tooltip" data-placement="top" title="Medium">M</span> <span class="txt" data-toggle="tooltip" data-placement="top" title="domain3.com"> domain3.com </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Attacks</a></li>
+                                <li><a href="#">Vulnerabilities</a></li>
+                                <li><a href="#">WebSite Scans</a></li>
+                                <li><a href="#">Incidents</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-high" data-toggle="tooltip" data-placement="top" title="High">H</span> <span class="txt" data-toggle="tooltip" data-placement="top" title="domain4.com"> domain4.com </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Attacks</a></li>
+                                <li><a href="#">Vulnerabilities</a></li>
+                                <li><a href="#">WebSite Scans</a></li>
+                                <li><a href="#">Incidents</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-very-high" data-toggle="tooltip" data-placement="top" title="Very High">VH</span> <span class="txt" data-toggle="tooltip" data-placement="top" title="domain4.com"> domain4.com </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Attacks</a></li>
+                                <li><a href="#">Vulnerabilities</a></li>
+                                <li><a href="#">WebSite Scans</a></li>
+                                <li><a href="#">Incidents</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-critic" data-toggle="tooltip" data-placement="top" title="Critic">C</span> <span class="txt" data-toggle="tooltip" data-placement="top" title="domain4.com"> domain4.com </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Attacks</a></li>
+                                <li><a href="#">Vulnerabilities</a></li>
+                                <li><a href="#">WebSite Scans</a></li>
+                                <li><a href="#">Incidents</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- Sidebar -->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+
+                    <div class="topright-buttons-group">
+                        <ul>
+                            <li class="timeFilterContainer">
+                                <div class="timeFilter">
+                                    <ol>
+                                        <li><a href="#"><span>12 Hours</span></a></li>
+                                        <li><a href="#"><span>24 Hours</span></a></li>
+                                        <li><a href="#"><span>2 Days</span></a></li>
+                                        <li><a href="#"><span>3 Days</span></a></li>
+                                        <li class="active"><a href="#"><span>5 Days</span></a></li>
+                                        <li><a href="#"><span>7 Days</span></a></li>
+                                    </ol>
+                                </div>
+                            </li>
+                            <!--<li>
+                                <select class="form-control input-sm">
+                                <option>24 Hours</option>
+                                <option>12 Hours</option>
+                                </select>
+                            </li>-->
+                            <li>
+                                <a href="#" class="btn btn-success btn-sm waves-effect waves-light export-btn"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+
+
+                    <div class="block">
+                        <div class="block-header">
+                            <h4 class="block-title m-b-10"> What are the origin of attacker's?</h4>
+                        </div>
+                        <div class="block-content">
+                            <div class="row row-eq-height">
+                                <div class="col-md-8">
+                                    <div class="text-center" style="float:left; width:100%;"><img src="../assets/images/_temp/pie.jpg" height="400" /></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="scroll-table">
+                                        <table class="table table-striped table-bordered m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <th class="text-right">Attack Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Republic of Lithuania</td>
+                                                    <td class="text-right">15247</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pakistan</td>
+                                                    <td class="text-right">4368</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td class="text-right">3333</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Russia</td>
+                                                    <td class="text-right">2610</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>France</td>
+                                                    <td class="text-right">1650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>China</td>
+                                                    <td class="text-right">1340</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Indonesia</td>
+                                                    <td class="text-right">1330</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mexico</td>
+                                                    <td class="text-right">879</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ukraine</td>
+                                                    <td class="text-right">836</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Germany</td>
+                                                    <td class="text-right">672</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="block">
+                        <div class="block-header">
+                            <h4 class="block-title m-b-10"> Daily attack trend</h4>
+                        </div>
+                        <div class="block-content">
+                            <div class="row row-eq-height">
+                                <div class="col-md-8">
+                                    <div class="text-center" style="float:left; width:100%;"><img src="../assets/images/_temp/bar.jpg" height="400" /></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="scroll-table">
+                                        <table class="table table-striped table-bordered m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <th class="text-right">Attack Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Republic of Lithuania</td>
+                                                    <td class="text-right">15247</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pakistan</td>
+                                                    <td class="text-right">4368</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td class="text-right">3333</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Russia</td>
+                                                    <td class="text-right">2610</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>France</td>
+                                                    <td class="text-right">1650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>China</td>
+                                                    <td class="text-right">1340</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Indonesia</td>
+                                                    <td class="text-right">1330</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mexico</td>
+                                                    <td class="text-right">879</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ukraine</td>
+                                                    <td class="text-right">836</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Germany</td>
+                                                    <td class="text-right">672</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block">
+                        <div class="block-header">
+                            <h4 class="block-title m-b-10"> Repeat Attackers</h4>
+                        </div>
+                        <div class="block-content">
+                            <div class="row row-eq-height">
+
+                                <div class="col-md-12">
+                                    <div class="scroll-table">
+                                        <table class="table table-striped table-bordered m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <th class="text-right">Attack Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Republic of Lithuania</td>
+                                                    <td class="text-right">15247</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pakistan</td>
+                                                    <td class="text-right">4368</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>United States</td>
+                                                    <td class="text-right">3333</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Russia</td>
+                                                    <td class="text-right">2610</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>France</td>
+                                                    <td class="text-right">1650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>China</td>
+                                                    <td class="text-right">1340</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Indonesia</td>
+                                                    <td class="text-right">1330</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mexico</td>
+                                                    <td class="text-right">879</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ukraine</td>
+                                                    <td class="text-right">836</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Germany</td>
+                                                    <td class="text-right">672</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block">
+                        <div class="block-header">
+                            <h4 class="block-title m-b-10"> Blocked attacks by type</h4>
+                        </div>
+                        <div class="block-content">
+                            <div class="row row-eq-height">
+                                <div class="col-md-8">
+                                    <div class="text-center" style="float:left; width:100%;"><img src="../assets/images/_temp/pie.jpg" height="400" /></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="scroll-table">
+                                        <table class="table table-striped table-bordered m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Attack Type</th>
+                                                    <th class="text-right">Attack Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Detecting protocol violations</td>
+                                                    <td class="text-right">15247</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>HTTP header is restricted by policy</td>
+                                                    <td class="text-right">4368</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>URL file extension is restricted by policy</td>
+                                                    <td class="text-right">3333</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SQL Injection protection</td>
+                                                    <td class="text-right">2610</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Joomla! protection</td>
+                                                    <td class="text-right">1650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>WordPress Plugins protection</td>
+                                                    <td class="text-right">1340</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PHP Injection Attack</td>
+                                                    <td class="text-right">1330</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>System Command Injection</td>
+                                                    <td class="text-right">879</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Remote File Access Attempt</td>
+                                                    <td class="text-right">836</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Remote File Inclusion Attack</td>
+                                                    <td class="text-right">672</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="block">
+                        <div class="block-header">
+                            <h4 class="block-title m-b-10"> Top 10 Targetted URI</h4>
+                        </div>
+                        <div class="block-content">
+                            <div class="row row-eq-height">
+                                <div class="col-md-8">
+                                    <div class="text-center" style="float:left; width:100%;"><img src="../assets/images/_temp/pie.jpg" height="400" /></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="scroll-table">
+                                        <table class="table table-striped table-bordered m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Attack Type</th>
+                                                    <th class="text-right">Attack Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Detecting protocol violations</td>
+                                                    <td class="text-right">15247</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>HTTP header is restricted by policy</td>
+                                                    <td class="text-right">4368</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>URL file extension is restricted by policy</td>
+                                                    <td class="text-right">3333</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SQL Injection protection</td>
+                                                    <td class="text-right">2610</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Joomla! protection</td>
+                                                    <td class="text-right">1650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>WordPress Plugins protection</td>
+                                                    <td class="text-right">1340</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PHP Injection Attack</td>
+                                                    <td class="text-right">1330</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>System Command Injection</td>
+                                                    <td class="text-right">879</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Remote File Access Attempt</td>
+                                                    <td class="text-right">836</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Remote File Inclusion Attack</td>
+                                                    <td class="text-right">672</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="block">
+                        <div class="block-header">
+                            <h4 class="block-title m-b-10">Where does the attacks come from?</h4>
+                        </div>
+                        <div class="block-content">
+                            <div id="gmaps-markers" class="gmaps"></div>
+                            <div class="scroll-table m-t-20">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>s/no</th>
+                                            <th>IP address</th>
+                                            <th class="text-right">Count</th>
+                                            <th>Blacklist Status</th>
+                                            <th>Reverse DNS</th>
+                                            <th>ASN Owner</th>
+                                            <th>Country</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>185.130.6.103</td>
+                                            <td class="text-right">15244</td>
+                                            <td>BLACKLISTED 2/39</td>
+                                            <td>Unknown</td>
+                                            <td>Unknown</td>
+                                            <td>Republic of Lithuania</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>62.210.162.209</td>
+                                            <td class="text-right">891</td>
+                                            <td>BLACKLISTED 1/39</td>
+                                            <td>62-210-162-209.rev.poneytele com.eu</td>
+                                            <td>ONLINE S.A.S.</td>
+                                            <td>(FR) France</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>185.130.6.103</td>
+                                            <td class="text-right">15244</td>
+                                            <td>BLACKLISTED 2/39</td>
+                                            <td>Unknown</td>
+                                            <td>Unknown</td>
+                                            <td>Republic of Lithuania</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>62.210.162.209</td>
+                                            <td class="text-right">891</td>
+                                            <td>BLACKLISTED 1/39</td>
+                                            <td>62-210-162-209.rev.poneytele com.eu</td>
+                                            <td>ONLINE S.A.S.</td>
+                                            <td>(FR) France</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>185.130.6.103</td>
+                                            <td class="text-right">15244</td>
+                                            <td>BLACKLISTED 2/39</td>
+                                            <td>Unknown</td>
+                                            <td>Unknown</td>
+                                            <td>Republic of Lithuania</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>62.210.162.209</td>
+                                            <td class="text-right">891</td>
+                                            <td>BLACKLISTED 1/39</td>
+                                            <td>62-210-162-209.rev.poneytele com.eu</td>
+                                            <td>ONLINE S.A.S.</td>
+                                            <td>(FR) France</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>185.130.6.103</td>
+                                            <td class="text-right">15244</td>
+                                            <td>BLACKLISTED 2/39</td>
+                                            <td>Unknown</td>
+                                            <td>Unknown</td>
+                                            <td>Republic of Lithuania</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>62.210.162.209</td>
+                                            <td class="text-right">891</td>
+                                            <td>BLACKLISTED 1/39</td>
+                                            <td>62-210-162-209.rev.poneytele com.eu</td>
+                                            <td>ONLINE S.A.S.</td>
+                                            <td>(FR) France</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>185.130.6.103</td>
+                                            <td class="text-right">15244</td>
+                                            <td>BLACKLISTED 2/39</td>
+                                            <td>Unknown</td>
+                                            <td>Unknown</td>
+                                            <td>Republic of Lithuania</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>62.210.162.209</td>
+                                            <td class="text-right">891</td>
+                                            <td>BLACKLISTED 1/39</td>
+                                            <td>62-210-162-209.rev.poneytele com.eu</td>
+                                            <td>ONLINE S.A.S.</td>
+                                            <td>(FR) France</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- container -->
+            </div>
+            <!-- content -->
+            <footer class="footer text-right">
+                2016 &copy; Comodo
+            </footer>
+        </div>
+    </div>
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <script src="/assets/js/core/jquery.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/detect.js"></script>
+    <script src="/assets/js/fastclick.js"></script>
+    <script src="/assets/js/jquery.slimscroll.js"></script>
+    <script src="/assets/js/jquery.blockUI.js"></script>
+    <script src="/assets/js/waves.js"></script>
+    <script src="/assets/js/jquery.nicescroll.js"></script>
+    <script src="/assets/js/plugins/pace/pace.min.js"></script>
+    <script src="/assets/js/plugins/tweenlite/TweenLite.min.js"></script>
+    <script src="/assets/js/plugins/custombox/custombox.min.js"></script>
+    <!-- App js -->
+    <script src="/assets/js/jquery.core.js"></script>
+    <script src="/assets/js/jquery.app.js"></script>
+    <!-- google maps api -->
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="/assets/js/plugins/gmaps/gmaps.min.js"></script>
+    <!-- demo codes -->
+    <script src="/assets/js/plugins/gmaps/jquery.gmaps.js"></script>
+</body>
+
+</html>

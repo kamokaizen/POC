@@ -1,0 +1,33 @@
+<div id="cardDetailedModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-0 b-0">
+            <div class="panel panel-color panel-danger">
+                <div class="panel-heading">
+                    <button type="button" class="close m-t-5" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="panel-title">{{detailedTitle}}</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table" ng-if="cardDetailedData.data.length != 0">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th class="text-center">{{cardDetailedData.type == "count" ? "Count" : "Status"}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key,val) in cardDetailedData.data">
+                                <td>{{key}}</td>
+                                <td class="text-center">
+                                    <i ng-if="cardDetailedData.type != 'count'" ng-class="val == true ? 'fa fa-check text-success' : 'fa fa-times text-danger'"/>
+                                    <span ng-if="cardDetailedData.type == 'count'"> {{val}} </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
