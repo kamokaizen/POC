@@ -1,0 +1,12 @@
+it is an spring maven project.
+
+1- Before the run please setup xml file location. xml read location listed in "spring-batch-context.xml"
+ <property name="resource" value="file:/Users/kamilinal/Downloads/examResult.xml" /> like that. change file path anything for you.
+2- do not forget to put src/resource/examResults.xml to your path.
+3- after run <property name="resource" value="file:/Users/kamilinal/Downloads/examResult.txt" /> csv file generated with this path. you can change this
+path value in  "spring-batch-context.xml" whatever you want.
+4- to run project right click Main class and run
+5- if you want to change xml format, you need to update ExamResult class in src/main/java/model/ExamResult
+6- if you want to run with jar format make thing below
+    - mvn clean install (this creates a runnable jar in /target folder named as springxmltocsv.jar)
+    - java -jar springxmltocsv.jar (this will run jar, when running application looks your xml file read it then convert to csv format.)
