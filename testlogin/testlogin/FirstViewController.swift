@@ -21,15 +21,24 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var noUserLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.resultStackView.isHidden = true
+        self.noUserLabel.isHidden = true
         self.loadingIndicator.isHidden = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.clearResponseStack()
+        self.resultStackView.isHidden = true
+        self.noUserLabel.isHidden = true
+        self.loadingIndicator.stopAnimating()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,6 +49,7 @@ class FirstViewController: UIViewController {
     }
     
     func searchGithubUser(username: String) {
+        self.noUserLabel.isHidden = true
         self.loadingIndicator.isHidden = false
         self.loadingIndicator.startAnimating()
         self.clearResponseStack()
@@ -64,12 +74,14 @@ class FirstViewController: UIViewController {
                         self.resultStackView.isHidden = false
                     }
                     else{
+                        self.noUserLabel.isHidden = false
                         self.resultStackView.isHidden = true
                     }
                 }
                 catch{
                     print("Unexpected error: \(error).")
                     self.resultStackView.isHidden = true
+                    self.noUserLabel.isHidden = true
                 }
         }
     }
