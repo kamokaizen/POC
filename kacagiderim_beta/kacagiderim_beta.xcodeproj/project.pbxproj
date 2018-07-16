@@ -14,6 +14,14 @@
 		D6D66A9020F9FB6E003B7C75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A8F20F9FB6E003B7C75 /* Assets.xcassets */; };
 		D6D66A9320F9FB6E003B7C75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A9120F9FB6E003B7C75 /* LaunchScreen.storyboard */; };
 		D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66AA120FA5909003B7C75 /* LoginViewController.swift */; };
+		D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076220FC7C3100B1128A /* SignUpViewController.swift */; };
+		D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076420FCC63400B1128A /* MainTabbarController.swift */; };
+		D800076720FCC7DB00B1128A /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076620FCC7DB00B1128A /* Switcher.swift */; };
+		D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076920FCCB0F00B1128A /* ProfileViewController.swift */; };
+		D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076B20FCCF2900B1128A /* PricesViewController.swift */; };
+		D800076E20FCCF3900B1128A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076D20FCCF3900B1128A /* MapViewController.swift */; };
+		D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076F20FCD9C200B1128A /* RoutesViewController.swift */; };
+		D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077120FCD9D300B1128A /* CarsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +36,14 @@
 		D6D66A9220F9FB6E003B7C75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6D66A9420F9FB6E003B7C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6D66AA120FA5909003B7C75 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D800076220FC7C3100B1128A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D800076420FCC63400B1128A /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
+		D800076620FCC7DB00B1128A /* Switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switcher.swift; sourceTree = "<group>"; };
+		D800076920FCCB0F00B1128A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D800076B20FCCF2900B1128A /* PricesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesViewController.swift; sourceTree = "<group>"; };
+		D800076D20FCCF3900B1128A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		D800076F20FCD9C200B1128A /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
+		D800077120FCD9D300B1128A /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +96,10 @@
 		D6D66A8720F9FB6E003B7C75 /* kacagiderim_beta */ = {
 			isa = PBXGroup;
 			children = (
+				D800076820FCCAF800B1128A /* Tabbar */,
 				D6D66A9C20FA0D1E003B7C75 /* Login */,
 				D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */,
+				D800076620FCC7DB00B1128A /* Switcher.swift */,
 				D6D66A8C20F9FB6E003B7C75 /* Main.storyboard */,
 				D6D66A8F20F9FB6E003B7C75 /* Assets.xcassets */,
 				D6D66A9120F9FB6E003B7C75 /* LaunchScreen.storyboard */,
@@ -95,8 +113,22 @@
 			children = (
 				D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */,
 				D6D66AA120FA5909003B7C75 /* LoginViewController.swift */,
+				D800076220FC7C3100B1128A /* SignUpViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		D800076820FCCAF800B1128A /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				D800076420FCC63400B1128A /* MainTabbarController.swift */,
+				D800076920FCCB0F00B1128A /* ProfileViewController.swift */,
+				D800076B20FCCF2900B1128A /* PricesViewController.swift */,
+				D800076D20FCCF3900B1128A /* MapViewController.swift */,
+				D800076F20FCD9C200B1128A /* RoutesViewController.swift */,
+				D800077120FCD9D300B1128A /* CarsViewController.swift */,
+			);
+			path = Tabbar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,7 +160,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = kacagiderim;
 				TargetAttributes = {
 					D6D66A8420F9FB6D003B7C75 = {
@@ -218,7 +250,15 @@
 			files = (
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
+				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
+				D800076720FCC7DB00B1128A /* Switcher.swift in Sources */,
+				D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */,
+				D800076E20FCCF3900B1128A /* MapViewController.swift in Sources */,
+				D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */,
+				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
+				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
+				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +298,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -265,6 +306,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -315,6 +357,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -322,6 +365,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

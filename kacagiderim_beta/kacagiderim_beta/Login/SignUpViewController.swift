@@ -1,17 +1,14 @@
 //
-//  LoginViewController.swift
+//  SignupViewController.swift
 //  kacagiderim_beta
 //
-//  Created by kamilinal on 7/14/18.
+//  Created by Comodo on 16.07.2018.
 //  Copyright © 2018 kacagiderim. All rights reserved.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
-    
-    @IBOutlet var signInButton: UIButton!
-    @IBOutlet var createAccountButton: UIButton!
+class SignUpViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +27,8 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func didSignInTapped(sender: UIButton) {
-        self.performSegue(withIdentifier: "signinSegue", sender:sender)
+    @IBAction func didCloseTapped(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func didCreateAccountTapped(sender: UIButton) {
-       self.performSegue(withIdentifier: "signupSegue", sender:sender)
-    }
 }
