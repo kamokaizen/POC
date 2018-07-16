@@ -1,24 +1,28 @@
 PODS:
   - Alamofire (4.7.3)
   - DCKit (1.0.10)
+  - EGFormValidator (1.2.1)
   - TextFieldEffects (1.4.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - DCKit
+  - EGFormValidator
   - TextFieldEffects
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - DCKit
+    - EGFormValidator
     - TextFieldEffects
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   DCKit: 5c331146967c08886cc47baf5903699fdb4dca81
+  EGFormValidator: 7c84faf2a4a4690061db6651050bd1150d5cb181
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
 
-PODFILE CHECKSUM: 644d5b92e1c2784deffafbba8afb5b04f0cca469
+PODFILE CHECKSUM: 55a5b7ce6bade5c771010466ca24568a1d18eb61
 
 COCOAPODS: 1.5.3
