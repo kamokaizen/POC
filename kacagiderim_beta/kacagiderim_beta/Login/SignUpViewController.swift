@@ -119,6 +119,13 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
         if !self.validate(){ return }
         
         // call create account
+//        API.shared.reportList(for: device ?? currentDevice, failure: { [unowned self] (error) in
+//            self.didFailureUpdateData?(error)
+//            }, success: { [unowned self] dashboard, device in
+//                self.dashboardServices = dashboard
+//                self.deviceServices = device
+//                self.reloadAllStatistics()
+//        })
     }
     
     @IBAction func textFieldDidChange(textField: UITextField) {
