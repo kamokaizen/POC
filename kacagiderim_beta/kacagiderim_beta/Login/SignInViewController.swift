@@ -10,16 +10,18 @@ import UIKit
 import TextFieldEffects
 import EGFormValidator
 
-class SignInViewController: ValidatorViewController {
+class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         
     @IBOutlet var emailField: HoshiTextField!
     @IBOutlet var passwordField: HoshiTextField!
     @IBOutlet var forgotPasswordButton: UIButton!
     @IBOutlet var signInButton: UIButton!
     var recoverMode:Bool = false
+    var kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
     
     /// Error labels
     @IBOutlet weak var emailErrorLabel: UILabel!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,7 @@ class SignInViewController: ValidatorViewController {
         
         // Empty error labels (they have some text in the storyboard)
         self.emailErrorLabel.text = ""
+        self.passwordErrorLabel.text = ""
         
         // add validators
         addValidators()
@@ -53,6 +56,35 @@ class SignInViewController: ValidatorViewController {
         self.addValidatorEmail(toControl: self.emailField,
                                errorPlaceholder: self.emailErrorLabel,
                                errorMessage: "Email is invalid")
+        
+        // Mandatory validator
+        self.addValidatorMandatory(toControl: self.passwordField,
+                                   errorPlaceholder: self.passwordErrorLabel,
+                                   errorMessage: "This field is required")
+        
+        // Minlength
+        self.addValidatorMinLength(toControl: self.passwordField,
+                                   errorPlaceholder: self.passwordErrorLabel,
+                                   errorMessage: "Password must be minimum %d characters",
+                                   minLength: 8)
+    }
+    
+    func changeFieldValidationColors(){
+        if !self.validate(){
+            if(self.emailErrorLabel.text != nil){
+                self.emailField.borderInactiveColor = UIColor.red
+                self.emailField.borderActiveColor = UIColor.red
+            }
+            if(self.passwordErrorLabel.text != nil){
+                self.passwordField.borderInactiveColor = UIColor.red
+                self.passwordField.borderActiveColor = UIColor.red
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK: - Actions
@@ -62,8 +94,10 @@ class SignInViewController: ValidatorViewController {
             self.recoverMode = false
             self.passwordField.isHidden = false
             self.forgotPasswordButton.isHidden = false
+            self.passwordErrorLabel.isHidden = false
             self.signInButton.setTitle("Sign In", for: UIControlState.normal)
             self.emailField.placeholder = "Email"
+            self.passwordField.text = ""
         }
         else{
             self.dismiss(animated: true, completion: nil)
@@ -73,40 +107,38 @@ class SignInViewController: ValidatorViewController {
     @IBAction func didForgotPasswodTapped(sender: UIButton) {
         self.recoverMode = true
         self.passwordField.isHidden = true
+        self.passwordErrorLabel.isHidden = true
         self.forgotPasswordButton.isHidden = true
         self.signInButton.setTitle("Recover", for: UIControlState.normal)
-        self.emailField.placeholder = "Recover Email"
+        self.emailField.placeholder = "Recovery Email"
+        self.passwordField.text = "dummypassword"
     }
     
     @IBAction func didSignInButtonTapped(sender: UIButton) {
-        if self.validate() {
-            // show success alert
-            let alert = UIAlertController(title: "Congratulations!",
-                                          message: "All fields are valid",
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.destructive, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            
-            
-        } else {
-            
-            
-        }
+        self.changeFieldValidationColors()
+        if !self.validate(){ return }
         
-//
-//        if(recoverMode){
-//            // call recover
-//            print("recover mode called")
-//        }
-//        else{
-//            // call sign in
-//            print("signin mode called")
-//            // after loging success, goto main
-//            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//            UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
-//            Switcher.updateRootVC()
-//        }
+        if(recoverMode){
+            // call recover
+            print("recover mode called")
+        }
+        else{
+            // call sign in
+            print("signin mode called")
+            // after loging success, goto main
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
+            Switcher.updateRootVC()
+        }
+    }
+    
+    @IBAction func textFieldDidChange(textField: UITextField) {
+        self.emailField.borderInactiveColor = UIColor.white
+        self.emailField.borderActiveColor = UIColor.white
+        self.passwordField.borderInactiveColor = UIColor.white
+        self.passwordField.borderActiveColor = UIColor.white
+        
+        self.changeFieldValidationColors()
     }
 }
 

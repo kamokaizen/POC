@@ -18,7 +18,7 @@ class Switcher {
         var rootVC : UIViewController?
         
         print("is logged in:", status)
-        print("active user:", activeUser!)
+        print("active user:", activeUser)
         
         if(status == true){
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainTabbarVC") as! MainTabbarController
