@@ -26,8 +26,24 @@ struct APIConstants {
 }
 
 enum APIKey: String {
+    case surname
+    case countryId
+    case countryName
+    case countryCode
+    case countryCrawlerPath
+    case homeLatitude
+    case homeLongitude
+    case workLatitude
+    case workLongitude
+    case currencyMetric
+    case distanceMetric 
+    case volumeMetric
+    case userType
+    case socialSecurityNumber
+    case username
     case email
     case password
+    case countries
     case uuid
     case type
     case id

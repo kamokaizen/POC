@@ -15,6 +15,10 @@ import Foundation
 enum L10n {
     /// You haven't register device yet. \nClick link in email first!
     static let apiEmptyDeviceId = L10n.tr("Localizable", "api_empty_device_id")
+    /// Empty Username.
+    static let apiEmptyUsername = L10n.tr("Localizable", "api_empty_username")
+    /// Empty Password.
+    static let apiEmptyPassword = L10n.tr("Localizable", "api_empty_password")
     /// Empty Result.
     static let apiEmptyResult = L10n.tr("Localizable", "api_empty_result")
     /// Empty UUID

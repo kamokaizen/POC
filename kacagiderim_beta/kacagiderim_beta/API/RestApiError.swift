@@ -12,12 +12,16 @@ enum RestApiError: Error {
     case emptyResult
     case emptyUUID
     case emptyDeviceId
+    case emptyUsername
+    case emptyPassword
     
     var localizedDescription: String {
         switch self {
         case .emptyResult: return L10n.apiEmptyResult
         case .emptyUUID: return L10n.apiEmptyUuid
         case .emptyDeviceId: return L10n.apiEmptyDeviceId
+        case .emptyUsername: return L10n.apiEmptyUsername
+        case .emptyPassword: return L10n.apiEmptyPassword
         }
     }
     
@@ -29,8 +33,10 @@ enum RestApiError: Error {
         switch self {
         case .emptyResult,
              .emptyUUID,
-             .emptyDeviceId:
-            return "com.Comodo.cdome"
+             .emptyDeviceId,
+             .emptyUsername,
+             .emptyPassword:
+            return "com.kacagiderim"
         }
     }
     
@@ -38,7 +44,9 @@ enum RestApiError: Error {
         switch self {
         case .emptyResult,
              .emptyUUID,
-             .emptyDeviceId:
+             .emptyDeviceId,
+             .emptyUsername,
+             .emptyPassword:
             return -100
         }
     }

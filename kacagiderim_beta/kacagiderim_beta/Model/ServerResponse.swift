@@ -20,7 +20,7 @@ class ServerResponse<T: Mappable>: NSObject {
     var error: Error? {
         let code = statusCode ?? 0
         guard status == false else { return nil }
-        return NSError(domain: "com.Comodo.cdome", code: code, userInfo: [NSLocalizedDescriptionKey: message ?? L10n.mvcTimeOut])
+        return NSError(domain: "com.kacagiderim", code: code, userInfo: [NSLocalizedDescriptionKey: message ?? L10n.mvcTimeOut])
     }
 }
 

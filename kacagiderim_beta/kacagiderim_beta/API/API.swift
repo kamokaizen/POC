@@ -33,27 +33,48 @@ class API: BaseAPI {
         return KeychainSwift().get(.deviceId) != nil
     }
     
-    // MARK: - Reports
+    // MARK: - create user
     
-//    func reportList(for device: Device, failure: ((Error) -> Void)? = nil, success: @escaping (_ dashboard: [Service], _ device: [Service]) -> Void) {
-//        guard let deviceIdentifier = device.identifier else {
-//            failure?(RestApiError.emptyDeviceId)
-//            return
-//        }
-//        
-//        session
-//            .request(URLs.reportList,
-//                     method: .post,
-//                     parameters: [APIKey.deviceId.rawValue: deviceIdentifier],
-//                     encoding: JSONEncoding.default,
-//                     headers: authHeader())
-//            .log()
-//            .responseObject { [unowned self] (response: DataResponse<ServerResponse<Services>>) in
-//                self.process(response, with: failure) { services in
-//                    success(services.dashboard ?? [], services.device ?? [])
-//                }
-//        }
-//    }
+    func createUser(user: User, failure: ((Error) -> Void)? = nil, success: @escaping (_ response: User) -> Void) {
+        guard let username = user.username else {
+            failure?(RestApiError.emptyDeviceId)
+            return
+        }
+        
+        guard let password = user.password else {
+            failure?(RestApiError.emptyDeviceId)
+            return
+        }
+        
+        session.request(URLs.createUser,
+                     method: .post,
+                     parameters: [APIKey.username.rawValue: username,
+                                  APIKey.password.rawValue: password],
+                     encoding: JSONEncoding.default,
+                     headers: authHeader())
+            .log()
+            .responseObject { [unowned self] (response: DataResponse<ServerResponse<User>>) in
+                self.process(response, with: failure) { user in
+                    success(user)
+                }
+            }
+    }
+    
+    // MARK: - get All Countries
+    
+    func getAllCountries(failure: ((Error) -> Void)? = nil, success: @escaping ([Country]?) -> Void) {
+        session
+            .request(URLs.getAllCountries,
+                     method: .get,
+                     encoding: URLEncoding.default,
+                     headers: authHeader())
+            .log()
+            .responseObject { [unowned self] (response: DataResponse<ServerResponse<Countries>>) in
+                self.process(response, with: failure) { countries in
+                     success(countries.countries ?? [])
+                }
+        }
+    }
     
     private func randomDelay() -> TimeInterval {
         return Double(arc4random_uniform(200)) / 100.0

@@ -14,8 +14,8 @@ extension APIConstants {
     static let domainDev = "https://kacagiderim.com"
     static let domainProd = "https://kacagiderim.com"
     
-    static let baseURLDev = domainDev + "/api"
-    static let baseURLProd = domainProd + "/api"
+    static let baseURLDev = domainDev
+    static let baseURLProd = domainProd
     
     static let appleId = "1314912619"
 }

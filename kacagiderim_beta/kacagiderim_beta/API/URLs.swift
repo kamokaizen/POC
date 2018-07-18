@@ -10,25 +10,17 @@ import Foundation
 import Alamofire
 
 enum URLs: URLConvertible {
-    case register
-    case deviceList
-    case vpnProfile
-    case reportList
-    case reportData
-    case deviceSummary
-    
+    case createUser
+    case getAllCountries
+
     private static var baseURLPath: String {
         return isDev ? APIConstants.baseURLDev : APIConstants.baseURLProd
     }
     
     func urlString() -> String {
         switch self {
-        case .register: return URLs.baseURLPath / .v1 / .mobile / .register
-        case .deviceList: return URLs.baseURLPath / .v1 / .mobile / .device / .list
-        case .vpnProfile: return URLs.baseURLPath / .v1 / .mobile / .vpn / .profile
-        case .reportList: return URLs.baseURLPath / .v1 / .mobile / .report / .list
-        case .reportData: return URLs.baseURLPath / .v1 / .mobile / .report / .data
-        case .deviceSummary: return URLs.baseURLPath / .v1 / .mobile / .device / .summary
+            case .createUser: return URLs.baseURLPath / .uaa / .users / .create
+            case .getAllCountries: return URLs.baseURLPath / .nations / .api / .country / .all
         }
     }
     

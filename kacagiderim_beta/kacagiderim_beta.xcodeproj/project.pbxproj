@@ -31,6 +31,8 @@
 		D800078320FE2BA200B1128A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078220FE2BA200B1128A /* API.swift */; };
 		D800078520FE2C4100B1128A /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078420FE2C4100B1128A /* URLs.swift */; };
 		D800078720FE3FB100B1128A /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078620FE3FB100B1128A /* APIPath.swift */; };
+		D8E699FE20FF34A4005484CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FD20FF34A4005484CA /* User.swift */; };
+		D8E69A0020FF80D7005484CA /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FF20FF80D7005484CA /* Country.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		D800078220FE2BA200B1128A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D800078420FE2C4100B1128A /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		D800078620FE3FB100B1128A /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
+		D8E699FD20FF34A4005484CA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D8E699FF20FF80D7005484CA /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				D800077B20FE276000B1128A /* ServerResponse.swift */,
+				D8E699FD20FF34A4005484CA /* User.swift */,
+				D8E699FF20FF80D7005484CA /* Country.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -327,8 +333,10 @@
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 				D800078320FE2BA200B1128A /* API.swift in Sources */,
+				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D800078520FE2C4100B1128A /* URLs.swift in Sources */,
 				D800077720FE257300B1128A /* BaseAPI.swift in Sources */,
+				D8E699FE20FF34A4005484CA /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

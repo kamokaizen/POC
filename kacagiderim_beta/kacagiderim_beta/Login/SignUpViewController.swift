@@ -22,6 +22,9 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var confirmPasswordErrorLabel: UILabel!
     
+    var didFailureUpdateData: ((Error) -> Void)?
+    var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -119,13 +122,15 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
         if !self.validate(){ return }
         
         // call create account
-//        API.shared.reportList(for: device ?? currentDevice, failure: { [unowned self] (error) in
-//            self.didFailureUpdateData?(error)
-//            }, success: { [unowned self] dashboard, device in
-//                self.dashboardServices = dashboard
-//                self.deviceServices = device
-//                self.reloadAllStatistics()
-//        })
+        let currentUser = User()
+        currentUser.username = emailField.text
+        currentUser.password = passwordField.text
+        
+        API.shared.createUser(user: currentUser, failure: { [unowned self] (error) in
+            self.didFailureUpdateData?(error)
+            }, success: { [unowned self] user in
+                self.user = user
+        })
     }
     
     @IBAction func textFieldDidChange(textField: UITextField) {

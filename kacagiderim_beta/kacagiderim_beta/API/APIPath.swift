@@ -21,17 +21,13 @@ enum URLsError: Error {
 }
 
 enum APIPath: String {
-    case report
-    case vpn
-    case servicelist
-    case data
-    case v1
-    case mobile
-    case profile
-    case register
-    case device
-    case list
-    case summary
+    case uaa
+    case users
+    case create
+    case nations
+    case api
+    case country
+    case all
 }
 
 extension String {
