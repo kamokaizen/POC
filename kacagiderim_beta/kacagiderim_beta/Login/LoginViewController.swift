@@ -13,17 +13,19 @@ class LoginViewController: UIViewController {
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var createAccountButton: UIButton!
     
-    var didFailureUpdateData: ((Error) -> Void)?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // get countries
-        API.shared.getAllCountries(failure: { [unowned self] (error) in
-            self.didFailureUpdateData?(error)
-            }, success: { [unowned self] countries in
-                print(countries as Any)
+        // get Countries
+        APIClient.getAllCountries(completion:{ result in
+            switch result {
+            case .success(let countries):
+                print("_____________________________")
+                print(countries)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         })
     }
     

@@ -8,8 +8,6 @@ def all_pods
     
     # Pods 
     pod 'Alamofire', '~> 4.7'
-    pod 'AlamofireObjectMapper'
-    pod 'AlamofireActivityLogger'
     pod 'KeychainSwift'
     pod 'TextFieldEffects'
     pod 'DCKit'

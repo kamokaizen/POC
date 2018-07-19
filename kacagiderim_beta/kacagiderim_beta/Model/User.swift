@@ -7,7 +7,30 @@
 //
 
 import Foundation
-import ObjectMapper
+
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+    let email: String
+    let image: URL
+}
+
+//struct User: Codable {
+//    let username: String?
+//    let password: String?
+//    let name: String?
+//    let surname: String?
+//    let countryId: String?
+//    let homeLatitude: String?
+//    let homeLongitude: String?
+//    let workLatitude: String?
+//    let workLongitude: String?
+//    let currencyMetric: CurrencyMetrics?
+//    let distanceMetric: DistanceMetrics?
+//    let volumeMetric: VolumeMetrics?
+//    let userType: UserType?
+//    let socialSecurityNumber: String?
+//}
 
 enum CurrencyMetrics: String {
     case TRY = "TRY"
@@ -29,44 +52,4 @@ enum VolumeMetrics: String {
 enum UserType: String {
     case INDIVIDUAL = "INDIVIDUAL"
     case COMPANY = "COMPANY"
-}
-
-class User: NSObject {
-    var username: String?
-    var password: String?
-    var name: String?
-    var surname: String?
-    var countryId: String?
-    var homeLatitude: String?
-    var homeLongitude: String?
-    var workLatitude: String?
-    var workLongitude: String?
-    var currencyMetric: CurrencyMetrics?
-    var distanceMetric: DistanceMetrics?
-    var volumeMetric: VolumeMetrics?
-    var userType: UserType?
-    var socialSecurityNumber: String?
-    
-    required override init() {}
-    required init?(map: Map) {}
-}
-
-extension User: Mappable {
-    func mapping(map: Map) {
-        username <- map[.username]
-        password <- map[.password]
-        name <- map[.name]
-        surname <- map[.surname]
-        countryId <- map[.countryId]
-        homeLatitude <- map[.homeLatitude]
-        homeLongitude <- map[.homeLongitude]
-        workLatitude <- map[.workLatitude]
-        workLongitude <- map[.workLongitude]
-        currencyMetric <- map[.currencyMetric]
-        distanceMetric <- map[.distanceMetric]
-        volumeMetric <- map[.volumeMetric]
-        userType <- map[.userType]
-        socialSecurityNumber <- map[.socialSecurityNumber]
-    }
-    
 }

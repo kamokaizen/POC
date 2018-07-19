@@ -22,17 +22,14 @@
 		D800076E20FCCF3900B1128A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076D20FCCF3900B1128A /* MapViewController.swift */; };
 		D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076F20FCD9C200B1128A /* RoutesViewController.swift */; };
 		D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077120FCD9D300B1128A /* CarsViewController.swift */; };
-		D800077520FE224800B1128A /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077420FE224800B1128A /* APIConstants.swift */; };
-		D800077720FE257300B1128A /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077620FE257300B1128A /* BaseAPI.swift */; };
-		D800077920FE262800B1128A /* BaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077820FE262800B1128A /* BaseConstants.swift */; };
-		D800077C20FE276000B1128A /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077B20FE276000B1128A /* ServerResponse.swift */; };
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
-		D800078120FE29DC00B1128A /* RestApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078020FE29DC00B1128A /* RestApiError.swift */; };
-		D800078320FE2BA200B1128A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078220FE2BA200B1128A /* API.swift */; };
-		D800078520FE2C4100B1128A /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078420FE2C4100B1128A /* URLs.swift */; };
-		D800078720FE3FB100B1128A /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800078620FE3FB100B1128A /* APIPath.swift */; };
 		D8E699FE20FF34A4005484CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FD20FF34A4005484CA /* User.swift */; };
 		D8E69A0020FF80D7005484CA /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FF20FF80D7005484CA /* Country.swift */; };
+		D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E69A0121009F90005484CA /* NationEndpoint.swift */; };
+		D8E69A042100A09F005484CA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E69A032100A09F005484CA /* APIClient.swift */; };
+		D8E69A062100A0D4005484CA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E69A052100A0D4005484CA /* Constants.swift */; };
+		D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E69A092100E065005484CA /* APIConfiguration.swift */; };
+		D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E69A0B2100E0BD005484CA /* LoginEndpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,17 +52,14 @@
 		D800076D20FCCF3900B1128A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D800076F20FCD9C200B1128A /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		D800077120FCD9D300B1128A /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
-		D800077420FE224800B1128A /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
-		D800077620FE257300B1128A /* BaseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
-		D800077820FE262800B1128A /* BaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseConstants.swift; sourceTree = "<group>"; };
-		D800077B20FE276000B1128A /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
-		D800078020FE29DC00B1128A /* RestApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiError.swift; sourceTree = "<group>"; };
-		D800078220FE2BA200B1128A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		D800078420FE2C4100B1128A /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
-		D800078620FE3FB100B1128A /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		D8E699FD20FF34A4005484CA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D8E699FF20FF80D7005484CA /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		D8E69A0121009F90005484CA /* NationEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationEndpoint.swift; sourceTree = "<group>"; };
+		D8E69A032100A09F005484CA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		D8E69A052100A0D4005484CA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D8E69A092100E065005484CA /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
+		D8E69A0B2100E0BD005484CA /* LoginEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,13 +153,11 @@
 		D800077320FE220B00B1128A /* API */ = {
 			isa = PBXGroup;
 			children = (
-				D800077620FE257300B1128A /* BaseAPI.swift */,
-				D800077420FE224800B1128A /* APIConstants.swift */,
-				D800077820FE262800B1128A /* BaseConstants.swift */,
-				D800078020FE29DC00B1128A /* RestApiError.swift */,
-				D800078220FE2BA200B1128A /* API.swift */,
-				D800078420FE2C4100B1128A /* URLs.swift */,
-				D800078620FE3FB100B1128A /* APIPath.swift */,
+				D8E69A0121009F90005484CA /* NationEndpoint.swift */,
+				D8E69A032100A09F005484CA /* APIClient.swift */,
+				D8E69A052100A0D4005484CA /* Constants.swift */,
+				D8E69A092100E065005484CA /* APIConfiguration.swift */,
+				D8E69A0B2100E0BD005484CA /* LoginEndpoint.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -173,7 +165,6 @@
 		D800077A20FE274300B1128A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D800077B20FE276000B1128A /* ServerResponse.swift */,
 				D8E699FD20FF34A4005484CA /* User.swift */,
 				D8E699FF20FF80D7005484CA /* Country.swift */,
 			);
@@ -315,27 +306,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
+				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D800076720FCC7DB00B1128A /* Switcher.swift in Sources */,
-				D800077C20FE276000B1128A /* ServerResponse.swift in Sources */,
 				D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */,
-				D800078120FE29DC00B1128A /* RestApiError.swift in Sources */,
 				D800076E20FCCF3900B1128A /* MapViewController.swift in Sources */,
 				D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */,
 				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
-				D800078720FE3FB100B1128A /* APIPath.swift in Sources */,
-				D800077920FE262800B1128A /* BaseConstants.swift in Sources */,
-				D800077520FE224800B1128A /* APIConstants.swift in Sources */,
+				D8E69A042100A09F005484CA /* APIClient.swift in Sources */,
 				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
+				D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
-				D800078320FE2BA200B1128A /* API.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
-				D800078520FE2C4100B1128A /* URLs.swift in Sources */,
-				D800077720FE257300B1128A /* BaseAPI.swift in Sources */,
+				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,
 				D8E699FE20FF34A4005484CA /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -125,10 +125,21 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         else{
             // call sign in
             print("signin mode called")
+            
+            APIClient.login(email: emailField.text!, password: passwordField.text!, completion:{ result in
+                switch result {
+                case .success(let loginResponse):
+                    print("_____________________________")
+                    print(loginResponse)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
+            
             // after loging success, goto main
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
-            Switcher.updateRootVC()
+//            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+//            UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
+//            Switcher.updateRootVC()
         }
     }
     
