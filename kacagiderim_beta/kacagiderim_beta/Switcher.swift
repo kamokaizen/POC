@@ -15,10 +15,14 @@ class Switcher {
         
         let status = UserDefaults.standard.bool(forKey: "isLoggedIn")
         let activeUser = UserDefaults.standard.string(forKey: "activeUser")
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
         var rootVC : UIViewController?
         
-        print("is logged in:", status)
+        print("loggedIn:", status)
         print("active user:", activeUser)
+        print("accessToken:", accessToken)
+        print("refreshToken:", refreshToken)
         
         if(status == true){
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainTabbarVC") as! MainTabbarController

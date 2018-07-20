@@ -131,15 +131,16 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                 case .success(let loginResponse):
                     print("_____________________________")
                     print(loginResponse)
+                    // after loging success, goto main
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
+                    UserDefaults.standard.set(loginResponse.access_token, forKey: "accessToken")
+                    UserDefaults.standard.set(loginResponse.refresh_token, forKey: "refreshToken")
+                    Switcher.updateRootVC()
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
             })
-            
-            // after loging success, goto main
-//            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//            UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
-//            Switcher.updateRootVC()
         }
     }
     

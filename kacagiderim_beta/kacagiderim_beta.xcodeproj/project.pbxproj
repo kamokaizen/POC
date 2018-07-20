@@ -23,6 +23,10 @@
 		D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076F20FCD9C200B1128A /* RoutesViewController.swift */; };
 		D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077120FCD9D300B1128A /* CarsViewController.swift */; };
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
+		D898649C2101BF7B00E46477 /* KacagiderimError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* KacagiderimError.swift */; };
+		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
+		D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89864A021020F9A00E46477 /* ServerResponse.swift */; };
+		D8B4236821022C7C009A5B7B /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B4236721022C7C009A5B7B /* LoginResponse.swift */; };
 		D8E699FE20FF34A4005484CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FD20FF34A4005484CA /* User.swift */; };
 		D8E69A0020FF80D7005484CA /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FF20FF80D7005484CA /* Country.swift */; };
 		D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E69A0121009F90005484CA /* NationEndpoint.swift */; };
@@ -53,6 +57,10 @@
 		D800076F20FCD9C200B1128A /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		D800077120FCD9D300B1128A /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		D898649B2101BF7B00E46477 /* KacagiderimError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KacagiderimError.swift; sourceTree = "<group>"; };
+		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
+		D89864A021020F9A00E46477 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
+		D8B4236721022C7C009A5B7B /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		D8E699FD20FF34A4005484CA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D8E699FF20FF80D7005484CA /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		D8E69A0121009F90005484CA /* NationEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationEndpoint.swift; sourceTree = "<group>"; };
@@ -153,11 +161,10 @@
 		D800077320FE220B00B1128A /* API */ = {
 			isa = PBXGroup;
 			children = (
-				D8E69A0121009F90005484CA /* NationEndpoint.swift */,
+				D898649D2101D3BE00E46477 /* Endpoints */,
 				D8E69A032100A09F005484CA /* APIClient.swift */,
 				D8E69A052100A0D4005484CA /* Constants.swift */,
 				D8E69A092100E065005484CA /* APIConfiguration.swift */,
-				D8E69A0B2100E0BD005484CA /* LoginEndpoint.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -167,6 +174,9 @@
 			children = (
 				D8E699FD20FF34A4005484CA /* User.swift */,
 				D8E699FF20FF80D7005484CA /* Country.swift */,
+				D898649B2101BF7B00E46477 /* KacagiderimError.swift */,
+				D89864A021020F9A00E46477 /* ServerResponse.swift */,
+				D8B4236721022C7C009A5B7B /* LoginResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,6 +187,16 @@
 				D800077E20FE280300B1128A /* L10n.swift */,
 			);
 			path = CommonUtils;
+			sourceTree = "<group>";
+		};
+		D898649D2101D3BE00E46477 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				D8E69A0B2100E0BD005484CA /* LoginEndpoint.swift */,
+				D8E69A0121009F90005484CA /* NationEndpoint.swift */,
+				D898649E2101D3D900E46477 /* UserEndpoint.swift */,
+			);
+			path = Endpoints;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,18 +328,22 @@
 			files = (
 				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
+				D8B4236821022C7C009A5B7B /* LoginResponse.swift in Sources */,
+				D898649C2101BF7B00E46477 /* KacagiderimError.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D800076720FCC7DB00B1128A /* Switcher.swift in Sources */,
 				D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */,
+				D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */,
 				D800076E20FCCF3900B1128A /* MapViewController.swift in Sources */,
 				D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */,
 				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
 				D8E69A042100A09F005484CA /* APIClient.swift in Sources */,
 				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
+				D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */,
 				D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,

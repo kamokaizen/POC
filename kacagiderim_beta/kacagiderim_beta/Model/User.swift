@@ -9,47 +9,48 @@
 import Foundation
 
 struct User: Codable {
-    let firstName: String
-    let lastName: String
-    let email: String
-    let image: URL
-}
-
-//struct User: Codable {
-//    let username: String?
-//    let password: String?
-//    let name: String?
-//    let surname: String?
-//    let countryId: String?
-//    let homeLatitude: String?
-//    let homeLongitude: String?
-//    let workLatitude: String?
-//    let workLongitude: String?
-//    let currencyMetric: CurrencyMetrics?
-//    let distanceMetric: DistanceMetrics?
-//    let volumeMetric: VolumeMetrics?
-//    let userType: UserType?
-//    let socialSecurityNumber: String?
-//}
-
-enum CurrencyMetrics: String {
-    case TRY = "TRY"
-    case EUR = "EUR"
-    case USD = "USD"
-}
-
-enum DistanceMetrics: String {
-    case KM = "KM"
-    case M = "M"
-    case MILE = "MILE"
-}
-
-enum VolumeMetrics: String {
-    case LITER = "LITER"
-    case GALLON = "GALLON"
-}
-
-enum UserType: String {
-    case INDIVIDUAL = "INDIVIDUAL"
-    case COMPANY = "COMPANY"
+    let username: String
+    let password: String
+    let name: String
+    let surname: String
+    let countryId: String
+    let homeLatitude: String?
+    let homeLongitude: String?
+    let workLatitude: String?
+    let workLongitude: String?
+    let currencyMetric: CurrencyMetrics
+    let distanceMetric: DistanceMetrics
+    let volumeMetric: VolumeMetrics
+    let userType: UserType
+    let socialSecurityNumber: String?
+    
+    init(username: String,
+         password: String,
+         name: String,
+         surname: String,
+         countryId: String,
+         homeLatitude: String? = nil,
+         homeLongitude: String? = nil,
+         workLatitude: String? = nil,
+         workLongitude: String? = nil,
+         currencyMetric: CurrencyMetrics,
+         distanceMetric: DistanceMetrics,
+         volumeMetric: VolumeMetrics,
+         userType: UserType,
+         socialSecurityNumber: String? = nil) {
+        self.username = username
+        self.password = password
+        self.name = name
+        self.surname = surname
+        self.countryId = countryId
+        self.homeLatitude = homeLatitude
+        self.homeLongitude = homeLongitude
+        self.workLatitude = workLatitude
+        self.workLongitude = workLongitude
+        self.currencyMetric = currencyMetric
+        self.distanceMetric = distanceMetric
+        self.volumeMetric = volumeMetric
+        self.userType = userType
+        self.socialSecurityNumber = socialSecurityNumber
+    }
 }

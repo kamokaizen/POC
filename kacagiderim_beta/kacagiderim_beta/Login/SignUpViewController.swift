@@ -22,6 +22,8 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var confirmPasswordErrorLabel: UILabel!
     
+    var countries:[Country]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -117,6 +119,29 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
     @IBAction func didCreateAccountButtonTapped(sender: UIButton) {
         self.changeFieldValidationColors()
         if !self.validate(){ return }
+        
+        var defaultCountryId: String = ""
+        
+        if(countries != nil){
+            for country in self.countries! {
+                if(country.countryCode == "tr"){
+                    defaultCountryId = country.countryId!
+                    break
+                }
+            }
+        }
+        
+        let user = User(username: emailField.text!, password: passwordField.text!, name: emailField.text!, surname: emailField.text!, countryId: defaultCountryId, currencyMetric: CurrencyMetrics.TRY, distanceMetric: DistanceMetrics.M, volumeMetric: VolumeMetrics.LITER, userType: UserType.INDIVIDUAL)
+        
+        APIClient.createAccount(user:user, completion:{ result in
+            switch result {
+            case .success(let createResponse):
+                print("_____________________________")
+                print(createResponse)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
     
     @IBAction func textFieldDidChange(textField: UITextField) {

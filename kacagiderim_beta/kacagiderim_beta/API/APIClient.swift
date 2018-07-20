@@ -17,7 +17,16 @@ class APIClient {
             .response { (response) in
                 print("Request: \(String(describing: response.request))")
                 print("Response: \(String(describing: response.response))")
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    print("Data: \(utf8Text)")
+                }
                 print("Error: \(String(describing: response.error))")
+                
+                if(response.error != nil){
+//                    let decodedErrorResponse = try decoder.decode(KacagiderimError.self, from: response.data!)
+                    completion(Result<T>.failure(response.error!))
+                    return
+                }
                 
                 do{
                     let decodedResponse = try decoder.decode(T.self, from: response.data!)
@@ -30,8 +39,12 @@ class APIClient {
         }
     }
     
-    static func login(email: String, password: String, completion:@escaping (Result<User>)->Void) {
+    static func login(email: String, password: String, completion:@escaping (Result<LoginResponse>)->Void) {
         performRequest(route: LoginEndpoint.login(email: email, password: password), completion: completion)
+    }
+    
+    static func createAccount(user: User, completion:@escaping (Result<ServerResponse>)->Void) {
+        performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
     static func getAllCountries(completion:@escaping (Result<[Country]>)->Void) {
