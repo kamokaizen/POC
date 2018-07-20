@@ -129,8 +129,6 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
             APIClient.login(email: emailField.text!, password: passwordField.text!, completion:{ result in
                 switch result {
                 case .success(let loginResponse):
-                    print("_____________________________")
-                    print(loginResponse)
                     // after loging success, goto main
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")

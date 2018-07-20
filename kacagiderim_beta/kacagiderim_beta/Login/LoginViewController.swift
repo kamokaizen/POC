@@ -29,8 +29,6 @@ class LoginViewController: UIViewController {
         APIClient.getAllCountries(completion:{ result in
             switch result {
             case .success(let countries):
-                print("_____________________________")
-                print("Countries fetched")
                 self.countries = countries
                 self.createAccountButton.isUserInteractionEnabled = true
             case .failure(let error):
