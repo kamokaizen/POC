@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct KacagiderimError: Codable {
+struct LoginError: Codable {
     let error: String
     let error_description: String
 }

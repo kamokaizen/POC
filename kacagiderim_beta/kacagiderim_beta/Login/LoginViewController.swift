@@ -13,8 +13,6 @@ class LoginViewController: UIViewController {
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var createAccountButton: UIButton!
     
-    var countries:[Country]?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,19 +21,6 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view, typically from a nib.
-        self.createAccountButton.isUserInteractionEnabled = false
-        
-        // get Countries
-        APIClient.getAllCountries(completion:{ result in
-            switch result {
-            case .success(let countries):
-                self.countries = countries
-                self.createAccountButton.isUserInteractionEnabled = true
-            case .failure(let error):
-                print(error.localizedDescription)
-                self.createAccountButton.isUserInteractionEnabled = true
-            }
-        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,12 +33,12 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "signupSegue"){
-            let destinationViewController = segue.destination as? SignUpViewController
-            destinationViewController?.countries = self.countries
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if(segue.identifier == "signupSegue"){
+//            let destinationViewController = segue.destination as? SignUpViewController
+//            destinationViewController?.countries = self.countries
+//        }
+//    }
     
     // MARK: - Actions
     

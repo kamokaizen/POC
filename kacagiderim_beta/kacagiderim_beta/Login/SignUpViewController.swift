@@ -9,6 +9,7 @@
 import UIKit
 import TextFieldEffects
 import EGFormValidator
+import NVActivityIndicatorView
 
 class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
     
@@ -16,12 +17,14 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
     @IBOutlet var passwordField: HoshiTextField!
     @IBOutlet var confirmPasswordField: HoshiTextField!
     @IBOutlet var createAccountButton: UIButton!
+    @IBOutlet var loadingIndicator: NVActivityIndicatorView!
     
     /// Error labels
     @IBOutlet weak var emailErrorLabel: UILabel!
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var confirmPasswordErrorLabel: UILabel!
     
+    var messageHelper = MessageHelper()
     var countries:[Country]?
     
     override func viewDidLoad() {
@@ -32,6 +35,16 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
         self.emailErrorLabel.text = ""
         self.passwordErrorLabel.text = ""
         self.confirmPasswordErrorLabel.text = ""
+        
+        // get Countries
+        APIClient.getAllCountries(completion:{ result in
+            switch result {
+            case .success(let countries):
+                self.countries = countries
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
         
         // add validators
         addValidators()
@@ -120,6 +133,7 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
         self.changeFieldValidationColors()
         if !self.validate(){ return }
         
+        self.loadingIndicator.startAnimating()
         var defaultCountryId: String = ""
         
         if(countries != nil){
@@ -136,10 +150,14 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
         APIClient.createAccount(user:user, completion:{ result in
             switch result {
             case .success(let createResponse):
-                print("_____________________________")
-                print(createResponse)
+                self.loadingIndicator.stopAnimating()
+                self.messageHelper.showInfoMessage(text: "New Acount Created", view: self.view)
+                Utils.delayWithSeconds(5, completion: {
+                    self.dismiss(animated: true, completion: nil)
+                })
             case .failure(let error):
-                print(error.localizedDescription)
+                self.loadingIndicator.stopAnimating()
+                self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
             }
         })
     }

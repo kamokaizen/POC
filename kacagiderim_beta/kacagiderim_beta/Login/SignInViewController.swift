@@ -9,6 +9,8 @@
 import UIKit
 import TextFieldEffects
 import EGFormValidator
+import NVActivityIndicatorView
+import Dodo
 
 class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         
@@ -16,8 +18,10 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
     @IBOutlet var passwordField: HoshiTextField!
     @IBOutlet var forgotPasswordButton: UIButton!
     @IBOutlet var signInButton: UIButton!
+    @IBOutlet var loadingIndicator: NVActivityIndicatorView!
     var recoverMode:Bool = false
     var kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
+    var messageHelper = MessageHelper()
     
     /// Error labels
     @IBOutlet weak var emailErrorLabel: UILabel!
@@ -124,11 +128,12 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         }
         else{
             // call sign in
-            print("signin mode called")
+            self.loadingIndicator.startAnimating()
             
             APIClient.login(email: emailField.text!, password: passwordField.text!, completion:{ result in
                 switch result {
                 case .success(let loginResponse):
+                    self.loadingIndicator.stopAnimating()
                     // after loging success, goto main
                     UserDefaults.standard.set(true, forKey: "isLoggedIn")
                     UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
@@ -136,7 +141,8 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                     UserDefaults.standard.set(loginResponse.refresh_token, forKey: "refreshToken")
                     Switcher.updateRootVC()
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.loadingIndicator.stopAnimating()
+                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view:self.view)
                 }
             })
         }

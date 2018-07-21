@@ -23,9 +23,25 @@ class APIClient {
                 print("Error: \(String(describing: response.error))")
                 
                 if(response.error != nil){
-//                    let decodedErrorResponse = try decoder.decode(KacagiderimError.self, from: response.data!)
-                    completion(Result<T>.failure(response.error!))
-                    return
+                    do{
+                        var customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!)
+                        
+                        switch(route){
+                        case LoginEndpoint.login:
+                            customError = CustomError(error: response.error!, reason: try decoder.decode(LoginError.self, from: response.data!).error_description)
+                        case UserEndpoint.create:
+                            customError = CustomError(error: response.error!, reason: try decoder.decode(ServerResponse.self, from: response.data!).reason)
+                        default:
+                            customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!)
+                        }
+                        
+                        completion(Result<T>.failure(customError))
+                        return
+                    }
+                    catch{
+                        print("API Unexpected Parse error: \(error).")
+                        completion(Result<T>.failure(CustomError(error: error, reason: (error.localizedDescription))))
+                    }
                 }
                 
                 do{
@@ -33,13 +49,13 @@ class APIClient {
                     completion(Result<T>.success(decodedResponse))
                 }
                 catch{
-                    print("API Unexpected error: \(error).")
-                    completion(Result<T>.failure(error))
+                    print("API Unexpected Parse error: \(error).")
+                    completion(Result<T>.failure(CustomError(error: error, reason: (error.localizedDescription))))
                 }
         }
     }
     
-    static func login(email: String, password: String, completion:@escaping (Result<LoginResponse>)->Void) {
+    static func login(email: String, password: String, completion:@escaping (Result<LoginSuccessResponse>)->Void) {
         performRequest(route: LoginEndpoint.login(email: email, password: password), completion: completion)
     }
     

@@ -13,6 +13,8 @@ def all_pods
     pod 'DCKit'
     pod 'EGFormValidator'
     pod 'SwiftGen'
+    pod 'NVActivityIndicatorView'
+    pod 'Dodo', '~> 11.0'
 end
 
 target 'kacagiderim_beta' do
