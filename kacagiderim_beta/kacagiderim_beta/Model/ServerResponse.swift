@@ -9,8 +9,9 @@
 import Foundation
 
 
-struct ServerResponse: Codable {
+struct ServerResponse<T: Codable>: Codable {
     let status: Bool
     let statusCode: Int
     let reason: String
+    let value: T?
 }

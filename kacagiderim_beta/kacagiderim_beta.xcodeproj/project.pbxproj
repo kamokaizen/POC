@@ -17,6 +17,7 @@
 		D6EBE951210331E30067CAB8 /* MessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE950210331E30067CAB8 /* MessageHelper.swift */; };
 		D6EBE9532103457B0067CAB8 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE9522103457B0067CAB8 /* CustomError.swift */; };
 		D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE95421035EA30067CAB8 /* Utils.swift */; };
+		D6EBE9592104DFDF0067CAB8 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE9582104DFDF0067CAB8 /* Countries.swift */; };
 		D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076220FC7C3100B1128A /* SignUpViewController.swift */; };
 		D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076420FCC63400B1128A /* MainTabbarController.swift */; };
 		D800076720FCC7DB00B1128A /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076620FCC7DB00B1128A /* Switcher.swift */; };
@@ -26,7 +27,7 @@
 		D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076F20FCD9C200B1128A /* RoutesViewController.swift */; };
 		D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077120FCD9D300B1128A /* CarsViewController.swift */; };
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
-		D898649C2101BF7B00E46477 /* LoginError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginError.swift */; };
+		D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginFailResponse.swift */; };
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
 		D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89864A021020F9A00E46477 /* ServerResponse.swift */; };
 		D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */; };
@@ -54,6 +55,7 @@
 		D6EBE950210331E30067CAB8 /* MessageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHelper.swift; sourceTree = "<group>"; };
 		D6EBE9522103457B0067CAB8 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		D6EBE95421035EA30067CAB8 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D6EBE9582104DFDF0067CAB8 /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		D800076220FC7C3100B1128A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D800076420FCC63400B1128A /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		D800076620FCC7DB00B1128A /* Switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switcher.swift; sourceTree = "<group>"; };
@@ -63,7 +65,7 @@
 		D800076F20FCD9C200B1128A /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		D800077120FCD9D300B1128A /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
-		D898649B2101BF7B00E46477 /* LoginError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginError.swift; sourceTree = "<group>"; };
+		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		D89864A021020F9A00E46477 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessResponse.swift; sourceTree = "<group>"; };
@@ -189,9 +191,10 @@
 			children = (
 				D8E699FD20FF34A4005484CA /* User.swift */,
 				D8E699FF20FF80D7005484CA /* Country.swift */,
-				D898649B2101BF7B00E46477 /* LoginError.swift */,
+				D6EBE9582104DFDF0067CAB8 /* Countries.swift */,
 				D89864A021020F9A00E46477 /* ServerResponse.swift */,
 				D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */,
+				D898649B2101BF7B00E46477 /* LoginFailResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,7 +348,7 @@
 				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
-				D898649C2101BF7B00E46477 /* LoginError.swift in Sources */,
+				D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
@@ -363,6 +366,7 @@
 				D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */,
 				D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */,
 				D6EBE951210331E30067CAB8 /* MessageHelper.swift in Sources */,
+				D6EBE9592104DFDF0067CAB8 /* Countries.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,

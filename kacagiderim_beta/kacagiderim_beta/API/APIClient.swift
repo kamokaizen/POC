@@ -28,9 +28,9 @@ class APIClient {
                         
                         switch(route){
                         case LoginEndpoint.login:
-                            customError = CustomError(error: response.error!, reason: try decoder.decode(LoginError.self, from: response.data!).error_description)
+                            customError = CustomError(error: response.error!, reason: try decoder.decode(LoginFailResponse.self, from: response.data!).error_description)
                         case UserEndpoint.create:
-                            customError = CustomError(error: response.error!, reason: try decoder.decode(ServerResponse.self, from: response.data!).reason)
+                            customError = CustomError(error: response.error!, reason: try decoder.decode(ServerResponse<User>.self, from: response.data!).reason)
                         default:
                             customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!)
                         }
@@ -40,7 +40,7 @@ class APIClient {
                     }
                     catch{
                         print("API Unexpected Parse error: \(error).")
-                        completion(Result<T>.failure(CustomError(error: error, reason: (error.localizedDescription))))
+                        completion(Result<T>.failure(CustomError(error: error, reason: (response.error?.localizedDescription)!)))
                     }
                 }
                 
@@ -50,7 +50,7 @@ class APIClient {
                 }
                 catch{
                     print("API Unexpected Parse error: \(error).")
-                    completion(Result<T>.failure(CustomError(error: error, reason: (error.localizedDescription))))
+                    completion(Result<T>.failure(CustomError(error: error, reason: (response.error?.localizedDescription)!)))
                 }
         }
     }
@@ -59,11 +59,11 @@ class APIClient {
         performRequest(route: LoginEndpoint.login(email: email, password: password), completion: completion)
     }
     
-    static func createAccount(user: User, completion:@escaping (Result<ServerResponse>)->Void) {
+    static func createAccount(user: User, completion:@escaping (Result<ServerResponse<User>>)->Void) {
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
-    static func getAllCountries(completion:@escaping (Result<[Country]>)->Void) {
+    static func getAllCountries(completion:@escaping (Result<ServerResponse<Countries>>)->Void) {
         performRequest(route: NationEndpoint.countries, completion: completion)
     }
 }

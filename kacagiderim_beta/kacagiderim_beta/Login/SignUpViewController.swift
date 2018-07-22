@@ -39,8 +39,8 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
         // get Countries
         APIClient.getAllCountries(completion:{ result in
             switch result {
-            case .success(let countries):
-                self.countries = countries
+            case .success(let serverResponse):
+                self.countries = serverResponse.value?.countries
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -151,7 +151,7 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
             switch result {
             case .success(let createResponse):
                 self.loadingIndicator.stopAnimating()
-                self.messageHelper.showInfoMessage(text: "New Acount Created", view: self.view)
+                self.messageHelper.showInfoMessage(text: "New Account Created", view: self.view)
                 Utils.delayWithSeconds(5, completion: {
                     self.dismiss(animated: true, completion: nil)
                 })
