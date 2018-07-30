@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		399FC8B1A6BDAE3824F3DCDA /* Pods_kacagiderim_beta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */; };
+		D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */; };
 		D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */; };
 		D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */; };
 		D6D66A8E20F9FB6E003B7C75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A8C20F9FB6E003B7C75 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kacagiderim_beta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D735496F795E5A69644DAB /* Pods-kacagiderim_beta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.release.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.release.xcconfig"; sourceTree = "<group>"; };
 		D695B7266CA73A8F19F59151 /* Pods-kacagiderim_beta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.debug.xcconfig"; sourceTree = "<group>"; };
+		D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		D6D66A8520F9FB6E003B7C75 /* kacagiderim_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kacagiderim_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				D8E699FD20FF34A4005484CA /* User.swift */,
+				D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */,
 				D8E699FF20FF80D7005484CA /* Country.swift */,
 				D6EBE9582104DFDF0067CAB8 /* Countries.swift */,
 				D89864A021020F9A00E46477 /* ServerResponse.swift */,
@@ -370,6 +373,7 @@
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,
+				D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */,
 				D8E699FE20FF34A4005484CA /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

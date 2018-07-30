@@ -21,6 +21,14 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.activeUserLabel.text = UserDefaults.standard.string(forKey: "activeUser")
+        APIClient.getCurrentUser(completion:{ result in
+            switch result {
+            case .success(let userResponse):
+                print(userResponse)
+            case .failure(let error):
+                print((error as! CustomError).localizedDescription)
+            }
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {

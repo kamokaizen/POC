@@ -11,11 +11,12 @@ import Alamofire
 enum LoginEndpoint: APIConfiguration {
     
     case login(email:String, password:String)
+    case refreshToken(refreshToken:String)
     
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return .post
         }
     }
@@ -23,8 +24,8 @@ enum LoginEndpoint: APIConfiguration {
     // MARK: - Path
     var path: String {
         switch self {
-        case .login:
-            return "/uaa/oauth/token"
+            case .login, .refreshToken:
+                return "/uaa/oauth/token"
         }
     }
     
@@ -33,6 +34,8 @@ enum LoginEndpoint: APIConfiguration {
         switch self {
         case .login(let email, let password):
             return [K.APIParameterKey.username: email, K.APIParameterKey.password: password, K.APIParameterKey.scope: "mobile", K.APIParameterKey.grantType:"password"]
+        case .refreshToken(let refreshToken):
+            return [K.APIParameterKey.refreshToken: refreshToken, K.APIParameterKey.grantType:"refresh_token"]
         }
     }
     

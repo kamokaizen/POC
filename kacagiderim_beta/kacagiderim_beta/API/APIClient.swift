@@ -23,6 +23,23 @@ class APIClient {
                 print("Error: \(String(describing: response.error))")
                 
                 if(response.error != nil){
+                    // request is not login and response is 401
+                    if(response.response?.statusCode == 401){
+                        // try to refresh token
+                        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
+                        if(refreshToken != nil){
+                            APIClient.refreshToken(refreshToken: refreshToken!, completion:{ result in
+                                switch result {
+                                case .success(let loginResponse):
+                                    UserDefaults.standard.set(loginResponse.access_token, forKey: "accessToken")
+                                    UserDefaults.standard.set(loginResponse.refresh_token, forKey: "refreshToken")
+                                case .failure(let error):
+                                    print("API refresh token getting unexpected error: \(error).")
+                                }
+                            })
+                        }
+                    }
+                    
                     do{
                         var customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!)
                         
@@ -63,8 +80,16 @@ class APIClient {
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
+    static func getCurrentUser(completion:@escaping (Result<CurrentUser>)->Void){
+        performRequest(route: UserEndpoint.current(), completion: completion)
+    }
+
     static func getAllCountries(completion:@escaping (Result<ServerResponse<Countries>>)->Void) {
         performRequest(route: NationEndpoint.countries, completion: completion)
+    }
+    
+    static func refreshToken(refreshToken:String, completion:@escaping (Result<LoginSuccessResponse>)->Void){
+        performRequest(route: LoginEndpoint.refreshToken(refreshToken: refreshToken), completion: completion)
     }
 }
 
