@@ -38,13 +38,20 @@ enum UserEndpoint: APIConfiguration {
     var parameters: Parameters? {
         switch self {
             case .create(let user):
-                return [K.APIParameterKey.username: user.username, K.APIParameterKey.password: user.password,
-                        K.APIParameterKey.name: user.name, K.APIParameterKey.surname: user.surname,
-                        K.APIParameterKey.countryId: user.countryId, K.APIParameterKey.homeLatitude: user.homeLatitude!,
-                        K.APIParameterKey.homeLongitude: user.homeLongitude, K.APIParameterKey.workLatitude: user.workLatitude!,
-                        K.APIParameterKey.workLongitude: user.workLongitude!, K.APIParameterKey.currencyMetric: user.currencyMetric.rawValue,
-                        K.APIParameterKey.distanceMetric: user.distanceMetric.rawValue, K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
-                        K.APIParameterKey.userType: user.userType.rawValue, K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber!]
+                return [K.APIParameterKey.username: user.username,
+                        K.APIParameterKey.password: user.password,
+                        K.APIParameterKey.name: user.name,
+                        K.APIParameterKey.surname: user.surname,
+                        K.APIParameterKey.countryId: user.countryId,
+                        K.APIParameterKey.homeLatitude: user.homeLatitude,
+                        K.APIParameterKey.homeLongitude: user.homeLongitude,
+                        K.APIParameterKey.workLatitude: user.workLatitude!,
+                        K.APIParameterKey.workLongitude: user.workLongitude,
+                        K.APIParameterKey.currencyMetric: user.currencyMetric.rawValue,
+                        K.APIParameterKey.distanceMetric: user.distanceMetric.rawValue,
+                        K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
+                        K.APIParameterKey.userType: user.userType.rawValue,
+                        K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber]
             case .current():
                 return nil
         }

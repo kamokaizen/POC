@@ -9,6 +9,21 @@
 import Alamofire
 
 class APIClient {
+    
+    private static func expireTokenCheck<T:Decodable>(route:APIConfiguration, completion:@escaping (Result<T>)->Void){
+        TokenController.handleTokenExpire(completion: { value in
+            // -1 means something went wrong
+            if(value != -1){
+                performRequest(route: route, completion: completion)
+            }
+            else{
+                // means that can not refresh token and so delete user from user defaults then go to login page
+                TokenController.deleteUserFromUserDefaults()
+                Switcher.updateRootVC()
+            }
+        })
+    }
+    
     @discardableResult
     private static func performRequest<T:Decodable>(route:APIConfiguration, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (Result<T>)->Void) -> DataRequest {
         
@@ -73,22 +88,26 @@ class APIClient {
     }
     
     static func login(email: String, password: String, completion:@escaping (Result<LoginSuccessResponse>)->Void) {
+        // this method do not need access_token
         performRequest(route: LoginEndpoint.login(email: email, password: password), completion: completion)
     }
     
     static func createAccount(user: User, completion:@escaping (Result<ServerResponse<User>>)->Void) {
+        // this method do not need access_token
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
     static func getCurrentUser(completion:@escaping (Result<CurrentUser>)->Void){
-        performRequest(route: UserEndpoint.current(), completion: completion)
+        expireTokenCheck(route: UserEndpoint.current(), completion: completion)
     }
 
     static func getAllCountries(completion:@escaping (Result<ServerResponse<Countries>>)->Void) {
+        // this method do not need access_token
         performRequest(route: NationEndpoint.countries, completion: completion)
     }
     
     static func refreshToken(refreshToken:String, completion:@escaping (Result<LoginSuccessResponse>)->Void){
+        // this method do not need access_token
         performRequest(route: LoginEndpoint.refreshToken(refreshToken: refreshToken), completion: completion)
     }
 }

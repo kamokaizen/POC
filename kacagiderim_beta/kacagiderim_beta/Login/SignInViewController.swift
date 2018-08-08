@@ -134,11 +134,7 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                 switch result {
                 case .success(let loginResponse):
                     self.loadingIndicator.stopAnimating()
-                    // after loging success, goto main
-                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    UserDefaults.standard.set(self.emailField.text, forKey: "activeUser")
-                    UserDefaults.standard.set(loginResponse.access_token, forKey: "accessToken")
-                    UserDefaults.standard.set(loginResponse.refresh_token, forKey: "refreshToken")
+                    TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text!)
                     Switcher.updateRootVC()
                 case .failure(let error):
                     self.loadingIndicator.stopAnimating()

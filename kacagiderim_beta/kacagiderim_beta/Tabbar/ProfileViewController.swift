@@ -44,10 +44,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func didLogoutTapped(sender: UIButton) {
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
-        UserDefaults.standard.set(nil, forKey: "activeUser")
-        UserDefaults.standard.set(nil, forKey: "accessToken")
-        UserDefaults.standard.set(nil, forKey: "refreshToken")
+        TokenController.deleteUserFromUserDefaults()
         Switcher.updateRootVC()
     }
 }
