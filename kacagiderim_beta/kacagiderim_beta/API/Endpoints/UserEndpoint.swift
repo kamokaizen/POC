@@ -62,6 +62,7 @@ enum UserEndpoint: APIConfiguration {
         let url = try K.ProductionServer.baseURL.asURL()
         
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        urlRequest.timeoutInterval = TimeInterval(K.Constants.requestTimeoutInterval)
         
         // HTTP Method
         urlRequest.httpMethod = method.rawValue

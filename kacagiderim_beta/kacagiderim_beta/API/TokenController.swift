@@ -10,7 +10,7 @@ import Foundation
 
 class TokenController {
 
-    static func saveUserToUserDefaults(response:LoginSuccessResponse, user:String){
+    static func saveUserToUserDefaults(response:LoginSuccessResponse, user:String?){
         // after loging success, goto main
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
         UserDefaults.standard.set(user, forKey: "activeUser")
@@ -31,7 +31,7 @@ class TokenController {
         UserDefaults.standard.set(-1, forKey: "expireDate")
     }
     
-    static func handleTokenExpire(completion:@escaping (Int) -> ()){
+    static func handleTokenExpire(completion:@escaping (TokenControl) -> ()){
         let activeUser = UserDefaults.standard.string(forKey: "activeUser")
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
         let expireDate = UserDefaults.standard.integer(forKey: "expireDate")
@@ -39,26 +39,26 @@ class TokenController {
         
         if(refreshToken != nil){
             // existing access token expired, need to refresh token then continue
-            if(currentTimestamp > expireDate){
+            if(currentTimestamp >= expireDate){
                 APIClient.refreshToken(refreshToken: refreshToken!, completion:{ result in
                     switch result {
                     case .success(let loginResponse):
-                        TokenController.saveUserToUserDefaults(response: loginResponse, user: activeUser!)
-                        completion(1);
+                        TokenController.saveUserToUserDefaults(response: loginResponse, user: activeUser)
+                        completion(TokenControl.success);
                     case .failure(let error):
                         print("API refresh token getting unexpected error: \(error).")
-                        completion(-1);
+                        (error as! CustomError).isRequestTimeout ? completion(TokenControl.timeout) : completion(TokenControl.fail)
                     }
                 })
             }
             else{
                 print("Current token is alive. No need to refresh")
-                completion(1);
+                completion(TokenControl.success);
             }
         }
         else{
             print("API refresh token not exist. Need to re login")
-            completion(-1);
+            completion(TokenControl.fail);
         }
     }
 }

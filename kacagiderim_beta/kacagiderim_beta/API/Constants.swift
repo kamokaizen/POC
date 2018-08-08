@@ -38,6 +38,7 @@ struct K {
     
     struct Constants {
         static let loginAuthorizationValue = "Basic bW9iaWxlOg=="
+        static let requestTimeoutInterval = 10 // seconds
     }
 }
 
@@ -46,6 +47,12 @@ enum HTTPHeaderField: String {
     case contentType = "Content-Type"
     case acceptType = "Accept"
     case acceptEncoding = "Accept-Encoding"
+}
+
+enum TokenControl: Int {
+    case success = 1
+    case timeout = -2
+    case fail = -1
 }
 
 enum ContentType: String {

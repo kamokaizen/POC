@@ -11,9 +11,11 @@ import Foundation
 class CustomError: Error {
     var error:Error
     var localizedDescription: String
+    var isRequestTimeout: Bool
     
-    init(error:Error, reason:String) {
+    init(error:Error, reason:String, timeout:Bool) {
         self.error = error;
         self.localizedDescription = reason
+        self.isRequestTimeout = timeout
     }
 }
