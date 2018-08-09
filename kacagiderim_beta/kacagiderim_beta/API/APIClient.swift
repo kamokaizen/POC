@@ -16,9 +16,9 @@ class APIClient {
             switch value {
             case .success:
                 performRequest(route: route, completion: completion)
-            case .timeout:
+            case .timeout, .connectionProblem:
                 // nothing can do
-                print("token service return with timeout, nothing can be done")
+                print("there is a connection problem between your device and server")
             case .fail:
                 // means that can not refresh token and so delete user from user defaults then go to login page
                 TokenController.deleteUserFromUserDefaults()
