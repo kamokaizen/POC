@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		399FC8B1A6BDAE3824F3DCDA /* Pods_kacagiderim_beta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */; };
+		D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */; };
+		D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */; };
+		D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */; };
+		D6A0D7B2211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */; };
+		D6A0D7B8212082C80019C7FA /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B7212082C80019C7FA /* City.swift */; };
+		D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B92120837B0019C7FA /* Cities.swift */; };
 		D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */; };
 		D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */; };
 		D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */; };
@@ -46,6 +52,12 @@
 		3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kacagiderim_beta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D735496F795E5A69644DAB /* Pods-kacagiderim_beta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.release.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.release.xcconfig"; sourceTree = "<group>"; };
 		D695B7266CA73A8F19F59151 /* Pods-kacagiderim_beta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.debug.xcconfig"; sourceTree = "<group>"; };
+		D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelEndpoint.swift; sourceTree = "<group>"; };
+		D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrice.swift; sourceTree = "<group>"; };
+		D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPriceCollectionViewCell.swift; sourceTree = "<group>"; };
+		D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPriceCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		D6A0D7B7212082C80019C7FA /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		D6A0D7B92120837B0019C7FA /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
 		D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		D6D66A8520F9FB6E003B7C75 /* kacagiderim_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kacagiderim_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				D6EBE950210331E30067CAB8 /* MessageHelper.swift */,
+				D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */,
+				D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -197,10 +211,13 @@
 				D8E699FD20FF34A4005484CA /* User.swift */,
 				D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */,
 				D8E699FF20FF80D7005484CA /* Country.swift */,
+				D6A0D7B7212082C80019C7FA /* City.swift */,
+				D6A0D7B92120837B0019C7FA /* Cities.swift */,
 				D6EBE9582104DFDF0067CAB8 /* Countries.swift */,
 				D89864A021020F9A00E46477 /* ServerResponse.swift */,
 				D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */,
 				D898649B2101BF7B00E46477 /* LoginFailResponse.swift */,
+				D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -221,6 +238,7 @@
 				D8E69A0B2100E0BD005484CA /* LoginEndpoint.swift */,
 				D8E69A0121009F90005484CA /* NationEndpoint.swift */,
 				D898649E2101D3D900E46477 /* UserEndpoint.swift */,
+				D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -303,20 +321,24 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CHIPageControl/CHIPageControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DCKit/DCKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Dodo/Dodo.framework",
 				"${BUILT_PRODUCTS_DIR}/EGFormValidator/EGFormValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHIPageControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dodo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EGFormValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 			);
@@ -356,10 +378,12 @@
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
 				D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
+				D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
+				D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */,
 				D800076720FCC7DB00B1128A /* Switcher.swift in Sources */,
 				D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */,
 				D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */,
@@ -368,16 +392,20 @@
 				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
 				D8E69A042100A09F005484CA /* APIClient.swift in Sources */,
 				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
+				D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */,
+				D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */,
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
 				D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */,
 				D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */,
 				D6EBE951210331E30067CAB8 /* MessageHelper.swift in Sources */,
 				D6EBE9592104DFDF0067CAB8 /* Countries.swift in Sources */,
+				D6A0D7B8212082C80019C7FA /* City.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D8B26418211B2055000E814F /* TokenController.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,
 				D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */,
+				D6A0D7B2211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift in Sources */,
 				D8E699FE20FF34A4005484CA /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,6 +28,7 @@ class TokenController {
         UserDefaults.standard.set(nil, forKey: "activeUser")
         UserDefaults.standard.set(nil, forKey: "accessToken")
         UserDefaults.standard.set(nil, forKey: "refreshToken")
+        UserDefaults.standard.set(nil, forKey: "userProfile")
         UserDefaults.standard.set(-1, forKey: "expireDate")
     }
     

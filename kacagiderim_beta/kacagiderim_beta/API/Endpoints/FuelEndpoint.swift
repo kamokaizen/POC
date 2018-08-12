@@ -1,43 +1,38 @@
 //
-//  APIRouter.swift
+//  FuelEndpoint.swift
 //  kacagiderim_beta
 //
-//  Created by Comodo on 19.07.2018.
+//  Created by kamilinal on 8/11/18.
 //  Copyright © 2018 kacagiderim. All rights reserved.
 //
 
 import Alamofire
 
-enum NationEndpoint: APIConfiguration {
+enum FuelEndpoint: APIConfiguration {
     
-    case countries
-    case cities(countryId:String)
+    case prices(country:String, city:String)
     
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-        case .countries, .cities:
-            return .get
+        case .prices:
+            return .post
         }
     }
     
     // MARK: - Path
     var path: String {
         switch self {
-        case .countries:
-            return "/nations/api/country/all"
-        case .cities(let countryId):
-            return "/nations/api/country/cities/id/" + countryId
+        case .prices:
+            return "/fuels/api/prices"
         }
     }
     
     // MARK: - Parameters
     var parameters: Parameters? {
         switch self {
-        case .countries:
-            return nil
-        case .cities:
-            return nil
+        case .prices(let country, let city):
+            return [K.APIParameterKey.fromCountry: country, K.APIParameterKey.fromCity: city]
         }
     }
     
@@ -51,10 +46,7 @@ enum NationEndpoint: APIConfiguration {
         // HTTP Method
         urlRequest.httpMethod = method.rawValue
         
-        // Common Headers
-        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
-        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
-        
+        urlRequest.setValue(ContentType.urlencoded.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         if(accessToken != nil){
             urlRequest.setValue("Bearer " + accessToken!, forHTTPHeaderField: HTTPHeaderField.authentication.rawValue);
@@ -63,12 +55,12 @@ enum NationEndpoint: APIConfiguration {
         // Parameters
         if let parameters = parameters {
             do {
-                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+                return try URLEncoding.default.encode(urlRequest, with: parameters)
             } catch {
                 throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
             }
         }
-        
+                
         return urlRequest
     }
 }

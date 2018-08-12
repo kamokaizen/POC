@@ -8,10 +8,11 @@
 
 import UIKit
 
-class MainTabbarController : UITabBarController {
+class MainTabbarController : UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.delegate = self;
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -22,5 +23,13 @@ class MainTabbarController : UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if var viewcontrollers = tabBarController.viewControllers {
+            viewcontrollers.remove(at: tabBarController.selectedIndex)
+            viewcontrollers.insert(viewController, at: 0)
+            tabBarController.viewControllers = viewControllers
+        }
     }
 }

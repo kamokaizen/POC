@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct K {
     struct ProductionServer {
@@ -25,6 +26,8 @@ struct K {
         static let name = "name"
         static let surname = "surname"
         static let countryId = "countryId"
+        static let fromCountry = "fromcountry"
+        static let fromCity = "fromcity"
         static let homeLatitude = "homeLatitude"
         static let homeLongitude = "homeLongitude"
         static let workLatitude = "workLatitude"
@@ -39,6 +42,7 @@ struct K {
     struct Constants {
         static let loginAuthorizationValue = "Basic bW9iaWxlOg=="
         static let requestTimeoutInterval = 10 // seconds
+        static let kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
     }
 }
 

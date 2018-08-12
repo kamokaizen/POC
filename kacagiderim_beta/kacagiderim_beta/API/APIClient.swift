@@ -114,9 +114,17 @@ class APIClient {
         performRequest(route: NationEndpoint.countries, completion: completion)
     }
     
+    static func getCitiesOfCountry(countryId: String, completion:@escaping (Result<ServerResponse<Cities>>)->Void) {
+        checkTokenExpired(route: NationEndpoint.cities(countryId: countryId), completion: completion)
+    }
+    
     static func refreshToken(refreshToken:String, completion:@escaping (Result<LoginSuccessResponse>)->Void){
         // this method do not need access_token
         performRequest(route: LoginEndpoint.refreshToken(refreshToken: refreshToken), completion: completion)
+    }
+    
+    static func getFuelPrices(country: String, city: String, completion:@escaping (Result<ServerResponse<FuelPrice>>)->Void){
+        checkTokenExpired(route: FuelEndpoint.prices(country: country, city: city), completion: completion)
     }
 }
 

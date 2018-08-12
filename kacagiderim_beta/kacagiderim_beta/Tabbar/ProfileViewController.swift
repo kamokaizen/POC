@@ -7,28 +7,29 @@
 //
 
 import UIKit
+import Dodo
 
 class ProfileViewController: UIViewController {
     
     @IBOutlet var activeUserLabel: UILabel!
     @IBOutlet var logoutButton: UIButton!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.activeUserLabel.text = UserDefaults.standard.string(forKey: "activeUser")
         APIClient.getCurrentUser(completion:{ result in
             switch result {
             case .success(let userResponse):
-                print(userResponse)
+                UserDefaults.standard.set(try? PropertyListEncoder().encode(userResponse.principal.userDto), forKey: "userProfile")
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)
             }
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {

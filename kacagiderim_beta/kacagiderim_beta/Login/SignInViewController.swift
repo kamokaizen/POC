@@ -20,7 +20,6 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var loadingIndicator: NVActivityIndicatorView!
     var recoverMode:Bool = false
-    var kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
     var messageHelper = MessageHelper()
     
     /// Error labels
@@ -91,6 +90,40 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         return true
     }
     
+    func getAndPersistCurrentUser(){
+        if (UserDefaults.standard.value(forKey:"userProfile") as? Data) != nil {
+            print("no need to fetch current user")
+            return
+        }
+        else{
+            APIClient.getCurrentUser(completion:{ result in
+                switch result {
+                case .success(let userResponse):
+                    UserDefaults.standard.set(try? PropertyListEncoder().encode(userResponse.principal.userDto), forKey: "userProfile")
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+                }
+            })
+        }
+    }
+    
+    func getAndPersistCountries(){
+        if (UserDefaults.standard.value(forKey:"countries") as? Data) != nil {
+            print("no need to fetch countries")
+            return
+        }
+        else{
+            APIClient.getAllCountries(completion:{ result in
+                switch result {
+                case .success(let serverResponse):
+                    UserDefaults.standard.set(try? PropertyListEncoder().encode(serverResponse.value), forKey: "countries")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
+        }
+    }
+    
     // MARK: - Actions
     
     @IBAction func didCloseTapped(sender: UIButton) {
@@ -136,6 +169,8 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                     self.loadingIndicator.stopAnimating()
                     TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text)
                     Switcher.updateRootVC()
+                    self.getAndPersistCurrentUser()
+                    self.getAndPersistCountries()
                 case .failure(let error):
                     self.loadingIndicator.stopAnimating()
                     self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view:self.view)
