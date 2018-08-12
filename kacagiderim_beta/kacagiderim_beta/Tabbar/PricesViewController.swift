@@ -100,9 +100,17 @@ class PricesViewController: UIViewController, UICollectionViewDelegateFlowLayout
             }
         }
         else{
-            self.pageControl.numberOfPages = (self.fuelPrices?.count)!
-            (self.collectionView.dataSource as? FuelPriceCollectionViewDataSource)?.fuelPrices = self.fuelPrices
-            self.collectionView.reloadData()
+            APIClient.getFuelPrices(country: countryCode, city: "", completion:{ result in
+                switch result {
+                case .success(let fuelPriceResponse):
+                    self.fuelPrices?.append(fuelPriceResponse.value!)
+                    (self.collectionView.dataSource as? FuelPriceCollectionViewDataSource)?.fuelPrices = self.fuelPrices
+                    self.pageControl.numberOfPages = (self.fuelPrices?.count)!
+                    self.collectionView.reloadData()
+                case .failure(let error):
+                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view:self.view)
+                }
+            })
         }
     }
     
