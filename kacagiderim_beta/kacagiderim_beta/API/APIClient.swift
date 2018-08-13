@@ -42,24 +42,7 @@ class APIClient {
                 
                 let timeout = response.error?._code == NSURLErrorTimedOut ? true : false
                 
-                if(response.error != nil){
-                    // request is not login and response is 401
-                    if(response.response?.statusCode == 401){
-                        // try to refresh token
-                        let activeUser = UserDefaults.standard.string(forKey: "activeUser")
-                        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
-                        if(refreshToken != nil){
-                            APIClient.refreshToken(refreshToken: refreshToken!, completion:{ result in
-                                switch result {
-                                case .success(let loginResponse):
-                                    TokenController.saveUserToUserDefaults(response: loginResponse, user: activeUser)
-                                case .failure(let error):
-                                    print("API refresh token getting unexpected error: \(error).")
-                                }
-                            })
-                        }
-                    }
-                    
+                if(response.error != nil){                    
                     do{
                         var customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!, timeout:timeout)
                         
