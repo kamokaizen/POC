@@ -34,6 +34,7 @@
 		D800077020FCD9C200B1128A /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800076F20FCD9C200B1128A /* RoutesViewController.swift */; };
 		D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077120FCD9D300B1128A /* CarsViewController.swift */; };
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
+		D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86F692721231977006FF227 /* CustomCollectionViewController.swift */; };
 		D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginFailResponse.swift */; };
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
 		D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89864A021020F9A00E46477 /* ServerResponse.swift */; };
@@ -80,6 +81,7 @@
 		D800076F20FCD9C200B1128A /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		D800077120FCD9D300B1128A /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		D86F692721231977006FF227 /* CustomCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewController.swift; sourceTree = "<group>"; };
 		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		D89864A021020F9A00E46477 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				D6EBE950210331E30067CAB8 /* MessageHelper.swift */,
 				D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */,
 				D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */,
+				D86F692721231977006FF227 /* CustomCollectionViewController.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -322,24 +325,38 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CHIPageControl/CHIPageControl.framework",
+				"${BUILT_PRODUCTS_DIR}/CardParts/CardParts.framework",
 				"${BUILT_PRODUCTS_DIR}/DCKit/DCKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Dodo/Dodo.framework",
 				"${BUILT_PRODUCTS_DIR}/EGFormValidator/EGFormValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHIPageControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CardParts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dodo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EGFormValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +408,7 @@
 				D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */,
 				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
 				D8E69A042100A09F005484CA /* APIClient.swift in Sources */,
+				D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */,
 				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
 				D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */,
 				D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */,

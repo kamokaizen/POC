@@ -124,28 +124,17 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 fatalError()
         }
         let fuelPrice = prices[indexPath.item]
+        
         item.dataSource = self
         item.superViewController = self.superViewController
         item.navigationItem.title = fuelPrice.fuelPriceItem.cityName != nil ? fuelPrice.fuelPriceItem.cityName : fuelPrice.fuelPriceItem.countryName
+        item.updateLabel.text = fuelPrice.fuelPriceItem.lstUptTime
+        
         item.gasolineLabel.text = String(format: "%.2f",fuelPrice.fuelPriceItem.avgFLPrc)
         item.dieselLabel.text = String(format: "%.2f",fuelPrice.fuelPriceItem.avgDSLPrc)
         item.lpgLabel.text = String(format: "%.2f",fuelPrice.fuelPriceItem.avgLpgPrc)
-        item.updateLabel.text = fuelPrice.fuelPriceItem.lstUptTime
+        item.descriptionLabel.text = "Price metric is \(fuelPrice.fuelPriceItem.cur)/lt"
         
-        item.gasolineImageView.clipsToBounds = true
-        item.gasolineImageView.layer.borderWidth = 3.0;
-        item.gasolineImageView.layer.borderColor = UIColor.white.cgColor
-        item.gasolineImageView.layer.cornerRadius = 10.0;
-        
-        item.dieselImageView.clipsToBounds = true
-        item.dieselImageView.layer.borderWidth = 3.0;
-        item.dieselImageView.layer.borderColor = UIColor.white.cgColor
-        item.dieselImageView.layer.cornerRadius = 10.0;
-        
-        item.lpgImageView.clipsToBounds = true
-        item.lpgImageView.layer.borderWidth = 3.0;
-        item.lpgImageView.layer.borderColor = UIColor.white.cgColor
-        item.lpgImageView.layer.cornerRadius = 10.0;
         return item
     }
 }

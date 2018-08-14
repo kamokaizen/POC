@@ -15,16 +15,13 @@ final class FuelPriceCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var navigationItem: UINavigationItem!
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var trashButton: UIBarButtonItem!
+    @IBOutlet weak var updateLabel: UILabel!
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var gasolineLabel: UILabel!
     @IBOutlet weak var dieselLabel: UILabel!
     @IBOutlet weak var lpgLabel: UILabel!
-    @IBOutlet weak var updateLabel: UILabel!
-    @IBOutlet weak var gasolineImageView: UIImageView!
-    @IBOutlet weak var dieselImageView: UIImageView!
-    @IBOutlet weak var lpgImageView: UIImageView!
-    
+        
     var superViewController:PricesViewController!
     var dataSource:FuelPriceCollectionViewDataSource!
     

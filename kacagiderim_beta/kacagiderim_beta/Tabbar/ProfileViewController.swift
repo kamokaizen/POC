@@ -8,14 +8,16 @@
 
 import UIKit
 import Dodo
+import CardParts
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: CardsViewController {
     
     @IBOutlet var activeUserLabel: UILabel!
     @IBOutlet var logoutButton: UIButton!
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.activeUserLabel.text = UserDefaults.standard.string(forKey: "activeUser")
         APIClient.getCurrentUser(completion:{ result in
