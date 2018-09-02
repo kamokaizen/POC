@@ -15,6 +15,7 @@
 		D6A0D7B8212082C80019C7FA /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B7212082C80019C7FA /* City.swift */; };
 		D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B92120837B0019C7FA /* Cities.swift */; };
 		D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */; };
+		D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */; };
 		D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */; };
 		D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */; };
 		D6D66A8E20F9FB6E003B7C75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A8C20F9FB6E003B7C75 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		D6A0D7B7212082C80019C7FA /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D6A0D7B92120837B0019C7FA /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
 		D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTableViewCell.swift; sourceTree = "<group>"; };
 		D6D66A8520F9FB6E003B7C75 /* kacagiderim_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kacagiderim_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */,
 				D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */,
 				D86F692721231977006FF227 /* CustomCollectionViewController.swift */,
+				D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -331,7 +334,6 @@
 				"${BUILT_PRODUCTS_DIR}/Dodo/Dodo.framework",
 				"${BUILT_PRODUCTS_DIR}/EGFormValidator/EGFormValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -350,7 +352,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dodo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EGFormValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -399,6 +400,7 @@
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
+				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */,
 				D800076720FCC7DB00B1128A /* Switcher.swift in Sources */,

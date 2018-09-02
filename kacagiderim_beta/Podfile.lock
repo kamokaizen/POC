@@ -27,24 +27,6 @@ PODS:
   - Dodo (11.0.2)
   - EGFormValidator (1.2.1)
   - KeychainSwift (11.0.0)
-  - MaterialComponents/Cards (59.2.2):
-    - MaterialComponents/Ink
-    - MaterialComponents/private/Icons/ic_check_circle
-    - MaterialComponents/private/Math
-    - MaterialComponents/private/Shapes
-    - MaterialComponents/ShadowLayer
-  - MaterialComponents/Ink (59.2.2):
-    - MaterialComponents/private/Math
-  - MaterialComponents/private/Icons/Base (59.2.2)
-  - MaterialComponents/private/Icons/ic_check_circle (59.2.2):
-    - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/Math (59.2.2)
-  - MaterialComponents/private/Shapes (59.2.2):
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowLayer
-  - MaterialComponents/ShadowElevations (59.2.2)
-  - MaterialComponents/ShadowLayer (59.2.2):
-    - MaterialComponents/ShadowElevations
   - McPicker (0.5.2)
   - NVActivityIndicatorView (4.3.0):
     - NVActivityIndicatorView/Presenter (= 4.3.0)
@@ -70,7 +52,6 @@ DEPENDENCIES:
   - Dodo (~> 11.0)
   - EGFormValidator
   - KeychainSwift
-  - MaterialComponents/Cards
   - McPicker (~> 0.5.1)
   - NVActivityIndicatorView
   - SwiftGen
@@ -86,7 +67,6 @@ SPEC REPOS:
     - Dodo
     - EGFormValidator
     - KeychainSwift
-    - MaterialComponents
     - McPicker
     - NVActivityIndicatorView
     - RxCocoa
@@ -105,7 +85,6 @@ SPEC CHECKSUMS:
   Dodo: d7e393c79aaaf3c51ed1311933493b6f1ccdde62
   EGFormValidator: 7c84faf2a4a4690061db6651050bd1150d5cb181
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
-  MaterialComponents: 70a1e7d84d140e7231452e3cc0fb3adae08dbfe5
   McPicker: 3c21f279480d04ba7f8a4ae8445f59c7e0931a99
   NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
@@ -115,6 +94,6 @@ SPEC CHECKSUMS:
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
 
-PODFILE CHECKSUM: c58d3c650bce47636e074383d5c82e86179fb79a
+PODFILE CHECKSUM: 8ac2a4a3c50eca4f125b858058b339699cd458ee
 
 COCOAPODS: 1.5.3

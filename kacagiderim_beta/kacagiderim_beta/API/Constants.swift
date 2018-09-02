@@ -12,8 +12,8 @@ import UIKit
 struct K {
     struct ProductionServer {
 //        static let baseURL = "https://kacagiderim.com"
-        static let baseURL = "http://10.100.136.233:4000"
-//        static let baseURL = "http://127.0.0.1:4000"
+//        static let baseURL = "http://10.100.136.233:4000"
+        static let baseURL = "http://127.0.0.1:4000"
     }
     
     struct APIParameterKey {
@@ -43,6 +43,7 @@ struct K {
         static let loginAuthorizationValue = "Basic bW9iaWxlOg=="
         static let requestTimeoutInterval = 10 // seconds
         static let kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
+        static let kacagiderimColorWarning = UIColor(red: 255/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
     }
 }
 
