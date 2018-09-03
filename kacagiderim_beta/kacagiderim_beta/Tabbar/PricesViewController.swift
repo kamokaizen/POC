@@ -18,12 +18,11 @@ class PricesViewController: UIViewController, UICollectionViewDelegateFlowLayout
     override func viewDidLoad() {
         super.viewDidLoad()
         (self.collectionView.dataSource as? FuelPriceCollectionViewDataSource)?.superViewController = self
-        (self.collectionView.dataSource as? FuelPriceCollectionViewDataSource)?.prepareCollectionView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Do any additional setup after loading the view, typically from a nib.
+        (self.collectionView.dataSource as? FuelPriceCollectionViewDataSource)?.prepareCollectionView()
     }
 
     override func viewDidAppear(_ animated: Bool) {

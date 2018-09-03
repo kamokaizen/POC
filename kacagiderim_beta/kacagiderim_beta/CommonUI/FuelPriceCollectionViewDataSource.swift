@@ -34,7 +34,7 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                         list.append(city.cityName!)
                     }
                     self.citySelectionData.removeAll()
-                    self.citySelectionData.append(list)
+                    self.citySelectionData.append(list.sorted(by:<))
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
                 }
@@ -50,7 +50,7 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             selectedCities = []
         }
         if(selectedCities!.count > 0){
-            for city in selectedCities! {
+            for city in (selectedCities?.sorted(by:<))! {
                 APIClient.getFuelPrices(country: countryCode, city: city, completion:{ result in
                     switch result {
                     case .success(let fuelPriceResponse):

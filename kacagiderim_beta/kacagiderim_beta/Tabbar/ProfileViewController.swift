@@ -30,6 +30,8 @@ class ProfileViewController: CardsViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.viewModel.refreshLocalData()
+        self.viewModel.getProfileData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,12 +42,6 @@ class ProfileViewController: CardsViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: - Actions
-    
-    @IBAction func didLogoutTapped(sender: UIButton) {
-
     }
 }
 
@@ -84,6 +80,7 @@ class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait {
     }
     
     func onEditButtonTap(){
+        print("Editable Mode:", isEditable())
         self.viewModel.getCitiesOfCountryPopoper(countryId: self.viewModel.countryId.value, viewController: self, sourceView: self.titlePart);
     }
 }
@@ -320,7 +317,7 @@ class ProfileCardController: CardPartsViewController  {
             list.append(country.countryName!)
         }
         countryList.removeAll()
-        countryList.append(list)
+        countryList.append(list.sorted(by: <))
         
         let textView = CardPartTextView(type: .normal)
         let textView2 = CardPartTextView(type: .normal)
@@ -432,36 +429,8 @@ class ProfileViewModel {
     let favouriteCities: Variable<[String]> = Variable([])
     
     init() {
-        if let data = UserDefaults.standard.value(forKey:"countries") as? Data {
-            self.countries = try? PropertyListDecoder().decode(Countries.self, from: data)
-        }
-        if let selectedCities:[String] = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String]{
-            self.favouriteCities.value = selectedCities
-        }
-        
-        APIClient.getCurrentUser(completion:{ result in
-            switch result {
-            case .success(let userResponse):
-                let profile = userResponse.principal.userDto
-                UserDefaults.standard.set(try? PropertyListEncoder().encode(profile), forKey: "userProfile")
-                // When these values change, the UI in the TestCardController
-                // will automatically update
-                self.usernameText.value = profile.username
-                self.nameText.value = profile.name
-                self.surnameText.value = profile.surname
-//                if(profile.socialSecurityNumber != nil){
-//                    self.ssnText = profile.socialSecurityNumber
-//                }
-                self.currencyMetric.value = profile.currencyMetric.rawValue
-                self.distanceMetric.value = profile.distanceMetric.rawValue
-                self.volumeMetric.value = profile.volumeMetric.rawValue
-                
-                self.countryId.value = profile.countryId
-                self.countryName.value = self.getCountryName(countryId: profile.countryId)
-            case .failure(let error):
-                print((error as! CustomError).localizedDescription)
-            }
-        })
+        refreshLocalData()
+        getProfileData()
     }
     
     func getCountryName(countryId: String) -> String {
@@ -498,31 +467,34 @@ class ProfileViewModel {
                     list.append(city.cityName!)
                 }
                 self.citySelectionData.removeAll()
-                self.citySelectionData.append(list)
+                self.citySelectionData.append(list.sorted(by: <))
             
-                let mcPicker = McPicker(data: self.citySelectionData)
-                let fixedSpace = McPickerBarButtonItem.fixedSpace(width: 20.0)
-                let flexibleSpace = McPickerBarButtonItem.flexibleSpace()
-                let fireButton = McPickerBarButtonItem.done(mcPicker: mcPicker, title: "Ok")
-                let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
-                mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
-                
-                mcPicker.showAsPopover(fromViewController: viewController, sourceView: sourceView, cancelHandler: {
-                    print("cancelled")
-                }, doneHandler: { (selections: [Int : String]) -> Void in
-                    if let name = selections[0] {
-                        print("Selected:" + name)
-                        var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
-                        if(selectedCities == nil){
-                            selectedCities = []
-                        }
-                        selectedCities!.append(name)
-                        selectedCities = Array(Set(selectedCities!))
-                        print(selectedCities!)
-                        UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
-                        self.favouriteCities.value = selectedCities!;
-                    }})
-            
+                if(list.count > 0){
+                    let mcPicker = McPicker(data: self.citySelectionData)
+                    let fixedSpace = McPickerBarButtonItem.fixedSpace(width: 20.0)
+                    let flexibleSpace = McPickerBarButtonItem.flexibleSpace()
+                    let fireButton = McPickerBarButtonItem.done(mcPicker: mcPicker, title: "Ok")
+                    let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
+                    mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
+                    
+                    mcPicker.showAsPopover(fromViewController: viewController, sourceView: sourceView, cancelHandler: {
+                        print("cancelled")
+                    }, doneHandler: { (selections: [Int : String]) -> Void in
+                        if let name = selections[0] {
+                            print("Selected:" + name)
+                            var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
+                            if(selectedCities == nil){
+                                selectedCities = []
+                            }
+                            selectedCities!.append(name)
+                            selectedCities = Array(Set(selectedCities!))
+                            UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
+                            self.favouriteCities.value = (selectedCities?.sorted(by:<))!;
+                        }})
+                }
+                else{
+                    // show error
+                }
             case .failure(let error):
             print((error as! CustomError).localizedDescription)
         }
@@ -540,7 +512,44 @@ class ProfileViewModel {
         }
         print(selectedCities!)
         UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
-        self.favouriteCities.value = selectedCities!;
+        self.favouriteCities.value = (selectedCities?.sorted(by: <))!
+    }
+    
+    func refreshLocalData(){
+        if let data = UserDefaults.standard.value(forKey:"countries") as? Data {
+            self.countries = try? PropertyListDecoder().decode(Countries.self, from: data)
+        }
+        if let selectedCities:[String] = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String]{
+            self.favouriteCities.value = selectedCities.sorted(by: <)
+        }
+    }
+    
+    func getProfileData(){
+        APIClient.getCurrentUser(completion:{ result in
+            switch result {
+            case .success(let userResponse):
+                let profile = userResponse.principal.userDto
+                UserDefaults.standard.set(try? PropertyListEncoder().encode(profile), forKey: "userProfile")
+                self.usernameText.value = profile.username
+                self.nameText.value = profile.name
+                self.surnameText.value = profile.surname
+                if(profile.socialSecurityNumber != nil){
+                    self.ssnText.value = profile.socialSecurityNumber!
+                }
+                self.currencyMetric.value = profile.currencyMetric.rawValue
+                self.distanceMetric.value = profile.distanceMetric.rawValue
+                self.volumeMetric.value = profile.volumeMetric.rawValue
+                
+                self.countryId.value = profile.countryId
+                self.countryName.value = self.getCountryName(countryId: profile.countryId)
+            case .failure(let error):
+                print((error as! CustomError).localizedDescription)
+            }
+        })
+    }
+    
+    func updateProfileData(){
+        // MAKE SERVICE CALL IF SUCCESS THAN UPDATE LOCAL
     }
 }
 
