@@ -528,7 +528,7 @@ class ProfileViewModel {
         APIClient.getCurrentUser(completion:{ result in
             switch result {
             case .success(let userResponse):
-                let profile = userResponse.principal.userDto
+                let profile:User = (userResponse.value as User?)!
                 UserDefaults.standard.set(try? PropertyListEncoder().encode(profile), forKey: "userProfile")
                 self.usernameText.value = profile.username
                 self.nameText.value = profile.name

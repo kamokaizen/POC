@@ -14,7 +14,6 @@
 		D6A0D7B2211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */; };
 		D6A0D7B8212082C80019C7FA /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B7212082C80019C7FA /* City.swift */; };
 		D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B92120837B0019C7FA /* Cities.swift */; };
-		D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */; };
 		D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */; };
 		D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */; };
 		D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */; };
@@ -60,7 +59,6 @@
 		D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPriceCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D6A0D7B7212082C80019C7FA /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D6A0D7B92120837B0019C7FA /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
-		D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTableViewCell.swift; sourceTree = "<group>"; };
 		D6D66A8520F9FB6E003B7C75 /* kacagiderim_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kacagiderim_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				D8E699FD20FF34A4005484CA /* User.swift */,
-				D6A76B18210FA42E008FD7E7 /* CurrentUser.swift */,
 				D8E699FF20FF80D7005484CA /* Country.swift */,
 				D6A0D7B7212082C80019C7FA /* City.swift */,
 				D6A0D7B92120837B0019C7FA /* Cities.swift */,
@@ -424,7 +421,6 @@
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D8B26418211B2055000E814F /* TokenController.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,
-				D6A76B19210FA42E008FD7E7 /* CurrentUser.swift in Sources */,
 				D6A0D7B2211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift in Sources */,
 				D8E699FE20FF34A4005484CA /* User.swift in Sources */,
 			);

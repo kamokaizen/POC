@@ -99,7 +99,7 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
             APIClient.getCurrentUser(completion:{ result in
                 switch result {
                 case .success(let userResponse):
-                    UserDefaults.standard.set(try? PropertyListEncoder().encode(userResponse.principal.userDto), forKey: "userProfile")
+                    UserDefaults.standard.set(try? PropertyListEncoder().encode(userResponse), forKey: "userProfile")
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
                 }

@@ -88,7 +88,7 @@ class APIClient {
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
-    static func getCurrentUser(completion:@escaping (Result<CurrentUser>)->Void){
+    static func getCurrentUser(completion:@escaping (Result<ServerResponse<User>>)->Void){
         checkTokenExpired(route: UserEndpoint.current(), completion: completion)
     }
 
