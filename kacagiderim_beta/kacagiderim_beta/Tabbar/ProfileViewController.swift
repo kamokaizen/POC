@@ -7,24 +7,27 @@
 //
 
 import UIKit
+import DCKit
 import Dodo
 import McPicker
 import CardParts
 import RxSwift
 import RxCocoa
+import NVActivityIndicatorView
 
 class ProfileViewController: CardsViewController {
-    
-    @IBOutlet var activeUserLabel: UILabel!
-    @IBOutlet var logoutButton: UIButton!
     
     var viewModel: ProfileViewModel!
     var cards: [CardController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel = ProfileViewModel()
-        self.cards = [LoggedInCardController(viewModel:viewModel), ProfileCardController(viewModel:viewModel), MetricsCardContoller(viewModel:viewModel), FavouriteCitiesContoller(viewModel:viewModel)]
+        self.viewModel = ProfileViewModel(rootViewController: self)
+        self.cards = [LoggedInCardController(viewModel:viewModel),
+                      ProfileCardController(viewModel:viewModel),
+                      MetricsCardContoller(viewModel:viewModel),
+                      FavouriteCitiesContoller(viewModel:viewModel),
+                      UpdateController(viewModel: viewModel)]
         loadCards(cards: cards)
     }
     
@@ -42,6 +45,41 @@ class ProfileViewController: CardsViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, NoTopBottomMarginsCardTrait, TransparentCardTrait {
+    
+    var viewModel: ProfileViewModel!
+    var updateButton: DCBorderedButton! = DCBorderedButton()
+    var stack = CardPartStackView()
+    
+    public init(viewModel: ProfileViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        stack.axis = .vertical
+        stack.spacing = 0
+    
+        updateButton.setTitle("Save All Changes", for: UIControlState.normal)
+        updateButton.setTitleColor(UIColor.red, for: UIControlState.normal)
+        updateButton.cornerRadius = 10
+        updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
+        
+        stack.addArrangedSubview(updateButton)
+        setupCardParts([stack])
+    }
+    
+    @objc func updateButtonTapped() {
+        self.viewModel.updateProfileData(viewController:self)
     }
 }
 
@@ -342,16 +380,19 @@ class ProfileCardController: CardPartsViewController  {
         usernameTextFieldPart.placeholder = "Type a username"
         usernameTextFieldPart.font = CardParts.theme.normalTextFont
         usernameTextFieldPart.textColor = CardParts.theme.normalTextColor
+        usernameTextFieldPart.addTarget(self, action: #selector(self.usernameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         nameTextFieldPart.keyboardType = .default
         nameTextFieldPart.placeholder = "Type a name"
         nameTextFieldPart.font = CardParts.theme.normalTextFont
         nameTextFieldPart.textColor = CardParts.theme.normalTextColor
+        nameTextFieldPart.addTarget(self, action: #selector(self.nameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         surnameTextFieldPart.keyboardType = .default
         surnameTextFieldPart.placeholder = "Type a surname"
         surnameTextFieldPart.font = CardParts.theme.normalTextFont
         surnameTextFieldPart.textColor = CardParts.theme.normalTextColor
+        surnameTextFieldPart.addTarget(self, action: #selector(self.surnameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         passwordChangeButtonPart.setTitle("Change", for: .normal)
         passwordChangeButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
@@ -367,6 +408,7 @@ class ProfileCardController: CardPartsViewController  {
         ssnTextFieldPart.placeholder = "Type your SSN"
         ssnTextFieldPart.font = CardParts.theme.normalTextFont
         ssnTextFieldPart.textColor = CardParts.theme.normalTextColor
+        ssnTextFieldPart.addTarget(self, action: #selector(self.ssnTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: separator, rightView: usernameTextFieldPart)
         let centeredCardPart2 = CardPartCenteredView(leftView: textView2, centeredView: separator2, rightView: nameTextFieldPart)
@@ -382,6 +424,22 @@ class ProfileCardController: CardPartsViewController  {
         viewModel.countryName.asObservable().bind(to: countryViewButtonPart.rx.title()).disposed(by: bag)
         
         setupCardParts([titlePart, cardPartSeparatorView, centeredCardPart,centeredCardPart2,centeredCardPart3,centeredCardPart4,centeredCardPart5,centeredCardPart6])
+    }
+    
+    @objc func usernameTextFieldDidChange(_ textField: UITextField) {
+        self.viewModel.usernameText.value = textField.text!
+    }
+    
+    @objc func nameTextFieldDidChange(_ textField: UITextField) {
+        self.viewModel.nameText.value = textField.text!
+    }
+    
+    @objc func surnameTextFieldDidChange(_ textField: UITextField) {
+        self.viewModel.surnameText.value = textField.text!
+    }
+    
+    @objc func ssnTextFieldDidChange(_ textField: UITextField) {
+        self.viewModel.ssnText.value = textField.text!
     }
     
     // change password button action
@@ -411,7 +469,6 @@ class ProfileCardController: CardPartsViewController  {
 }
 
 class ProfileViewModel {
-    
     var usernameText = Variable("")
     var nameText = Variable("")
     var surnameText = Variable("")
@@ -428,7 +485,11 @@ class ProfileViewModel {
     var citySelectionData: [[String]] = []
     let favouriteCities: Variable<[String]> = Variable([])
     
-    init() {
+    var messageHelper = MessageHelper()
+    var rootViewController:UIViewController
+    
+    init(rootViewController: UIViewController) {
+        self.rootViewController = rootViewController
         refreshLocalData()
         getProfileData()
     }
@@ -548,8 +609,31 @@ class ProfileViewModel {
         })
     }
     
-    func updateProfileData(){
-        // MAKE SERVICE CALL IF SUCCESS THAN UPDATE LOCAL
+    func updateProfileData(viewController: UpdateController){
+        if let data = UserDefaults.standard.value(forKey:"userProfile") as? Data {
+            let profile = try? PropertyListDecoder().decode(User.self, from: data)
+            let user = User(username: self.usernameText.value,
+                            name: self.nameText.value,
+                            surname: self.surnameText.value,
+                            countryId: self.countryId.value,
+                            currencyMetric: CurrencyMetrics(rawValue: self.currencyMetric.value)!,
+                            distanceMetric: DistanceMetrics(rawValue: self.distanceMetric.value)!,
+                            volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
+                            userType: (profile?.userType)!,
+                            socialSecurityNumber: self.ssnText.value)
+            viewController.startAnimating(CGSize(width: 100, height: 100),message: "Profile Updating...", type: NVActivityIndicatorType.lineScale)
+            APIClient.updateAccount(user: user, completion: { result in
+                switch result {
+                case .success(let updateResponse):
+                    viewController.stopAnimating()
+                    self.messageHelper.showInfoMessage(text: updateResponse.reason, view: self.rootViewController.view)
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+                    viewController.stopAnimating()
+                    self.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:self.rootViewController.view)
+                }
+            })
+        }
     }
 }
 

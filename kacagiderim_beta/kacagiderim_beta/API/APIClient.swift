@@ -41,18 +41,19 @@ class APIClient {
                 print("Error: \(String(describing: response.error))")
                 
                 let timeout = response.error?._code == NSURLErrorTimedOut ? true : false
+                let statusCode = response.response?.statusCode
                 
                 if(response.error != nil){                    
                     do{
-                        var customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!, timeout:timeout)
+                        var customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!, timeout:timeout, statusCode:statusCode!)
                         
                         switch(route){
                         case LoginEndpoint.login:
-                            customError = CustomError(error: response.error!, reason: try decoder.decode(LoginFailResponse.self, from: response.data!).error_description, timeout:timeout)
+                            customError = CustomError(error: response.error!, reason: try decoder.decode(LoginFailResponse.self, from: response.data!).error_description, timeout:timeout,statusCode:statusCode!)
                         case UserEndpoint.create:
-                            customError = CustomError(error: response.error!, reason: try decoder.decode(ServerResponse<User>.self, from: response.data!).reason, timeout:timeout)
+                            customError = CustomError(error: response.error!, reason: try decoder.decode(ServerResponse<User>.self, from: response.data!).reason, timeout:timeout,statusCode:statusCode!)
                         default:
-                            customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!, timeout:timeout)
+                            customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!, timeout:timeout,statusCode:statusCode!)
                         }
                         
                         completion(Result<T>.failure(customError))
@@ -60,7 +61,7 @@ class APIClient {
                     }
                     catch{
                         print("API Unexpected Parse error: \(error).")
-                        completion(Result<T>.failure(CustomError(error: error, reason: (response.error?.localizedDescription)!, timeout:timeout)))
+                        completion(Result<T>.failure(CustomError(error: error, reason: (response.error?.localizedDescription)!, timeout:timeout,statusCode:statusCode!)))
                         return
                     }
                 }
@@ -72,7 +73,7 @@ class APIClient {
                 }
                 catch{
                     print("API Unexpected Parse error: \(error).")
-                    completion(Result<T>.failure(CustomError(error: error, reason: (response.error?.localizedDescription)!, timeout:timeout)))
+                    completion(Result<T>.failure(CustomError(error: error, reason: (response.error?.localizedDescription)!, timeout:timeout, statusCode:statusCode!)))
                     return
                 }
         }
@@ -86,6 +87,10 @@ class APIClient {
     static func createAccount(user: User, completion:@escaping (Result<ServerResponse<User>>)->Void) {
         // this method do not need access_token
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
+    }
+    
+    static func updateAccount(user: User, completion:@escaping (Result<ServerResponse<User>>)->Void) {
+        checkTokenExpired(route: UserEndpoint.update(user:user), completion: completion)
     }
     
     static func getCurrentUser(completion:@escaping (Result<ServerResponse<User>>)->Void){

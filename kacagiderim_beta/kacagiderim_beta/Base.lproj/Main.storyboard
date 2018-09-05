@@ -766,40 +766,10 @@
                     <view key="view" contentMode="scaleToFill" id="lhR-ll-ZD3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WGv-0t-mZI">
-                                <rect key="frame" x="10" y="376" width="355" height="60.333333333333314"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSH-sI-1K7">
-                                        <rect key="frame" x="133.66666666666666" y="0.0" width="88" height="20.333333333333332"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzm-p1-GkD">
-                                        <rect key="frame" x="153.66666666666666" y="30.333333333333314" width="48" height="30"/>
-                                        <state key="normal" title="Logout"/>
-                                        <connections>
-                                            <action selector="didLogoutTappedWithSender:" destination="PJi-ex-wnO" eventType="touchUpInside" id="iLp-jh-0bx"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="WGv-0t-mZI" firstAttribute="centerY" secondItem="lhR-ll-ZD3" secondAttribute="centerY" id="SmT-47-VVb"/>
-                            <constraint firstItem="yjr-kJ-8Xb" firstAttribute="trailing" secondItem="WGv-0t-mZI" secondAttribute="trailing" constant="10" id="Vzc-OI-ibc"/>
-                            <constraint firstItem="WGv-0t-mZI" firstAttribute="centerX" secondItem="lhR-ll-ZD3" secondAttribute="centerX" id="s7Y-Y8-4o5"/>
-                            <constraint firstItem="WGv-0t-mZI" firstAttribute="leading" secondItem="yjr-kJ-8Xb" secondAttribute="leading" constant="10" id="yJF-2D-XlR"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="yjr-kJ-8Xb"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="profile" selectedImage="profile" id="0Ku-kh-E8f"/>
-                    <connections>
-                        <outlet property="activeUserLabel" destination="oSH-sI-1K7" id="v9V-mH-94j"/>
-                        <outlet property="logoutButton" destination="Jzm-p1-GkD" id="sTE-wg-9sg"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCt-Ch-1Tg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
