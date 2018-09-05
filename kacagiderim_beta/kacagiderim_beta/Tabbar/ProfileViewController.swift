@@ -48,7 +48,7 @@ class ProfileViewController: CardsViewController {
     }
 }
 
-class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, NoTopBottomMarginsCardTrait, TransparentCardTrait {
+class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, ShadowCardTrait, RoundedCardTrait{
     
     var viewModel: ProfileViewModel!
     var updateButton: DCBorderedButton! = DCBorderedButton()
@@ -63,6 +63,25 @@ class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, No
         fatalError("init(coder:) has not been implemented")
     }
     
+    func shadowColor() -> CGColor {
+        return UIColor.lightGray.cgColor
+    }
+    
+    func shadowRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    // The value can be from 0.0 to 1.0.
+    // 0.0 => lighter shadow
+    // 1.0 => darker shadow
+    func shadowOpacity() -> Float {
+        return 1.0
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,7 +90,12 @@ class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, No
     
         updateButton.setTitle("Save All Changes", for: UIControlState.normal)
         updateButton.setTitleColor(UIColor.red, for: UIControlState.normal)
-        updateButton.cornerRadius = 10
+        updateButton.backgroundColor = UIColor.clear
+        updateButton.highlightedBackgroundColor = UIColor.clear
+        updateButton.normalBackgroundColor = UIColor.clear
+        updateButton.selectedBorderColor = UIColor.clear
+        updateButton.normalBorderColor = UIColor.clear
+//        updateButton.cornerRadius = 10
         updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
         
         stack.addArrangedSubview(updateButton)
@@ -83,7 +107,7 @@ class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, No
     }
 }
 
-class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait {
+class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait, ShadowCardTrait, RoundedCardTrait {
     
     var viewModel: ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
@@ -97,6 +121,25 @@ class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait {
     
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func shadowColor() -> CGColor {
+        return UIColor.lightGray.cgColor
+    }
+    
+    func shadowRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    // The value can be from 0.0 to 1.0.
+    // 0.0 => lighter shadow
+    // 1.0 => darker shadow
+    func shadowOpacity() -> Float {
+        return 1.0
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
     }
     
     override func viewDidLoad() {
@@ -123,7 +166,7 @@ class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait {
     }
 }
 
-class LoggedInCardController: CardPartsViewController  {
+class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait{
     var titlePart = CardPartTitleView(type: .titleOnly)
     var activeUser = CardPartTextView(type: .normal)
     var cardPartSeparatorView = CardPartSeparatorView()
@@ -142,6 +185,25 @@ class LoggedInCardController: CardPartsViewController  {
     
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func shadowColor() -> CGColor {
+        return UIColor.lightGray.cgColor
+    }
+    
+    func shadowRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    // The value can be from 0.0 to 1.0.
+    // 0.0 => lighter shadow
+    // 1.0 => darker shadow
+    func shadowOpacity() -> Float {
+        return 1.0
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
     }
     
     override func viewDidLoad() {
@@ -181,7 +243,7 @@ class LoggedInCardController: CardPartsViewController  {
     }
 }
 
-class MetricsCardContoller: CardPartsViewController  {
+class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
     var viewModel : ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
@@ -204,6 +266,25 @@ class MetricsCardContoller: CardPartsViewController  {
     
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func shadowColor() -> CGColor {
+        return UIColor.lightGray.cgColor
+    }
+    
+    func shadowRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    // The value can be from 0.0 to 1.0.
+    // 0.0 => lighter shadow
+    // 1.0 => darker shadow
+    func shadowOpacity() -> Float {
+        return 1.0
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
     }
     
     override func viewDidLoad() {
@@ -315,7 +396,7 @@ class MetricsCardContoller: CardPartsViewController  {
     }
 }
 
-class ProfileCardController: CardPartsViewController  {
+class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
     
     var viewModel : ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
@@ -343,6 +424,25 @@ class ProfileCardController: CardPartsViewController  {
     
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func shadowColor() -> CGColor {
+        return UIColor.lightGray.cgColor
+    }
+    
+    func shadowRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    // The value can be from 0.0 to 1.0.
+    // 0.0 => lighter shadow
+    // 1.0 => darker shadow
+    func shadowOpacity() -> Float {
+        return 1.0
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
     }
     
     override func viewDidLoad() {
@@ -627,6 +727,7 @@ class ProfileViewModel {
                 case .success(let updateResponse):
                     viewController.stopAnimating()
                     self.messageHelper.showInfoMessage(text: updateResponse.reason, view: self.rootViewController.view)
+                    self.getProfileData()
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
                     viewController.stopAnimating()
