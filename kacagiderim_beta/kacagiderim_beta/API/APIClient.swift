@@ -109,5 +109,9 @@ class APIClient {
     static func getFuelPrices(country: String, city: String, completion:@escaping (Result<ServerResponse<FuelPrice>>)->Void){
         checkTokenExpired(route: FuelEndpoint.prices(country: country, city: city), completion: completion)
     }
+    
+    static func getFuelPricesWithNames(country: String, cities: String, completion:@escaping (Result<ServerResponse<FuelPrices>>)->Void){
+        checkTokenExpired(route: FuelEndpoint.priceswithnames(country: country, cities: cities), completion: completion)
+    }
 }
 

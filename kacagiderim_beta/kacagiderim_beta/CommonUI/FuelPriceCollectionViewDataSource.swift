@@ -50,18 +50,16 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             selectedCities = []
         }
         if(selectedCities!.count > 0){
-            for city in (selectedCities?.sorted(by:<))! {
-                APIClient.getFuelPrices(country: countryCode, city: city, completion:{ result in
-                    switch result {
-                    case .success(let fuelPriceResponse):
-                        self.fuelPrices?.append(fuelPriceResponse.value!)
-                        self.superViewController.pageControl.numberOfPages = (self.fuelPrices?.count)!
-                        self.superViewController.collectionView.reloadData()
-                    case .failure(let error):
-                        print((error as! CustomError).localizedDescription)
-                    }
-                })
-            }
+            APIClient.getFuelPricesWithNames(country: countryCode, cities: (selectedCities?.sorted(by:<).joined(separator: ","))!, completion:{ result in
+                switch result {
+                case .success(let fuelPriceResponse):
+                    self.fuelPrices? = (fuelPriceResponse.value?.fuelPrices)!
+                    self.superViewController.pageControl.numberOfPages = (self.fuelPrices?.count)!
+                    self.superViewController.collectionView.reloadData()
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+                }
+            })
         }
         else{
             APIClient.getFuelPrices(country: countryCode, city: "", completion:{ result in

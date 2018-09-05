@@ -11,11 +11,12 @@ import Alamofire
 enum FuelEndpoint: APIConfiguration {
     
     case prices(country:String, city:String)
+    case priceswithnames(country:String, cities:String)
     
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-        case .prices:
+        case .prices,.priceswithnames:
             return .post
         }
     }
@@ -25,6 +26,8 @@ enum FuelEndpoint: APIConfiguration {
         switch self {
         case .prices:
             return "/fuels/api/prices"
+        case .priceswithnames:
+            return "/fuels/api/priceswithcities"
         }
     }
     
@@ -33,6 +36,8 @@ enum FuelEndpoint: APIConfiguration {
         switch self {
         case .prices(let country, let city):
             return [K.APIParameterKey.fromCountry: country, K.APIParameterKey.fromCity: city]
+        case .priceswithnames(let country, let cities):
+            return [K.APIParameterKey.fromCountry: country, K.APIParameterKey.fromCities: cities]
         }
     }
     

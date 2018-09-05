@@ -28,6 +28,7 @@ struct K {
         static let countryId = "countryId"
         static let fromCountry = "fromcountry"
         static let fromCity = "fromcity"
+        static let fromCities = "fromcities"
         static let homeLatitude = "homeLatitude"
         static let homeLongitude = "homeLongitude"
         static let workLatitude = "workLatitude"

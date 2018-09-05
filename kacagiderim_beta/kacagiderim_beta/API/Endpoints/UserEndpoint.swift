@@ -30,7 +30,7 @@ enum UserEndpoint: APIConfiguration {
             case .create:
                 return "/uaa/users/create"
             case .current:
-                return "/uaa/users/current"
+                return "/uaa/users/profile"
         }
     }
     
