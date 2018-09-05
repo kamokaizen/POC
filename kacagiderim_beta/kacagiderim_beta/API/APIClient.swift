@@ -41,7 +41,7 @@ class APIClient {
                 print("Error: \(String(describing: response.error))")
                 
                 let timeout = response.error?._code == NSURLErrorTimedOut ? true : false
-                let statusCode = response.response?.statusCode
+                let statusCode = response.response?.statusCode != nil ? response.response?.statusCode : -1
                 
                 if(response.error != nil){                    
                     do{
@@ -91,6 +91,10 @@ class APIClient {
     
     static func updateAccount(user: User, completion:@escaping (Result<ServerResponse<User>>)->Void) {
         checkTokenExpired(route: UserEndpoint.update(user:user), completion: completion)
+    }
+    
+    static func changePassword(current: String, new: String, confirmed: String, completion:@escaping (Result<ServerResponse<User>>)->Void) {
+        checkTokenExpired(route: UserEndpoint.changePassword(current: current, new: new, confirmed: confirmed), completion: completion)
     }
     
     static func getCurrentUser(completion:@escaping (Result<ServerResponse<User>>)->Void){

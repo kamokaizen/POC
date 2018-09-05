@@ -15,6 +15,9 @@
 		D6A0D7B8212082C80019C7FA /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B7212082C80019C7FA /* City.swift */; };
 		D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7B92120837B0019C7FA /* Cities.swift */; };
 		D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */; };
+		D6C29B2121407EC000054110 /* CustomCardPartTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C29B2021407EC000054110 /* CustomCardPartTheme.swift */; };
+		D6C29B2321407FF700054110 /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C29B2221407FF700054110 /* ExtensionUIColor.swift */; };
+		D6C29B252140808300054110 /* ExtensionUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C29B242140808300054110 /* ExtensionUIFont.swift */; };
 		D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */; };
 		D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */; };
 		D6D66A8E20F9FB6E003B7C75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A8C20F9FB6E003B7C75 /* Main.storyboard */; };
@@ -61,6 +64,9 @@
 		D6A0D7B7212082C80019C7FA /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D6A0D7B92120837B0019C7FA /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
 		D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomTableViewCell.swift; sourceTree = "<group>"; };
+		D6C29B2021407EC000054110 /* CustomCardPartTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCardPartTheme.swift; sourceTree = "<group>"; };
+		D6C29B2221407FF700054110 /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
+		D6C29B242140808300054110 /* ExtensionUIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIFont.swift; sourceTree = "<group>"; };
 		D6D66A8520F9FB6E003B7C75 /* kacagiderim_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kacagiderim_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +188,9 @@
 				D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */,
 				D86F692721231977006FF227 /* CustomCollectionViewController.swift */,
 				D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */,
+				D6C29B2021407EC000054110 /* CustomCardPartTheme.swift */,
+				D6C29B2221407FF700054110 /* ExtensionUIColor.swift */,
+				D6C29B242140808300054110 /* ExtensionUIFont.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -399,8 +408,10 @@
 				D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
+				D6C29B2321407FF700054110 /* ExtensionUIColor.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
 				D838A66C213FED7B003E034E /* FuelPrices.swift in Sources */,
+				D6C29B2121407EC000054110 /* CustomCardPartTheme.swift in Sources */,
 				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */,
@@ -414,6 +425,7 @@
 				D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */,
 				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
 				D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */,
+				D6C29B252140808300054110 /* ExtensionUIFont.swift in Sources */,
 				D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */,
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
 				D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */,

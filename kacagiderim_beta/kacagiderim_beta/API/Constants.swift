@@ -12,12 +12,15 @@ import UIKit
 struct K {
     struct ProductionServer {
 //        static let baseURL = "https://kacagiderim.com"
-        static let baseURL = "http://10.100.136.233:4000"
-//        static let baseURL = "http://127.0.0.1:4000"
+//        static let baseURL = "http://10.100.136.233:4000"
+        static let baseURL = "http://127.0.0.1:4000"
     }
     
     struct APIParameterKey {
         static let password = "password"
+        static let currentPassword = "currentPassword"
+        static let newPassword = "newPassword"
+        static let confirmedPassword = "confirmedPassword"
         static let email = "email"
         static let scope = "scope"
         static let grantType = "grant_type"

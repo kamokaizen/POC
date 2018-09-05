@@ -14,11 +14,12 @@ enum UserEndpoint: APIConfiguration {
     case create(user:User)
     case current()
     case update(user:User)
+    case changePassword(current:String, new:String, confirmed:String)
     
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-            case .create, .update:
+            case .create, .update, .changePassword:
                 return .post
             case .current:
                 return .get
@@ -34,6 +35,8 @@ enum UserEndpoint: APIConfiguration {
                 return "/uaa/users/profile"
             case .update:
                 return "/uaa/users/update"
+            case .changePassword:
+                return "/uaa/users/changepassword"
         }
     }
     
@@ -55,22 +58,26 @@ enum UserEndpoint: APIConfiguration {
                         K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
                         K.APIParameterKey.userType: user.userType.rawValue,
                         K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any]
-        case .update(let user):
-            return [K.APIParameterKey.username: user.username,
-                    K.APIParameterKey.name: user.name,
-                    K.APIParameterKey.surname: user.surname,
-                    K.APIParameterKey.countryId: user.countryId,
-                    K.APIParameterKey.homeLatitude: user.homeLatitude as Any,
-                    K.APIParameterKey.homeLongitude: user.homeLongitude as Any,
-                    K.APIParameterKey.workLatitude: user.workLatitude!,
-                    K.APIParameterKey.workLongitude: user.workLongitude as Any,
-                    K.APIParameterKey.currencyMetric: user.currencyMetric.rawValue,
-                    K.APIParameterKey.distanceMetric: user.distanceMetric.rawValue,
-                    K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
-                    K.APIParameterKey.userType: user.userType.rawValue,
-                    K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any]
-        case .current():
-            return nil
+            case .update(let user):
+                return [K.APIParameterKey.username: user.username,
+                        K.APIParameterKey.name: user.name,
+                        K.APIParameterKey.surname: user.surname,
+                        K.APIParameterKey.countryId: user.countryId,
+                        K.APIParameterKey.homeLatitude: user.homeLatitude as Any,
+                        K.APIParameterKey.homeLongitude: user.homeLongitude as Any,
+                        K.APIParameterKey.workLatitude: user.workLatitude!,
+                        K.APIParameterKey.workLongitude: user.workLongitude as Any,
+                        K.APIParameterKey.currencyMetric: user.currencyMetric.rawValue,
+                        K.APIParameterKey.distanceMetric: user.distanceMetric.rawValue,
+                        K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
+                        K.APIParameterKey.userType: user.userType.rawValue,
+                        K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any]
+            case .changePassword(let current, let new, let confirmed):
+                return [K.APIParameterKey.currentPassword: current,
+                        K.APIParameterKey.newPassword: new,
+                        K.APIParameterKey.confirmedPassword:confirmed]
+            case .current():
+                return nil
         }
     }
     

@@ -23,10 +23,10 @@ class CustomError: Error {
     
     func getErrorMessage() -> String {
         switch(self.statusCode){
-            case 400:
-                return "Bad Request"
-            case 409:
-                return "Conflict"
+        case 400:
+            return "Bad Request"
+        case 409:
+            return "Conflict"
         default:
             return "Something went wrong, Please Try again later"
         }
