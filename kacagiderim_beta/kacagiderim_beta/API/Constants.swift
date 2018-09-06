@@ -12,8 +12,8 @@ import UIKit
 struct K {
     struct ProductionServer {
 //        static let baseURL = "https://kacagiderim.com"
-        static let baseURL = "http://10.100.136.233:4000"
-//        static let baseURL = "http://127.0.0.1:4000"
+//        static let baseURL = "http://10.100.136.233:4000"
+        static let baseURL = "http://127.0.0.1:4000"
     }
     
     struct APIParameterKey {
