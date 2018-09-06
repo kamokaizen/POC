@@ -17,6 +17,7 @@ import NVActivityIndicatorView
 
 class ProfileViewController: CardsViewController {
     
+    static let typeList:[String] = [UserType.INDIVIDUAL.rawValue, UserType.COMPANY.rawValue]
     var viewModel: ProfileViewModel!
     var cards: [CardController] = []
     
@@ -147,7 +148,7 @@ class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait, Shad
         titlePart.label.text = "Favourite Cities"
         
         cardPartTableView.tableView.register(MyCustomTableViewCell.self, forCellReuseIdentifier: "MyCustomTableViewCell")
-        
+
         viewModel.favouriteCities.asObservable().bind(to: cardPartTableView.tableView.rx.items) { tableView, index, data in
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCustomTableViewCell", for: IndexPath(item: index, section: 0)) as? MyCustomTableViewCell else { return UITableViewCell() }
@@ -407,6 +408,7 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     var passwordChangeButtonPart = CardPartButtonView()
     var ssnTextFieldPart = CardPartTextField(format: .none)
     var countryViewButtonPart = CardPartButtonView()
+    var typeSegmentedControl = UISegmentedControl(items: ProfileViewController.typeList)
     
     let separator = CardPartVerticalSeparatorView()
     let separator2 = CardPartVerticalSeparatorView()
@@ -414,6 +416,7 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     let separator4 = CardPartVerticalSeparatorView()
     let separator5 = CardPartVerticalSeparatorView()
     let separator6 = CardPartVerticalSeparatorView()
+    let separator7 = CardPartVerticalSeparatorView()
     
     var countryList: [[String]] = []
     
@@ -463,6 +466,7 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         let textView4 = CardPartTextView(type: .normal)
         let textView5 = CardPartTextView(type: .normal)
         let textView6 = CardPartTextView(type: .normal)
+        let textView7 = CardPartTextView(type: .normal)
         textView.text = "Username"
         textView.textColor = K.Constants.kacagiderimColor
         textView2.text = "Name"
@@ -475,6 +479,8 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         textView5.textColor = K.Constants.kacagiderimColor
         textView6.text = "Country"
         textView6.textColor = K.Constants.kacagiderimColor
+        textView7.text = "User Type"
+        textView7.textColor = K.Constants.kacagiderimColor
         
         usernameTextFieldPart.keyboardType = .default
         usernameTextFieldPart.placeholder = "Type a username"
@@ -510,20 +516,26 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         ssnTextFieldPart.textColor = CardParts.theme.normalTextColor
         ssnTextFieldPart.addTarget(self, action: #selector(self.ssnTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
+        typeSegmentedControl.addTarget(self, action: #selector(typeValueChanged), for:UIControlEvents.valueChanged)
+        
         let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: separator, rightView: usernameTextFieldPart)
         let centeredCardPart2 = CardPartCenteredView(leftView: textView2, centeredView: separator2, rightView: nameTextFieldPart)
         let centeredCardPart3 = CardPartCenteredView(leftView: textView3, centeredView: separator3, rightView: surnameTextFieldPart)
         let centeredCardPart4 = CardPartCenteredView(leftView: textView4, centeredView: separator4, rightView: passwordChangeButtonPart)
         let centeredCardPart5 = CardPartCenteredView(leftView: textView5, centeredView: separator5, rightView: ssnTextFieldPart)
         let centeredCardPart6 = CardPartCenteredView(leftView: textView6, centeredView: separator6, rightView: countryViewButtonPart)
+        let stackView = CardPartStackView()
+        stackView.addArrangedSubview(typeSegmentedControl)
+        let centeredCardPart7 = CardPartCenteredView(leftView: textView7, centeredView: separator7, rightView: stackView)
         
         viewModel.usernameText.asObservable().bind(to: usernameTextFieldPart.rx.text).disposed(by: bag)
         viewModel.nameText.asObservable().bind(to: nameTextFieldPart.rx.text).disposed(by: bag)
         viewModel.surnameText.asObservable().bind(to: surnameTextFieldPart.rx.text).disposed(by: bag)
         viewModel.ssnText.asObservable().bind(to: ssnTextFieldPart.rx.text).disposed(by: bag)
         viewModel.countryName.asObservable().bind(to: countryViewButtonPart.rx.title()).disposed(by: bag)
+        viewModel.type.asObservable().bind(to: typeSegmentedControl.rx.selectedSegmentIndex).disposed(by:bag)
         
-        setupCardParts([titlePart, cardPartSeparatorView, centeredCardPart,centeredCardPart2,centeredCardPart3,centeredCardPart4,centeredCardPart5,centeredCardPart6])
+        setupCardParts([titlePart, cardPartSeparatorView, centeredCardPart,centeredCardPart2,centeredCardPart3,centeredCardPart4,centeredCardPart5,centeredCardPart6,centeredCardPart7])
     }
     
     @objc func usernameTextFieldDidChange(_ textField: UITextField) {
@@ -542,12 +554,13 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         self.viewModel.ssnText.value = textField.text!
     }
     
+    @objc func typeValueChanged(sender: UISegmentedControl) {
+       self.viewModel.type.value = sender.selectedSegmentIndex
+    }
+    
     // change password button action
-    @objc func passwordButtonTapped() {
-        let alertController = UIAlertController(title: "Woohoo!", message: "Isn't that awesome!?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
+    @objc func passwordButtonTapped(sender: UIButton) {
+        self.viewModel.rootViewController.performSegue(withIdentifier:"passwordChangeSegue", sender:sender)
     }
     
     @objc func countryButtonTapped(sender: UIButton) {
@@ -575,11 +588,12 @@ class ProfileViewModel {
     var ssnText = Variable("")
     var countryId = Variable("")
     var countryName = Variable("")
+    var type = Variable<Int>(0)
     
     var currencyMetric = Variable("")
     var distanceMetric = Variable("")
     var volumeMetric = Variable("")
-    
+
     var countries:Countries?
     var cities: Cities?
     var citySelectionData: [[String]] = []
@@ -700,6 +714,7 @@ class ProfileViewModel {
                 self.currencyMetric.value = profile.currencyMetric.rawValue
                 self.distanceMetric.value = profile.distanceMetric.rawValue
                 self.volumeMetric.value = profile.volumeMetric.rawValue
+                self.type.value = ProfileViewController.typeList.index(of: profile.userType.rawValue)!
                 
                 self.countryId.value = profile.countryId
                 self.countryName.value = self.getCountryName(countryId: profile.countryId)
@@ -710,31 +725,28 @@ class ProfileViewModel {
     }
     
     func updateProfileData(viewController: UpdateController){
-        if let data = UserDefaults.standard.value(forKey:"userProfile") as? Data {
-            let profile = try? PropertyListDecoder().decode(User.self, from: data)
-            let user = User(username: self.usernameText.value,
-                            name: self.nameText.value,
-                            surname: self.surnameText.value,
-                            countryId: self.countryId.value,
-                            currencyMetric: CurrencyMetrics(rawValue: self.currencyMetric.value)!,
-                            distanceMetric: DistanceMetrics(rawValue: self.distanceMetric.value)!,
-                            volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
-                            userType: (profile?.userType)!,
-                            socialSecurityNumber: self.ssnText.value)
-            viewController.startAnimating(CGSize(width: 100, height: 100),message: "Profile Updating...", type: NVActivityIndicatorType.lineScale)
-            APIClient.updateAccount(user: user, completion: { result in
-                switch result {
-                case .success(let updateResponse):
-                    viewController.stopAnimating()
-                    self.messageHelper.showInfoMessage(text: updateResponse.reason, view: self.rootViewController.view)
-                    self.getProfileData()
-                case .failure(let error):
-                    print((error as! CustomError).localizedDescription)
-                    viewController.stopAnimating()
-                    self.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:self.rootViewController.view)
-                }
-            })
-        }
+        let user = User(username: self.usernameText.value,
+                        name: self.nameText.value,
+                        surname: self.surnameText.value,
+                        countryId: self.countryId.value,
+                        currencyMetric: CurrencyMetrics(rawValue: self.currencyMetric.value)!,
+                        distanceMetric: DistanceMetrics(rawValue: self.distanceMetric.value)!,
+                        volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
+                        userType: UserType(rawValue: ProfileViewController.typeList[self.type.value])!,
+                        socialSecurityNumber: self.ssnText.value)
+        viewController.startAnimating(CGSize(width: 100, height: 100),message: "Profile Updating...", type: NVActivityIndicatorType.lineScale)
+        APIClient.updateAccount(user: user, completion: { result in
+            switch result {
+            case .success(let updateResponse):
+                viewController.stopAnimating()
+                self.messageHelper.showInfoMessage(text: updateResponse.reason, view: self.rootViewController.view)
+                self.getProfileData()
+            case .failure(let error):
+                print((error as! CustomError).localizedDescription)
+                viewController.stopAnimating()
+                self.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:self.rootViewController.view)
+            }
+        })
     }
 }
 

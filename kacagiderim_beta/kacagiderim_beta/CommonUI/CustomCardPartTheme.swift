@@ -13,7 +13,7 @@ public class CustomCardPartTheme: CardPartsTheme {
     
     static var turboHeaderBlueColor: UIColor { get { return UIColor.colorFromHex(0x05A4B5) }}
     
-    public var cardsViewContentInsetTop: CGFloat = 0.0
+    public var cardsViewContentInsetTop: CGFloat = 10.0
     public var cardsLineSpacing: CGFloat = 12
     
     public var cardShadow: Bool = true

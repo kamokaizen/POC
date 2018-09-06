@@ -26,7 +26,7 @@ class MyCustomTableViewCell: CardPartTableViewCardPartsCell {
         deleteButton.titleLabel?.font = CardParts.theme.normalTextFont
         deleteButton.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
         let centeredView = CardPartCenteredView(leftView: attrHeader1, centeredView: separator, rightView: deleteButton)
-        
+        centeredView.margins = UIEdgeInsets(top: 0.0, left: 40.0, bottom: 0.0, right: 15.0)
         setupCardParts([centeredView])
     }
     

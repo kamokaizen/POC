@@ -38,6 +38,7 @@
 		D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077120FCD9D300B1128A /* CarsViewController.swift */; };
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
 		D838A66C213FED7B003E034E /* FuelPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66B213FED7B003E034E /* FuelPrices.swift */; };
+		D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66D214102DA003E034E /* PasswordViewController.swift */; };
 		D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86F692721231977006FF227 /* CustomCollectionViewController.swift */; };
 		D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginFailResponse.swift */; };
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
@@ -89,6 +90,7 @@
 		D800077120FCD9D300B1128A /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		D838A66B213FED7B003E034E /* FuelPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrices.swift; sourceTree = "<group>"; };
+		D838A66D214102DA003E034E /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		D86F692721231977006FF227 /* CustomCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewController.swift; sourceTree = "<group>"; };
 		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				D800076D20FCCF3900B1128A /* MapViewController.swift */,
 				D800076F20FCD9C200B1128A /* RoutesViewController.swift */,
 				D800077120FCD9D300B1128A /* CarsViewController.swift */,
+				D838A66D214102DA003E034E /* PasswordViewController.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
 				D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */,
+				D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
 				D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
