@@ -120,11 +120,8 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
     var latitudeWorkTextView = CardPartTextView(type: .normal)
     var longitudeWorkTextView = CardPartTextView(type: .normal)
     
-//    var homeEditButton = CardPartButtonView()
-    var workEditButton = CardPartButtonView()
-    
     let homeEditButton = UIButton(type: UIButtonType.custom)
-//    let workEditButton = UIButton(type: UIButtonType.custom)
+    let workEditButton = UIButton(type: UIButtonType.custom)
     
     let homeSeparator = CardPartVerticalSeparatorView()
     let workSeparator = CardPartVerticalSeparatorView()
@@ -230,117 +227,6 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
         viewModel.workLongitude.asObservable().bind(to: longitudeWorkTextView.rx.text).disposed(by:bag)
         
         setupCardParts([titlePart, cardPartSeparatorView, stack, locationSeparator, workStack])
-        
-//        stackVertical.addConstraint(NSLayoutConstraint(item: stackVertical, attribute: .width, relatedBy: .equal, toItem: homeImage, attribute: .width, multiplier: 2.0, constant: 0.0))
-//
-//        homeImage.addConstraint(NSLayoutConstraint(item: homeImage, attribute: .width, relatedBy: .equal, toItem: homeEditButton, attribute: .width, multiplier: 2.0, constant: 0.0))
-        
-//        homeImage.addConstraint(NSLayoutConstraint(item: homeImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 50.0))
-//        homeImage.addConstraint(NSLayoutConstraint(item: homeImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 50.0))
-//        homeImage.contentMode = .scaleAspectFit;
-        
-//        workImage.addConstraint(NSLayoutConstraint(item: workImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 50.0))
-//        workImage.addConstraint(NSLayoutConstraint(item: workImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 50.0))
-//        workImage.contentMode = .scaleAspectFit;
-//        workImage.contentMode = .scaleAspectFit
-
-//        homeEditButton.addConstraint(NSLayoutConstraint(item: homeEditButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 20.0))
-//        homeEditButton.addConstraint(NSLayoutConstraint(item: homeEditButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 20.0))
-//        homeEditButton.contentMode = .scaleAspectFit
-//
-//        workEditButton.addConstraint(NSLayoutConstraint(item: workEditButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 20.0))
-//        workEditButton.addConstraint(NSLayoutConstraint(item: workEditButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 20.0))
-//        workEditButton.contentMode = .scaleAspectFit
-        
-//        homeEditButton.setTitle("edit", for: .normal)
-//        homeEditButton.addTarget(self, action: #selector(homeEditButtonTapped), for: .touchUpInside)
-//        homeEditButton.titleLabel?.font = CardParts.theme.normalTextFont
-//        homeEditButton.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
-        
-//        workEditButton.setTitle("edit", for: .normal)
-//        workEditButton.addTarget(self, action: #selector(workEditButtonTapped), for: .touchUpInside)
-//        workEditButton.titleLabel?.font = CardParts.theme.normalTextFont
-//        workEditButton.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
-        
-//        homeEditButton.setImage(editImage, for: UIControlState.normal)
-//        homeEditButton.addTarget(self, action:#selector(homeEditButtonTapped), for: .touchUpInside)
-//        workEditButton.setImage(editImage, for: UIControlState.normal)
-//        workEditButton.addTarget(self, action:#selector(workEditButtonTapped), for: .touchUpInside)
-        
-//        let homeTextView = CardPartTextView(type: .normal)
-//        homeTextView.text = "Home"
-//        homeTextView.textColor = K.Constants.kacagiderimColor
-        
-//        let homeLeftStack = CardPartStackView()
-//        homeLeftStack.axis = .horizontal
-//        homeLeftStack.spacing = 10
-//        homeLeftStack.addArrangedSubview(homeImage)
-//        homeLeftStack.addArrangedSubview(homeTextView)
-//
-//        let homeRightStack = CardPartStackView()
-//        homeRightStack.axis = .vertical
-//        homeRightStack.spacing = 10
-//
-//        let homeLatitudeTextView = CardPartTextView(type: .normal)
-//        homeLatitudeTextView.text = "Latitude"
-//        homeLatitudeTextView.textColor = K.Constants.kacagiderimColor
-//        let homeLatitudeItem = CardPartCenteredView(leftView: homeLatitudeTextView, centeredView: homeSeparator, rightView: latitudeHomeTextView)
-//        let homeLongitudeTextView = CardPartTextView(type: .normal)
-//        homeLongitudeTextView.text = "Longitude"
-//        homeLongitudeTextView.textColor = K.Constants.kacagiderimColor
-//        let longitudeHomeItem = CardPartCenteredView(leftView: homeLongitudeTextView, centeredView: homeSeparator, rightView: longitudeHomeTextView)
-//
-//        homeRightStack.addArrangedSubview(homeLatitudeItem)
-//        homeRightStack.addArrangedSubview(longitudeHomeItem)
-//
-//        let homeMainStackPart = CardPartStackView()
-//        homeMainStackPart.axis = .horizontal
-//        homeMainStackPart.spacing = 10
-//        homeMainStackPart.addArrangedSubview(homeRightStack)
-//        homeMainStackPart.addArrangedSubview(homeEditButton)
-//
-//        let homeCenteredCardPart = CardPartCenteredView(leftView: homeLeftStack, centeredView: homeSeparator, rightView: homeMainStackPart)
-//
-//        let workTextView = CardPartTextView(type: .normal)
-//        workTextView.text = "Work"
-//        workTextView.textColor = K.Constants.kacagiderimColor
-//
-//        let workLeftStack = CardPartStackView()
-//        workLeftStack.axis = .horizontal
-//        workLeftStack.spacing = 10
-//        workLeftStack.addArrangedSubview(workImage)
-//        workLeftStack.addArrangedSubview(workTextView)
-//
-//        let workRightStack = CardPartStackView()
-//        workRightStack.axis = .vertical
-//        workRightStack.spacing = 10
-//
-//        let workLatitudeTextView = CardPartTextView(type: .normal)
-//        workLatitudeTextView.text = "Latitude"
-//        workLatitudeTextView.textColor = K.Constants.kacagiderimColor
-//        let workLatitudeItem = CardPartCenteredView(leftView: workLatitudeTextView, centeredView: workSeparator, rightView: latitudeWorkTextView)
-//        let workLongitudeTextView = CardPartTextView(type: .normal)
-//        workLongitudeTextView.text = "Longitude"
-//        workLongitudeTextView.textColor = K.Constants.kacagiderimColor
-//        let workLongitudeItem = CardPartCenteredView(leftView: workLongitudeTextView, centeredView: workSeparator, rightView: longitudeWorkTextView)
-//
-//        workRightStack.addArrangedSubview(workLatitudeItem)
-//        workRightStack.addArrangedSubview(workLongitudeItem)
-//
-//        let workMainStackPart = CardPartStackView()
-//        workMainStackPart.axis = .horizontal
-//        workMainStackPart.spacing = 10
-//        workMainStackPart.addArrangedSubview(workRightStack)
-//        workMainStackPart.addArrangedSubview(workEditButton)
-//
-//        let workCenteredCardPart = CardPartCenteredView(leftView: workLeftStack, centeredView: workSeparator, rightView: workMainStackPart)
-        
-//        viewModel.homeLatitude.asObservable().bind(to: latitudeHomeTextView.rx.text).disposed(by:bag)
-//        viewModel.homeLongitude.asObservable().bind(to: longitudeHomeTextView.rx.text).disposed(by:bag)
-//        viewModel.workLatitude.asObservable().bind(to: latitudeWorkTextView.rx.text).disposed(by:bag)
-//        viewModel.workLongitude.asObservable().bind(to: longitudeWorkTextView.rx.text).disposed(by:bag)
-//
-//        setupCardParts([titlePart, cardPartSeparatorView, stack, homeCenteredCardPart, locationSeparator, workCenteredCardPart])
     }
     
     @objc func homeEditButtonTapped(sender: UIButton){
