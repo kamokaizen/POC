@@ -39,6 +39,8 @@
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
 		D838A66C213FED7B003E034E /* FuelPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66B213FED7B003E034E /* FuelPrices.swift */; };
 		D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66D214102DA003E034E /* PasswordViewController.swift */; };
+		D838A6702142BEAA003E034E /* MapLocationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66F2142BEAA003E034E /* MapLocationSelector.swift */; };
+		D838A6722142C0FC003E034E /* MapLocationSelector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */; };
 		D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86F692721231977006FF227 /* CustomCollectionViewController.swift */; };
 		D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginFailResponse.swift */; };
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
@@ -91,6 +93,8 @@
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		D838A66B213FED7B003E034E /* FuelPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrices.swift; sourceTree = "<group>"; };
 		D838A66D214102DA003E034E /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		D838A66F2142BEAA003E034E /* MapLocationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelector.swift; sourceTree = "<group>"; };
+		D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapLocationSelector.storyboard; sourceTree = "<group>"; };
 		D86F692721231977006FF227 /* CustomCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewController.swift; sourceTree = "<group>"; };
 		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				D6D66A8F20F9FB6E003B7C75 /* Assets.xcassets */,
 				D6D66A9120F9FB6E003B7C75 /* LaunchScreen.storyboard */,
 				D6D66A9420F9FB6E003B7C75 /* Info.plist */,
+				D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */,
 			);
 			path = kacagiderim_beta;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				D800076F20FCD9C200B1128A /* RoutesViewController.swift */,
 				D800077120FCD9D300B1128A /* CarsViewController.swift */,
 				D838A66D214102DA003E034E /* PasswordViewController.swift */,
+				D838A66F2142BEAA003E034E /* MapLocationSelector.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6D66A9320F9FB6E003B7C75 /* LaunchScreen.storyboard in Resources */,
+				D838A6722142C0FC003E034E /* MapLocationSelector.storyboard in Resources */,
 				D6D66A9020F9FB6E003B7C75 /* Assets.xcassets in Resources */,
 				D6D66A8E20F9FB6E003B7C75 /* Main.storyboard in Resources */,
 			);
@@ -408,6 +415,7 @@
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
 				D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */,
 				D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */,
+				D838A6702142BEAA003E034E /* MapLocationSelector.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
 				D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
