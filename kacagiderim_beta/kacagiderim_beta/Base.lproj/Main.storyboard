@@ -772,11 +772,20 @@
                     <tabBarItem key="tabBarItem" title="Profile" image="profile" selectedImage="profile" id="0Ku-kh-E8f"/>
                     <connections>
                         <segue destination="GXK-rY-dxF" kind="show" identifier="passwordChangeSegue" id="w0z-fn-3hk"/>
+                        <segue destination="hiy-Bw-5dD" kind="show" identifier="mapLocationSelectorSegue" id="aBt-OZ-Qo1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCt-Ch-1Tg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2642" y="325"/>
+        </scene>
+        <!--MapLocationSelector-->
+        <scene sceneID="pff-qn-jVc">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="MapLocationSelector" storyboardName="MapLocationSelector" referencedIdentifier="MapLocationSelector" id="hiy-Bw-5dD" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vPd-8v-hed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3410" y="123"/>
         </scene>
         <!--Map-->
         <scene sceneID="gEt-NO-XIU">

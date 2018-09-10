@@ -48,6 +48,13 @@ class ProfileViewController: CardsViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "mapLocationSelectorSegue"){
+            let destinationViewController = segue.destination as? MapLocationSelector
+            destinationViewController?.viewModel = self.viewModel
+        }
+    }
 }
 
 class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, ShadowCardTrait, RoundedCardTrait{
@@ -230,11 +237,11 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
     }
     
     @objc func homeEditButtonTapped(sender: UIButton){
-        
+        self.viewModel.rootViewController.performSegue(withIdentifier:"mapLocationSelectorSegue", sender:sender)
     }
-
+    
     @objc func workEditButtonTapped(sender: UIButton){
-        
+        self.viewModel.rootViewController.performSegue(withIdentifier:"mapLocationSelectorSegue", sender:sender)
     }
 }
 

@@ -99,6 +99,7 @@
 		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		D89864A021020F9A00E46477 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
+		D8AC81D021469D6A0052E472 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D8B26417211B2055000E814F /* TokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenController.swift; sourceTree = "<group>"; };
 		D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessResponse.swift; sourceTree = "<group>"; };
 		D8E699FD20FF34A4005484CA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 		19141FCE65D4CF05EB58ABFF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8AC81D021469D6A0052E472 /* CoreLocation.framework */,
 				3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */,
 			);
 			name = Frameworks;
@@ -279,6 +281,7 @@
 				D6D66A8220F9FB6D003B7C75 /* Frameworks */,
 				D6D66A8320F9FB6D003B7C75 /* Resources */,
 				4C382372DB8AA392829CEDED /* [CP] Embed Pods Frameworks */,
+				72FBFFAE0E69ED57E2D576AA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -382,6 +385,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72FBFFAE0E69ED57E2D576AA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F98971718E7C7A16450A8D08 /* [CP] Check Pods Manifest.lock */ = {

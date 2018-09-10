@@ -8,6 +8,8 @@ def all_pods
     
     # Pods 
     pod 'Alamofire', '~> 4.7'
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'
     pod 'KeychainSwift'
     pod 'TextFieldEffects'
     pod 'DCKit'
