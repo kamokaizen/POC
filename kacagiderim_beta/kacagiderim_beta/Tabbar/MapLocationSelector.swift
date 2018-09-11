@@ -12,13 +12,14 @@ import GoogleMaps
 
 class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
     
-    var viewModel:ProfileViewModel?
     @IBOutlet fileprivate weak var mapView: GMSMapView!
     let locationManager = CLLocationManager()
     var workMarker = GMSMarker()
     var homeMarker = GMSMarker()
     var currentPosition = GMSMarker()
     var zoom: Float = 15
+    //MARK: Create a delegate property here, don't forget to make it weak!
+    weak var delegate: LocationUpdateDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,15 +39,7 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         let camera = GMSCameraPosition.camera(withLatitude: 37.36, longitude: -122.0, zoom: zoom)
         mapView.camera = camera
 //        mapView.settings.myLocationButton = true
-        
-        let homeLatitude = Double(viewModel?.homeLatitude.value ?? "") ?? 0.0
-        let homelongitude = Double(viewModel?.homeLongitude.value ?? "") ?? 0.0
-        let workLatitude = Double(viewModel?.workLatitude.value ?? "") ?? 0.0
-        let worklongitude = Double(viewModel?.workLongitude.value ?? "") ?? 0.0
-        
-        let homePosition = CLLocationCoordinate2D(latitude: homeLatitude, longitude: homelongitude)
-        let workPosition = CLLocationCoordinate2D(latitude: workLatitude, longitude: worklongitude)
-        showMarker(homePosition: homePosition, workPosition: workPosition)
+        showMarker(homePosition: (delegate?.getHomePosition())!, workPosition: (delegate?.getWorkPosition())!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,25 +58,26 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         homeMarker.snippet = "Your home position"
         homeMarker.isDraggable = true
         homeMarker.map = mapView
+        homeMarker.icon = Utils.imageWithImage(image: UIImage(named: "home.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
 
         workMarker.position = workPosition
         workMarker.title = "Work"
         workMarker.snippet = "Your work position"
         workMarker.isDraggable = true
         workMarker.map = mapView
+        workMarker.icon = Utils.imageWithImage(image: UIImage(named: "office.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
         
         currentPosition.title = "Current Position"
         currentPosition.snippet = "This location is provided from your device GPS"
         currentPosition.map = mapView
+        currentPosition.icon = Utils.imageWithImage(image: UIImage(named: "current.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
     }
     
     // MARK: - Actions
     
     @IBAction func didSaveTapped(sender: UIButton) {
-        self.viewModel?.homeLatitude.value = "\(homeMarker.position.latitude)"
-        self.viewModel?.homeLongitude.value = "\(homeMarker.position.longitude)"
-        self.viewModel?.workLatitude.value = "\(workMarker.position.latitude)"
-        self.viewModel?.workLongitude.value = "\(workMarker.position.longitude)"
+        delegate?.homePositionChanged(lat: homeMarker.position.latitude, lon: homeMarker.position.longitude)
+        delegate?.workPositionChanged(lat: workMarker.position.latitude, lon: workMarker.position.longitude)
         self.dismiss(animated: true, completion: nil)
     }
     

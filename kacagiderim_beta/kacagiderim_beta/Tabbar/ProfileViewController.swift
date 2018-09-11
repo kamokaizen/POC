@@ -14,6 +14,7 @@ import CardParts
 import RxSwift
 import RxCocoa
 import NVActivityIndicatorView
+import GoogleMaps
 
 class ProfileViewController: CardsViewController {
     
@@ -36,7 +37,6 @@ class ProfileViewController: CardsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.refreshLocalData()
-        self.viewModel.getProfileData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,14 +52,14 @@ class ProfileViewController: CardsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "mapLocationSelectorSegue"){
             let destinationViewController = segue.destination as? MapLocationSelector
-            destinationViewController?.viewModel = self.viewModel
+            destinationViewController?.delegate = self.viewModel
         }
     }
 }
 
 class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, ShadowCardTrait, RoundedCardTrait{
     
-    var viewModel: ProfileViewModel!
+    weak var viewModel: ProfileViewModel!
     var updateButton: DCBorderedButton! = DCBorderedButton()
     var stack = CardPartStackView()
     
@@ -115,20 +115,20 @@ class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, Sh
     }
 }
 
-class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
-    var viewModel: ProfileViewModel!
+class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, EditableCardTrait {
+    weak  var viewModel: ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
     var homeImage = CardPartImageView(image: UIImage(named: "home.png"))
     var workImage = CardPartImageView(image: UIImage(named: "office.png"))
-    let editImage = CardPartImageView(image: UIImage(named: "edit.png"))
+//    let editImage = CardPartImageView(image: UIImage(named: "edit.png"))
     var latitudeHomeTextView = CardPartTextView(type: .normal)
     var longitudeHomeTextView = CardPartTextView(type: .normal)
     var latitudeWorkTextView = CardPartTextView(type: .normal)
     var longitudeWorkTextView = CardPartTextView(type: .normal)
     
-    let homeEditButton = UIButton(type: UIButtonType.custom)
-    let workEditButton = UIButton(type: UIButtonType.custom)
+//    let homeEditButton = UIButton(type: UIButtonType.custom)
+//    let workEditButton = UIButton(type: UIButtonType.custom)
     
     let homeSeparator = CardPartVerticalSeparatorView()
     let workSeparator = CardPartVerticalSeparatorView()
@@ -171,8 +171,8 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
         stack.spacing = 10
         stack.distribution = .fillProportionally
         
-        homeEditButton.setImage(editImage.image, for: UIControlState.normal)
-        homeEditButton.addTarget(self, action:#selector(homeEditButtonTapped), for: .touchUpInside)
+//        homeEditButton.setImage(editImage.image, for: UIControlState.normal)
+//        homeEditButton.addTarget(self, action:#selector(homeEditButtonTapped), for: .touchUpInside)
         
         let stackVertical = CardPartStackView()
         stackVertical.axis = .vertical
@@ -189,12 +189,12 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
         
         stack.addArrangedSubview(homeImage)
         stack.addArrangedSubview(stackVertical)
-        stack.addArrangedSubview(homeEditButton)
+//        stack.addArrangedSubview(homeEditButton)
         
         stack.addConstraint(NSLayoutConstraint(item: stackVertical, attribute: .width, relatedBy: .equal, toItem: homeImage, attribute: .width, multiplier: 6.0, constant: 0.0))
-        stack.addConstraint(NSLayoutConstraint(item: homeImage, attribute: .width, relatedBy: .equal, toItem: homeEditButton, attribute: .width, multiplier: 3.0, constant: 0.0))
+//        stack.addConstraint(NSLayoutConstraint(item: homeImage, attribute: .width, relatedBy: .equal, toItem: homeEditButton, attribute: .width, multiplier: 3.0, constant: 0.0))
         stack.addConstraint(NSLayoutConstraint(item: stack, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 50.0))
-        homeEditButton.imageView?.contentMode = .scaleAspectFit;
+//        homeEditButton.imageView?.contentMode = .scaleAspectFit;
         homeImage.contentMode = .scaleAspectFit;
         
         let workStack = CardPartStackView()
@@ -202,8 +202,8 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
         workStack.spacing = 10
         workStack.distribution = .fillProportionally
         
-        workEditButton.setImage(editImage.image, for: UIControlState.normal)
-        workEditButton.addTarget(self, action:#selector(workEditButtonTapped), for: .touchUpInside)
+//        workEditButton.setImage(editImage.image, for: UIControlState.normal)
+//        workEditButton.addTarget(self, action:#selector(workEditButtonTapped), for: .touchUpInside)
         
         let workStackVertical = CardPartStackView()
         workStackVertical.axis = .vertical
@@ -220,12 +220,12 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
         
         workStack.addArrangedSubview(workImage)
         workStack.addArrangedSubview(workStackVertical)
-        workStack.addArrangedSubview(workEditButton)
+//        workStack.addArrangedSubview(workEditButton)
         
         workStack.addConstraint(NSLayoutConstraint(item: workStackVertical, attribute: .width, relatedBy: .equal, toItem: workImage, attribute: .width, multiplier: 6.0, constant: 0.0))
-        workStack.addConstraint(NSLayoutConstraint(item: workImage, attribute: .width, relatedBy: .equal, toItem: workEditButton, attribute: .width, multiplier: 3.0, constant: 0.0))
+//        workStack.addConstraint(NSLayoutConstraint(item: workImage, attribute: .width, relatedBy: .equal, toItem: workEditButton, attribute: .width, multiplier: 3.0, constant: 0.0))
         workStack.addConstraint(NSLayoutConstraint(item: workStack, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 50.0))
-        workEditButton.imageView?.contentMode = .scaleAspectFit;
+//        workEditButton.imageView?.contentMode = .scaleAspectFit;
         workImage.contentMode = .scaleAspectFit;
         
         viewModel.homeLatitude.asObservable().bind(to: latitudeHomeTextView.rx.text).disposed(by:bag)
@@ -236,18 +236,14 @@ class LocationController: CardPartsViewController, ShadowCardTrait, RoundedCardT
         setupCardParts([titlePart, cardPartSeparatorView, stack, locationSeparator, workStack])
     }
     
-    @objc func homeEditButtonTapped(sender: UIButton){
-        self.viewModel.rootViewController.performSegue(withIdentifier:"mapLocationSelectorSegue", sender:sender)
-    }
-    
-    @objc func workEditButtonTapped(sender: UIButton){
-        self.viewModel.rootViewController.performSegue(withIdentifier:"mapLocationSelectorSegue", sender:sender)
+    func onEditButtonTap(){
+        self.viewModel.rootViewController?.performSegue(withIdentifier:"mapLocationSelectorSegue", sender:self.view)
     }
 }
 
 class FavouriteCitiesContoller: CardPartsViewController, EditableCardTrait, ShadowCardTrait, RoundedCardTrait {
     
-    var viewModel: ProfileViewModel!
+    weak var viewModel: ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
     let cardPartTableView = CardPartTableView()
@@ -314,7 +310,7 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     var leftStack = CardPartStackView()
     var rightStack = CardPartStackView()
     var separator = CardPartVerticalSeparatorView()
-    var viewModel: ProfileViewModel!
+    weak var viewModel: ProfileViewModel!
     
     public init(viewModel: ProfileViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -382,7 +378,7 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
 }
 
 class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
-    var viewModel : ProfileViewModel!
+    weak var viewModel : ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
     var currencyMetricButtonPart = CardPartButtonView()
@@ -536,7 +532,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
 
 class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
     
-    var viewModel : ProfileViewModel!
+    weak var viewModel : ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
     var usernameTextFieldPart = CardPartTextField(format: .none)
@@ -697,7 +693,7 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     
     // change password button action
     @objc func passwordButtonTapped(sender: UIButton) {
-        self.viewModel.rootViewController.performSegue(withIdentifier:"passwordChangeSegue", sender:sender)
+        self.viewModel.rootViewController?.performSegue(withIdentifier:"passwordChangeSegue", sender:sender)
     }
     
     @objc func countryButtonTapped(sender: UIButton) {
@@ -718,7 +714,14 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     }
 }
 
-class ProfileViewModel {
+protocol LocationUpdateDelegate: class {
+    func homePositionChanged(lat:Double, lon:Double)
+    func workPositionChanged(lat:Double, lon:Double)
+    func getHomePosition() -> CLLocationCoordinate2D
+    func getWorkPosition() -> CLLocationCoordinate2D
+}
+
+class ProfileViewModel : LocationUpdateDelegate {
     var usernameText = Variable("")
     var nameText = Variable("")
     var surnameText = Variable("")
@@ -742,12 +745,34 @@ class ProfileViewModel {
     let favouriteCities: Variable<[String]> = Variable([])
     
     var messageHelper = MessageHelper()
-    var rootViewController:UIViewController
+    weak var rootViewController:UIViewController?
     
     init(rootViewController: UIViewController) {
         self.rootViewController = rootViewController
         refreshLocalData()
         getProfileData()
+    }
+    
+    func homePositionChanged(lat:Double, lon:Double){
+        self.homeLatitude.value = String(format: "%.04f", lat)
+        self.homeLongitude.value = String(format: "%.04f", lon)
+    }
+    
+    func workPositionChanged(lat:Double, lon:Double){
+        self.workLatitude.value = String(format: "%.04f", lat)
+        self.workLongitude.value = String(format: "%.04f", lon)
+    }
+    
+    func getHomePosition() -> CLLocationCoordinate2D {
+        let homeLatitude = Double(self.homeLatitude.value) ?? nil
+        let homelongitude = Double(self.homeLongitude.value) ?? nil
+        return CLLocationCoordinate2D(latitude: homeLatitude!, longitude: homelongitude!)
+    }
+    
+    func getWorkPosition() -> CLLocationCoordinate2D {
+        let workLatitude = Double(self.workLatitude.value) ?? nil
+        let worklongitude = Double(self.workLongitude.value) ?? nil
+        return CLLocationCoordinate2D(latitude: workLatitude!, longitude: worklongitude!)
     }
     
     func getCountryName(countryId: String) -> String {
@@ -876,6 +901,10 @@ class ProfileViewModel {
                         name: self.nameText.value,
                         surname: self.surnameText.value,
                         countryId: self.countryId.value,
+                        homeLatitude: Double(self.homeLatitude.value) ?? nil,
+                        homeLongitude: Double(self.homeLongitude.value) ?? nil,
+                        workLatitude: Double(self.workLatitude.value) ?? nil,
+                        workLongitude: Double(self.workLongitude.value) ?? nil,
                         currencyMetric: CurrencyMetrics(rawValue: self.currencyMetric.value)!,
                         distanceMetric: DistanceMetrics(rawValue: self.distanceMetric.value)!,
                         volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
@@ -886,12 +915,12 @@ class ProfileViewModel {
             switch result {
             case .success(let updateResponse):
                 viewController.stopAnimating()
-                self.messageHelper.showInfoMessage(text: updateResponse.reason, view: self.rootViewController.view)
+                self.messageHelper.showInfoMessage(text: updateResponse.reason, view: (self.rootViewController?.view)!)
                 self.getProfileData()
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)
                 viewController.stopAnimating()
-                self.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:self.rootViewController.view)
+                self.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:(self.rootViewController?.view)!)
             }
         })
     }
