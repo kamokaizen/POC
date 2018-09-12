@@ -9,6 +9,7 @@
 import UIKit
 import CardParts
 import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws")
+        GMSPlacesClient.provideAPIKey("AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws")
         CustomCardPartTheme().apply()
         Switcher.updateRootVC()
         return true

@@ -161,6 +161,10 @@ SOFTWARE.
 
 Copyright 2018 Google
 
+## GooglePlaces
+
+Copyright 2018 Google
+
 ## KeychainSwift
 
 The MIT License

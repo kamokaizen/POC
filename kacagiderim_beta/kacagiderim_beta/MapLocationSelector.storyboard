@@ -21,7 +21,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XiO-PM-Imk">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Select Location" id="pnf-lb-V9H">
+                                    <navigationItem title="Edit Locations" id="pnf-lb-V9H">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nsG-i6-x9W">
                                             <connections>
                                                 <action selector="didCancelTappedWithSender:" destination="Hbw-OW-Ceg" id="8xs-GZ-3XP"/>

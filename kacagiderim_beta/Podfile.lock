@@ -31,6 +31,8 @@ PODS:
   - GoogleMaps/Base (2.7.0)
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - KeychainSwift (11.0.0)
   - McPicker (0.5.2)
   - NVActivityIndicatorView (4.3.0):
@@ -57,6 +59,7 @@ DEPENDENCIES:
   - Dodo (~> 11.0)
   - EGFormValidator
   - GoogleMaps
+  - GooglePlaces
   - KeychainSwift
   - McPicker (~> 0.5.1)
   - NVActivityIndicatorView
@@ -73,6 +76,7 @@ SPEC REPOS:
     - Dodo
     - EGFormValidator
     - GoogleMaps
+    - GooglePlaces
     - KeychainSwift
     - McPicker
     - NVActivityIndicatorView
@@ -92,6 +96,7 @@ SPEC CHECKSUMS:
   Dodo: d7e393c79aaaf3c51ed1311933493b6f1ccdde62
   EGFormValidator: 7c84faf2a4a4690061db6651050bd1150d5cb181
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   McPicker: 3c21f279480d04ba7f8a4ae8445f59c7e0931a99
   NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
@@ -102,6 +107,6 @@ SPEC CHECKSUMS:
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
 
-PODFILE CHECKSUM: 62055ae8bef65af2e1fc68bbcad5c31908c59b10
+PODFILE CHECKSUM: 79c3522ebfe66e82a8d47eae790d6c19b53f7bdd
 
 COCOAPODS: 1.5.3
