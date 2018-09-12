@@ -107,10 +107,12 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         var bounds: GMSCoordinateBounds = GMSCoordinateBounds(coordinate: firstLocation, coordinate: firstLocation)
         
         for marker in self.markers {
-            print("marker position: ", marker.position.latitude, marker.position.longitude)
-            bounds = bounds.includingCoordinate(marker.position)
-            let camera = self.mapView.camera(for: bounds, insets: UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30))!
-            self.mapView.camera = camera
+            if(CLLocationCoordinate2DIsValid(marker.position)){
+                print("marker position: ", marker.position.latitude, marker.position.longitude)
+                bounds = bounds.includingCoordinate(marker.position)
+                let camera = self.mapView.camera(for: bounds, insets: UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30))!
+                self.mapView.camera = camera
+            }
         }
     }
     

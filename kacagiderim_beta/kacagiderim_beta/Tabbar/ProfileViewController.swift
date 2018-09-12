@@ -766,13 +766,15 @@ class ProfileViewModel : LocationUpdateDelegate {
     func getHomePosition() -> CLLocationCoordinate2D {
         let homeLatitude = Double(self.homeLatitude.value) ?? nil
         let homelongitude = Double(self.homeLongitude.value) ?? nil
-        return CLLocationCoordinate2D(latitude: homeLatitude!, longitude: homelongitude!)
+        let position = homeLatitude != nil && homelongitude != nil ? CLLocationCoordinate2D(latitude: homeLatitude!, longitude: homelongitude!) : kCLLocationCoordinate2DInvalid
+        return position
     }
     
     func getWorkPosition() -> CLLocationCoordinate2D {
         let workLatitude = Double(self.workLatitude.value) ?? nil
         let worklongitude = Double(self.workLongitude.value) ?? nil
-        return CLLocationCoordinate2D(latitude: workLatitude!, longitude: worklongitude!)
+        let position = workLatitude != nil && worklongitude != nil ? CLLocationCoordinate2D(latitude: workLatitude!, longitude: worklongitude!) : kCLLocationCoordinate2DInvalid
+        return position
     }
     
     func getCountryName(countryId: String) -> String {
