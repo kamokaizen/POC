@@ -18,14 +18,21 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
     var workMarker = GMSMarker()
     var homeMarker = GMSMarker()
     var currentPosition = GMSMarker()
-    var tapMarker = GMSMarker()
+    var clickMarker = GMSMarker()
+    var tappedMarker = GMSMarker()
     var markers: [GMSMarker] = []
-    var zoom: Float = 15
     var homeImage = Utils.imageWithImage(image: UIImage(named: "home.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
     var workImage = Utils.imageWithImage(image: UIImage(named: "office")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
+    var currentImage = Utils.imageWithImage(image: UIImage(named: "current.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
+    var clickImage = Utils.imageWithImage(image: UIImage(named: "click.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
     
     let homeChangeButton = UIButton(type: UIButtonType.custom)
     let workChangeButton = UIButton(type: UIButtonType.custom)
+    
+    var infoWindow = UIView(frame: CGRect.init(x: 0, y: 0, width: 220, height: 110))
+    var zoom: Float = 15
+    let offsetClickMarker: CGFloat = 40
+    let offsetOtherMarker: CGFloat = 20
     
     //MARK: Create a delegate property here, don't forget to make it weak!
     weak var delegate: LocationUpdateDelegate? = nil
@@ -35,10 +42,10 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         
         homeChangeButton.setImage(homeImage, for: UIControlState.normal)
         homeChangeButton.imageView?.contentMode = .scaleAspectFit;
-        homeChangeButton.addTarget(self, action:#selector(self.setCurrentToHomeTapped(_:)), for: .touchUpInside)
+        homeChangeButton.addTarget(self, action:#selector(setCurrentToHomeTapped), for: .touchUpInside)
         workChangeButton.setImage(workImage, for: UIControlState.normal)
         workChangeButton.imageView?.contentMode = .scaleAspectFit;
-        workChangeButton.addTarget(self, action:#selector(self.setCurrentToWorkTapped(_:)), for: .touchUpInside)
+        workChangeButton.addTarget(self, action:#selector(setCurrentToWorkTapped), for: .touchUpInside)
         
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
@@ -87,19 +94,17 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         workMarker.icon = workImage
         
         currentPosition.title = "Current Position"
-        currentPosition.snippet = "This location is provided from your device GPS"
+        currentPosition.snippet = "Your current position"
         currentPosition.map = mapView
-        currentPosition.icon = Utils.imageWithImage(image: UIImage(named: "current.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
+        currentPosition.icon = currentImage
         
-        tapMarker.title = "Current Position"
-        tapMarker.snippet = "This location is provided from your device GPS"
-        tapMarker.map = mapView
-        tapMarker.icon = Utils.imageWithImage(image: UIImage(named: "current.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
+        clickMarker.map = mapView
+        clickMarker.icon = clickImage
         
         self.markers.append(homeMarker)
         self.markers.append(workMarker)
         self.markers.append(currentPosition)
-        self.markers.append(tapMarker)
+        self.markers.append(clickMarker)
     }
     
     func focusMapToShowAllMarkers() {
@@ -116,65 +121,11 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         }
     }
     
-    @objc func setCurrentToHomeTapped(_ sender: UIButton){
-        print("loc home current")
-    }
-    
-    @objc func setCurrentToWorkTapped(_ sender: UIButton){
-        print("loc work current")
-    }
-    
-    // MARK: - Actions
-    
-    @IBAction func didSaveTapped(sender: UIButton) {
-        delegate?.homePositionChanged(lat: homeMarker.position.latitude, lon: homeMarker.position.longitude)
-        delegate?.workPositionChanged(lat: workMarker.position.latitude, lon: workMarker.position.longitude)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func didCancelTapped(sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func btnZoomIn(_ sender: Any) {
-//        zoom = zoom + 1
-//        self.mapView.animate(toZoom: zoom)
-        self.mapView.animate(with: GMSCameraUpdate.zoomIn())
-    }
-    
-    @IBAction func btnZoomOut(_ sender: Any) {
-//        zoom = zoom - 1
-//        self.mapView.animate(toZoom: zoom)
-        self.mapView.animate(with: GMSCameraUpdate.zoomOut())
-    }
-    
-    //MARK - GMSMarker Dragging
-    
-    func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
-        print("didBeginDragging")
-    }
-    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
-        print("didDrag")
-    }
-    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
-        print("didEndDragging")
-    }
-    
-    //MARK - tap event
-    
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
-        print(coordinate)
-        tapMarker.position = coordinate
-    }
-
-    //MARK - custom info window
-    
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        if(marker == tapMarker){
-            let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 220, height: 110))
-            view.backgroundColor = UIColor.white
-            view.layer.cornerRadius = 10
-            
+    func constructCustomInfoWindow(marker:GMSMarker) -> UIView {
+        infoWindow.removeFromSuperview()
+        
+        if(marker == clickMarker){
+            infoWindow = UIView(frame: CGRect.init(x: 0, y: 0, width: 220, height: 110))
             let stackVertical = CardPartStackView(frame: CGRect.init(x: 10, y: 10, width: 200, height: 90))
             stackVertical.axis = .vertical
             stackVertical.spacing = 0
@@ -208,15 +159,120 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
             stackVertical.addArrangedSubview(cardPartSeparatorView)
             stackVertical.addArrangedSubview(stackHorizontal2)
             
-            view.addSubview(stackVertical)
-            return view
+            infoWindow.addSubview(stackVertical)
+            infoWindow.center = mapView.projection.point(for: marker.position)
+            infoWindow.center.y -= offsetClickMarker
         }
         else{
-            let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 220, height: 110))
-            view.backgroundColor = UIColor.white
-            view.layer.cornerRadius = 10
-            return view
+            infoWindow = UIView(frame: CGRect.init(x: 0, y: 0, width: 220, height: 75))
+            let stackVertical = CardPartStackView(frame: CGRect.init(x: 10, y: 10, width: 200, height: 55))
+            stackVertical.axis = .vertical
+            stackVertical.spacing = 0
+            stackVertical.distribution = .equalSpacing
+            
+            let titlePart = CardPartTitleView(type: .titleOnly)
+            titlePart.label.text = marker.title
+            
+            let cardPartSeparatorView = CardPartSeparatorView()
+            
+            let descView = CardPartTextView(type: .normal)
+            descView.text = marker.snippet
+            stackVertical.addArrangedSubview(titlePart)
+            stackVertical.addArrangedSubview(cardPartSeparatorView)
+            stackVertical.addArrangedSubview(descView)
+            infoWindow.addSubview(stackVertical)
+            infoWindow.center = mapView.projection.point(for: marker.position)
+            infoWindow.center.y -= offsetOtherMarker
         }
+        
+        infoWindow.backgroundColor = UIColor.white
+        infoWindow.layer.cornerRadius = 10
+        return infoWindow
+    }
+    
+    @objc func setCurrentToHomeTapped(_ sender: UIButton){
+        infoWindow.removeFromSuperview()
+        homeMarker.position = clickMarker.position
+        clickMarker.position = kCLLocationCoordinate2DInvalid;
+        focusMapToShowAllMarkers()
+    }
+    
+    @objc func setCurrentToWorkTapped(_ sender: UIButton){
+        infoWindow.removeFromSuperview()
+        workMarker.position = clickMarker.position
+        clickMarker.position = kCLLocationCoordinate2DInvalid;
+        focusMapToShowAllMarkers()
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func didSaveTapped(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+        Utils.delayWithSeconds(0.5, completion: {
+            self.delegate?.homePositionChanged(lat: self.homeMarker.position.latitude, lon: self.homeMarker.position.longitude)
+            self.delegate?.workPositionChanged(lat: self.workMarker.position.latitude, lon: self.workMarker.position.longitude)
+            self.delegate?.saveAll()
+        })
+    }
+    
+    @IBAction func didCancelTapped(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func btnZoomIn(_ sender: Any) {
+        self.mapView.animate(with: GMSCameraUpdate.zoomIn())
+    }
+    
+    @IBAction func btnZoomOut(_ sender: Any) {
+        self.mapView.animate(with: GMSCameraUpdate.zoomOut())
+    }
+    
+    //MARK - GMSMarker Dragging
+    
+    func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
+        print("didBeginDragging")
+    }
+    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
+        print("didDrag")
+    }
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        print("didEndDragging")
+    }
+    
+    //MARK - tap event
+    
+    //MARK - custom info window
+    //empty the default infowindow
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        return UIView()
+    }
+    
+    // reset custom infowindow whenever marker is tapped
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        tappedMarker = marker
+        self.view.addSubview(constructCustomInfoWindow(marker:marker))
+        
+        // Remember to return false
+        // so marker event is still handled by delegate
+        return false
+    }
+    
+    // let the custom infowindow follows the camera
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        let location = tappedMarker.position
+        infoWindow.center = mapView.projection.point(for: location)
+        if(tappedMarker == clickMarker){
+            infoWindow.center.y -= offsetClickMarker
+        }
+        else{
+            infoWindow.center.y -= offsetOtherMarker
+        }
+    }
+    
+    // take care of the close event
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        infoWindow.removeFromSuperview()
+        clickMarker.position = coordinate
     }
     
     //MARK - CLLocation methods

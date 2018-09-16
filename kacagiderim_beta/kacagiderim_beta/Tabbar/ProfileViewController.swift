@@ -21,6 +21,7 @@ class ProfileViewController: CardsViewController {
     static let typeList:[String] = [UserType.INDIVIDUAL.rawValue, UserType.COMPANY.rawValue]
     var viewModel: ProfileViewModel!
     var cards: [CardController] = []
+    var messageHelper = MessageHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +30,7 @@ class ProfileViewController: CardsViewController {
                       ProfileCardController(viewModel:viewModel),
                       MetricsCardContoller(viewModel:viewModel),
                       FavouriteCitiesContoller(viewModel:viewModel),
-                      LocationController(viewModel: viewModel),
-                      UpdateController(viewModel: viewModel)]
+                      LocationController(viewModel: viewModel)]
         loadCards(cards: cards)
     }
     
@@ -54,64 +54,6 @@ class ProfileViewController: CardsViewController {
             let destinationViewController = segue.destination as? MapLocationSelector
             destinationViewController?.delegate = self.viewModel
         }
-    }
-}
-
-class UpdateController: CardPartsViewController, NVActivityIndicatorViewable, ShadowCardTrait, RoundedCardTrait{
-    
-    weak var viewModel: ProfileViewModel!
-    var updateButton: DCBorderedButton! = DCBorderedButton()
-    var stack = CardPartStackView()
-    
-    public init(viewModel: ProfileViewModel) {
-        super.init(nibName: nil, bundle: nil)
-        self.viewModel = viewModel
-    }
-    
-    required public init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func shadowColor() -> CGColor {
-        return UIColor.lightGray.cgColor
-    }
-    
-    func shadowRadius() -> CGFloat {
-        return 10.0
-    }
-    
-    // The value can be from 0.0 to 1.0.
-    // 0.0 => lighter shadow
-    // 1.0 => darker shadow
-    func shadowOpacity() -> Float {
-        return 1.0
-    }
-    
-    func cornerRadius() -> CGFloat {
-        return 10.0
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        stack.axis = .vertical
-        stack.spacing = 0
-    
-        updateButton.setTitle("Save All Changes", for: UIControlState.normal)
-        updateButton.setTitleColor(UIColor.red, for: UIControlState.normal)
-        updateButton.backgroundColor = UIColor.clear
-        updateButton.highlightedBackgroundColor = UIColor.clear
-        updateButton.normalBackgroundColor = UIColor.clear
-        updateButton.selectedBorderColor = UIColor.clear
-        updateButton.normalBorderColor = UIColor.clear
-        updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
-        
-        stack.addArrangedSubview(updateButton)
-        setupCardParts([stack])
-    }
-    
-    @objc func updateButtonTapped() {
-        self.viewModel.updateProfileData(viewController:self)
     }
 }
 
@@ -377,13 +319,15 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     }
 }
 
-class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
+class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, EditableCardTrait {
     weak var viewModel : ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
     var currencyMetricButtonPart = CardPartButtonView()
     var distanceMetricButtonPart = CardPartButtonView()
     var volumeMetricButtonPart = CardPartButtonView()
+    
+    var currencyImageView = CardPartImageView()
     
     let seperator = CardPartVerticalSeparatorView()
     let seperator2 = CardPartVerticalSeparatorView()
@@ -392,6 +336,8 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
     var volumeList: [[String]] = []
     var distanceList: [[String]] = []
     var currencyList: [[String]] = []
+    
+    var editableMode: Bool = false
     
     public init(viewModel: ProfileViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -455,30 +401,55 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
         volumeList.removeAll()
         volumeList.append(list)
         
-        currencyMetricButtonPart.setTitle("", for: .normal)
+        currencyMetricButtonPart.setTitle("Change Currency Metric", for: .normal)
         currencyMetricButtonPart.addTarget(self, action: #selector(currencyButtonTapped), for: .touchUpInside)
         currencyMetricButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         currencyMetricButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
+        currencyImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        currencyImageView.contentMode = .scaleAspectFit;
         
-        distanceMetricButtonPart.setTitle("", for: .normal)
+        let currencyStackView = CardPartStackView()
+        currencyStackView.axis = .horizontal
+        currencyStackView.spacing = 0
+        currencyStackView.distribution = .equalSpacing
+        currencyStackView.addArrangedSubview(currencyImageView)
+        currencyStackView.addArrangedSubview(currencyMetricButtonPart)
+        
+        distanceMetricButtonPart.setTitle("Change Distance Metric", for: .normal)
         distanceMetricButtonPart.addTarget(self, action: #selector(distanceButtonTapped), for: .touchUpInside)
         distanceMetricButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         distanceMetricButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
         
-        volumeMetricButtonPart.setTitle("", for: .normal)
+        volumeMetricButtonPart.setTitle("Change Volume Metric", for: .normal)
         volumeMetricButtonPart.addTarget(self, action: #selector(volumeButtonTapped), for: .touchUpInside)
         volumeMetricButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         volumeMetricButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
         
-        let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: seperator, rightView: currencyMetricButtonPart)
+        let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: seperator, rightView: currencyStackView)
         let centeredCardPart2 = CardPartCenteredView(leftView: textView2, centeredView: seperator2, rightView: distanceMetricButtonPart)
         let centeredCardPart3 = CardPartCenteredView(leftView: textView3, centeredView: seperator3, rightView: volumeMetricButtonPart)
         
         viewModel.currencyMetric.asObservable().bind(to: currencyMetricButtonPart.rx.title()).disposed(by: bag)
         viewModel.distanceMetric.asObservable().bind(to: distanceMetricButtonPart.rx.title()).disposed(by: bag)
         viewModel.volumeMetric.asObservable().bind(to: volumeMetricButtonPart.rx.title()).disposed(by: bag)
+        viewModel.currencyMetric.asObservable().bind(to: currencyImageView.rx.imageName).disposed(by: bag)
+        
+        setComponents(editableMode: self.editableMode)
         
         setupCardParts([titlePart, cardPartSeparatorView, centeredCardPart, centeredCardPart2, centeredCardPart3])
+    }
+    
+    func setComponents(editableMode:Bool){
+        self.currencyMetricButtonPart.isUserInteractionEnabled = editableMode
+        self.currencyMetricButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
+        self.currencyMetricButtonPart.setTitle(editableMode == true ? "Change Currency Metric" : self.viewModel.currencyMetric.value, for: .normal)
+        self.currencyImageView.isHidden = editableMode
+        self.distanceMetricButtonPart.isUserInteractionEnabled = editableMode
+        self.distanceMetricButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
+        self.distanceMetricButtonPart.setTitle(editableMode == true ? "Change Distance Metric" : self.viewModel.distanceMetric.value, for: .normal)
+        self.volumeMetricButtonPart.isUserInteractionEnabled = editableMode
+        self.volumeMetricButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
+        self.volumeMetricButtonPart.setTitle(editableMode == true ? "Change Volume Metric" : self.viewModel.volumeMetric.value, for: .normal)
     }
     
     @objc func distanceButtonTapped(sender: UIButton) {
@@ -526,11 +497,32 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.currencyMetric.value = name
+                self.currencyImageView.isHidden = false
+                self.currencyImageView.imageName = "\(name)"
+                self.currencyImageView.image = Utils.imageWithImage(image: self.currencyImageView.image!, scaledToSize: CGSize(width: 30.0, height: 30.0))
+                self.currencyImageView.contentMode = .scaleAspectFit;
             }})
+    }
+    
+    func onEditButtonTap(){
+        if(editableMode){
+            self.editableMode = false
+            setComponents(editableMode: self.editableMode)
+            
+            // TODO ask user to update or cancel
+            //            Utils.delayWithSeconds(0.5, completion: {
+            //                self.viewModel.updateProfileData()
+            //            })
+        }
+        else{
+            self.viewModel.rootViewController?.messageHelper.showInfoMessage(text: "You can edit your metrics", view: (self.viewModel.rootViewController?.view)!)
+            self.editableMode = true
+            setComponents(editableMode: self.editableMode)
+        }
     }
 }
 
-class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
+class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, EditableCardTrait {
     
     weak var viewModel : ProfileViewModel!
     var titlePart = CardPartTitleView(type: .titleOnly)
@@ -538,10 +530,13 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     var usernameTextFieldPart = CardPartTextField(format: .none)
     var nameTextFieldPart = CardPartTextField(format: .none)
     var surnameTextFieldPart = CardPartTextField(format: .none)
+    var passwordTextView = CardPartTextField(format: .none)
     var passwordChangeButtonPart = CardPartButtonView()
     var ssnTextFieldPart = CardPartTextField(format: .none)
     var countryViewButtonPart = CardPartButtonView()
+    var countryTextView = CardPartTextView(type: .normal)
     var typeSegmentedControl = UISegmentedControl(items: ProfileViewController.typeList)
+    var typeTextView = CardPartTextView(type: .normal)
     
     let separator = CardPartVerticalSeparatorView()
     let separator2 = CardPartVerticalSeparatorView()
@@ -552,6 +547,8 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     let separator7 = CardPartVerticalSeparatorView()
     
     var countryList: [[String]] = []
+    
+    var editableMode: Bool = false
     
     public init(viewModel: ProfileViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -633,15 +630,32 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         surnameTextFieldPart.textColor = CardParts.theme.normalTextColor
         surnameTextFieldPart.addTarget(self, action: #selector(self.surnameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
-        passwordChangeButtonPart.setTitle("Change", for: .normal)
+        passwordChangeButtonPart.setTitle("Change Password", for: .normal)
         passwordChangeButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
         passwordChangeButtonPart.addTarget(self, action: #selector(passwordButtonTapped), for: .touchUpInside)
         passwordChangeButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         
-        countryViewButtonPart.setTitle("", for: .normal)
+        passwordTextView.text = "12345678"
+        passwordTextView.isSecureTextEntry = true
+        
+        let passwordStackView = CardPartStackView()
+        passwordStackView.axis = .horizontal
+        passwordStackView.spacing = 0
+        passwordStackView.distribution = .equalSpacing
+        passwordStackView.addArrangedSubview(passwordTextView)
+        passwordStackView.addArrangedSubview(passwordChangeButtonPart)
+        
+        countryViewButtonPart.setTitle("Change Country", for: .normal)
         countryViewButtonPart.addTarget(self, action: #selector(countryButtonTapped), for: .touchUpInside)
         countryViewButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         countryViewButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
+        
+        let countryStackView = CardPartStackView()
+        countryStackView.axis = .horizontal
+        countryStackView.spacing = 0
+        passwordStackView.distribution = .equalSpacing
+        countryStackView.addArrangedSubview(countryTextView)
+        countryStackView.addArrangedSubview(countryViewButtonPart)
         
         ssnTextFieldPart.keyboardType = .default
         ssnTextFieldPart.placeholder = "Type your SSN"
@@ -650,23 +664,31 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         ssnTextFieldPart.addTarget(self, action: #selector(self.ssnTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         typeSegmentedControl.addTarget(self, action: #selector(typeValueChanged), for:UIControlEvents.valueChanged)
+        let stackView = CardPartStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.distribution = .equalSpacing
+        stackView.addArrangedSubview(typeTextView)
+        stackView.addArrangedSubview(typeSegmentedControl)
         
         let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: separator, rightView: usernameTextFieldPart)
         let centeredCardPart2 = CardPartCenteredView(leftView: textView2, centeredView: separator2, rightView: nameTextFieldPart)
         let centeredCardPart3 = CardPartCenteredView(leftView: textView3, centeredView: separator3, rightView: surnameTextFieldPart)
-        let centeredCardPart4 = CardPartCenteredView(leftView: textView4, centeredView: separator4, rightView: passwordChangeButtonPart)
+        let centeredCardPart4 = CardPartCenteredView(leftView: textView4, centeredView: separator4, rightView: passwordStackView)
         let centeredCardPart5 = CardPartCenteredView(leftView: textView5, centeredView: separator5, rightView: ssnTextFieldPart)
-        let centeredCardPart6 = CardPartCenteredView(leftView: textView6, centeredView: separator6, rightView: countryViewButtonPart)
-        let stackView = CardPartStackView()
-        stackView.addArrangedSubview(typeSegmentedControl)
+        let centeredCardPart6 = CardPartCenteredView(leftView: textView6, centeredView: separator6, rightView: countryStackView)
         let centeredCardPart7 = CardPartCenteredView(leftView: textView7, centeredView: separator7, rightView: stackView)
         
         viewModel.usernameText.asObservable().bind(to: usernameTextFieldPart.rx.text).disposed(by: bag)
         viewModel.nameText.asObservable().bind(to: nameTextFieldPart.rx.text).disposed(by: bag)
         viewModel.surnameText.asObservable().bind(to: surnameTextFieldPart.rx.text).disposed(by: bag)
         viewModel.ssnText.asObservable().bind(to: ssnTextFieldPart.rx.text).disposed(by: bag)
+        viewModel.countryName.asObservable().bind(to: countryTextView.rx.text).disposed(by: bag)
         viewModel.countryName.asObservable().bind(to: countryViewButtonPart.rx.title()).disposed(by: bag)
         viewModel.type.asObservable().bind(to: typeSegmentedControl.rx.selectedSegmentIndex).disposed(by:bag)
+        viewModel.typeText.asObservable().bind(to: typeTextView.rx.text).disposed(by:bag)
+        
+        setComponents(editableMode: self.editableMode)
         
         setupCardParts([titlePart, cardPartSeparatorView, centeredCardPart,centeredCardPart2,centeredCardPart3,centeredCardPart4,centeredCardPart5,centeredCardPart6,centeredCardPart7])
     }
@@ -688,12 +710,50 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
     }
     
     @objc func typeValueChanged(sender: UISegmentedControl) {
-       self.viewModel.type.value = sender.selectedSegmentIndex
+        self.viewModel.type.value = sender.selectedSegmentIndex
+        self.viewModel.typeText.value = ProfileViewController.typeList[sender.selectedSegmentIndex]
     }
     
-    // change password button action
     @objc func passwordButtonTapped(sender: UIButton) {
         self.viewModel.rootViewController?.performSegue(withIdentifier:"passwordChangeSegue", sender:sender)
+    }
+    
+    func setComponents(editableMode:Bool){
+        self.usernameTextFieldPart.isUserInteractionEnabled = editableMode
+        self.nameTextFieldPart.isUserInteractionEnabled = editableMode
+        self.surnameTextFieldPart.isUserInteractionEnabled = editableMode
+        self.ssnTextFieldPart.isUserInteractionEnabled = editableMode
+        self.countryViewButtonPart.isHidden = !editableMode
+        self.countryViewButtonPart.isUserInteractionEnabled = editableMode
+        self.countryViewButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
+        self.countryViewButtonPart.setTitle(editableMode == true ? "Change Country" : "", for: .normal)
+        self.countryTextView.isHidden = editableMode
+        self.countryTextView.isUserInteractionEnabled = editableMode
+        self.passwordChangeButtonPart.isUserInteractionEnabled = editableMode
+        self.passwordChangeButtonPart.isHidden = !editableMode
+        self.passwordChangeButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
+        self.passwordTextView.isHidden = editableMode
+        self.passwordTextView.isUserInteractionEnabled = editableMode
+        self.typeTextView.isHidden = editableMode
+        self.typeSegmentedControl.isHidden = !editableMode
+        self.typeSegmentedControl.isUserInteractionEnabled = editableMode
+    }
+    
+    func onEditButtonTap(){
+        if(editableMode){
+            self.editableMode = false
+            setComponents(editableMode: self.editableMode)
+
+            // TODO ask user to update or cancel
+//            Utils.delayWithSeconds(0.5, completion: {
+//                self.viewModel.updateProfileData()
+//            })
+        }
+        else{
+            self.viewModel.rootViewController?.messageHelper.showInfoMessage(text: "You can edit your profile", view: (self.viewModel.rootViewController?.view)!)
+            self.editableMode = true
+            setComponents(editableMode: self.editableMode)
+        }
     }
     
     @objc func countryButtonTapped(sender: UIButton) {
@@ -719,6 +779,7 @@ protocol LocationUpdateDelegate: class {
     func workPositionChanged(lat:Double, lon:Double)
     func getHomePosition() -> CLLocationCoordinate2D
     func getWorkPosition() -> CLLocationCoordinate2D
+    func saveAll()
 }
 
 class ProfileViewModel : LocationUpdateDelegate {
@@ -729,6 +790,7 @@ class ProfileViewModel : LocationUpdateDelegate {
     var countryId = Variable("")
     var countryName = Variable("")
     var type = Variable<Int>(0)
+    var typeText = Variable("")
     
     var homeLatitude = Variable("")
     var homeLongitude = Variable("")
@@ -744,10 +806,9 @@ class ProfileViewModel : LocationUpdateDelegate {
     var citySelectionData: [[String]] = []
     let favouriteCities: Variable<[String]> = Variable([])
     
-    var messageHelper = MessageHelper()
-    weak var rootViewController:UIViewController?
+    weak var rootViewController:ProfileViewController?
     
-    init(rootViewController: UIViewController) {
+    init(rootViewController: ProfileViewController) {
         self.rootViewController = rootViewController
         refreshLocalData()
         getProfileData()
@@ -775,6 +836,10 @@ class ProfileViewModel : LocationUpdateDelegate {
         let worklongitude = Double(self.workLongitude.value) ?? nil
         let position = workLatitude != nil && worklongitude != nil ? CLLocationCoordinate2D(latitude: workLatitude!, longitude: worklongitude!) : kCLLocationCoordinate2DInvalid
         return position
+    }
+    
+    func saveAll() {
+        self.updateProfileData()
     }
     
     func getCountryName(countryId: String) -> String {
@@ -884,6 +949,7 @@ class ProfileViewModel : LocationUpdateDelegate {
                 self.distanceMetric.value = profile.distanceMetric.rawValue
                 self.volumeMetric.value = profile.volumeMetric.rawValue
                 self.type.value = ProfileViewController.typeList.index(of: profile.userType.rawValue)!
+                self.typeText.value = profile.userType.rawValue
                 
                 self.homeLatitude.value = "\(profile.homeLatitude!)"
                 self.homeLongitude.value = "\(profile.homeLongitude!)"
@@ -898,7 +964,7 @@ class ProfileViewModel : LocationUpdateDelegate {
         })
     }
     
-    func updateProfileData(viewController: UpdateController){
+    func updateProfileData(){
         let user = User(username: self.usernameText.value,
                         name: self.nameText.value,
                         surname: self.surnameText.value,
@@ -912,17 +978,20 @@ class ProfileViewModel : LocationUpdateDelegate {
                         volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
                         userType: UserType(rawValue: ProfileViewController.typeList[self.type.value])!,
                         socialSecurityNumber: self.ssnText.value)
-        viewController.startAnimating(CGSize(width: 100, height: 100),message: "Profile Updating...", type: NVActivityIndicatorType.lineScale)
+        
+        let activityData = ActivityData(size: CGSize(width: 100, height: 100), message: "Profile Updating...", type: K.Constants.default_spinner)
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, K.Constants.DEFAULT_FADE_IN_ANIMATION)
+        
         APIClient.updateAccount(user: user, completion: { result in
             switch result {
             case .success(let updateResponse):
-                viewController.stopAnimating()
-                self.messageHelper.showInfoMessage(text: updateResponse.reason, view: (self.rootViewController?.view)!)
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
+                self.rootViewController?.messageHelper.showInfoMessage(text: updateResponse.reason, view: (self.rootViewController?.view)!)
                 self.getProfileData()
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)
-                viewController.stopAnimating()
-                self.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:(self.rootViewController?.view)!)
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
+                self.rootViewController?.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:(self.rootViewController?.view)!)
             }
         })
     }
