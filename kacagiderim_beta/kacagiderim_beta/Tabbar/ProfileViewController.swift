@@ -328,6 +328,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
     var volumeMetricButtonPart = CardPartButtonView()
     
     var currencyImageView = CardPartImageView()
+    var distanceImageView = CardPartImageView()
     
     let seperator = CardPartVerticalSeparatorView()
     let seperator2 = CardPartVerticalSeparatorView()
@@ -401,38 +402,39 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
         volumeList.removeAll()
         volumeList.append(list)
         
-        currencyMetricButtonPart.setTitle("Change Currency Metric", for: .normal)
+        currencyMetricButtonPart.setTitle("Change", for: .normal)
         currencyMetricButtonPart.addTarget(self, action: #selector(currencyButtonTapped), for: .touchUpInside)
         currencyMetricButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         currencyMetricButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
-        currencyImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        currencyImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         currencyImageView.contentMode = .scaleAspectFit;
         
-        let currencyStackView = CardPartStackView()
-        currencyStackView.axis = .horizontal
-        currencyStackView.spacing = 0
-        currencyStackView.distribution = .equalSpacing
-        currencyStackView.addArrangedSubview(currencyImageView)
-        currencyStackView.addArrangedSubview(currencyMetricButtonPart)
+        let seperatorCurrency = CardPartVerticalSeparatorView()
+        let centeredCardPartCurrency = CardPartCenteredView(leftView: currencyMetricButtonPart, centeredView: seperatorCurrency, rightView: currencyImageView)
         
-        distanceMetricButtonPart.setTitle("Change Distance Metric", for: .normal)
+        distanceMetricButtonPart.setTitle("Change", for: .normal)
         distanceMetricButtonPart.addTarget(self, action: #selector(distanceButtonTapped), for: .touchUpInside)
         distanceMetricButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         distanceMetricButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
+        distanceImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        distanceImageView.contentMode = .scaleAspectFit;
+        
+        let seperatorDistance = CardPartVerticalSeparatorView()
+        let centeredCardPartDistance = CardPartCenteredView(leftView: distanceMetricButtonPart, centeredView: seperatorDistance, rightView: distanceImageView)
         
         volumeMetricButtonPart.setTitle("Change Volume Metric", for: .normal)
         volumeMetricButtonPart.addTarget(self, action: #selector(volumeButtonTapped), for: .touchUpInside)
         volumeMetricButtonPart.titleLabel?.font = CardParts.theme.normalTextFont
         volumeMetricButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
         
-        let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: seperator, rightView: currencyStackView)
-        let centeredCardPart2 = CardPartCenteredView(leftView: textView2, centeredView: seperator2, rightView: distanceMetricButtonPart)
+        let centeredCardPart = CardPartCenteredView(leftView: textView, centeredView: seperator, rightView: centeredCardPartCurrency)
+        let centeredCardPart2 = CardPartCenteredView(leftView: textView2, centeredView: seperator2, rightView: centeredCardPartDistance)
         let centeredCardPart3 = CardPartCenteredView(leftView: textView3, centeredView: seperator3, rightView: volumeMetricButtonPart)
         
         viewModel.currencyMetric.asObservable().bind(to: currencyMetricButtonPart.rx.title()).disposed(by: bag)
         viewModel.distanceMetric.asObservable().bind(to: distanceMetricButtonPart.rx.title()).disposed(by: bag)
         viewModel.volumeMetric.asObservable().bind(to: volumeMetricButtonPart.rx.title()).disposed(by: bag)
-        viewModel.currencyMetric.asObservable().bind(to: currencyImageView.rx.imageName).disposed(by: bag)
+        viewModel.currencyMetricImage.asObservable().bind(to: currencyImageView.rx.image).disposed(by: bag)
         
         setComponents(editableMode: self.editableMode)
         
@@ -442,11 +444,10 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
     func setComponents(editableMode:Bool){
         self.currencyMetricButtonPart.isUserInteractionEnabled = editableMode
         self.currencyMetricButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
-        self.currencyMetricButtonPart.setTitle(editableMode == true ? "Change Currency Metric" : self.viewModel.currencyMetric.value, for: .normal)
-        self.currencyImageView.isHidden = editableMode
+        self.currencyMetricButtonPart.setTitle(editableMode == true ? "Change" : self.viewModel.currencyMetric.value, for: .normal)
         self.distanceMetricButtonPart.isUserInteractionEnabled = editableMode
         self.distanceMetricButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
-        self.distanceMetricButtonPart.setTitle(editableMode == true ? "Change Distance Metric" : self.viewModel.distanceMetric.value, for: .normal)
+        self.distanceMetricButtonPart.setTitle(editableMode == true ? "Change" : self.viewModel.distanceMetric.value, for: .normal)
         self.volumeMetricButtonPart.isUserInteractionEnabled = editableMode
         self.volumeMetricButtonPart.setTitleColor(editableMode == false ? CardParts.theme.normalTextColor : K.Constants.kacagiderimColorWarning, for: .normal)
         self.volumeMetricButtonPart.setTitle(editableMode == true ? "Change Volume Metric" : self.viewModel.volumeMetric.value, for: .normal)
@@ -465,6 +466,9 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.distanceMetric.value = name
+                self.distanceImageView.imageName = "\(name)"
+                self.distanceImageView.image = Utils.imageWithImage(image: self.distanceImageView.image!, scaledToSize: CGSize(width: 25.0, height: 25.0))
+                self.distanceImageView.contentMode = .scaleAspectFit;
             }})
     }
     
@@ -497,9 +501,8 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.currencyMetric.value = name
-                self.currencyImageView.isHidden = false
                 self.currencyImageView.imageName = "\(name)"
-                self.currencyImageView.image = Utils.imageWithImage(image: self.currencyImageView.image!, scaledToSize: CGSize(width: 30.0, height: 30.0))
+                self.currencyImageView.image = Utils.imageWithImage(image: self.currencyImageView.image!, scaledToSize: CGSize(width: 25.0, height: 25.0))
                 self.currencyImageView.contentMode = .scaleAspectFit;
             }})
     }
@@ -798,7 +801,9 @@ class ProfileViewModel : LocationUpdateDelegate {
     var workLongitude = Variable("")
     
     var currencyMetric = Variable("")
+    var currencyMetricImage = Variable<UIImage>(UIImage())
     var distanceMetric = Variable("")
+    var distanceMetricImage = Variable<UIImage>(UIImage())
     var volumeMetric = Variable("")
 
     var countries:Countries?
@@ -946,7 +951,11 @@ class ProfileViewModel : LocationUpdateDelegate {
                     self.ssnText.value = profile.socialSecurityNumber!
                 }
                 self.currencyMetric.value = profile.currencyMetric.rawValue
+                self.currencyMetricImage.value = Utils.imageWithImage(image: UIImage(named: profile.currencyMetric.rawValue)!, scaledToSize: CGSize(width: 25.0, height: 25.0))
+                
                 self.distanceMetric.value = profile.distanceMetric.rawValue
+                self.distanceMetricImage.value = Utils.imageWithImage(image: UIImage(named: profile.distanceMetric.rawValue)!, scaledToSize: CGSize(width: 25.0, height: 25.0))
+                
                 self.volumeMetric.value = profile.volumeMetric.rawValue
                 self.type.value = ProfileViewController.typeList.index(of: profile.userType.rawValue)!
                 self.typeText.value = profile.userType.rawValue
