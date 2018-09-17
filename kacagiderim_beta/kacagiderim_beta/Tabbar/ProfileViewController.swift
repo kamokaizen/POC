@@ -435,6 +435,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
         viewModel.distanceMetric.asObservable().bind(to: distanceMetricButtonPart.rx.title()).disposed(by: bag)
         viewModel.volumeMetric.asObservable().bind(to: volumeMetricButtonPart.rx.title()).disposed(by: bag)
         viewModel.currencyMetricImage.asObservable().bind(to: currencyImageView.rx.image).disposed(by: bag)
+        viewModel.distanceMetricImage.asObservable().bind(to: distanceImageView.rx.image).disposed(by: bag)
         
         setComponents(editableMode: self.editableMode)
         
