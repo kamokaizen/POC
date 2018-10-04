@@ -316,6 +316,9 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     @objc func logoutButtonTapped() {
         TokenController.deleteUserFromUserDefaults()
         Switcher.updateRootVC()
+        
+        // TODO if account is google based then log out from google
+        // GIDSignIn.sharedInstance().signOut()
     }
 }
 

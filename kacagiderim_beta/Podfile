@@ -8,6 +8,7 @@ def all_pods
     
     # Pods 
     pod 'Alamofire', '~> 4.7'
+    pod 'GoogleSignIn'
     pod 'GoogleMaps'
     pod 'GooglePlaces'
     pod 'KeychainSwift'

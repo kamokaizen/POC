@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var createAccountButton: UIButton!
+    @IBOutlet weak var googleSignInButton: GIDSignInButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        GIDSignIn.sharedInstance().uiDelegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -226,7 +226,18 @@
                             </imageView>
                             <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cut-L2-Fpv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVN-Oi-nB9" customClass="GIDSignInButton">
+                                        <rect key="frame" x="50" y="720" width="275" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hVN-Oi-nB9" secondAttribute="trailing" constant="50" id="9O1-NT-sfT"/>
+                                    <constraint firstItem="hVN-Oi-nB9" firstAttribute="leading" secondItem="cut-L2-Fpv" secondAttribute="leading" constant="50" id="EgC-bU-jvn"/>
+                                    <constraint firstAttribute="bottom" secondItem="hVN-Oi-nB9" secondAttribute="bottom" constant="50" id="emK-oH-cYB"/>
+                                </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_main_logo" translatesAutoresizingMaskIntoConstraints="NO" id="9CL-Oh-Dmo">
                                 <rect key="frame" x="100" y="331" width="175" height="150"/>
@@ -303,6 +314,7 @@
                     <navigationItem key="navigationItem" id="TeE-P6-d4o"/>
                     <connections>
                         <outlet property="createAccountButton" destination="Faj-T3-6xR" id="Aw6-1k-a1B"/>
+                        <outlet property="googleSignInButton" destination="hVN-Oi-nB9" id="F1o-KF-kGT"/>
                         <outlet property="signInButton" destination="i1u-mb-clL" id="Aa1-o8-Sax"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="signinSegue" id="tv2-IV-Nkr"/>
                         <segue destination="lQ5-2X-rOh" kind="show" identifier="signupSegue" id="BsQ-0k-y5F"/>
@@ -310,7 +322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uep-fx-1na" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-238" y="96"/>
+            <point key="canvasLocation" x="-239.19999999999999" y="95.320197044334975"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="aOm-bF-2n7">
