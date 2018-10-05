@@ -12,6 +12,7 @@ import Alamofire
 enum UserEndpoint: APIConfiguration {
     
     case create(user:User)
+    case createGoogleUser(token:String)
     case current()
     case update(user:User)
     case changePassword(current:String, new:String, confirmed:String)
@@ -19,7 +20,7 @@ enum UserEndpoint: APIConfiguration {
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-            case .create, .update, .changePassword:
+            case .create,.createGoogleUser, .update, .changePassword:
                 return .post
             case .current:
                 return .get
@@ -31,6 +32,8 @@ enum UserEndpoint: APIConfiguration {
         switch self {
             case .create:
                 return "/uaa/users/create"
+            case .createGoogleUser:
+                return "/uaa/users/create/google"
             case .current:
                 return "/uaa/users/profile"
             case .update:
@@ -58,6 +61,8 @@ enum UserEndpoint: APIConfiguration {
                         K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
                         K.APIParameterKey.userType: user.userType.rawValue,
                         K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any]
+            case .createGoogleUser(let token):
+                return [K.APIParameterKey.token: token]
             case .update(let user):
                 return [K.APIParameterKey.username: user.username,
                         K.APIParameterKey.name: user.name,

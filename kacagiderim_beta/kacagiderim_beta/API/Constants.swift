@@ -26,6 +26,7 @@ struct K {
         static let scope = "scope"
         static let grantType = "grant_type"
         static let username = "username"
+        static let token = "token"
         static let refreshToken = "refresh_token"
         static let name = "name"
         static let surname = "surname"

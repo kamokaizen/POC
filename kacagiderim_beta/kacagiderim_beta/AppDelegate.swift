@@ -80,7 +80,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print(email)
             print(imageURL)
             
-            // send create account with facebook info then login user..
+            APIClient.createAccountFromGoogle(token:idToken!, completion:{ result in
+                switch result {
+                case .success(let createResponse):
+                    print(createResponse)
+//                    self.loadingIndicator.stopAnimating()
+//                    self.messageHelper.showInfoMessage(text: "New Account Created", view: self.view)
+//                    Utils.delayWithSeconds(5, completion: {
+//                        self.dismiss(animated: true, completion: nil)
+//                    })
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+//                    self.loadingIndicator.stopAnimating()
+//                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
+                }
+            })
         }
     }
     

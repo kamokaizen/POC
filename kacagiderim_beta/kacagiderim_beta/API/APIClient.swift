@@ -89,6 +89,11 @@ class APIClient {
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
+    static func createAccountFromGoogle(token: String, completion:@escaping (Result<ServerResponse<User>>)->Void){
+        // this method do not need access_token
+        performRequest(route: UserEndpoint.createGoogleUser(token: token), completion: completion)
+    }
+    
     static func updateAccount(user: User, completion:@escaping (Result<ServerResponse<User>>)->Void) {
         checkTokenExpired(route: UserEndpoint.update(user:user), completion: completion)
     }
