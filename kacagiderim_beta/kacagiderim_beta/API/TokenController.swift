@@ -33,6 +33,40 @@ class TokenController {
         UserDefaults.standard.set(-1, forKey: "expireDate")
     }
     
+    static func getAndPersistCurrentUser(){
+        if (UserDefaults.standard.value(forKey:"userProfile") as? Data) != nil {
+            print("no need to fetch current user")
+            return
+        }
+        else{
+            APIClient.getCurrentUser(completion:{ result in
+                switch result {
+                case .success(let userResponse):
+                    UserDefaults.standard.set(try? PropertyListEncoder().encode(userResponse), forKey: "userProfile")
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+                }
+            })
+        }
+    }
+    
+    static func getAndPersistCountries(){
+        if (UserDefaults.standard.value(forKey:"countries") as? Data) != nil {
+            print("no need to fetch countries")
+            return
+        }
+        else{
+            APIClient.getAllCountries(completion:{ result in
+                switch result {
+                case .success(let serverResponse):
+                    UserDefaults.standard.set(try? PropertyListEncoder().encode(serverResponse.value), forKey: "countries")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
+        }
+    }
+    
     static func handleTokenExpire(completion:@escaping (TokenControl) -> ()){
         let activeUser = UserDefaults.standard.string(forKey: "activeUser")
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")

@@ -15,6 +15,7 @@ import RxSwift
 import RxCocoa
 import NVActivityIndicatorView
 import GoogleMaps
+import GoogleSignIn
 
 class ProfileViewController: CardsViewController {
     
@@ -315,10 +316,8 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     // change password button action
     @objc func logoutButtonTapped() {
         TokenController.deleteUserFromUserDefaults()
+        GIDSignIn.sharedInstance().signOut()
         Switcher.updateRootVC()
-        
-        // TODO if account is google based then log out from google
-        // GIDSignIn.sharedInstance().signOut()
     }
 }
 
@@ -591,8 +590,10 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         titlePart.label.text = "Profile"
         
         var list: [String] = []
-        for country in (self.viewModel.countries?.countries)! {
-            list.append(country.countryName!)
+        if(self.viewModel.countries != nil && self.viewModel.countries?.countries != nil){
+            for country in (self.viewModel.countries?.countries)! {
+                list.append(country.countryName!)
+            }
         }
         countryList.removeAll()
         countryList.append(list.sorted(by: <))
@@ -949,8 +950,8 @@ class ProfileViewModel : LocationUpdateDelegate {
                 let profile:User = (userResponse.value as User?)!
                 UserDefaults.standard.set(try? PropertyListEncoder().encode(profile), forKey: "userProfile")
                 self.usernameText.value = profile.username
-                self.nameText.value = profile.name
-                self.surnameText.value = profile.surname
+                self.nameText.value = profile.name ?? ""
+                self.surnameText.value = profile.surname ?? ""
                 if(profile.socialSecurityNumber != nil){
                     self.ssnText.value = profile.socialSecurityNumber!
                 }

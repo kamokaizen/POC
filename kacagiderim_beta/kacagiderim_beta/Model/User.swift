@@ -12,8 +12,8 @@ struct User: Codable {
     let userId: String?
     let username: String
     let password: String?
-    let name: String
-    let surname: String
+    let name: String?
+    let surname: String?
     let countryId: String
     let homeLatitude: Double?
     let homeLongitude: Double?
@@ -28,8 +28,8 @@ struct User: Codable {
     init(userId: String? = nil,
          username: String,
          password: String? = nil,
-         name: String,
-         surname: String,
+         name: String? = nil,
+         surname: String? = nil,
          countryId: String,
          homeLatitude: Double? = 0.0,
          homeLongitude: Double? = 0.0,

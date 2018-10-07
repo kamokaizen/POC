@@ -89,7 +89,7 @@ class APIClient {
         performRequest(route: UserEndpoint.create(user:user), completion: completion)
     }
     
-    static func createAccountFromGoogle(token: String, completion:@escaping (Result<ServerResponse<User>>)->Void){
+    static func createAccountFromGoogle(token: String, completion:@escaping (Result<ServerResponse<LoginSuccessResponse>>)->Void){
         // this method do not need access_token
         performRequest(route: UserEndpoint.createGoogleUser(token: token), completion: completion)
     }

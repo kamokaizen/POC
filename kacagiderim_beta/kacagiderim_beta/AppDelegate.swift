@@ -72,23 +72,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let familyName = user.profile.familyName
             let email = user.profile.email
             let imageURL = user.profile.imageURL(withDimension: 100)
-            print(userId)
-            print(idToken)
-            print(fullName)
-            print(givenName)
-            print(familyName)
-            print(email)
-            print(imageURL)
             
             APIClient.createAccountFromGoogle(token:idToken!, completion:{ result in
                 switch result {
                 case .success(let createResponse):
-                    print(createResponse)
-//                    self.loadingIndicator.stopAnimating()
-//                    self.messageHelper.showInfoMessage(text: "New Account Created", view: self.view)
-//                    Utils.delayWithSeconds(5, completion: {
-//                        self.dismiss(animated: true, completion: nil)
-//                    })
+                    if(createResponse.value != nil){
+                        TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
+                        TokenController.getAndPersistCurrentUser()
+                        TokenController.getAndPersistCountries()
+                        Switcher.updateRootVC()
+                    }
+                    else{
+                        print("value must be not nil");
+                    }
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
 //                    self.loadingIndicator.stopAnimating()
