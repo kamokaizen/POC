@@ -134,9 +134,9 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                 case .success(let loginResponse):
                     self.loadingIndicator.stopAnimating()
                     TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text)
+                    Switcher.updateRootVC()
                     TokenController.getAndPersistCurrentUser()
                     TokenController.getAndPersistCountries()
-                    Switcher.updateRootVC()
                 case .failure(let error):
                     self.loadingIndicator.stopAnimating()
                     self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view:self.view)

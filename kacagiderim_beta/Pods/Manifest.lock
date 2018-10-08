@@ -54,6 +54,7 @@ PODS:
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
   - KeychainSwift (11.0.0)
+  - Kingfisher (4.10.0)
   - McPicker (0.5.2)
   - NVActivityIndicatorView (4.3.0):
     - NVActivityIndicatorView/Presenter (= 4.3.0)
@@ -82,6 +83,7 @@ DEPENDENCIES:
   - GooglePlaces
   - GoogleSignIn
   - KeychainSwift
+  - Kingfisher (~> 4.0)
   - McPicker (~> 0.5.1)
   - NVActivityIndicatorView
   - SwiftGen
@@ -103,6 +105,7 @@ SPEC REPOS:
     - GTMOAuth2
     - GTMSessionFetcher
     - KeychainSwift
+    - Kingfisher
     - McPicker
     - NVActivityIndicatorView
     - RxCocoa
@@ -127,6 +130,7 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   McPicker: 3c21f279480d04ba7f8a4ae8445f59c7e0931a99
   NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
@@ -136,6 +140,6 @@ SPEC CHECKSUMS:
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
 
-PODFILE CHECKSUM: cceeaa5c7a509537ac2619d5449dfce460c32c55
+PODFILE CHECKSUM: 1206909cc769fa51463aabd1a2b812bd00acbf0f
 
 COCOAPODS: 1.5.3

@@ -146,7 +146,7 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
             }
         }
         
-        let user = User(username: emailField.text!, password: passwordField.text!, name: emailField.text!, surname: emailField.text!, countryId: defaultCountryId, currencyMetric: CurrencyMetrics.TRY, distanceMetric: DistanceMetrics.M, volumeMetric: VolumeMetrics.LITER, userType: UserType.INDIVIDUAL)
+        let user = User(username: emailField.text!, password: passwordField.text!, name: emailField.text!, surname: emailField.text!, countryId: defaultCountryId, currencyMetric: CurrencyMetrics.TRY, distanceMetric: DistanceMetrics.M, volumeMetric: VolumeMetrics.LITER, userType: UserType.INDIVIDUAL, loginType: LoginType.DEFAULT, imageURL: nil)
         
         APIClient.createAccount(user:user, completion:{ result in
             switch result {

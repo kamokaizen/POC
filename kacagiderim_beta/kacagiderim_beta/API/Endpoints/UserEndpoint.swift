@@ -49,8 +49,8 @@ enum UserEndpoint: APIConfiguration {
             case .create(let user):
                 return [K.APIParameterKey.username: user.username,
                         K.APIParameterKey.password: user.password as Any,
-                        K.APIParameterKey.name: user.name,
-                        K.APIParameterKey.surname: user.surname,
+                        K.APIParameterKey.name: user.name as Any,
+                        K.APIParameterKey.surname: user.surname as Any,
                         K.APIParameterKey.countryId: user.countryId,
                         K.APIParameterKey.homeLatitude: user.homeLatitude as Any,
                         K.APIParameterKey.homeLongitude: user.homeLongitude as Any,
@@ -60,13 +60,15 @@ enum UserEndpoint: APIConfiguration {
                         K.APIParameterKey.distanceMetric: user.distanceMetric.rawValue,
                         K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
                         K.APIParameterKey.userType: user.userType.rawValue,
-                        K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any]
+                        K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any,
+                        K.APIParameterKey.loginType: user.loginType.rawValue,
+                        K.APIParameterKey.imageURL: user.imageURL as Any]
             case .createGoogleUser(let token):
                 return [K.APIParameterKey.token: token]
             case .update(let user):
                 return [K.APIParameterKey.username: user.username,
-                        K.APIParameterKey.name: user.name,
-                        K.APIParameterKey.surname: user.surname,
+                        K.APIParameterKey.name: user.name as Any,
+                        K.APIParameterKey.surname: user.surname as Any,
                         K.APIParameterKey.countryId: user.countryId,
                         K.APIParameterKey.homeLatitude: user.homeLatitude as Any,
                         K.APIParameterKey.homeLongitude: user.homeLongitude as Any,
@@ -76,7 +78,9 @@ enum UserEndpoint: APIConfiguration {
                         K.APIParameterKey.distanceMetric: user.distanceMetric.rawValue,
                         K.APIParameterKey.volumeMetric: user.volumeMetric.rawValue,
                         K.APIParameterKey.userType: user.userType.rawValue,
-                        K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any]
+                        K.APIParameterKey.socialSecurityNumber: user.socialSecurityNumber as Any,
+                        K.APIParameterKey.loginType: user.loginType.rawValue,
+                        K.APIParameterKey.imageURL: user.imageURL as Any]
             case .changePassword(let current, let new, let confirmed):
                 return [K.APIParameterKey.currentPassword: current,
                         K.APIParameterKey.newPassword: new,

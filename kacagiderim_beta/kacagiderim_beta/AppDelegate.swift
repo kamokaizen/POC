@@ -64,23 +64,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let error = error {
             print("\(error.localizedDescription)")
         } else {
-            // Perform any operations on signed in user here.
-            let userId = user.userID                  // For client-side use only!
+//            let userId = user.userID                  // For client-side use only!
+//            let fullName = user.profile.name
+//            let givenName = user.profile.givenName
+//            let familyName = user.profile.familyName
+//            let imageURL = user.profile.imageURL(withDimension: 100)
             let idToken = user.authentication.idToken // Safe to send to the server
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
             let email = user.profile.email
-            let imageURL = user.profile.imageURL(withDimension: 100)
-            
+
             APIClient.createAccountFromGoogle(token:idToken!, completion:{ result in
                 switch result {
                 case .success(let createResponse):
                     if(createResponse.value != nil){
                         TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
+                        Switcher.updateRootVC()
                         TokenController.getAndPersistCurrentUser()
                         TokenController.getAndPersistCountries()
-                        Switcher.updateRootVC()
                     }
                     else{
                         print("value must be not nil");

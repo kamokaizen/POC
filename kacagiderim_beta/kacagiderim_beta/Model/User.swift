@@ -24,6 +24,8 @@ struct User: Codable {
     let volumeMetric: VolumeMetrics
     let userType: UserType
     let socialSecurityNumber: String?
+    let loginType: LoginType
+    let imageURL: String?
     
     init(userId: String? = nil,
          username: String,
@@ -39,7 +41,9 @@ struct User: Codable {
          distanceMetric: DistanceMetrics,
          volumeMetric: VolumeMetrics,
          userType: UserType,
-         socialSecurityNumber: String? = nil) {
+         socialSecurityNumber: String? = nil,
+         loginType: LoginType,
+         imageURL: String? = nil) {
         self.userId = userId
         self.username = username
         self.password = password
@@ -55,5 +59,7 @@ struct User: Codable {
         self.volumeMetric = volumeMetric
         self.userType = userType
         self.socialSecurityNumber = socialSecurityNumber
+        self.loginType = loginType
+        self.imageURL = imageURL
     }
 }

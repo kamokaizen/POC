@@ -13,8 +13,8 @@ import NVActivityIndicatorView
 struct K {
     struct ProductionServer {
 //        static let baseURL = "https://kacagiderim.com"
-//        static let baseURL = "http://10.100.136.233:4000"
-        static let baseURL = "http://127.0.0.1:4000"
+        static let baseURL = "http://10.100.136.233:4000"
+//        static let baseURL = "http://127.0.0.1:4000"
     }
     
     struct APIParameterKey {
@@ -43,6 +43,8 @@ struct K {
         static let volumeMetric = "volumeMetric"
         static let userType = "userType"
         static let socialSecurityNumber = "socialSecurityNumber"
+        static let loginType = "loginType"
+        static let imageURL = "imageURL"
     }
     
     struct Constants {
@@ -110,4 +112,10 @@ enum VolumeMetrics: String , Codable {
 enum UserType: String , Codable {
     case INDIVIDUAL = "INDIVIDUAL"
     case COMPANY = "COMPANY"
+}
+
+enum LoginType: String, Codable {
+    case DEFAULT = "DEFAULT"
+    case GOOGLE = "GOOGLE"
+    case FACEBOOK = "FACEBOOK"
 }

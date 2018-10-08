@@ -16,6 +16,7 @@ import RxCocoa
 import NVActivityIndicatorView
 import GoogleMaps
 import GoogleSignIn
+import KingFisher
 
 class ProfileViewController: CardsViewController {
     
@@ -248,7 +249,8 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     var activeUser = CardPartTextView(type: .normal)
     var cardPartSeparatorView = CardPartSeparatorView()
     var loggedOutButton = CardPartButtonView()
-    var logoImage = CardPartImageView(image: UIImage(named: "profile.png"))
+//    var logoImage = CardPartImageView(image: UIImage(named: "profile.png"))
+    var logoImage = UIImageView()
     
     var leftStack = CardPartStackView()
     var rightStack = CardPartStackView()
@@ -289,6 +291,11 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
         activeUser.text = UserDefaults.standard.string(forKey: "activeUser")
         activeUser.textColor = K.Constants.kacagiderimColor
         
+        
+        let image = UIImage(named: "profile.png")
+        let url = URL(string: self.viewModel.imageURL.value)
+        logoImage.kf.setImage(with: url, placeholder: image)
+        
         logoImage.addConstraint(NSLayoutConstraint(item: logoImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 30.0))
         logoImage.addConstraint(NSLayoutConstraint(item: logoImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 30.0))
         logoImage.contentMode = .scaleAspectFit;
@@ -309,6 +316,8 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
         rightStack.addArrangedSubview(loggedOutButton)
         
         let centeredView = CardPartCenteredView(leftView: leftStack, centeredView: separator, rightView: rightStack)
+        
+//        viewModel.imageURL.asObservable().bind(to: logoImage.rx.image).disposed(by: bag)
         
         setupCardParts([titlePart, cardPartSeparatorView, centeredView])
     }
@@ -816,6 +825,9 @@ class ProfileViewModel : LocationUpdateDelegate {
     var citySelectionData: [[String]] = []
     let favouriteCities: Variable<[String]> = Variable([])
     
+    var imageURL = Variable("")
+    var loginType = Variable("")
+    
     weak var rootViewController:ProfileViewController?
     
     init(rootViewController: ProfileViewController) {
@@ -972,6 +984,9 @@ class ProfileViewModel : LocationUpdateDelegate {
                 
                 self.countryId.value = profile.countryId
                 self.countryName.value = self.getCountryName(countryId: profile.countryId)
+                
+                self.imageURL.value = profile.imageURL ?? ""
+                self.loginType.value = profile.loginType.rawValue
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)
             }
@@ -991,7 +1006,9 @@ class ProfileViewModel : LocationUpdateDelegate {
                         distanceMetric: DistanceMetrics(rawValue: self.distanceMetric.value)!,
                         volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
                         userType: UserType(rawValue: ProfileViewController.typeList[self.type.value])!,
-                        socialSecurityNumber: self.ssnText.value)
+                        socialSecurityNumber: self.ssnText.value,
+                        loginType: LoginType(rawValue: self.loginType.value)!,
+                        imageURL: self.imageURL.value)
         
         let activityData = ActivityData(size: CGSize(width: 100, height: 100), message: "Profile Updating...", type: K.Constants.default_spinner)
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, K.Constants.DEFAULT_FADE_IN_ANIMATION)
