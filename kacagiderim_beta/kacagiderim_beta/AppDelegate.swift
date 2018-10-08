@@ -19,11 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GMSServices.provideAPIKey("AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws")
-        GMSPlacesClient.provideAPIKey("AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws")
+        GMSServices.provideAPIKey(K.Constants.googleAPIKey)
+        GMSPlacesClient.provideAPIKey(K.Constants.googleAPIKey)
         
         // Initialize Google Sign in
-        GIDSignIn.sharedInstance().clientID = "383413793224-hbqr1tr5qarn89roo5agfi97anp9bfdt.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = K.Constants.googleSigninClientId
         GIDSignIn.sharedInstance().delegate = self
         
         CustomCardPartTheme().apply()

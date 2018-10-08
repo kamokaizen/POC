@@ -16,7 +16,7 @@ import RxCocoa
 import NVActivityIndicatorView
 import GoogleMaps
 import GoogleSignIn
-import KingFisher
+import Kingfisher
 
 class ProfileViewController: CardsViewController {
     
@@ -249,8 +249,7 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     var activeUser = CardPartTextView(type: .normal)
     var cardPartSeparatorView = CardPartSeparatorView()
     var loggedOutButton = CardPartButtonView()
-//    var logoImage = CardPartImageView(image: UIImage(named: "profile.png"))
-    var logoImage = UIImageView()
+    var logoImage = CardPartImageView(image: UIImage(named: "profile.png"))
     
     var leftStack = CardPartStackView()
     var rightStack = CardPartStackView()
@@ -291,10 +290,10 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
         activeUser.text = UserDefaults.standard.string(forKey: "activeUser")
         activeUser.textColor = K.Constants.kacagiderimColor
         
-        
-        let image = UIImage(named: "profile.png")
-        let url = URL(string: self.viewModel.imageURL.value)
-        logoImage.kf.setImage(with: url, placeholder: image)
+//        let image = UIImage(named: "profile.png")
+//        let url = URL(string: self.viewModel.imageURL.value)
+//        let processor = RoundCornerImageProcessor(cornerRadius: 20)
+//        logoImage.kf.setImage(with: url, placeholder: image, options: [.processor(processor), .transition(.fade(0.2))])
         
         logoImage.addConstraint(NSLayoutConstraint(item: logoImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 30.0))
         logoImage.addConstraint(NSLayoutConstraint(item: logoImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 30.0))
@@ -317,7 +316,7 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
         
         let centeredView = CardPartCenteredView(leftView: leftStack, centeredView: separator, rightView: rightStack)
         
-//        viewModel.imageURL.asObservable().bind(to: logoImage.rx.image).disposed(by: bag)
+        viewModel.profileImage.asObservable().bind(to: logoImage.rx.image).disposed(by: bag)
         
         setupCardParts([titlePart, cardPartSeparatorView, centeredView])
     }
@@ -327,6 +326,8 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
         TokenController.deleteUserFromUserDefaults()
         GIDSignIn.sharedInstance().signOut()
         Switcher.updateRootVC()
+        // From both memory and disk
+        ImageCache.default.removeImage(forKey: "profile_image")
     }
 }
 
@@ -826,7 +827,10 @@ class ProfileViewModel : LocationUpdateDelegate {
     let favouriteCities: Variable<[String]> = Variable([])
     
     var imageURL = Variable("")
+    var profileImage  = Variable<UIImage>(UIImage())
     var loginType = Variable("")
+    
+    let defaultProfileImage = UIImage(named: "profile.png")
     
     weak var rootViewController:ProfileViewController?
     
@@ -986,6 +990,34 @@ class ProfileViewModel : LocationUpdateDelegate {
                 self.countryName.value = self.getCountryName(countryId: profile.countryId)
                 
                 self.imageURL.value = profile.imageURL ?? ""
+                
+                ImageCache.default.retrieveImage(forKey: "profile_image", options: nil) {
+                    image, cacheType in
+                    if let image = image {
+                        print("Get image \(image), cacheType: \(cacheType).")
+                        //In this code snippet, the `cacheType` is .disk
+                        self.profileImage.value = image
+                    } else {
+                        print("Not exist in cache.")
+                        if(!self.imageURL.value.isEmpty){
+                            let url = URL(string: self.imageURL.value)!
+                            ImageDownloader.default.downloadImage(with: url, options: [], progressBlock: nil) {
+                                (image, error, url, data) in
+                                if let image = image {
+                                    ImageCache.default.store(image, forKey: "profile_image")
+                                    self.profileImage.value = image
+                                }
+                                else{
+                                    self.profileImage.value = self.defaultProfileImage!
+                                }
+                            }
+                        }
+                        else{
+                            self.profileImage.value = self.defaultProfileImage!
+                        }
+                    }
+                }
+                
                 self.loginType.value = profile.loginType.rawValue
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)

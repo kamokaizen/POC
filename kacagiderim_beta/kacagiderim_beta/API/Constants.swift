@@ -13,8 +13,8 @@ import NVActivityIndicatorView
 struct K {
     struct ProductionServer {
 //        static let baseURL = "https://kacagiderim.com"
-        static let baseURL = "http://10.100.136.233:4000"
-//        static let baseURL = "http://127.0.0.1:4000"
+//        static let baseURL = "http://10.100.136.233:4000"
+        static let baseURL = "http://127.0.0.1:4000"
     }
     
     struct APIParameterKey {
@@ -48,6 +48,8 @@ struct K {
     }
     
     struct Constants {
+        static let googleAPIKey = "AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws"
+        static let googleSigninClientId = "383413793224-hbqr1tr5qarn89roo5agfi97anp9bfdt.apps.googleusercontent.com"
         static let loginAuthorizationValue = "Basic bW9iaWxlOg=="
         static let requestTimeoutInterval = 10 // seconds
         static let kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
