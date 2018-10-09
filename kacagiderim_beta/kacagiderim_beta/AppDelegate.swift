@@ -11,9 +11,10 @@ import CardParts
 import GoogleMaps
 import GooglePlaces
 import GoogleSignIn
+import FacebookCore
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
@@ -24,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         // Initialize Google Sign in
         GIDSignIn.sharedInstance().clientID = K.Constants.googleSigninClientId
-        GIDSignIn.sharedInstance().delegate = self
+        
+        // Initialize Facebook SDK
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         CustomCardPartTheme().apply()
         Switcher.updateRootVC()
@@ -47,6 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        // Call the 'activate' method to log an app event for use
+        // in analytics and advertising reporting.
+        AppEventsLogger.activate(application)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -58,46 +65,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                                  sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                  annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-//            let userId = user.userID                  // For client-side use only!
-//            let fullName = user.profile.name
-//            let givenName = user.profile.givenName
-//            let familyName = user.profile.familyName
-//            let imageURL = user.profile.imageURL(withDimension: 100)
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let email = user.profile.email
-
-            APIClient.createAccountFromGoogle(token:idToken!, completion:{ result in
-                switch result {
-                case .success(let createResponse):
-                    if(createResponse.value != nil){
-                        TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
-                        Switcher.updateRootVC()
-                        TokenController.getAndPersistCurrentUser()
-                        TokenController.getAndPersistCountries()
-                    }
-                    else{
-                        print("value must be not nil");
-                    }
-                case .failure(let error):
-                    print((error as! CustomError).localizedDescription)
-//                    self.loadingIndicator.stopAnimating()
-//                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
-                }
-            })
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
-
 }
 

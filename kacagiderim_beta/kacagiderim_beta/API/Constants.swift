@@ -13,11 +13,12 @@ import NVActivityIndicatorView
 struct K {
     struct ProductionServer {
 //        static let baseURL = "https://kacagiderim.com"
-//        static let baseURL = "http://10.100.136.233:4000"
-        static let baseURL = "http://127.0.0.1:4000"
+        static let baseURL = "http://10.100.136.233:4000"
+//        static let baseURL = "http://127.0.0.1:4000"
     }
     
     struct APIParameterKey {
+        static let userId = "userId"
         static let password = "password"
         static let currentPassword = "currentPassword"
         static let newPassword = "newPassword"
@@ -45,6 +46,7 @@ struct K {
         static let socialSecurityNumber = "socialSecurityNumber"
         static let loginType = "loginType"
         static let imageURL = "imageURL"
+        static let expirationDate = "expirationDate"
     }
     
     struct Constants {

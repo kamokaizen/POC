@@ -17,6 +17,7 @@ import NVActivityIndicatorView
 import GoogleMaps
 import GoogleSignIn
 import Kingfisher
+import FacebookLogin
 
 class ProfileViewController: CardsViewController {
     
@@ -324,7 +325,14 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     // change password button action
     @objc func logoutButtonTapped() {
         TokenController.deleteUserFromUserDefaults()
+        
+        // Google Logout
         GIDSignIn.sharedInstance().signOut()
+        
+        // Facebook logout
+        let loginManager = LoginManager()
+        loginManager.logOut()
+        
         Switcher.updateRootVC()
         // From both memory and disk
         ImageCache.default.removeImage(forKey: "profile_image")

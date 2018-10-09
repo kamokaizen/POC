@@ -22,6 +22,9 @@ def all_pods
     pod 'McPicker','~> 0.5.1'
     pod 'CardParts'
     pod 'Kingfisher', '~> 4.0'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
 end
 
 target 'kacagiderim_beta' do

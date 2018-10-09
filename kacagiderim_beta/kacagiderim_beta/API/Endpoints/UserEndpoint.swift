@@ -13,6 +13,7 @@ enum UserEndpoint: APIConfiguration {
     
     case create(user:User)
     case createGoogleUser(token:String)
+    case createFacebookUser(user:FacebookUser)
     case current()
     case update(user:User)
     case changePassword(current:String, new:String, confirmed:String)
@@ -20,7 +21,7 @@ enum UserEndpoint: APIConfiguration {
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
-            case .create,.createGoogleUser, .update, .changePassword:
+            case .create, .createGoogleUser, .createFacebookUser, .update, .changePassword:
                 return .post
             case .current:
                 return .get
@@ -34,6 +35,8 @@ enum UserEndpoint: APIConfiguration {
                 return "/uaa/users/create"
             case .createGoogleUser:
                 return "/uaa/users/create/google"
+            case .createFacebookUser:
+                return "uaa/users/create/facebook"
             case .current:
                 return "/uaa/users/profile"
             case .update:
@@ -65,6 +68,13 @@ enum UserEndpoint: APIConfiguration {
                         K.APIParameterKey.imageURL: user.imageURL as Any]
             case .createGoogleUser(let token):
                 return [K.APIParameterKey.token: token]
+            case .createFacebookUser(let user):
+                return [K.APIParameterKey.userId: user.userId as Any,
+                        K.APIParameterKey.name: user.name as Any,
+                        K.APIParameterKey.surname: user.surname as Any,
+                        K.APIParameterKey.token: user.authenticationToken as Any,
+                        K.APIParameterKey.expirationDate: user.expirationDate,
+                        K.APIParameterKey.imageURL: user.imageURL as Any]
             case .update(let user):
                 return [K.APIParameterKey.username: user.username,
                         K.APIParameterKey.name: user.name as Any,
