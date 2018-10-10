@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import NVActivityIndicatorView
 
 class Utils {
     
@@ -23,5 +24,14 @@ class Utils {
         let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
+    }
+    
+    static func showLoadingIndicator(message:String, size:CGSize){
+        let activityData = ActivityData(size: size, message: message, type: K.Constants.default_spinner)
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, K.Constants.DEFAULT_FADE_IN_ANIMATION)
+    }
+    
+    static func dismissLoadingIndicator(){
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
     }
 }

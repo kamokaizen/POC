@@ -70,6 +70,7 @@ enum UserEndpoint: APIConfiguration {
                 return [K.APIParameterKey.token: token]
             case .createFacebookUser(let user):
                 return [K.APIParameterKey.userId: user.userId as Any,
+                        K.APIParameterKey.email: user.email as Any,
                         K.APIParameterKey.name: user.name as Any,
                         K.APIParameterKey.surname: user.surname as Any,
                         K.APIParameterKey.token: user.authenticationToken as Any,

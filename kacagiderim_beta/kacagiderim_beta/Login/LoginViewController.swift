@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import FacebookCore
 import FacebookLogin
+import NVActivityIndicatorView
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
@@ -17,12 +18,20 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     @IBOutlet var createAccountButton: UIButton!
     @IBOutlet weak var googleSignInButton: UIButton!
     @IBOutlet weak var facebookSignInButton: UIButton!
+    var messageHelper = MessageHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
+        
+        googleSignInButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: -20, bottom: 10, right: 0)
+        googleSignInButton.imageView?.contentMode = .scaleAspectFit
+        googleSignInButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
+        
+        facebookSignInButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        facebookSignInButton.imageView?.contentMode = .scaleAspectFit
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,25 +63,31 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         if let error = error {
             print("\(error.localizedDescription)")
         } else {
+            Utils.showLoadingIndicator(message: "Please Wait", size: CGSize(width: 100, height: 100))
+            
             let idToken = user.authentication.idToken // Safe to send to the server
             let email = user.profile.email
             
             APIClient.createAccountFromGoogle(token:idToken!, completion:{ result in
                 switch result {
                 case .success(let createResponse):
+                    Utils.dismissLoadingIndicator()
                     if(createResponse.value != nil){
-                        TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
-                        Switcher.updateRootVC()
-                        TokenController.getAndPersistCurrentUser()
-                        TokenController.getAndPersistCountries()
+                        self.messageHelper.showInfoMessage(text: "Congratulations, You have successfully logged in.", view: self.view)
+                        Utils.delayWithSeconds(2, completion: {
+                            TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
+                            Switcher.updateRootVC()
+                            TokenController.getAndPersistCurrentUser()
+                            TokenController.getAndPersistCountries()
+                        })
                     }
                     else{
-                        print("value must be not nil");
+                        self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
                     }
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    //                    self.loadingIndicator.stopAnimating()
-                    //                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
+                    self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
+                    Utils.dismissLoadingIndicator()
                 }
             })
         }
@@ -103,9 +118,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             switch loginResult {
             case .failed(let error):
                 print(error)
+                self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
             case .cancelled:
-                print("User cancelled login.")
+                print("User cancelled facebook login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                print(grantedPermissions, declinedPermissions, accessToken)
                 let request = GraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, email, picture.type(large)"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
                 request.start({ (response, requestResult) in
                     switch requestResult{
@@ -122,35 +139,37 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                             let authenticationToken = accessToken?.authenticationToken
                             let expirationDate = accessToken?.expirationDate
                             let expirationDateMs =  (Int)((expirationDate?.timeIntervalSince1970.rounded())!) * 1000 // multiply with 1000 to convert seconds to ms
-                            print(authenticationToken, expirationDate, firstName, lastName, email, socialId, photoUrl)
                             
-//                            let resp = LoginSuccessResponse(accessToken: "1231", tokenType: "bearer", refreshToken: "123131", expiresIn: 2344, scope: "mobile")
-//                            TokenController.saveUserToUserDefaults(response: resp, user: email)
-//                            Switcher.updateRootVC()
+                            Utils.showLoadingIndicator(message: "Please Wait", size: CGSize(width: 100, height: 100))
                             
                             let user = FacebookUser(userId: socialId, name: firstName, surname: lastName, email: email, imageURL: photoUrl, authenticationToken: authenticationToken, expirationDate: expirationDateMs)
                             
                             APIClient.createAccountFromFacebook(user: user, completion:{ result in
                                 switch result {
                                 case .success(let createResponse):
+                                    Utils.dismissLoadingIndicator()
                                     if(createResponse.value != nil){
-                                        TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
-                                        Switcher.updateRootVC()
-                                        TokenController.getAndPersistCurrentUser()
-                                        TokenController.getAndPersistCountries()
+                                        self.messageHelper.showInfoMessage(text: "Congratulations, You have successfully logged in.", view: self.view)
+                                        Utils.delayWithSeconds(2, completion: {
+                                            TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
+                                            Switcher.updateRootVC()
+                                            TokenController.getAndPersistCurrentUser()
+                                            TokenController.getAndPersistCountries()
+                                        })
                                     }
                                     else{
-                                        print("value must be not nil");
+                                        self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
                                     }
                                 case .failure(let error):
                                     print((error as! CustomError).localizedDescription)
-                                    //                    self.loadingIndicator.stopAnimating()
-                                    //                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
+                                    self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
+                                    Utils.dismissLoadingIndicator()
                                 }
                             })
                         }
                     case .failed(let error):
                         print(error.localizedDescription)
+                        self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
                     }
                 })
             }

@@ -1050,18 +1050,17 @@ class ProfileViewModel : LocationUpdateDelegate {
                         loginType: LoginType(rawValue: self.loginType.value)!,
                         imageURL: self.imageURL.value)
         
-        let activityData = ActivityData(size: CGSize(width: 100, height: 100), message: "Profile Updating...", type: K.Constants.default_spinner)
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, K.Constants.DEFAULT_FADE_IN_ANIMATION)
+        Utils.showLoadingIndicator(message: "Profile Updating", size: CGSize(width: 100, height: 100))
         
         APIClient.updateAccount(user: user, completion: { result in
             switch result {
             case .success(let updateResponse):
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
+                Utils.dismissLoadingIndicator()
                 self.rootViewController?.messageHelper.showInfoMessage(text: updateResponse.reason, view: (self.rootViewController?.view)!)
                 self.getProfileData()
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
+                Utils.dismissLoadingIndicator()
                 self.rootViewController?.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:(self.rootViewController?.view)!)
             }
         })

@@ -224,112 +224,16 @@
                             </imageView>
                             <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cut-L2-Fpv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xfg-di-qLz" customClass="DCBorderedButton" customModule="DCKit">
-                                        <rect key="frame" x="50" y="632" width="275" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="DuB-39-Pdf"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Login With Facebook">
-                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="normalTextColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didSignInButtonTappedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BSt-Bh-ljl"/>
-                                            <action selector="facebookLoginButtonTapped" destination="K6w-Si-hfR" eventType="touchUpInside" id="8sb-hJ-Onb"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-0x-M15" customClass="DCBorderedButton" customModule="DCKit">
-                                        <rect key="frame" x="50" y="702" width="275" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="WQc-Wh-EvR"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="Login With Google">
-                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledTextColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="normalTextColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didSignInButtonTappedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gq6-1n-5et"/>
-                                            <action selector="googleLoginButtonTapped:" destination="K6w-Si-hfR" eventType="touchUpInside" id="GP5-QI-aRo"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="gwi-0x-M15" secondAttribute="bottom" constant="50" id="558-Rp-Jr7"/>
-                                    <constraint firstItem="gwi-0x-M15" firstAttribute="leading" secondItem="cut-L2-Fpv" secondAttribute="leading" constant="50" id="5fl-tQ-ti1"/>
-                                    <constraint firstAttribute="trailing" secondItem="gwi-0x-M15" secondAttribute="trailing" constant="50" id="XVY-di-ZmV"/>
-                                    <constraint firstItem="Xfg-di-qLz" firstAttribute="leading" secondItem="cut-L2-Fpv" secondAttribute="leading" constant="50" id="ZCN-3g-NuR"/>
-                                    <constraint firstItem="gwi-0x-M15" firstAttribute="top" secondItem="Xfg-di-qLz" secondAttribute="bottom" constant="10" id="hbl-IT-eEy"/>
-                                    <constraint firstAttribute="trailing" secondItem="Xfg-di-qLz" secondAttribute="trailing" constant="50" id="lP2-jP-bRk"/>
-                                </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_main_logo" translatesAutoresizingMaskIntoConstraints="NO" id="9CL-Oh-Dmo">
-                                <rect key="frame" x="100" y="331" width="175" height="150"/>
+                                <rect key="frame" x="100" y="275" width="175" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Owt-x7-ahw"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gp1-wc-p3l">
-                                <rect key="frame" x="50" y="523" width="275" height="31"/>
+                                <rect key="frame" x="50" y="467" width="275" height="31"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fr5-De-mIu">
                                         <rect key="frame" x="0.0" y="0.0" width="132.66666666666666" height="31"/>
@@ -375,20 +279,113 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eTo-tI-cjw" userLabel="Social Stack View">
+                                <rect key="frame" x="50" y="598" width="275" height="130"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xfg-di-qLz" customClass="DCBorderedButton" customModule="DCKit">
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="DuB-39-Pdf"/>
+                                        </constraints>
+                                        <state key="normal" title="Login With Facebook" image="facebook-white">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalTextColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didSignInButtonTappedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BSt-Bh-ljl"/>
+                                            <action selector="facebookLoginButtonTapped" destination="K6w-Si-hfR" eventType="touchUpInside" id="8sb-hJ-Onb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-0x-M15" customClass="DCBorderedButton" customModule="DCKit">
+                                        <rect key="frame" x="0.0" y="70" width="275" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="WQc-Wh-EvR"/>
+                                        </constraints>
+                                        <inset key="titleEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Login With Google" image="google-white">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightedTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledTextColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="normalTextColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didSignInButtonTappedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gq6-1n-5et"/>
+                                            <action selector="googleLoginButtonTapped:" destination="K6w-Si-hfR" eventType="touchUpInside" id="GP5-QI-aRo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="eTo-tI-cjw" firstAttribute="top" secondItem="gp1-wc-p3l" secondAttribute="bottom" constant="100" id="0H9-ZK-eGW"/>
                             <constraint firstAttribute="trailing" secondItem="cut-L2-Fpv" secondAttribute="trailing" id="1un-b1-5BO"/>
+                            <constraint firstItem="9CL-Oh-Dmo" firstAttribute="centerX" secondItem="OEK-Rv-AgI" secondAttribute="centerX" id="5Hg-U0-y7K"/>
                             <constraint firstItem="Ydg-Cf-WjG" firstAttribute="top" secondItem="OEK-Rv-AgI" secondAttribute="top" id="IlF-XN-OOU"/>
+                            <constraint firstItem="XvJ-on-x3f" firstAttribute="bottom" secondItem="eTo-tI-cjw" secondAttribute="bottom" constant="50" id="NPy-RG-6c0"/>
                             <constraint firstAttribute="bottom" secondItem="Ydg-Cf-WjG" secondAttribute="bottom" id="P4R-5h-G0v"/>
-                            <constraint firstItem="9CL-Oh-Dmo" firstAttribute="centerX" secondItem="OEK-Rv-AgI" secondAttribute="centerX" id="PRf-8R-nQy"/>
+                            <constraint firstItem="eTo-tI-cjw" firstAttribute="leading" secondItem="XvJ-on-x3f" secondAttribute="leading" constant="50" id="V6O-V8-IIp"/>
                             <constraint firstItem="cut-L2-Fpv" firstAttribute="leading" secondItem="OEK-Rv-AgI" secondAttribute="leading" id="aha-RR-gRt"/>
                             <constraint firstItem="gp1-wc-p3l" firstAttribute="top" secondItem="9CL-Oh-Dmo" secondAttribute="bottomMargin" constant="50" id="bpG-z1-QLc"/>
+                            <constraint firstItem="XvJ-on-x3f" firstAttribute="trailing" secondItem="eTo-tI-cjw" secondAttribute="trailing" constant="50" id="cBm-rV-mHv"/>
                             <constraint firstAttribute="bottom" secondItem="cut-L2-Fpv" secondAttribute="bottom" id="jfo-qc-d1t"/>
                             <constraint firstItem="cut-L2-Fpv" firstAttribute="top" secondItem="OEK-Rv-AgI" secondAttribute="top" id="mTF-cB-Wck"/>
                             <constraint firstItem="Ydg-Cf-WjG" firstAttribute="leading" secondItem="OEK-Rv-AgI" secondAttribute="leading" id="nI9-pB-23x"/>
                             <constraint firstAttribute="trailing" secondItem="Ydg-Cf-WjG" secondAttribute="trailing" id="ngz-2l-vhi"/>
-                            <constraint firstItem="9CL-Oh-Dmo" firstAttribute="centerY" secondItem="OEK-Rv-AgI" secondAttribute="centerY" id="pt3-we-dxm"/>
                             <constraint firstItem="gp1-wc-p3l" firstAttribute="leading" secondItem="XvJ-on-x3f" secondAttribute="leading" constant="50" id="qYK-zt-2Qp"/>
                             <constraint firstItem="XvJ-on-x3f" firstAttribute="trailing" secondItem="gp1-wc-p3l" secondAttribute="trailing" constant="50" id="rh2-6F-hUS"/>
                         </constraints>
@@ -1190,7 +1187,9 @@
         <image name="background_image" width="1920" height="1080"/>
         <image name="car" width="25" height="25"/>
         <image name="diesel" width="100" height="100"/>
+        <image name="facebook-white" width="100" height="100"/>
         <image name="gasoline" width="85" height="100"/>
+        <image name="google-white" width="100" height="100"/>
         <image name="login_main_logo" width="175" height="175"/>
         <image name="lpg" width="100" height="100"/>
         <image name="map" width="25" height="25"/>
