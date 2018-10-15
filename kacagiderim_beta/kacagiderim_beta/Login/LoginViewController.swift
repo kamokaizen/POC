@@ -82,12 +82,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                         }
                     }
                     else{
-                        self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
+                        PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
                     }
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
                     Utils.dismissLoadingIndicator()
+                    PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
                 }
             })
         }
@@ -118,7 +118,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             switch loginResult {
             case .failed(let error):
                 print(error)
-                self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
+                PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
             case .cancelled:
                 print("User cancelled facebook login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
@@ -157,18 +157,18 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                                         }
                                     }
                                     else{
-                                        self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
+                                        PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
                                     }
                                 case .failure(let error):
                                     print((error as! CustomError).localizedDescription)
-                                    self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
                                     Utils.dismissLoadingIndicator()
+                                    PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
                                 }
                             })
                         }
                     case .failed(let error):
                         print(error.localizedDescription)
-                        self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
+                        PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
                     }
                 })
             }
