@@ -11,6 +11,7 @@ import TextFieldEffects
 import EGFormValidator
 import NVActivityIndicatorView
 import Dodo
+import SwiftEntryKit
 
 class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         
@@ -98,7 +99,7 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
             self.passwordField.isHidden = false
             self.forgotPasswordButton.isHidden = false
             self.passwordErrorLabel.isHidden = false
-            self.signInButton.setTitle("Sign In", for: UIControlState.normal)
+            self.signInButton.setTitle("Sign In", for: UIControl.State.normal)
             self.emailField.placeholder = "Email"
             self.passwordField.text = ""
         }
@@ -112,7 +113,7 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         self.passwordField.isHidden = true
         self.passwordErrorLabel.isHidden = true
         self.forgotPasswordButton.isHidden = true
-        self.signInButton.setTitle("Recover", for: UIControlState.normal)
+        self.signInButton.setTitle("Recover", for: UIControl.State.normal)
         self.emailField.placeholder = "Recovery Email"
         self.passwordField.text = "dummypassword"
     }
@@ -133,13 +134,15 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                 switch result {
                 case .success(let loginResponse):
                     self.loadingIndicator.stopAnimating()
-                    TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text)
-                    Switcher.updateRootVC()
-                    TokenController.getAndPersistCurrentUser()
-                    TokenController.getAndPersistCountries()
+                    PopupHandler.showLoginSuccessPopup {
+                        TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text)
+                        Switcher.updateRootVC()
+                        TokenController.getAndPersistCurrentUser()
+                        TokenController.getAndPersistCountries()
+                    }
                 case .failure(let error):
                     self.loadingIndicator.stopAnimating()
-                    self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view:self.view)
+                    PopupHandler.errorPopup(title: "Error", description: (error as! CustomError).localizedDescription);
                 }
             })
         }

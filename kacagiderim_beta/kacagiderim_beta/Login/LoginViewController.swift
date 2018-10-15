@@ -11,6 +11,7 @@ import GoogleSignIn
 import FacebookCore
 import FacebookLogin
 import NVActivityIndicatorView
+import SwiftEntryKit
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
@@ -73,13 +74,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                 case .success(let createResponse):
                     Utils.dismissLoadingIndicator()
                     if(createResponse.value != nil){
-                        self.messageHelper.showInfoMessage(text: "Congratulations, You have successfully logged in.", view: self.view)
-                        Utils.delayWithSeconds(2, completion: {
+                        PopupHandler.showLoginSuccessPopup {
                             TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
                             Switcher.updateRootVC()
                             TokenController.getAndPersistCurrentUser()
                             TokenController.getAndPersistCountries()
-                        })
+                        }
                     }
                     else{
                         self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)
@@ -149,13 +149,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                                 case .success(let createResponse):
                                     Utils.dismissLoadingIndicator()
                                     if(createResponse.value != nil){
-                                        self.messageHelper.showInfoMessage(text: "Congratulations, You have successfully logged in.", view: self.view)
-                                        Utils.delayWithSeconds(2, completion: {
+                                        PopupHandler.showLoginSuccessPopup {
                                             TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
                                             Switcher.updateRootVC()
                                             TokenController.getAndPersistCurrentUser()
                                             TokenController.getAndPersistCountries()
-                                        })
+                                        }
                                     }
                                     else{
                                         self.messageHelper.showErrorMessage(text: "Something went wrong. Please try again later", view: self.view)

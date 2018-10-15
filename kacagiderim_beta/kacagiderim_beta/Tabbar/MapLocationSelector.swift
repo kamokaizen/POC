@@ -26,8 +26,8 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
     var currentImage = Utils.imageWithImage(image: UIImage(named: "current.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
     var clickImage = Utils.imageWithImage(image: UIImage(named: "click.png")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
     
-    let homeChangeButton = UIButton(type: UIButtonType.custom)
-    let workChangeButton = UIButton(type: UIButtonType.custom)
+    let homeChangeButton = UIButton(type: UIButton.ButtonType.custom)
+    let workChangeButton = UIButton(type: UIButton.ButtonType.custom)
     
     var infoWindow = UIView(frame: CGRect.init(x: 0, y: 0, width: 220, height: 110))
     var zoom: Float = 15
@@ -40,10 +40,10 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        homeChangeButton.setImage(homeImage, for: UIControlState.normal)
+        homeChangeButton.setImage(homeImage, for: UIControl.State.normal)
         homeChangeButton.imageView?.contentMode = .scaleAspectFit;
         homeChangeButton.addTarget(self, action:#selector(setCurrentToHomeTapped), for: .touchUpInside)
-        workChangeButton.setImage(workImage, for: UIControlState.normal)
+        workChangeButton.setImage(workImage, for: UIControl.State.normal)
         workChangeButton.imageView?.contentMode = .scaleAspectFit;
         workChangeButton.addTarget(self, action:#selector(setCurrentToWorkTapped), for: .touchUpInside)
         

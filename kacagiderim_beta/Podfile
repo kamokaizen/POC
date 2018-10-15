@@ -25,6 +25,7 @@ def all_pods
     pod 'FacebookCore'
     pod 'FacebookLogin'
     pod 'FacebookShare'
+    pod 'SwiftEntryKit', '0.8.2'
 end
 
 target 'kacagiderim_beta' do

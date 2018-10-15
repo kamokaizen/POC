@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		399FC8B1A6BDAE3824F3DCDA /* Pods_kacagiderim_beta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */; };
+		D63FE2BE216FDCC8007F0946 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2BD216FDCC8007F0946 /* Font.swift */; };
+		D63FE2C0216FDD42007F0946 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */; };
+		D63FE2C2216FDE78007F0946 /* UIScreen+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2C1216FDE78007F0946 /* UIScreen+Utils.swift */; };
+		D63FE2C4216FDECC007F0946 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2C3216FDECC007F0946 /* CGRect+Utils.swift */; };
+		D63FE2C821753A18007F0946 /* PopupHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2C721753A18007F0946 /* PopupHandler.swift */; };
 		D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */; };
 		D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */; };
 		D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */; };
@@ -60,6 +65,11 @@
 /* Begin PBXFileReference section */
 		3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kacagiderim_beta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D735496F795E5A69644DAB /* Pods-kacagiderim_beta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.release.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.release.xcconfig"; sourceTree = "<group>"; };
+		D63FE2BD216FDCC8007F0946 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
+		D63FE2C1216FDE78007F0946 /* UIScreen+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Utils.swift"; sourceTree = "<group>"; };
+		D63FE2C3216FDECC007F0946 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
+		D63FE2C721753A18007F0946 /* PopupHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandler.swift; sourceTree = "<group>"; };
 		D695B7266CA73A8F19F59151 /* Pods-kacagiderim_beta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.debug.xcconfig"; sourceTree = "<group>"; };
 		D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelEndpoint.swift; sourceTree = "<group>"; };
 		D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrice.swift; sourceTree = "<group>"; };
@@ -202,6 +212,7 @@
 				D6C29B2021407EC000054110 /* CustomCardPartTheme.swift */,
 				D6C29B2221407FF700054110 /* ExtensionUIColor.swift */,
 				D6C29B242140808300054110 /* ExtensionUIFont.swift */,
+				D63FE2C721753A18007F0946 /* PopupHandler.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -257,6 +268,10 @@
 				D800077E20FE280300B1128A /* L10n.swift */,
 				D6EBE9522103457B0067CAB8 /* CustomError.swift */,
 				D6EBE95421035EA30067CAB8 /* Utils.swift */,
+				D63FE2BD216FDCC8007F0946 /* Font.swift */,
+				D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */,
+				D63FE2C1216FDE78007F0946 /* UIScreen+Utils.swift */,
+				D63FE2C3216FDECC007F0946 /* CGRect+Utils.swift */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -372,10 +387,12 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/QuickLayout/QuickLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftEntryKit/SwiftEntryKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -401,10 +418,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftEntryKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D63FE2C0216FDD42007F0946 /* UIColor+Utils.swift in Sources */,
 				D6EBE9532103457B0067CAB8 /* CustomError.swift in Sources */,
 				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
@@ -471,7 +491,10 @@
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6C29B2321407FF700054110 /* ExtensionUIColor.swift in Sources */,
+				D63FE2BE216FDCC8007F0946 /* Font.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
+				D63FE2C821753A18007F0946 /* PopupHandler.swift in Sources */,
+				D63FE2C2216FDE78007F0946 /* UIScreen+Utils.swift in Sources */,
 				D838A66C213FED7B003E034E /* FuelPrices.swift in Sources */,
 				D6C29B2121407EC000054110 /* CustomCardPartTheme.swift in Sources */,
 				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
@@ -495,6 +518,7 @@
 				D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */,
 				D6EBE951210331E30067CAB8 /* MessageHelper.swift in Sources */,
 				D6EBE9592104DFDF0067CAB8 /* Countries.swift in Sources */,
+				D63FE2C4216FDECC007F0946 /* CGRect+Utils.swift in Sources */,
 				D6A0D7B8212082C80019C7FA /* City.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
@@ -650,7 +674,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kacagiderim.kacagiderim-beta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -665,7 +689,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kacagiderim.kacagiderim-beta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

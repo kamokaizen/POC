@@ -152,13 +152,12 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
             switch result {
             case .success(let createResponse):
                 self.loadingIndicator.stopAnimating()
-                self.messageHelper.showInfoMessage(text: "New Account Created", view: self.view)
-                Utils.delayWithSeconds(5, completion: {
+                PopupHandler.newAccountCreatedPopup {
                     self.dismiss(animated: true, completion: nil)
-                })
+                }
             case .failure(let error):
                 self.loadingIndicator.stopAnimating()
-                self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
+                PopupHandler.errorPopup(title: "Error", description: (error as! CustomError).localizedDescription);
             }
         })
     }

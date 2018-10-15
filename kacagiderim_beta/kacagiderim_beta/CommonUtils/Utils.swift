@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import NVActivityIndicatorView
+import SwiftEntryKit
 
 class Utils {
     
@@ -33,5 +34,93 @@ class Utils {
     
     static func dismissLoadingIndicator(){
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
+    }
+    
+    static func getAttributes(element: EKAttributes, duration: Double, entryBackground: EKAttributes.BackgroundStyle, screenBackground: EKAttributes.BackgroundStyle, roundCorners: EKAttributes.RoundCorners) -> EKAttributes{
+        var ekAttribute = element
+        ekAttribute.hapticFeedbackType = .success
+        ekAttribute.displayDuration = duration
+        ekAttribute.entryBackground = entryBackground
+        ekAttribute.screenBackground = screenBackground
+        ekAttribute.shadow = .active(with: .init(color: .black, opacity: 0.5, radius: 10))
+        ekAttribute.screenInteraction = .dismiss
+        ekAttribute.entryInteraction = .absorbTouches
+        ekAttribute.scroll = .enabled(swipeable: true, pullbackAnimation: .easeOut)
+        ekAttribute.roundCorners = roundCorners
+        ekAttribute.entranceAnimation = .init(translate: .init(duration: 0.7, spring: .init(damping: 1, initialVelocity: 0)),
+                                              scale: .init(from: 1.05, to: 1, duration: 0.4, spring: .init(damping: 1, initialVelocity: 0)))
+        ekAttribute.exitAnimation = .init(translate: .init(duration: 0.2))
+        ekAttribute.popBehavior = .animated(animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7)))
+        ekAttribute.positionConstraints.verticalOffset = 10
+        ekAttribute.positionConstraints.size = .init(width: .offset(value: 20), height: .intrinsic)
+        ekAttribute.positionConstraints.maxSize = .init(width: .constant(value: UIScreen.main.minEdge), height: .intrinsic)
+        ekAttribute.statusBar = .dark
+        return ekAttribute
+    }
+    
+    static func showNotificationMessage(attributes: EKAttributes, title: String, desc: String, textColor: UIColor, imageName: String? = nil) {
+        let title = EKProperty.LabelContent(text: title, style: .init(font: MainFont.medium.with(size: 16), color: textColor))
+        let description = EKProperty.LabelContent(text: desc, style: .init(font: MainFont.light.with(size: 14), color: textColor))
+        var image: EKProperty.ImageContent?
+        if let imageName = imageName {
+            image = .init(image: UIImage(named: imageName)!, size: CGSize(width: 35, height: 35))
+        }
+        
+        let simpleMessage = EKSimpleMessage(image: image, title: title, description: description)
+        let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
+        
+        let contentView = EKNotificationMessageView(with: notificationMessage)
+        SwiftEntryKit.display(entry: contentView, using: attributes)
+    }
+    
+    static func showAlertView(attributes: EKAttributes, title: String, desc: String, textColor: UIColor, imageName: String, imagePosition: EKAlertMessage.ImagePosition, customButton:EKProperty.ButtonContent? = nil) {
+        
+        // Generate textual content
+        let title = EKProperty.LabelContent(text: title, style: .init(font: MainFont.medium.with(size: 15), color: textColor, alignment: .center))
+        let description = EKProperty.LabelContent(text: desc, style: .init(font: MainFont.light.with(size: 13), color: textColor, alignment: .center))
+        let image = EKProperty.ImageContent(imageName: imageName, size: CGSize(width: 35, height: 35), contentMode: .scaleAspectFit)
+        let simpleMessage = EKSimpleMessage(image: image, title: title, description: description)
+        
+        // Close button
+        let closeButtonLabelStyle = EKProperty.LabelStyle(font: MainFont.medium.with(size: 16), color: EKColor.Gray.a800)
+        let closeButtonLabel = EKProperty.LabelContent(text: "Cancel", style: closeButtonLabelStyle)
+        let closeButton = EKProperty.ButtonContent(label: closeButtonLabel, backgroundColor: .clear, highlightedBackgroundColor:  EKColor.Gray.a800.withAlphaComponent(0.05)) {
+            SwiftEntryKit.dismiss()
+        }
+        
+        let buttonsBarContent: EKProperty.ButtonBarContent
+        
+        if(customButton == nil) {
+            buttonsBarContent = EKProperty.ButtonBarContent(with: closeButton, separatorColor: EKColor.Gray.light, expandAnimatedly: true)
+        }
+        else{
+            buttonsBarContent = EKProperty.ButtonBarContent(with: closeButton, customButton!, separatorColor: EKColor.Gray.light, expandAnimatedly: true)
+        }
+        
+        let alertMessage = EKAlertMessage(simpleMessage: simpleMessage, imagePosition: imagePosition, buttonBarContent: buttonsBarContent)
+        
+        // Setup the view itself
+        let contentView = EKAlertMessageView(with: alertMessage)
+        SwiftEntryKit.display(entry: contentView, using: attributes)
+    }
+    
+    static func showPopupMessage(attributes: EKAttributes, title: String, titleColor: UIColor, description: String, descriptionColor: UIColor, buttonTitleColor: UIColor, buttonBackgroundColor: UIColor, buttonTitle: String, image: UIImage? = nil, buttonCompletion: @escaping () -> Void) {
+        
+        var themeImage: EKPopUpMessage.ThemeImage?
+        
+        if let image = image {
+            themeImage = .init(image: .init(image: image, size: CGSize(width: 60, height: 60), contentMode: .scaleAspectFit))
+        }
+        
+        let title = EKProperty.LabelContent(text: title, style: .init(font: MainFont.medium.with(size: 24), color: titleColor, alignment: .center))
+        let description = EKProperty.LabelContent(text: description, style: .init(font: MainFont.light.with(size: 16), color: descriptionColor, alignment: .center))
+        let button = EKProperty.ButtonContent(label: .init(text: buttonTitle, style: .init(font: MainFont.bold.with(size: 16), color: buttonTitleColor)), backgroundColor: buttonBackgroundColor, highlightedBackgroundColor: buttonTitleColor.withAlphaComponent(0.05))
+        let message = EKPopUpMessage(themeImage: themeImage, title: title, description: description, button: button) {
+            SwiftEntryKit.dismiss()
+            buttonCompletion()
+        }
+        
+        let contentView = EKPopUpMessageView(with: message)
+        SwiftEntryKit.display(entry: contentView, using: attributes)
     }
 }

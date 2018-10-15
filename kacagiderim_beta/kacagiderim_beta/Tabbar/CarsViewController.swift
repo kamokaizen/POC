@@ -8,6 +8,7 @@
 
 
 import UIKit
+import SwiftEntryKit
 
 class CarViewController: UIViewController {
     override func viewDidLoad() {

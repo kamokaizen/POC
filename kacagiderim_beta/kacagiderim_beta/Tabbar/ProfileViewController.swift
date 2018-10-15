@@ -18,6 +18,7 @@ import GoogleMaps
 import GoogleSignIn
 import Kingfisher
 import FacebookLogin
+import SwiftEntryKit
 
 class ProfileViewController: CardsViewController {
     
@@ -324,18 +325,32 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     
     // change password button action
     @objc func logoutButtonTapped() {
-        TokenController.deleteUserFromUserDefaults()
+        let attributes = Utils.getAttributes(element: EKAttributes.centerFloat,
+                                             duration: .infinity,
+                                             entryBackground: .color(color: .white),
+                                             screenBackground: .color(color: .dimmedLightBackground),
+                                             roundCorners: .all(radius: 25))
         
-        // Google Logout
-        GIDSignIn.sharedInstance().signOut()
+        // Ok Button - Make transition to a new entry when the button is tapped
+        let okButtonLabelStyle = EKProperty.LabelStyle(font: MainFont.medium.with(size: 16), color: EKColor.Teal.a600)
+        let okButtonLabel = EKProperty.LabelContent(text: "Sign out", style: okButtonLabelStyle)
+        let okButton = EKProperty.ButtonContent(label: okButtonLabel, backgroundColor: .clear, highlightedBackgroundColor:  EKColor.Teal.a600.withAlphaComponent(0.05)) {
+            SwiftEntryKit.dismiss()
+            TokenController.deleteUserFromUserDefaults()
+
+            // Google Logout
+            GIDSignIn.sharedInstance().signOut()
+
+            // Facebook logout
+            let loginManager = LoginManager()
+            loginManager.logOut()
+
+            Switcher.updateRootVC()
+            // From both memory and disk
+            ImageCache.default.removeImage(forKey: "profile_image")
+        }
         
-        // Facebook logout
-        let loginManager = LoginManager()
-        loginManager.logOut()
-        
-        Switcher.updateRootVC()
-        // From both memory and disk
-        ImageCache.default.removeImage(forKey: "profile_image")
+        Utils.showAlertView(attributes: attributes, title: "Confirmation", desc: "Are you sure you want to sign out?", textColor: .black, imageName: "logo.png", imagePosition: .left, customButton: okButton)
     }
 }
 
@@ -539,7 +554,13 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
             //            })
         }
         else{
-            self.viewModel.rootViewController?.messageHelper.showInfoMessage(text: "You can edit your metrics", view: (self.viewModel.rootViewController?.view)!)
+            let attributes = Utils.getAttributes(element: EKAttributes.topFloat,
+                                                 duration: 3,
+                                                 entryBackground: .gradient(gradient: .init(colors: [.facebookDarkBlue, .satCyan], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
+                                                 screenBackground: .color(color: .dimmedLightBackground),
+                                                 roundCorners: .all(radius: 25))
+            Utils.showNotificationMessage(attributes: attributes, title: "Edit mode enabled", desc: "Now you can edit your metrics. Just click the change buttons, then update each metric indivudually.", textColor: .white, imageName: "ic_info_outline")
+            
             self.editableMode = true
             setComponents(editableMode: self.editableMode)
         }
@@ -642,19 +663,19 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         usernameTextFieldPart.placeholder = "Type a username"
         usernameTextFieldPart.font = CardParts.theme.normalTextFont
         usernameTextFieldPart.textColor = CardParts.theme.normalTextColor
-        usernameTextFieldPart.addTarget(self, action: #selector(self.usernameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        usernameTextFieldPart.addTarget(self, action: #selector(self.usernameTextFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
         nameTextFieldPart.keyboardType = .default
         nameTextFieldPart.placeholder = "Type a name"
         nameTextFieldPart.font = CardParts.theme.normalTextFont
         nameTextFieldPart.textColor = CardParts.theme.normalTextColor
-        nameTextFieldPart.addTarget(self, action: #selector(self.nameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        nameTextFieldPart.addTarget(self, action: #selector(self.nameTextFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
         surnameTextFieldPart.keyboardType = .default
         surnameTextFieldPart.placeholder = "Type a surname"
         surnameTextFieldPart.font = CardParts.theme.normalTextFont
         surnameTextFieldPart.textColor = CardParts.theme.normalTextColor
-        surnameTextFieldPart.addTarget(self, action: #selector(self.surnameTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        surnameTextFieldPart.addTarget(self, action: #selector(self.surnameTextFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
         passwordChangeButtonPart.setTitle("Change Password", for: .normal)
         passwordChangeButtonPart.setTitleColor(K.Constants.kacagiderimColorWarning, for: .normal)
@@ -687,9 +708,9 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         ssnTextFieldPart.placeholder = "Type your SSN"
         ssnTextFieldPart.font = CardParts.theme.normalTextFont
         ssnTextFieldPart.textColor = CardParts.theme.normalTextColor
-        ssnTextFieldPart.addTarget(self, action: #selector(self.ssnTextFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        ssnTextFieldPart.addTarget(self, action: #selector(self.ssnTextFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
-        typeSegmentedControl.addTarget(self, action: #selector(typeValueChanged), for:UIControlEvents.valueChanged)
+        typeSegmentedControl.addTarget(self, action: #selector(typeValueChanged), for:UIControl.Event.valueChanged)
         let stackView = CardPartStackView()
         stackView.axis = .horizontal
         stackView.spacing = 0
@@ -776,7 +797,12 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
 //            })
         }
         else{
-            self.viewModel.rootViewController?.messageHelper.showInfoMessage(text: "You can edit your profile", view: (self.viewModel.rootViewController?.view)!)
+            let attributes = Utils.getAttributes(element: EKAttributes.topFloat,
+                                                 duration: 3,
+                                                 entryBackground: .gradient(gradient: .init(colors: [.facebookDarkBlue, .satCyan], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
+                                                 screenBackground: .color(color: .dimmedLightBackground),
+                                                 roundCorners: .all(radius: 25))
+            Utils.showNotificationMessage(attributes: attributes, title: "Edit mode enabled", desc: "Now you can edit your profile. Change your country, change your password etc.", textColor: .white, imageName: "ic_info_outline")
             self.editableMode = true
             setComponents(editableMode: self.editableMode)
         }
