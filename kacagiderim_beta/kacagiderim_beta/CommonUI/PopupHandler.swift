@@ -40,4 +40,22 @@ class PopupHandler {
                                              roundCorners: .all(radius: 25))
         Utils.showNotificationMessage(attributes: attributes, title: title, desc: description, textColor: .white, imageName: "alert")
     }
+    
+    static func infoPopup(title: String, description: String){
+        let attributes = Utils.getAttributes(element: EKAttributes.topFloat,
+                                             duration: 3,
+                                             entryBackground: .gradient(gradient: .init(colors: [.facebookDarkBlue, .satCyan], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
+                                             screenBackground: .color(color: .dimmedLightBackground),
+                                             roundCorners: .all(radius: 25))
+        Utils.showNotificationMessage(attributes: attributes, title: title, desc: description, textColor: .white, imageName: "ic_info_outline")
+    }
+    
+    static func successPopup(title: String, description: String){
+        let attributes = Utils.getAttributes(element: EKAttributes.topFloat,
+                                             duration: 3,
+                                             entryBackground: .gradient(gradient: .init(colors: [.greenGrass, .satCyan], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
+                                             screenBackground: .color(color: .dimmedLightBackground),
+                                             roundCorners: .all(radius: 25))
+        Utils.showNotificationMessage(attributes: attributes, title: title, desc: description, textColor: .white, imageName: "ic_success")
+    }
 }

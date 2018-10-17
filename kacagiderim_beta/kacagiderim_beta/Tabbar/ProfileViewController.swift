@@ -554,13 +554,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
             //            })
         }
         else{
-            let attributes = Utils.getAttributes(element: EKAttributes.topFloat,
-                                                 duration: 3,
-                                                 entryBackground: .gradient(gradient: .init(colors: [.facebookDarkBlue, .satCyan], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
-                                                 screenBackground: .color(color: .dimmedLightBackground),
-                                                 roundCorners: .all(radius: 25))
-            Utils.showNotificationMessage(attributes: attributes, title: "Edit mode enabled", desc: "Now you can edit your metrics. Just click the change buttons, then update each metric indivudually.", textColor: .white, imageName: "ic_info_outline")
-            
+            PopupHandler.infoPopup(title: "Edit mode enabled", description: "Now you can edit your metrics. Just click the change buttons, then update each metric indivudually.")
             self.editableMode = true
             setComponents(editableMode: self.editableMode)
         }
@@ -797,12 +791,7 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
 //            })
         }
         else{
-            let attributes = Utils.getAttributes(element: EKAttributes.topFloat,
-                                                 duration: 3,
-                                                 entryBackground: .gradient(gradient: .init(colors: [.facebookDarkBlue, .satCyan], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
-                                                 screenBackground: .color(color: .dimmedLightBackground),
-                                                 roundCorners: .all(radius: 25))
-            Utils.showNotificationMessage(attributes: attributes, title: "Edit mode enabled", desc: "Now you can edit your profile. Change your country, change your password etc.", textColor: .white, imageName: "ic_info_outline")
+            PopupHandler.infoPopup(title: "Edit mode enabled", description: "Now you can edit your profile. Change your country, change your password etc.")
             self.editableMode = true
             setComponents(editableMode: self.editableMode)
         }
@@ -1082,12 +1071,12 @@ class ProfileViewModel : LocationUpdateDelegate {
             switch result {
             case .success(let updateResponse):
                 Utils.dismissLoadingIndicator()
-                self.rootViewController?.messageHelper.showInfoMessage(text: updateResponse.reason, view: (self.rootViewController?.view)!)
+                PopupHandler.successPopup(title: "Success", description: updateResponse.reason)
                 self.getProfileData()
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)
                 Utils.dismissLoadingIndicator()
-                self.rootViewController?.messageHelper.showErrorMessage(text: (error as! CustomError).getErrorMessage(), view:(self.rootViewController?.view)!)
+                PopupHandler.errorPopup(title: "Error", description: "Something went wrong")
             }
         })
     }

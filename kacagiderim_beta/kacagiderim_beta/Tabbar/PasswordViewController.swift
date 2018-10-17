@@ -130,15 +130,15 @@ class PasswordViewController : ValidatorViewController, UITextFieldDelegate {
             switch result {
             case .success(let changeResponse):
                 self.loadingIndicator.stopAnimating()
-                self.messageHelper.showInfoMessage(text: changeResponse.reason, view: self.view)
+                PopupHandler.successPopup(title: "Success", description: changeResponse.reason)
                 Utils.delayWithSeconds(5, completion: {
                     self.dismiss(animated: true, completion: nil)
                 })
             case .failure(let error):
                 self.loadingIndicator.stopAnimating()
-                self.messageHelper.showErrorMessage(text: (error as! CustomError).localizedDescription, view: self.view)
+                PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
             }
-            })
+        })
     }
     
     @IBAction func textFieldDidChange(textField: UITextField) {

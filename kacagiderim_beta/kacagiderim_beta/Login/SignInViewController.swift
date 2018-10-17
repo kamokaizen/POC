@@ -125,6 +125,7 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
         if(recoverMode){
             // call recover
             print("recover mode called")
+            PopupHandler.successPopup(title: "Success", description: "Your password recovery email sent");
         }
         else{
             // call sign in
