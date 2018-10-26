@@ -10,7 +10,6 @@ import UIKit
 import TextFieldEffects
 import EGFormValidator
 import NVActivityIndicatorView
-import Dodo
 import SwiftEntryKit
 
 class SignInViewController: ValidatorViewController, UITextFieldDelegate {

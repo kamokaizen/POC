@@ -10,6 +10,7 @@ import Foundation
 import CardParts
 
 public class CustomCardPartTheme: CardPartsTheme {
+    public var buttonCornerRadius: CGFloat = 10.0
     
     static var turboHeaderBlueColor: UIColor { get { return UIColor.colorFromHex(0x05A4B5) }}
     

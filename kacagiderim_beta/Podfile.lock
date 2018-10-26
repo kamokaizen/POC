@@ -6,51 +6,50 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - CardParts (2.6.0):
+  - CardParts (2.7.1):
     - RxCocoa (~> 4.0)
     - RxDataSources (~> 3.0)
     - RxGesture (~> 1.2)
     - RxSwift (~> 4.0)
-  - CHIPageControl (0.1.6):
-    - CHIPageControl/Aji (= 0.1.6)
-    - CHIPageControl/Aleppo (= 0.1.6)
-    - CHIPageControl/Chimayo (= 0.1.6)
-    - CHIPageControl/Fresno (= 0.1.6)
-    - CHIPageControl/Jalapeno (= 0.1.6)
-    - CHIPageControl/Jaloro (= 0.1.6)
-    - CHIPageControl/Paprika (= 0.1.6)
-    - CHIPageControl/Puya (= 0.1.6)
-  - CHIPageControl/Aji (0.1.6)
-  - CHIPageControl/Aleppo (0.1.6)
-  - CHIPageControl/Chimayo (0.1.6)
-  - CHIPageControl/Fresno (0.1.6)
-  - CHIPageControl/Jalapeno (0.1.6)
-  - CHIPageControl/Jaloro (0.1.6)
-  - CHIPageControl/Paprika (0.1.6)
-  - CHIPageControl/Puya (0.1.6)
-  - DCKit (1.0.11)
-  - Differentiator (3.0.2)
-  - Dodo (11.0.2)
-  - EGFormValidator (1.2.1)
-  - FacebookCore (0.4.0):
+  - CHIPageControl (0.1.7):
+    - CHIPageControl/Aji (= 0.1.7)
+    - CHIPageControl/Aleppo (= 0.1.7)
+    - CHIPageControl/Chimayo (= 0.1.7)
+    - CHIPageControl/Fresno (= 0.1.7)
+    - CHIPageControl/Jalapeno (= 0.1.7)
+    - CHIPageControl/Jaloro (= 0.1.7)
+    - CHIPageControl/Paprika (= 0.1.7)
+    - CHIPageControl/Puya (= 0.1.7)
+  - CHIPageControl/Aji (0.1.7)
+  - CHIPageControl/Aleppo (0.1.7)
+  - CHIPageControl/Chimayo (0.1.7)
+  - CHIPageControl/Fresno (0.1.7)
+  - CHIPageControl/Jalapeno (0.1.7)
+  - CHIPageControl/Jaloro (0.1.7)
+  - CHIPageControl/Paprika (0.1.7)
+  - CHIPageControl/Puya (0.1.7)
+  - DCKit (1.0.12)
+  - Differentiator (3.1.0)
+  - EGFormValidator (2.0.0)
+  - FacebookCore (0.5.0):
     - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.36)
-  - FacebookLogin (0.4.0):
+    - FBSDKCoreKit (~> 4.37)
+  - FacebookLogin (0.5.0):
     - Bolts (~> 1.9)
-    - FacebookCore (~> 0.4)
-    - FBSDKCoreKit (~> 4.36)
-    - FBSDKLoginKit (~> 4.36)
-  - FacebookShare (0.4.0):
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.37)
+    - FBSDKLoginKit (~> 4.37)
+  - FacebookShare (0.5.0):
     - Bolts (~> 1.9)
-    - FacebookCore (~> 0.4)
-    - FBSDKCoreKit (~> 4.36)
-    - FBSDKShareKit (~> 4.36)
-  - FBSDKCoreKit (4.37.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.37.0):
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.37)
+    - FBSDKShareKit (~> 4.37)
+  - FBSDKCoreKit (4.38.0):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.38.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.37.0):
-    - FBSDKCoreKit (~> 4.37.0)
+  - FBSDKShareKit (4.38.0):
+    - FBSDKCoreKit
   - GoogleMaps (2.7.0):
     - GoogleMaps/Maps (= 2.7.0)
   - GoogleMaps/Base (2.7.0)
@@ -58,7 +57,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (2.7.0):
     - GoogleMaps/Base (= 2.7.0)
-  - GoogleSignIn (4.1.2):
+  - GoogleSignIn (4.3.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
     - GTMOAuth2 (~> 1.0)
@@ -78,34 +77,33 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
-  - KeychainSwift (11.0.0)
+  - KeychainSwift (13.0.0)
   - Kingfisher (4.10.0)
-  - McPicker (0.5.2)
-  - NVActivityIndicatorView (4.3.0):
-    - NVActivityIndicatorView/Presenter (= 4.3.0)
-  - NVActivityIndicatorView/Presenter (4.3.0)
+  - McPicker (2.0.0)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
   - QuickLayout (2.1.1)
-  - RxCocoa (4.2.0):
+  - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
-  - RxDataSources (3.0.2):
+  - RxDataSources (3.1.0):
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxGesture (1.2.1):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
+  - RxSwift (4.3.1)
   - SwiftEntryKit (0.8.2):
     - QuickLayout (= 2.1.1)
-  - SwiftGen (5.3.0)
-  - TextFieldEffects (1.4.0)
+  - SwiftGen (6.0.2)
+  - TextFieldEffects (1.5.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - CardParts
   - CHIPageControl (~> 0.1.3)
   - DCKit
-  - Dodo (~> 11.0)
   - EGFormValidator
   - FacebookCore
   - FacebookLogin
@@ -115,8 +113,10 @@ DEPENDENCIES:
   - GoogleSignIn
   - KeychainSwift
   - Kingfisher (~> 4.0)
-  - McPicker (~> 0.5.1)
+  - McPicker (~> 2.0.0)
   - NVActivityIndicatorView
+  - RxCocoa (~> 4.0)
+  - RxSwift (~> 4.0)
   - SwiftEntryKit (= 0.8.2)
   - SwiftGen
   - TextFieldEffects
@@ -129,7 +129,6 @@ SPEC REPOS:
     - CHIPageControl
     - DCKit
     - Differentiator
-    - Dodo
     - EGFormValidator
     - FacebookCore
     - FacebookLogin
@@ -159,37 +158,36 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  CardParts: e6c3f5c6cedffa78453f57d893efffc336292708
-  CHIPageControl: 21b85bb8c7d4d1d15fc4f353e1eb095eb75de5f1
-  DCKit: 568413a2f55e681af4d2c35a9c0d489a31d9512a
-  Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
-  Dodo: d7e393c79aaaf3c51ed1311933493b6f1ccdde62
-  EGFormValidator: 7c84faf2a4a4690061db6651050bd1150d5cb181
-  FacebookCore: 770e57cfe250a4de4458b682191c0ff062dee247
-  FacebookLogin: eb0f2251aca835a94d70a5f7e580edc46d1e1603
-  FacebookShare: ec48492ba748f971c6a13661963f7aae38140111
-  FBSDKCoreKit: fe5f3474499a81963e11e3f3a5c753d0a95ca2b4
-  FBSDKLoginKit: 2f7249686d1e30ce8a5ef5400eedf50b3e3df332
-  FBSDKShareKit: 52e0083222c38e930eb6878007478326599195c3
+  CardParts: 4b091fcbd9a602c3b1843fd81c3730e1363b60bb
+  CHIPageControl: bbe1ddd0c688c02ec65b7f7e7d34551a3d16f37c
+  DCKit: 30036e7ef4ea37f397280e2f722b962c99b59a18
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  EGFormValidator: 075803c0227c2f17c7e87ba43311adbf9beae704
+  FacebookCore: 74288d0add931d361b1596beae787ab72c438249
+  FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
+  FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
+  FBSDKCoreKit: 2ab7fdbf600dc6b628ba7a49aa29d357a7b4c74e
+  FBSDKLoginKit: 634fa27e72e33620eb6389253337342c03d4a407
+  FBSDKShareKit: 00290e3db446eed603ff80ac629dcc5e80cf8b74
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
-  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
+  GoogleSignIn: 11183592dc63e105475c7305a325045ff95e02b7
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
-  KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
+  KeychainSwift: 23d6c16cbc33f20fafa30c3d783241b4b87d998c
   Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
-  McPicker: 3c21f279480d04ba7f8a4ae8445f59c7e0931a99
-  NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
+  McPicker: 1d11ad8c07c337a16dd9397e45f321125304cbb0
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
   QuickLayout: 9af2b7fd89a6552828f51a5aba28d1bcdb8b340c
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
-  RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
+  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   SwiftEntryKit: c3782ddda1ccbd35899d5f9bfad1c3ab9c823e2a
-  SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
-  TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
+  SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
+  TextFieldEffects: 7d372f58aeaf9acd9626bbf962680aef926b085d
 
-PODFILE CHECKSUM: d886baa127fbea45625a4ba22457178dbbf2bc88
+PODFILE CHECKSUM: 6dfe38fcad7b992d0263e0a8f065679d690bfc01
 
 COCOAPODS: 1.5.3
