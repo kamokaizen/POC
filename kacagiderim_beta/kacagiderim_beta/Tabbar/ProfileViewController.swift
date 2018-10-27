@@ -496,7 +496,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
         let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
         mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
         
-        mcPicker.showAsPopover(fromViewController: self, doneHandler: { (selections: [Int : String]) -> Void in
+        mcPicker.showAsPopover(fromViewController: self, sourceView: sender,  doneHandler: { (selections: [Int : String]) -> Void in
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.distanceMetric.value = name
@@ -513,7 +513,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
         let fireButton = McPickerBarButtonItem.done(mcPicker: mcPicker, title: "Ok")
         let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
         mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
-        mcPicker.showAsPopover(fromViewController: self, doneHandler: { (selections: [Int : String]) -> Void in
+        mcPicker.showAsPopover(fromViewController: self,sourceView: sender, doneHandler: { (selections: [Int : String]) -> Void in
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.volumeMetric.value = name
@@ -527,7 +527,7 @@ class MetricsCardContoller: CardPartsViewController, ShadowCardTrait, RoundedCar
         let fireButton = McPickerBarButtonItem.done(mcPicker: mcPicker, title: "Ok")
         let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
         mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
-        mcPicker.showAsPopover(fromViewController: self, doneHandler: { (selections: [Int : String]) -> Void in
+        mcPicker.showAsPopover(fromViewController: self,sourceView: sender, doneHandler: { (selections: [Int : String]) -> Void in
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.currencyMetric.value = name
@@ -798,7 +798,7 @@ class ProfileCardController: CardPartsViewController, ShadowCardTrait, RoundedCa
         let fireButton = McPickerBarButtonItem.done(mcPicker: mcPicker, title: "Ok")
         let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
         mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
-        mcPicker.showAsPopover(fromViewController: self, doneHandler: { (selections: [Int : String]) -> Void in
+        mcPicker.showAsPopover(fromViewController: self,sourceView: sender, doneHandler: { (selections: [Int : String]) -> Void in
             if let name = selections[0] {
                 print("Selected:" + name)
                 self.viewModel.countryName.value = name
@@ -927,7 +927,7 @@ class ProfileViewModel : LocationUpdateDelegate {
                     let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
                     mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
                     
-                    mcPicker.showAsPopover(fromViewController: viewController, doneHandler: { (selections: [Int : String]) -> Void in
+                    mcPicker.showAsPopover(fromViewController: viewController,sourceView: sourceView, doneHandler: { (selections: [Int : String]) -> Void in
                         if let name = selections[0] {
                             print("Selected:" + name)
                             var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];

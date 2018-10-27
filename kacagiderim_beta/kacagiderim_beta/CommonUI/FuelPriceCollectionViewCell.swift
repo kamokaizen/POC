@@ -34,7 +34,7 @@ final class FuelPriceCollectionViewCell: UICollectionViewCell {
         // Set custom toolbar items
         mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
         
-        mcPicker.showAsPopover(fromViewController: self.superViewController, doneHandler: { (selections: [Int : String]) -> Void in
+        mcPicker.showAsPopover(fromViewController: self.superViewController, sourceView: sender.customView, doneHandler: { (selections: [Int : String]) -> Void in
             if let name = selections[0] {
                 print("Selected:" + name)
                 var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
