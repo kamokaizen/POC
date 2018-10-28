@@ -134,11 +134,11 @@ class APIClient {
         checkTokenExpired(route: FuelEndpoint.priceswithnames(country: country, cities: cities), completion: completion)
     }
     
-    static func getBrands(completion:@escaping (Result<ServerResponse<PageResponse>>) -> Void){
+    static func getBrands(completion:@escaping (Result<ServerResponse<PageResponse<Brand>>>) -> Void){
         checkTokenExpired(route: CarEndpoint.brands(), completion: completion)
     }
     
-    static func getUserVehicles(userId: String, completion:@escaping (Result<ServerResponse<PageResponse>>) -> Void){
+    static func getUserVehicles(userId: String, completion:@escaping (Result<ServerResponse<PageResponse<Vehicle>>>) -> Void){
         checkTokenExpired(route: AccountEndpoint.getVehicles(userId: userId), completion: completion)
     }
 }

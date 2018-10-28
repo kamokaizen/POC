@@ -18,6 +18,13 @@
 		D63FE2D221848EB0007F0946 /* Brands.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2D121848EB0007F0946 /* Brands.swift */; };
 		D63FE2D42184925C007F0946 /* PageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2D32184925C007F0946 /* PageResponse.swift */; };
 		D63FE2D621849B80007F0946 /* AccountEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2D521849B80007F0946 /* AccountEndpoint.swift */; };
+		D63FE2D82185F77C007F0946 /* CarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2D72185F77C007F0946 /* CarTableViewCell.swift */; };
+		D63FE2DA2185FAF5007F0946 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2D92185FAF5007F0946 /* Vehicle.swift */; };
+		D63FE2DC21860C92007F0946 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2DB21860C92007F0946 /* DefaultsManager.swift */; };
+		D63FE2DE218610E0007F0946 /* CarCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2DD218610DF007F0946 /* CarCreateViewModel.swift */; };
+		D63FE2E0218610ED007F0946 /* CarTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2DF218610ED007F0946 /* CarTableViewModel.swift */; };
+		D63FE2E3218611D7007F0946 /* CarCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2E2218611D7007F0946 /* CarCreateViewController.swift */; };
+		D63FE2E5218612E2007F0946 /* CarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2E4218612E2007F0946 /* CarTableViewController.swift */; };
 		D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */; };
 		D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */; };
 		D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */; };
@@ -80,6 +87,13 @@
 		D63FE2D121848EB0007F0946 /* Brands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brands.swift; sourceTree = "<group>"; };
 		D63FE2D32184925C007F0946 /* PageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageResponse.swift; sourceTree = "<group>"; };
 		D63FE2D521849B80007F0946 /* AccountEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEndpoint.swift; sourceTree = "<group>"; };
+		D63FE2D72185F77C007F0946 /* CarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTableViewCell.swift; sourceTree = "<group>"; };
+		D63FE2D92185FAF5007F0946 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		D63FE2DB21860C92007F0946 /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
+		D63FE2DD218610DF007F0946 /* CarCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCreateViewModel.swift; sourceTree = "<group>"; };
+		D63FE2DF218610ED007F0946 /* CarTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTableViewModel.swift; sourceTree = "<group>"; };
+		D63FE2E2218611D7007F0946 /* CarCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCreateViewController.swift; sourceTree = "<group>"; };
+		D63FE2E4218612E2007F0946 /* CarTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTableViewController.swift; sourceTree = "<group>"; };
 		D695B7266CA73A8F19F59151 /* Pods-kacagiderim_beta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.debug.xcconfig"; sourceTree = "<group>"; };
 		D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelEndpoint.swift; sourceTree = "<group>"; };
 		D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrice.swift; sourceTree = "<group>"; };
@@ -163,6 +177,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D63FE2E1218611BD007F0946 /* Cars */ = {
+			isa = PBXGroup;
+			children = (
+				D63FE2DD218610DF007F0946 /* CarCreateViewModel.swift */,
+				D63FE2DF218610ED007F0946 /* CarTableViewModel.swift */,
+				D63FE2E2218611D7007F0946 /* CarCreateViewController.swift */,
+				D63FE2E4218612E2007F0946 /* CarTableViewController.swift */,
+			);
+			path = Cars;
+			sourceTree = "<group>";
+		};
 		D6D66A7C20F9FB6D003B7C75 = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +248,7 @@
 				D6C29B2221407FF700054110 /* ExtensionUIColor.swift */,
 				D6C29B242140808300054110 /* ExtensionUIFont.swift */,
 				D63FE2C721753A18007F0946 /* PopupHandler.swift */,
+				D63FE2D72185F77C007F0946 /* CarTableViewCell.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -230,6 +256,7 @@
 		D800076820FCCAF800B1128A /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				D63FE2E1218611BD007F0946 /* Cars */,
 				D800076420FCC63400B1128A /* MainTabbarController.swift */,
 				D800076920FCCB0F00B1128A /* ProfileViewController.swift */,
 				D800076B20FCCF2900B1128A /* PricesViewController.swift */,
@@ -271,6 +298,7 @@
 				D63FE2CF21848E5E007F0946 /* Brand.swift */,
 				D63FE2D121848EB0007F0946 /* Brands.swift */,
 				D63FE2D32184925C007F0946 /* PageResponse.swift */,
+				D63FE2D92185FAF5007F0946 /* Vehicle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,6 +313,7 @@
 				D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */,
 				D63FE2C1216FDE78007F0946 /* UIScreen+Utils.swift */,
 				D63FE2C3216FDECC007F0946 /* CGRect+Utils.swift */,
+				D63FE2DB21860C92007F0946 /* DefaultsManager.swift */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -386,6 +415,7 @@
 				"${BUILT_PRODUCTS_DIR}/CHIPageControl/CHIPageControl.framework",
 				"${BUILT_PRODUCTS_DIR}/CardParts/CardParts.framework",
 				"${BUILT_PRODUCTS_DIR}/DCKit/DCKit.framework",
+				"${BUILT_PRODUCTS_DIR}/DefaultsKit/DefaultsKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/EGFormValidator/EGFormValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -416,6 +446,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHIPageControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CardParts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DefaultsKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EGFormValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -493,12 +524,15 @@
 			files = (
 				D63FE2C0216FDD42007F0946 /* UIColor+Utils.swift in Sources */,
 				D6EBE9532103457B0067CAB8 /* CustomError.swift in Sources */,
+				D63FE2E0218610ED007F0946 /* CarTableViewModel.swift in Sources */,
 				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
+				D63FE2DC21860C92007F0946 /* DefaultsManager.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
 				D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */,
 				D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */,
 				D838A6702142BEAA003E034E /* MapLocationSelector.swift in Sources */,
+				D63FE2DA2185FAF5007F0946 /* Vehicle.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
 				D63FE2D42184925C007F0946 /* PageResponse.swift in Sources */,
 				D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */,
@@ -513,6 +547,7 @@
 				D6C29B2121407EC000054110 /* CustomCardPartTheme.swift in Sources */,
 				D63FE2D221848EB0007F0946 /* Brands.swift in Sources */,
 				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
+				D63FE2DE218610E0007F0946 /* CarCreateViewModel.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D63FE2D621849B80007F0946 /* AccountEndpoint.swift in Sources */,
 				D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */,
@@ -539,8 +574,11 @@
 				D6A0D7B8212082C80019C7FA /* City.swift in Sources */,
 				D63FE2D021848E5E007F0946 /* Brand.swift in Sources */,
 				D800077220FCD9D300B1128A /* CarsViewController.swift in Sources */,
+				D63FE2E5218612E2007F0946 /* CarTableViewController.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D8B26418211B2055000E814F /* TokenController.swift in Sources */,
+				D63FE2D82185F77C007F0946 /* CarTableViewCell.swift in Sources */,
+				D63FE2E3218611D7007F0946 /* CarCreateViewController.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,
 				D6A0D7B2211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift in Sources */,
 				D8E699FE20FF34A4005484CA /* User.swift in Sources */,

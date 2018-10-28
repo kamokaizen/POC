@@ -14,7 +14,7 @@ class Switcher {
     static func updateRootVC(){
         
         let status = UserDefaults.standard.bool(forKey: "isLoggedIn")
-        let activeUser = UserDefaults.standard.string(forKey: "activeUser")
+        let activeUser = UserDefaults.standard.string(forKey: "")
         let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
         let expireDate = UserDefaults.standard.integer(forKey: "expireDate")

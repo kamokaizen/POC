@@ -27,6 +27,7 @@ def all_pods
     pod 'SwiftEntryKit', '0.8.2'
     pod 'RxSwift',    '~> 4.0'
     pod 'RxCocoa',    '~> 4.0'
+    pod 'DefaultsKit'
 end
 
 target 'kacagiderim_beta' do
