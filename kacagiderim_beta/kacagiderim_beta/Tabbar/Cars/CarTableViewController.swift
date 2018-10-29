@@ -8,6 +8,7 @@
 
 import Foundation
 import CardParts
+import NVActivityIndicatorView
 
 class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
     
@@ -16,10 +17,10 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
     var cardPartSeparatorView = CardPartSeparatorView()
     let cardPartTableView = CardPartTableView()
     
-    let loadingTextView = CardPartTextView(type: .header)
-    var loadingImageView = CardPartImageView(image: UIImage(named: "home.png"))
+    let loadingTextView = CardPartTextView(type: .normal)
+    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: K.Constants.default_spinner, color:UIColor.black , padding: 0)
     var emptyImageView = CardPartImageView(image: UIImage(named: "novehicle.png"))
-    let emptyTextView = CardPartTextView(type: .header)
+    let emptyTextView = CardPartTextView(type: .normal)
     
     public init(viewModel: CarTableViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -51,11 +52,9 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titlePart.label.text = "Your Vehicles"
-        loadingTextView.label.text = "Your Vehicles are loading"
-        emptyTextView.label.text = "You have no any vehicles"
-        
-        loadingImageView.contentMode = .scaleAspectFit;
+        titlePart.label.text = "Vehicles"
+        loadingTextView.text = "Vehicles are loading"
+        emptyTextView.text = "You have no any vehicles, lets click 'Create New Vehicle' button to add new vehicle into your profile."
         emptyImageView.contentMode = .scaleAspectFit;
         
         cardPartTableView.tableView.register(MyCustomTableViewCell.self, forCellReuseIdentifier: "CarTableViewCell")
@@ -70,8 +69,25 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
             return cell
             }.disposed(by: bag)
         
+        let stackLoading = CardPartStackView()
+        stackLoading.axis = .vertical
+        stackLoading.spacing = 10
+        stackLoading.distribution = .equalSpacing
+        stackLoading.alignment = UIStackView.Alignment.center
+        stackLoading.addArrangedSubview(loadingIndicator);
+        stackLoading.addArrangedSubview(loadingTextView);
+        loadingIndicator.startAnimating()
+        
+        let stackEmpty = CardPartStackView()
+        stackEmpty.axis = .vertical
+        stackEmpty.spacing = 10
+        stackEmpty.distribution = .equalSpacing
+        stackEmpty.alignment = UIStackView.Alignment.center
+        stackEmpty.addArrangedSubview(emptyImageView);
+        stackEmpty.addArrangedSubview(emptyTextView);
+        
         setupCardParts([titlePart, cardPartSeparatorView, cardPartTableView], forState: .hasData)
-        setupCardParts([loadingTextView,cardPartSeparatorView, loadingImageView], forState: .loading)
-        setupCardParts([emptyTextView,cardPartSeparatorView, emptyImageView], forState: .empty)
+        setupCardParts([titlePart, cardPartSeparatorView, stackLoading], forState: .loading)
+        setupCardParts([titlePart, cardPartSeparatorView, stackEmpty], forState: .empty)
     }
 }

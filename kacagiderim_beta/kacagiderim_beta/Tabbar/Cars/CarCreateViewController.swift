@@ -55,7 +55,14 @@ class CarCreateViewController: CardPartsViewController, ShadowCardTrait, Rounded
         createVehicleButton.imageView?.contentMode = .scaleAspectFit
         createVehicleButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
         
-        setupCardParts([createVehicleButton])
+        let stackButton = CardPartStackView()
+        stackButton.axis = .vertical
+        stackButton.spacing = 10
+        stackButton.distribution = .fillProportionally
+        stackButton.alignment = UIStackView.Alignment.center
+        stackButton.addArrangedSubview(createVehicleButton);
+        
+        setupCardParts([stackButton])
     }
     
     @objc func createButtonTapped() {

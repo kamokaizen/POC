@@ -39,7 +39,7 @@ class CarTableViewModel {
             })
         }
         else{
-            Utils.delayWithSeconds(1, completion: {
+            Utils.delayWithSeconds(2, completion: {
                 self.state.value = .empty
             })
         }
