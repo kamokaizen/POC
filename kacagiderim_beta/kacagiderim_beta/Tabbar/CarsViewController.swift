@@ -26,6 +26,7 @@ class CarViewController: CardsViewController {
         self.cards = [CarCreateViewController(viewModel:carCreateViewModel),
                       CarTableViewController(viewModel:carTableVievModel)]
         loadCards(cards: cards)
+        carTableVievModel.getVehicles()
         
 //        // Do any additional setup after loading the view, typically from a nib.
 //        let brands = UserDefaults.standard.value(forKeyPath: "brands") as? [Brand];
@@ -50,7 +51,6 @@ class CarViewController: CardsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view, typically from a nib.
-        carTableVievModel.getVehicles()
     }
     
     override func viewDidAppear(_ animated: Bool) {

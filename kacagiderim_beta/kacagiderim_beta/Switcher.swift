@@ -33,8 +33,8 @@ class Switcher {
         }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = rootVC
-        
+        appDelegate.navigationController = UINavigationController(rootViewController: rootVC!)
+        appDelegate.window?.rootViewController = appDelegate.navigationController
     }
     
 }
