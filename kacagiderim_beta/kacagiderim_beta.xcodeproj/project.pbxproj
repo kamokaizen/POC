@@ -63,6 +63,9 @@
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
 		D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89864A021020F9A00E46477 /* ServerResponse.swift */; };
 		D8A92A67216CF58700F2C4EE /* FacebookUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A66216CF58700F2C4EE /* FacebookUser.swift */; };
+		D8A92A692188685700F2C4EE /* VehicleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A682188685700F2C4EE /* VehicleResponse.swift */; };
+		D8A92A6B21886CF100F2C4EE /* AccountVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A6A21886CF100F2C4EE /* AccountVehicle.swift */; };
+		D8A92A6E218896E000F2C4EE /* CarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A6D218896E000F2C4EE /* CarDetailViewController.swift */; };
 		D8B26418211B2055000E814F /* TokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B26417211B2055000E814F /* TokenController.swift */; };
 		D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */; };
 		D8E699FE20FF34A4005484CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FD20FF34A4005484CA /* User.swift */; };
@@ -135,6 +138,9 @@
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		D89864A021020F9A00E46477 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		D8A92A66216CF58700F2C4EE /* FacebookUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUser.swift; sourceTree = "<group>"; };
+		D8A92A682188685700F2C4EE /* VehicleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleResponse.swift; sourceTree = "<group>"; };
+		D8A92A6A21886CF100F2C4EE /* AccountVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVehicle.swift; sourceTree = "<group>"; };
+		D8A92A6D218896E000F2C4EE /* CarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDetailViewController.swift; sourceTree = "<group>"; };
 		D8AC81D021469D6A0052E472 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D8B26417211B2055000E814F /* TokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenController.swift; sourceTree = "<group>"; };
 		D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessResponse.swift; sourceTree = "<group>"; };
@@ -184,6 +190,7 @@
 				D63FE2DF218610ED007F0946 /* CarTableViewModel.swift */,
 				D63FE2E2218611D7007F0946 /* CarCreateViewController.swift */,
 				D63FE2E4218612E2007F0946 /* CarTableViewController.swift */,
+				D8A92A6D218896E000F2C4EE /* CarDetailViewController.swift */,
 			);
 			path = Cars;
 			sourceTree = "<group>";
@@ -299,6 +306,8 @@
 				D63FE2D121848EB0007F0946 /* Brands.swift */,
 				D63FE2D32184925C007F0946 /* PageResponse.swift */,
 				D63FE2D92185FAF5007F0946 /* Vehicle.swift */,
+				D8A92A682188685700F2C4EE /* VehicleResponse.swift */,
+				D8A92A6A21886CF100F2C4EE /* AccountVehicle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -527,6 +536,7 @@
 				D63FE2E0218610ED007F0946 /* CarTableViewModel.swift in Sources */,
 				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
 				D63FE2DC21860C92007F0946 /* DefaultsManager.swift in Sources */,
+				D8A92A6E218896E000F2C4EE /* CarDetailViewController.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
 				D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */,
@@ -556,6 +566,7 @@
 				D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */,
 				D800076E20FCCF3900B1128A /* MapViewController.swift in Sources */,
 				D800076520FCC63400B1128A /* MainTabbarController.swift in Sources */,
+				D8A92A692188685700F2C4EE /* VehicleResponse.swift in Sources */,
 				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
 				D8E69A042100A09F005484CA /* APIClient.swift in Sources */,
 				D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */,
@@ -579,6 +590,7 @@
 				D8B26418211B2055000E814F /* TokenController.swift in Sources */,
 				D63FE2D82185F77C007F0946 /* CarTableViewCell.swift in Sources */,
 				D63FE2E3218611D7007F0946 /* CarCreateViewController.swift in Sources */,
+				D8A92A6B21886CF100F2C4EE /* AccountVehicle.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,
 				D6A0D7B2211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift in Sources */,
 				D8E699FE20FF34A4005484CA /* User.swift in Sources */,

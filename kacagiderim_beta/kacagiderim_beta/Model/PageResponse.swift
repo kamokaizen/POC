@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 class PageResponse<T: Codable>: Codable {
     let pagination: Pagination
     let pageResult: [T?]

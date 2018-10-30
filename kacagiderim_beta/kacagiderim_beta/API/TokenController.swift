@@ -28,21 +28,24 @@ class TokenController {
         UserDefaults.standard.set(nil, forKey: "activeUser")
         UserDefaults.standard.set(nil, forKey: "accessToken")
         UserDefaults.standard.set(nil, forKey: "refreshToken")
-        UserDefaults.standard.set(nil, forKey: "userProfile")
         UserDefaults.standard.set(nil, forKey: "selectedCities")
         UserDefaults.standard.set(-1, forKey: "expireDate")
+        
+        DefaultManager.clear()
     }
     
     static func getAndPersistCurrentUser(){
-        if (UserDefaults.standard.value(forKey:"userProfile") as? Data) != nil {
-            print("no need to fetch current user")
+        
+        if DefaultManager.getUser() != nil {
+            print("User exist, no need to fetch current user from server")
             return
         }
         else{
             APIClient.getCurrentUser(completion:{ result in
                 switch result {
                 case .success(let userResponse):
-                    UserDefaults.standard.set(try? PropertyListEncoder().encode(userResponse.value), forKey: "userProfile")
+                    DefaultManager.setUser(user: userResponse.value!)
+                    print("User saved to defaults")
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
                 }

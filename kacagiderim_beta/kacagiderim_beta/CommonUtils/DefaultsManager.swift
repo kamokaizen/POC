@@ -21,6 +21,15 @@ class DefaultManager {
         static let expireDate = Key<Int>("expireDate")
     }
     
+    static func clear(){
+        defaults.clear(Keys.user)
+        defaults.clear(Keys.isLoggedIn)
+        defaults.clear(Keys.activeUser)
+        defaults.clear(Keys.accessToken)
+        defaults.clear(Keys.refreshToken)
+        defaults.clear(Keys.expireDate)
+    }
+    
     static func getUser() -> User? {
         return defaults.get(for: Keys.user)
     }

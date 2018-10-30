@@ -22,10 +22,11 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             self.countries = countries?.countries
         }
         
-        if let data = UserDefaults.standard.value(forKey:"userProfile") as? Data {
-            let userProfile = try? PropertyListDecoder().decode(User.self, from: data)
-            self.countryCode = getCountryCode(countryId: (userProfile?.countryId)!)
-            APIClient.getCitiesOfCountry(countryId: (userProfile?.countryId)!, completion:{ result in
+        let user = DefaultManager.getUser()
+        
+        if user != nil {
+            self.countryCode = getCountryCode(countryId: (user?.countryId)!)
+            APIClient.getCitiesOfCountry(countryId: (user?.countryId)!, completion:{ result in
                 switch result {
                 case .success(let citiesResponse):
                     self.cities = citiesResponse.value;

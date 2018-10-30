@@ -977,7 +977,7 @@ class ProfileViewModel : LocationUpdateDelegate {
             switch result {
             case .success(let userResponse):
                 let profile:User = (userResponse.value as User?)!
-                UserDefaults.standard.set(try? PropertyListEncoder().encode(profile), forKey: "userProfile")
+                DefaultManager.setUser(user: profile)
                 self.usernameText.value = profile.username
                 self.nameText.value = profile.name ?? ""
                 self.surnameText.value = profile.surname ?? ""
