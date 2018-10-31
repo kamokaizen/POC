@@ -135,6 +135,7 @@ class PasswordViewController : ValidatorViewController, UITextFieldDelegate {
                     self.dismiss(animated: true, completion: nil)
                 })
             case .failure(let error):
+                print((error as! CustomError).localizedDescription)
                 self.loadingIndicator.stopAnimating()
                 PopupHandler.errorPopup(title: "Error", description: "Something went wrong. Please try again later")
             }

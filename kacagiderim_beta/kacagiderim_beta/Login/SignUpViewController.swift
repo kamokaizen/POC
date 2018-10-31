@@ -41,7 +41,7 @@ class SignUpViewController : ValidatorViewController, UITextFieldDelegate {
             switch result {
             case .success(let serverResponse):
                 self.countries = serverResponse.value?.countries
-                UserDefaults.standard.set(try? PropertyListEncoder().encode(serverResponse.value), forKey: "countries")
+                DefaultManager.setCountries(countries: serverResponse.value ?? Countries(countries: []))
             case .failure(let error):
                 print(error.localizedDescription)
             }

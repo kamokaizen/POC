@@ -45,7 +45,7 @@ enum AccountEndpoint: APIConfiguration {
         urlRequest.httpMethod = method.rawValue
         
         // Common Headers
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+        let accessToken = DefaultManager.getAccessToken()
         if(accessToken != nil){
             urlRequest.setValue("Bearer " + accessToken!, forHTTPHeaderField: HTTPHeaderField.authentication.rawValue);
         }

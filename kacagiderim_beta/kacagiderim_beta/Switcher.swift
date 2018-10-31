@@ -12,19 +12,8 @@ import UIKit
 class Switcher {
     
     static func updateRootVC(){
-        
-        let status = UserDefaults.standard.bool(forKey: "isLoggedIn")
-        let activeUser = UserDefaults.standard.string(forKey: "")
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
-        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
-        let expireDate = UserDefaults.standard.integer(forKey: "expireDate")
+        let status = DefaultManager.isLoggedIn()
         var rootVC : UIViewController?
-        
-        print("loggedIn:", status)
-        print("active user:", activeUser)
-        print("accessToken:", accessToken)
-        print("refreshToken:", refreshToken)
-        print("expireDate:", expireDate)
         
         if(status == true){
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainTabbarVC") as! MainTabbarController

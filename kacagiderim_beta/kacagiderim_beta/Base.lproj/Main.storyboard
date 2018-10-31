@@ -392,13 +392,14 @@
                         <viewLayoutGuide key="safeArea" id="XvJ-on-x3f"/>
                     </view>
                     <navigationItem key="navigationItem" id="TeE-P6-d4o"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="createAccountButton" destination="Faj-T3-6xR" id="Aw6-1k-a1B"/>
                         <outlet property="facebookSignInButton" destination="Xfg-di-qLz" id="Y4A-2W-NE7"/>
                         <outlet property="googleSignInButton" destination="gwi-0x-M15" id="afv-fs-jMX"/>
                         <outlet property="signInButton" destination="i1u-mb-clL" id="Aa1-o8-Sax"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="signinSegue" id="tv2-IV-Nkr"/>
-                        <segue destination="lQ5-2X-rOh" kind="show" identifier="signupSegue" id="BsQ-0k-y5F"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="signinSegue" id="tv2-IV-Nkr"/>
+                        <segue destination="lQ5-2X-rOh" kind="presentation" identifier="signupSegue" id="BsQ-0k-y5F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uep-fx-1na" userLabel="First Responder" sceneMemberID="firstResponder"/>

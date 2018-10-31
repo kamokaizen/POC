@@ -10,4 +10,8 @@ import Foundation
 
 struct Countries: Codable {
     let countries: [Country]?
+    
+    init(countries: [Country]) {
+        self.countries = countries
+    }
 }

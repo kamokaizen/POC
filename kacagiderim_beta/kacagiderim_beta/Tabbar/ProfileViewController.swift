@@ -288,7 +288,7 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
     override func viewDidLoad() {
         super.viewDidLoad()
         titlePart.label.text = "Current User"
-        activeUser.text = UserDefaults.standard.string(forKey: "activeUser")
+        activeUser.text = DefaultManager.getActiveUsername()
         activeUser.textColor = K.Constants.kacagiderimColor
         
 //        let image = UIImage(named: "profile.png")
@@ -930,14 +930,11 @@ class ProfileViewModel : LocationUpdateDelegate {
                     mcPicker.showAsPopover(fromViewController: viewController,sourceView: sourceView, doneHandler: { (selections: [Int : String]) -> Void in
                         if let name = selections[0] {
                             print("Selected:" + name)
-                            var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
-                            if(selectedCities == nil){
-                                selectedCities = []
-                            }
-                            selectedCities!.append(name)
-                            selectedCities = Array(Set(selectedCities!))
-                            UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
-                            self.favouriteCities.value = (selectedCities?.sorted(by:<))!;
+                            var selectedCities = DefaultManager.getSelectedCities()
+                            selectedCities.append(name)
+                            selectedCities = Array(Set(selectedCities))
+                            DefaultManager.setSelectedCities(cities: selectedCities)
+                            self.favouriteCities.value = selectedCities.sorted(by:<);
                         }})
                 }
                 else{
@@ -951,25 +948,18 @@ class ProfileViewModel : LocationUpdateDelegate {
     
     func deleteCityFromSelectedCities(cityName: String) -> Void {
         // remove from userdefaults
-        var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
-        if(selectedCities == nil){
-            selectedCities = []
+        var selectedCities = DefaultManager.getSelectedCities()
+        if let indexInSelectedCities = selectedCities.index(of:cityName) {
+            selectedCities.remove(at: indexInSelectedCities)
         }
-        if let indexInSelectedCities = selectedCities!.index(of:cityName) {
-            selectedCities!.remove(at: indexInSelectedCities)
-        }
-        print(selectedCities!)
-        UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
-        self.favouriteCities.value = (selectedCities?.sorted(by: <))!
+        DefaultManager.setSelectedCities(cities: selectedCities)
+        self.favouriteCities.value = selectedCities.sorted(by: <)
     }
     
     func refreshLocalData(){
-        if let data = UserDefaults.standard.value(forKey:"countries") as? Data {
-            self.countries = try? PropertyListDecoder().decode(Countries.self, from: data)
-        }
-        if let selectedCities:[String] = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String]{
-            self.favouriteCities.value = selectedCities.sorted(by: <)
-        }
+        self.countries = DefaultManager.getCountries()
+        let selectedCities = DefaultManager.getSelectedCities()
+        self.favouriteCities.value = selectedCities.sorted(by: <)
     }
     
     func getProfileData(){

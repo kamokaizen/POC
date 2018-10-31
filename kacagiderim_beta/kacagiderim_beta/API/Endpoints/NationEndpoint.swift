@@ -55,7 +55,8 @@ enum NationEndpoint: APIConfiguration {
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+        
+        let accessToken = DefaultManager.getAccessToken()
         if(accessToken != nil){
             urlRequest.setValue("Bearer " + accessToken!, forHTTPHeaderField: HTTPHeaderField.authentication.rawValue);
         }

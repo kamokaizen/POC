@@ -37,14 +37,10 @@ final class FuelPriceCollectionViewCell: UICollectionViewCell {
         mcPicker.showAsPopover(fromViewController: self.superViewController, sourceView: sender.customView, doneHandler: { (selections: [Int : String]) -> Void in
             if let name = selections[0] {
                 print("Selected:" + name)
-                var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
-                if(selectedCities == nil){
-                    selectedCities = []
-                }
-                selectedCities!.append(name)
-                selectedCities = Array(Set(selectedCities!))
-                print(selectedCities!)
-                UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
+                var selectedCities = DefaultManager.getSelectedCities()
+                selectedCities.append(name)
+                selectedCities = Array(Set(selectedCities))
+                DefaultManager.setSelectedCities(cities: selectedCities)
                 self.dataSource.getPrice(city:name, country: self.dataSource.countryCode)
             }})
     }
@@ -57,16 +53,11 @@ final class FuelPriceCollectionViewCell: UICollectionViewCell {
                     self.dataSource.fuelPrices?.remove(at: index);
                     
                     // remove from userdefaults
-                    var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
-                    if(selectedCities == nil){
-                        selectedCities = []
+                    var selectedCities = DefaultManager.getSelectedCities()
+                    if let indexInSelectedCities = selectedCities.index(of:self.navigationItem.title!) {
+                        selectedCities.remove(at: indexInSelectedCities)
                     }
-                    if let indexInSelectedCities = selectedCities!.index(of:self.navigationItem.title!) {
-                        selectedCities!.remove(at: indexInSelectedCities)
-                    }
-                    print(selectedCities!)
-                    UserDefaults.standard.set(selectedCities, forKey: "selectedCities");
-                    
+                    DefaultManager.setSelectedCities(cities: selectedCities)
                     break
                 }
             }

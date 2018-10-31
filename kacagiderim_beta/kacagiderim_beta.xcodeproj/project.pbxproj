@@ -66,6 +66,8 @@
 		D8A92A692188685700F2C4EE /* VehicleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A682188685700F2C4EE /* VehicleResponse.swift */; };
 		D8A92A6B21886CF100F2C4EE /* AccountVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A6A21886CF100F2C4EE /* AccountVehicle.swift */; };
 		D8A92A6E218896E000F2C4EE /* CarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A6D218896E000F2C4EE /* CarDetailViewController.swift */; };
+		D8A92A702189DB4000F2C4EE /* NewVehicleCreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A92A6F2189DB4000F2C4EE /* NewVehicleCreateController.swift */; };
+		D8A92A722189DBAE00F2C4EE /* NewVehicleCreate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8A92A712189DBAE00F2C4EE /* NewVehicleCreate.storyboard */; };
 		D8B26418211B2055000E814F /* TokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B26417211B2055000E814F /* TokenController.swift */; };
 		D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */; };
 		D8E699FE20FF34A4005484CA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E699FD20FF34A4005484CA /* User.swift */; };
@@ -141,6 +143,8 @@
 		D8A92A682188685700F2C4EE /* VehicleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleResponse.swift; sourceTree = "<group>"; };
 		D8A92A6A21886CF100F2C4EE /* AccountVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVehicle.swift; sourceTree = "<group>"; };
 		D8A92A6D218896E000F2C4EE /* CarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDetailViewController.swift; sourceTree = "<group>"; };
+		D8A92A6F2189DB4000F2C4EE /* NewVehicleCreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVehicleCreateController.swift; sourceTree = "<group>"; };
+		D8A92A712189DBAE00F2C4EE /* NewVehicleCreate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewVehicleCreate.storyboard; sourceTree = "<group>"; };
 		D8AC81D021469D6A0052E472 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D8B26417211B2055000E814F /* TokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenController.swift; sourceTree = "<group>"; };
 		D8B4236721022C7C009A5B7B /* LoginSuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessResponse.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				D63FE2E2218611D7007F0946 /* CarCreateViewController.swift */,
 				D63FE2E4218612E2007F0946 /* CarTableViewController.swift */,
 				D8A92A6D218896E000F2C4EE /* CarDetailViewController.swift */,
+				D8A92A6F2189DB4000F2C4EE /* NewVehicleCreateController.swift */,
 			);
 			path = Cars;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 				D6D66A9120F9FB6E003B7C75 /* LaunchScreen.storyboard */,
 				D6D66A9420F9FB6E003B7C75 /* Info.plist */,
 				D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */,
+				D8A92A712189DBAE00F2C4EE /* NewVehicleCreate.storyboard */,
 			);
 			path = kacagiderim_beta;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				D6D66A9320F9FB6E003B7C75 /* LaunchScreen.storyboard in Resources */,
 				D838A6722142C0FC003E034E /* MapLocationSelector.storyboard in Resources */,
 				D6D66A9020F9FB6E003B7C75 /* Assets.xcassets in Resources */,
+				D8A92A722189DBAE00F2C4EE /* NewVehicleCreate.storyboard in Resources */,
 				D6D66A8E20F9FB6E003B7C75 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,6 +596,7 @@
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
 				D8B26418211B2055000E814F /* TokenController.swift in Sources */,
 				D63FE2D82185F77C007F0946 /* CarTableViewCell.swift in Sources */,
+				D8A92A702189DB4000F2C4EE /* NewVehicleCreateController.swift in Sources */,
 				D63FE2E3218611D7007F0946 /* CarCreateViewController.swift in Sources */,
 				D8A92A6B21886CF100F2C4EE /* AccountVehicle.swift in Sources */,
 				D8E69A0221009F90005484CA /* NationEndpoint.swift in Sources */,

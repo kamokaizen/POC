@@ -11,74 +11,68 @@ import Foundation
 class TokenController {
 
     static func saveUserToUserDefaults(response:LoginSuccessResponse, user:String?){
-        // after loging success, goto main
-        UserDefaults.standard.set(true, forKey: "isLoggedIn")
-        UserDefaults.standard.set(user, forKey: "activeUser")
-        UserDefaults.standard.set(response.access_token, forKey: "accessToken")
-        UserDefaults.standard.set(response.refresh_token, forKey: "refreshToken")
+        DefaultManager.setIsLoggedIn(isLoggedIn: true)
+        DefaultManager.setActiveUsername(username: user ?? "")
+        DefaultManager.setAccessToken(accessToken: response.access_token)
+        DefaultManager.setRefreshToken(refreshToken: response.refresh_token)
+        
         // Get the Unix timestamp
         let currentTimestamp = (Int)(NSDate().timeIntervalSince1970.rounded())
         // expires in is seconds so, calculate currentTimestamp with expires_in
         let expireTimestamp = currentTimestamp + response.expires_in
-        UserDefaults.standard.set(expireTimestamp, forKey: "expireDate")
+        DefaultManager.setExpireDate(expireDate: expireTimestamp)
     }
     
     static func deleteUserFromUserDefaults(){
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
-        UserDefaults.standard.set(nil, forKey: "activeUser")
-        UserDefaults.standard.set(nil, forKey: "accessToken")
-        UserDefaults.standard.set(nil, forKey: "refreshToken")
-        UserDefaults.standard.set(nil, forKey: "selectedCities")
-        UserDefaults.standard.set(-1, forKey: "expireDate")
-        
         DefaultManager.clear()
     }
     
     static func getAndPersistCurrentUser(){
+        let user = DefaultManager.getUser()
         
-        if DefaultManager.getUser() != nil {
+        if user != nil {
             print("User exist, no need to fetch current user from server")
             return
         }
-        else{
-            APIClient.getCurrentUser(completion:{ result in
-                switch result {
-                case .success(let userResponse):
-                    DefaultManager.setUser(user: userResponse.value!)
-                    print("User saved to defaults")
-                case .failure(let error):
-                    print((error as! CustomError).localizedDescription)
-                }
-            })
-        }
+        
+        APIClient.getCurrentUser(completion:{ result in
+            switch result {
+            case .success(let userResponse):
+                DefaultManager.setUser(user: userResponse.value!)
+                print("User saved to defaults")
+            case .failure(let error):
+                print((error as! CustomError).localizedDescription)
+            }
+        })
     }
     
     static func getAndPersistCountries(){
-        if (UserDefaults.standard.value(forKey:"countries") as? Data) != nil {
+        let countries = DefaultManager.getCountries()
+        
+        if(countries.countries!.count > 0){
             print("no need to fetch countries")
             return
         }
-        else{
-            APIClient.getAllCountries(completion:{ result in
-                switch result {
-                case .success(let serverResponse):
-                    UserDefaults.standard.set(try? PropertyListEncoder().encode(serverResponse.value), forKey: "countries")
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            })
-        }
+        
+        APIClient.getAllCountries(completion:{ result in
+            switch result {
+            case .success(let serverResponse):
+                DefaultManager.setCountries(countries: serverResponse.value!)
+            case .failure(let error):
+                print((error as! CustomError).localizedDescription)
+            }
+        })
     }
     
     static func handleTokenExpire(completion:@escaping (TokenControl) -> ()){
-        let activeUser = UserDefaults.standard.string(forKey: "activeUser")
-        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken")
-        let expireDate = UserDefaults.standard.integer(forKey: "expireDate")
+        let activeUser = DefaultManager.getActiveUsername()
+        let refreshToken = DefaultManager.getRefreshToken()
+        let expireDate = DefaultManager.getExpireDate()
         let currentTimestamp = (Int)(NSDate().timeIntervalSince1970.rounded())
         
         if(refreshToken != nil){
             // existing access token expired, need to refresh token then continue
-            if(currentTimestamp >= expireDate){
+            if(currentTimestamp >= expireDate!){
                 APIClient.refreshToken(refreshToken: refreshToken!, completion:{ result in
                     switch result {
                     case .success(let loginResponse):

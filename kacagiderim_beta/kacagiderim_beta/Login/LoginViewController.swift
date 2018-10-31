@@ -38,6 +38,12 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view, typically from a nib.
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {

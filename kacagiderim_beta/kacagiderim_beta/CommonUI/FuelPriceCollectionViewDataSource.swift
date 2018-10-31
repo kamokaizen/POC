@@ -17,10 +17,8 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     var superViewController: PricesViewController!
     
     func prepareCollectionView(){
-        if let data = UserDefaults.standard.value(forKey:"countries") as? Data {
-            let countries = try? PropertyListDecoder().decode(Countries.self, from: data)
-            self.countries = countries?.countries
-        }
+        let countries = DefaultManager.getCountries()
+        self.countries = countries.countries
         
         let user = DefaultManager.getUser()
         
@@ -46,12 +44,10 @@ class FuelPriceCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     func getPrices(countryCode: String){
         self.fuelPrices?.removeAll()
-        var selectedCities = UserDefaults.standard.value(forKeyPath: "selectedCities") as? [String];
-        if(selectedCities == nil){
-            selectedCities = []
-        }
-        if(selectedCities!.count > 0){
-            APIClient.getFuelPricesWithNames(country: countryCode, cities: (selectedCities?.sorted(by:<).joined(separator: ","))!, completion:{ result in
+        
+        let selectedCities = DefaultManager.getSelectedCities()
+        if(selectedCities.count > 0){
+            APIClient.getFuelPricesWithNames(country: countryCode, cities: (selectedCities.sorted(by:<).joined(separator: ",")), completion:{ result in
                 switch result {
                 case .success(let fuelPriceResponse):
                     self.fuelPrices? = (fuelPriceResponse.value?.fuelPrices)!
