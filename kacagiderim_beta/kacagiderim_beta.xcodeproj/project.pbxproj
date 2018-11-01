@@ -58,7 +58,6 @@
 		D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66D214102DA003E034E /* PasswordViewController.swift */; };
 		D838A6702142BEAA003E034E /* MapLocationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66F2142BEAA003E034E /* MapLocationSelector.swift */; };
 		D838A6722142C0FC003E034E /* MapLocationSelector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */; };
-		D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86F692721231977006FF227 /* CustomCollectionViewController.swift */; };
 		D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginFailResponse.swift */; };
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
 		D89864A121020F9A00E46477 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89864A021020F9A00E46477 /* ServerResponse.swift */; };
@@ -135,7 +134,6 @@
 		D838A66D214102DA003E034E /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		D838A66F2142BEAA003E034E /* MapLocationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelector.swift; sourceTree = "<group>"; };
 		D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapLocationSelector.storyboard; sourceTree = "<group>"; };
-		D86F692721231977006FF227 /* CustomCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewController.swift; sourceTree = "<group>"; };
 		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		D89864A021020F9A00E46477 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 				D6EBE950210331E30067CAB8 /* MessageHelper.swift */,
 				D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */,
 				D6A0D7B1211F412C0019C7FA /* FuelPriceCollectionViewDataSource.swift */,
-				D86F692721231977006FF227 /* CustomCollectionViewController.swift */,
 				D6C29B1E213C940100054110 /* MyCustomTableViewCell.swift */,
 				D6C29B2021407EC000054110 /* CustomCardPartTheme.swift */,
 				D6C29B2221407FF700054110 /* ExtensionUIColor.swift */,
@@ -576,7 +573,6 @@
 				D8A92A692188685700F2C4EE /* VehicleResponse.swift in Sources */,
 				D800076A20FCCB0F00B1128A /* ProfileViewController.swift in Sources */,
 				D8E69A042100A09F005484CA /* APIClient.swift in Sources */,
-				D86F692821231977006FF227 /* CustomCollectionViewController.swift in Sources */,
 				D800076320FC7C3100B1128A /* SignUpViewController.swift in Sources */,
 				D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */,
 				D6C29B252140808300054110 /* ExtensionUIFont.swift in Sources */,

@@ -10,9 +10,9 @@ import Foundation
 
 class PageResponse<T: Codable>: Codable {
     let pagination: Pagination
-    let pageResult: [T?]
+    let pageResult: [T]
     
-    init(pagination: Pagination, pageResult: [T?]) {
+    init(pagination: Pagination, pageResult: [T]) {
         self.pagination = pagination
         self.pageResult = pageResult
     }

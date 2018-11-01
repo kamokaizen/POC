@@ -123,3 +123,9 @@ enum LoginType: String, Codable {
     case GOOGLE = "GOOGLE"
     case FACEBOOK = "FACEBOOK"
 }
+
+enum BrandType: Int, Codable {
+    case AUTOMOBILE = 0
+    case MINIVAN = 1
+    case SUV = 2
+}
