@@ -22,6 +22,7 @@ class DefaultManager {
         static let countries = Key<Countries>("countries")
         static let selectedCities = Key<[String]>("selectedCities")
         static let brands = Key<[Brand]>("brands")
+        static let models = Key<Dictionary<String, [Model]>>("models")
     }
     
     static func clear(){
@@ -34,6 +35,7 @@ class DefaultManager {
         defaults.clear(Keys.countries)
         defaults.clear(Keys.selectedCities)
         defaults.clear(Keys.brands)
+        defaults.clear(Keys.models)
     }
     
     //Mark get methods
@@ -65,6 +67,10 @@ class DefaultManager {
     static func getBrands() -> [Brand] {
         return defaults.get(for: Keys.brands) ?? []
     }
+    static func getModels(brandId: String) -> [Model] {
+        let dictionary = defaults.get(for: Keys.models) ?? Dictionary()
+        return dictionary[brandId] ?? [] 
+    }
     
     //Mark set methods
     
@@ -94,5 +100,10 @@ class DefaultManager {
     }
     static func setBrands(brands: [Brand]){
         defaults.set(brands, for: Keys.brands)
+    }
+    static func setModels(brandId: String, models:[Model]){
+        var dictionary = defaults.get(for: Keys.models) ?? Dictionary()
+        dictionary.updateValue(models, forKey: brandId)
+        defaults.set(dictionary, for: Keys.models)
     }
 }

@@ -12,26 +12,31 @@ import Foundation
 enum CarEndpoint: APIConfiguration {
 
     case brands()
+    case models(brandId:String, pageNumber:Int, pageSize:Int)
     
     var method: HTTPMethod {
         switch self {
-        case .brands:
+        case .brands, .models:
             return .get
         }
     }
     
     var path: String {
         switch self {
-        case .brands:
-            return "/cars/api/brand/get"
+            case .brands:
+                return "/cars/api/brand/get"
+            case .models:
+                return "cars/api/model/get"
         }
     }
     
     // MARK: - Parameters
     var parameters: Parameters? {
         switch self {
-        case .brands():
-            return nil
+            case .brands():
+                return nil
+            case .models(let brandId, let pageNumber, let pageSize):
+                return [K.APIParameterKey.brandId: brandId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
         }
     }
     

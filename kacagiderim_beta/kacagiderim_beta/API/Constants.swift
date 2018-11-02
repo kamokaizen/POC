@@ -47,6 +47,9 @@ struct K {
         static let loginType = "loginType"
         static let imageURL = "imageURL"
         static let expirationDate = "expirationDate"
+        static let brandId = "bid"
+        static let pageNumber = "pn"
+        static let pageSize = "ps"
     }
     
     struct Constants {
