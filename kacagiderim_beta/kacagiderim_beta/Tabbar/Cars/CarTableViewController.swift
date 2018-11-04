@@ -13,16 +13,7 @@ import NVActivityIndicatorView
 class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, TableViewDetailClick {
 
     weak var viewModel: CarTableViewModel!
-    var titlePart = CardPartTitleView(type: .titleOnly)
-    var cardPartSeparatorView = CardPartSeparatorView()
     let cardPartTableView = CardPartTableView()
-    
-    let loadingTextView = CardPartTextView(type: .normal)
-    var loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: K.Constants.default_spinner, color:UIColor.black , padding: 0)
-    var emptyImageView = CardPartImageView(image: UIImage(named: "novehicle.png"))
-    let emptyTextView = CardPartTextView(type: .normal)
-    var failImageView = CardPartImageView(image: UIImage(named: "alert.png"))
-    let failTextView = CardPartTextView(type: .normal)
     
     public init(viewModel: CarTableViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -54,13 +45,6 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titlePart.label.text = "Vehicles"
-        loadingTextView.text = "Vehicles are loading"
-        emptyTextView.text = "You have no any vehicles, lets click 'Create New Vehicle' button to add new vehicle into your profile."
-        emptyImageView.contentMode = .scaleAspectFit;
-        failTextView.text = "Something went wrong while getting vehicles, no vehicles to shown, please try again later"
-        failImageView.contentMode = .scaleAspectFit;
-        
         cardPartTableView.tableView.register(CarTableViewCell.self, forCellReuseIdentifier: "CarTableViewCell")
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         
@@ -81,36 +65,50 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
 //                self.navigationController?.pushViewController(carDetailViewController, animated: true)
 //            })
 //            .disposed(by: bag)
+
+        let title = "Vehicles"
+        let titlePart = CardPartTitleView(type: .titleOnly)
+        titlePart.label.text = title
         
-        let stackLoading = CardPartStackView()
-        stackLoading.axis = .vertical
-        stackLoading.spacing = 10
-        stackLoading.distribution = .equalSpacing
-        stackLoading.alignment = UIStackView.Alignment.center
-        stackLoading.addArrangedSubview(loadingIndicator);
-        stackLoading.addArrangedSubview(loadingTextView);
+        setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles, lets click 'Create New Vehicle' button to add new vehicle into your profile."), forState: .none)
+        setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles, lets click 'Create New Vehicle' button to add new vehicle into your profile."), forState: .empty)
+        setupCardParts(getLoadingViews(title: title, text: "Vehicles are loading..."), forState: .loading)
+        setupCardParts([titlePart , CardPartSeparatorView(), cardPartTableView], forState: .hasData)
+        setupCardParts(getViews(title: title, image: UIImage(named: "alert.png")!, text: "Something went wrong while getting vehicles"), forState: .custom("fail"))
+    }
+    
+    func getViews(title: String, image: UIImage, text: String) -> [CardPartView] {
+        let titlePart = CardPartTitleView(type: .titleOnly)
+        titlePart.label.text = title
+        let imageView = CardPartImageView(image: image)
+        imageView.contentMode = .scaleAspectFit;
+        let textView = CardPartTextView(type: .normal)
+        textView.text = text
+        let stack = CardPartStackView()
+        stack.axis = .vertical
+        stack.spacing = 10
+        stack.distribution = .equalSpacing
+        stack.alignment = UIStackView.Alignment.center
+        stack.addArrangedSubview(imageView);
+        stack.addArrangedSubview(textView);
+        return [titlePart, CardPartSeparatorView(), stack]
+    }
+    
+    func getLoadingViews(title: String, text: String) -> [CardPartView]{
+        let titlePart = CardPartTitleView(type: .titleOnly)
+        titlePart.label.text = title
+        let loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: K.Constants.default_spinner, color:UIColor.black , padding: 0)
+        let loadingTextView = CardPartTextView(type: .normal)
+        loadingTextView.text = text
         loadingIndicator.startAnimating()
-        
-        let stackEmpty = CardPartStackView()
-        stackEmpty.axis = .vertical
-        stackEmpty.spacing = 10
-        stackEmpty.distribution = .equalSpacing
-        stackEmpty.alignment = UIStackView.Alignment.center
-        stackEmpty.addArrangedSubview(emptyImageView);
-        stackEmpty.addArrangedSubview(emptyTextView);
-        
-        let stackFail = CardPartStackView()
-        stackFail.axis = .vertical
-        stackFail.spacing = 10
-        stackFail.distribution = .equalSpacing
-        stackFail.alignment = UIStackView.Alignment.center
-        stackFail.addArrangedSubview(failImageView);
-        stackFail.addArrangedSubview(failTextView);
-        
-        setupCardParts([titlePart, cardPartSeparatorView, cardPartTableView], forState: .hasData)
-        setupCardParts([titlePart, cardPartSeparatorView, stackLoading], forState: .loading)
-        setupCardParts([titlePart, cardPartSeparatorView, stackEmpty], forState: .empty)
-        setupCardParts([titlePart, cardPartSeparatorView, stackFail], forState: .custom("fail"))
+        let stack = CardPartStackView()
+        stack.axis = .vertical
+        stack.spacing = 10
+        stack.distribution = .equalSpacing
+        stack.alignment = UIStackView.Alignment.center
+        stack.addArrangedSubview(loadingIndicator);
+        stack.addArrangedSubview(loadingTextView);
+        return [titlePart, CardPartSeparatorView(), stack]
     }
     
     func didDetailButtonClicked(item: AccountVehicle) {
