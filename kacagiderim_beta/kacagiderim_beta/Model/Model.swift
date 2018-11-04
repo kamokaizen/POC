@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Model: Codable {
+struct Model: Codable, CommonVehicleProtocol {
     let brandId: String?
     let modelId: String?
     let name: String?
@@ -17,5 +17,13 @@ struct Model: Codable {
         self.name = name
         self.modelId = modelId
         self.brandId = brandId
+    }
+    
+    func getId() -> String {
+        return self.modelId ?? ""
+    }
+    
+    func getName() -> String {
+        return self.name ?? ""
     }
 }

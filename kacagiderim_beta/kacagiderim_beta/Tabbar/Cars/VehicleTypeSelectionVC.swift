@@ -10,25 +10,15 @@ import Foundation
 import CardParts
 import RxDataSources
 
-class BrandSelection: CardPartsViewController {
+class VehicleTypeSelectionVC: CardPartsViewController {
     
     var titlePart = CardPartTitleView(type: .titleOnly)
     var cardPartSeparatorView = CardPartSeparatorView()
+    weak var viewModel: NewVehicleVM!
     
-    var cardPartSeparatorView2 = CardPartSeparatorView()
-    var collectionViewLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 100, height: 100)
-        return layout
-    }()
-    lazy var collectionViewCardPart = CardPartCollectionView(collectionViewLayout: collectionViewLayout)
-    let viewModel = BrandCollectionViewModel()
-    
-    public init() {
+    public init(viewModel: NewVehicleVM) {
         super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -104,28 +94,7 @@ class BrandSelection: CardPartsViewController {
         stack.addArrangedSubview(stackMinivanVehicle)
         stack.addArrangedSubview(stackSuvVehicle)
         
-        collectionViewCardPart.collectionView.register(BrandCollectionViewCell.self, forCellWithReuseIdentifier: "BrandCollectionViewCell")
-        collectionViewCardPart.collectionView.backgroundColor = .clear
-        collectionViewCardPart.collectionView.showsHorizontalScrollIndicator = false
-        
-        let dataSource = RxCollectionViewSectionedReloadDataSource<BrandCollectionStruct>(configureCell: {[weak self] (_, collectionView, indexPath, data) -> UICollectionViewCell in
-            
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandCollectionViewCell", for: indexPath) as? BrandCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.setData(data)
-            
-            cell.backgroundColor = UIColor.white
-            cell.layer.cornerRadius = 5
-            cell.layer.borderWidth = 1
-            cell.layer.borderColor = UIColor(red: 0.93, green: 0.93, blue: 0.95, alpha: 1.0).cgColor
-            
-            return cell
-        })
-        
-        viewModel.data.asObservable().bind(to: collectionViewCardPart.collectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
-        collectionViewCardPart.collectionView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        
-        setupCardParts([titlePart, cardPartSeparatorView, stack, cardPartSeparatorView2, collectionViewCardPart])
+        setupCardParts([titlePart, cardPartSeparatorView, stack])
     }
     
     @objc func filterBrands(sender: UIButton) {

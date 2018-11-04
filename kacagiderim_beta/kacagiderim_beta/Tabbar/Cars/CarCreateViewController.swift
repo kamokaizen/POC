@@ -66,8 +66,8 @@ class CarCreateViewController: CardPartsViewController, ShadowCardTrait, Rounded
     }
     
     @objc func createButtonTapped(sender: UIButton) {
-        let storyboard = UIStoryboard(name: "NewVehicleCreate", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as? NewVehicleCreateController
+        let storyboard = UIStoryboard(name: "NewVehicleVC", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as? NewVehicleVC
         self.present(vc!, animated: true, completion: {})
     }
 }

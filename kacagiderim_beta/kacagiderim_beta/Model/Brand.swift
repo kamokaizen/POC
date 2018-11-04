@@ -8,7 +8,14 @@
 
 import Foundation
 
-struct Brand: Codable {
+protocol CommonVehicleProtocol {
+    func getId() -> String;
+    func getName() -> String;
+    
+}
+
+struct Brand: Codable, CommonVehicleProtocol {
+    
     let name: String?
     let imageName: String?
     let brandId: String?
@@ -19,5 +26,13 @@ struct Brand: Codable {
         self.imageName = imageName
         self.brandId = brandId
         self.type = type
+    }
+    
+    func getId() -> String {
+        return self.brandId ?? ""
+    }
+    
+    func getName() -> String {
+        return self.name ?? ""
     }
 }

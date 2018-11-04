@@ -9,18 +9,19 @@
 import UIKit
 import CardParts
 
-class NewVehicleCreateController : CardsViewController {
+class NewVehicleVC : CardsViewController {
     
     var cards: [CardController] = []
+    var viewModel: NewVehicleVM!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.viewModel = NewVehicleVM(rootViewController: self)
         
-        self.cards = [Toolbar(), BrandSelection()]
+        self.cards = [VehicleToolbarVC(viewModel: self.viewModel), VehicleTypeSelectionVC(viewModel: self.viewModel), VehicleCollectionVC(viewModel: self.viewModel)]
+        
         loadCards(cards: cards)
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {

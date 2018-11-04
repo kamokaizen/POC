@@ -1,8 +1,8 @@
 //
-//  BrandCollectionViewCell.swift
+//  ModelCollectionViewCell.swift
 //  kacagiderim_beta
 //
-//  Created by Comodo on 2.11.2018.
+//  Created by kamilinal on 11/3/18.
 //  Copyright © 2018 kacagiderim. All rights reserved.
 //
 
@@ -12,25 +12,22 @@ import RxDataSources
 import RxCocoa
 import CardParts
 
-struct BrandCollectionStruct {
-    var header: String
+struct ModelCollectionStruct {
     var items: [Item]
 }
 
-extension BrandCollectionStruct: SectionModelType {
+extension ModelCollectionStruct: SectionModelType {
+    typealias Item = Model
     
-    typealias Item = Brand
-    
-    init(original: BrandCollectionStruct, items: [Item]) {
+    init(original: ModelCollectionStruct, items: [Item]) {
         self = original
         self.items = items
     }
 }
 
-class BrandCollectionViewCell: CardPartCollectionViewCardPartsCell {
+class ModelCollectionViewCell: CardPartCollectionViewCardPartsCell {
     let bag = DisposeBag()
     
-    var data: Brand? = nil
     let titleCP = CardPartTextView(type: .normal)
     let imageCP = CardPartImageView(image: Utils.imageWithImage(image: UIImage(named: "add.png")!, scaledToSize: CGSize(width: 50, height: 50)))
     
@@ -59,13 +56,13 @@ class BrandCollectionViewCell: CardPartCollectionViewCardPartsCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(_ data: Brand) {
-        self.data = data
+    func setData(_ data: Model) {
+        
         titleCP.text = data.name
         titleCP.textAlignment = .center
         titleCP.textColor = .black
         
-//        let imageURL = data.imageName ?? ""
+        //        let imageURL = data.imageName ?? ""
         //        // TODO GET IMAGE FROM URL
         //        ImageCache.default.retrieveImage(forKey: imageURL, options: nil) {
         //            image, cacheType in

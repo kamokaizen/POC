@@ -9,10 +9,13 @@
 import Foundation
 import CardParts
 
-class Toolbar: CardPartsViewController {
+class VehicleToolbarVC: CardPartsViewController {
     
-    public init() {
+    weak  var viewModel: NewVehicleVM!
+    
+    public init(viewModel: NewVehicleVM) {
         super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -25,7 +28,7 @@ class Toolbar: CardPartsViewController {
         let cancelPart = CardPartButtonView()
         cancelPart.setImage(cancelImage, for: UIControl.State.normal)
         cancelPart.contentHorizontalAlignment = .left
-        cancelPart.addTarget(self, action: #selector(dismissTapped), for: .touchUpInside)
+        cancelPart.addTarget(self.viewModel, action: #selector(self.viewModel.dismissTapped), for: .touchUpInside)
         
         let title = CardPartTitleView(type: .titleOnly)
         title.title = "NEW VEHICLE"
@@ -36,7 +39,7 @@ class Toolbar: CardPartsViewController {
         let searchButton = CardPartButtonView()
         searchButton.contentHorizontalAlignment = .right
         searchButton.setImage(image, for: UIControl.State.normal)
-        searchButton.addTarget(self, action: #selector(search), for: .touchUpInside)
+        searchButton.addTarget(self.viewModel, action: #selector(self.viewModel.search), for: .touchUpInside)
         
         let sv = CardPartStackView()
         sv.spacing = 10
@@ -47,13 +50,5 @@ class Toolbar: CardPartsViewController {
         sv.addArrangedSubview(searchButton)
         
         setupCardParts([sv])
-    }
-    
-    @objc func dismissTapped(sender: UIButton) {
-        self.dismiss(animated: true, completion: {})
-    }
-    
-    @objc func search(sender: UIButton) {
-        self.dismiss(animated: true, completion: {})
     }
 }
