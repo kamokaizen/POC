@@ -57,30 +57,21 @@ class VehicleCollectionViewCell: CardPartCollectionViewCardPartsCell {
     }
     
     func setData(_ data: CommonVehicleProtocol) {
+        self.imageCP.image = Utils.imageWithImage(image: UIImage(named: "add.png")!, scaledToSize: CGSize(width: 50, height: 50))
         self.data = data
         titleCP.text = data.getName()
         titleCP.textAlignment = .center
         titleCP.textColor = .black
         
-        //        let imageURL = data.imageName ?? ""
-        //        // TODO GET IMAGE FROM URL
-        //        ImageCache.default.retrieveImage(forKey: imageURL, options: nil) {
-        //            image, cacheType in
-        //            if let image = image {
-        //                print("Get image \(image), cacheType: \(cacheType).")
-        //                //In this code snippet, the `cacheType` is .disk
-        //                self.imageCP.image = image
-        //            } else {
-        //                print("Not exist in cache.")
-        //                let url = URL(string: imageURL)!
-        //                ImageDownloader.default.downloadImage(with: url, options: [], progressBlock: nil) {
-        //                    (image, error, url, data) in
-        //                    if let image = image {
-        //                        ImageCache.default.store(image, forKey: imageURL)
-        //                        self.imageCP.image = image
-        //                    }
-        //                }
-        //            }
-        //        }
+        if(data is Engine || data is Version || data is Detail){
+            self.imageCP.image = Utils.imageWithImage(image: UIImage(named: data.getImagePath())!, scaledToSize: CGSize(width: 50, height: 50))
+            return
+        }
+        
+        ImageManager.getImageFromCloudinary(path: data.getImagePath(), completion:  { (response) in
+            if(response != nil){
+                self.imageCP.image = response
+            }
+        })
     }
 }

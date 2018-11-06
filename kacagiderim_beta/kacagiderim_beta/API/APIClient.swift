@@ -19,6 +19,7 @@ class APIClient {
             case .timeout, .connectionProblem:
                 // nothing can do
                 print("there is a connection problem between your device and server")
+                performRequest(route: route, completion: completion)
             case .fail:
                 // means that can not refresh token and so delete user from user defaults then go to login page
                 TokenController.deleteUserFromUserDefaults()
@@ -142,8 +143,19 @@ class APIClient {
         checkTokenExpired(route: CarEndpoint.models(brandId: brandId, pageNumber: 1, pageSize: 1000), completion: completion)
     }
     
+    static func getEngines(modelId: String, completion:@escaping (Result<ServerResponse<PageResponse<Engine>>>) -> Void) {
+        checkTokenExpired(route: CarEndpoint.engines(modelId: modelId, pageNumber: 1, pageSize: 1000), completion: completion)
+    }
+    
+    static func getVersions(engineId: String, completion:@escaping (Result<ServerResponse<PageResponse<Version>>>) -> Void) {
+        checkTokenExpired(route: CarEndpoint.versions(engineId: engineId, pageNumber: 1, pageSize: 1000), completion: completion)
+    }
+    
+    static func getDetails(versionId: String, completion:@escaping (Result<ServerResponse<PageResponse<Detail>>>) -> Void) {
+        checkTokenExpired(route: CarEndpoint.details(versionId: versionId, pageNumber: 1, pageSize: 1000), completion: completion)
+    }
+    
     static func getUserVehicles(userId: String, completion:@escaping (Result<ServerResponse<VehicleResponse>>) -> Void){
         checkTokenExpired(route: AccountEndpoint.getVehicles(userId: userId), completion: completion)
     }
 }
-

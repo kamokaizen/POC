@@ -59,20 +59,56 @@ class VehicleCollectionVC: CardPartsViewController {
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         viewModel.data.asObservable().bind(to: collectionViewCardPart.collectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
         collectionViewCardPart.collectionView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-    
-        let titlePart = CardPartTitleView(type: .titleOnly)
-        titlePart.label.text = "Choose Vehicle"
+        
+        let selectionMapTextView = CardPartTextView(type: .small)
+        viewModel.selectionString.asObservable().bind(to: selectionMapTextView.rx.text).disposed(by: bag)
         
         setupCardParts(getViews(title: "Choose Vehicle", image: UIImage(named: "novehicle.png")!, text: "No data to shown"), forState: .none)
         setupCardParts(getViews(title: "Choose Vehicle", image: UIImage(named: "novehicle.png")!, text: "No data to shown"), forState: .empty)
         setupCardParts(getLoadingViews(title: "Choose Vehicle", text: "Vehicles are loading..."), forState: .loading)
-        setupCardParts([titlePart , CardPartSeparatorView(), collectionViewCardPart], forState: .hasData)
+        setupCardParts([getTitleStack(title: "Choose Vehicle"), CardPartSeparatorView(), selectionMapTextView, CardPartSeparatorView(), collectionViewCardPart], forState: .hasData)
         setupCardParts(getViews(title: "Choose Vehicle", image: UIImage(named: "alert.png")!, text: "Something went wrong while getting vehicles"), forState: .custom("fail"))
     }
     
-    func getViews(title: String, image: UIImage, text: String) -> [CardPartView] {
+    func getTitleStack(title: String) -> CardPartStackView {
         let titlePart = CardPartTitleView(type: .titleOnly)
         titlePart.label.text = title
+        
+        let image = Utils.imageWithImage(image: UIImage(named: "back.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let backButton = CardPartButtonView()
+        backButton.contentHorizontalAlignment = .right
+        backButton.setImage(image, for: .normal)
+        backButton.setTitle("Back", for: .normal)
+        backButton.titleLabel?.font = CardParts.theme.normalTextFont
+        backButton.setTitleColor(UIColor.darkDefault, for: .normal)
+        backButton.addTarget(self.viewModel, action: #selector(self.viewModel.back), for: .touchUpInside)
+        
+        let resetImage = Utils.imageWithImage(image: UIImage(named: "back.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let resetButton = CardPartButtonView()
+        resetButton.contentHorizontalAlignment = .right
+        resetButton.setImage(resetImage, for: .normal)
+        resetButton.setTitle("Reset", for: .normal)
+        resetButton.titleLabel?.font = CardParts.theme.normalTextFont
+        resetButton.setTitleColor(UIColor.darkDefault, for: .normal)
+        resetButton.addTarget(self.viewModel, action: #selector(self.viewModel.reset), for: .touchUpInside)
+        let seperator = CardPartVerticalSeparatorView()
+        
+        let centeredView = CardPartCenteredView(leftView: resetButton, centeredView: seperator, rightView: backButton)
+        viewModel.isBackButtonHide.asObservable().bind(to: centeredView.rx.isHidden).disposed(by: bag)
+        
+        let sv = CardPartStackView()
+        sv.spacing = 1
+        sv.distribution = .fillProportionally
+        sv.alignment = .center
+        sv.addArrangedSubview(titlePart)
+        sv.addArrangedSubview(centeredView)
+        
+        sv.addConstraint(NSLayoutConstraint(item: titlePart, attribute: .width, relatedBy: .equal, toItem:centeredView , attribute: .width, multiplier: 1.2, constant: 0.0))
+        
+        return sv
+    }
+    
+    func getViews(title: String, image: UIImage, text: String) -> [CardPartView] {
         let imageView = CardPartImageView(image: image)
         imageView.contentMode = .scaleAspectFit;
         let textView = CardPartTextView(type: .normal)
@@ -84,12 +120,14 @@ class VehicleCollectionVC: CardPartsViewController {
         stack.alignment = UIStackView.Alignment.center
         stack.addArrangedSubview(imageView);
         stack.addArrangedSubview(textView);
-        return [titlePart, CardPartSeparatorView(), stack]
+        
+        let selectionMapTextView = CardPartTextView(type: .small)
+        viewModel.selectionString.asObservable().bind(to: selectionMapTextView.rx.text).disposed(by: bag)
+        
+        return [getTitleStack(title: title),CardPartSeparatorView(), selectionMapTextView, CardPartSeparatorView(), stack]
     }
     
     func getLoadingViews(title: String, text: String) -> [CardPartView]{
-        let titlePart = CardPartTitleView(type: .titleOnly)
-        titlePart.label.text = title
         let loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: K.Constants.default_spinner, color:UIColor.black , padding: 0)
         let loadingTextView = CardPartTextView(type: .normal)
         loadingTextView.text = text
@@ -101,7 +139,7 @@ class VehicleCollectionVC: CardPartsViewController {
         stack.alignment = UIStackView.Alignment.center
         stack.addArrangedSubview(loadingIndicator);
         stack.addArrangedSubview(loadingTextView);
-        return [titlePart, CardPartSeparatorView(), stack]
+        return [getTitleStack(title: title), CardPartSeparatorView(), stack]
     }
     
     @objc func filterBrands(sender: UIButton) {
@@ -112,6 +150,15 @@ class VehicleCollectionVC: CardPartsViewController {
         let cell = sender.view as! VehicleCollectionViewCell
         if(cell.data != nil && cell.data is Brand){
             viewModel.getModels(brand: cell.data as! Brand)
+        }
+        else if(cell.data != nil && cell.data is Model){
+            viewModel.getEngines(model: cell.data as! Model)
+        }
+        else if(cell.data != nil && cell.data is Engine){
+            viewModel.getVersions(engine: cell.data as! Engine)
+        }
+        else if(cell.data != nil && cell.data is Version){
+            viewModel.getDetails(version: cell.data as! Version)
         }
     }
 }

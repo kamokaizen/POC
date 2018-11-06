@@ -13,10 +13,13 @@ enum CarEndpoint: APIConfiguration {
 
     case brands()
     case models(brandId:String, pageNumber:Int, pageSize:Int)
+    case engines(modelId:String, pageNumber:Int, pageSize:Int)
+    case versions(engineId:String, pageNumber:Int, pageSize:Int)
+    case details(versionId:String, pageNumber:Int, pageSize:Int)
     
     var method: HTTPMethod {
         switch self {
-        case .brands, .models:
+        case .brands, .models, .engines, .versions, .details:
             return .get
         }
     }
@@ -27,6 +30,12 @@ enum CarEndpoint: APIConfiguration {
                 return "/cars/api/brand/get"
             case .models:
                 return "cars/api/model/get"
+            case .engines:
+                return "cars/api/engine/get"
+            case .versions:
+                return "cars/api/version/get"
+            case .details:
+                return "cars/api/detail/get"
         }
     }
     
@@ -37,6 +46,12 @@ enum CarEndpoint: APIConfiguration {
                 return nil
             case .models(let brandId, let pageNumber, let pageSize):
                 return [K.APIParameterKey.brandId: brandId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
+            case .engines(let modelId, let pageNumber, let pageSize):
+                return [K.APIParameterKey.modelId: modelId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
+            case .versions(let engineId, let pageNumber, let pageSize):
+                return [K.APIParameterKey.engineId: engineId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
+            case .details(let versionId, let pageNumber, let pageSize):
+                return [K.APIParameterKey.versionId: versionId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
         }
     }
     

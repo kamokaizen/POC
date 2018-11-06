@@ -92,6 +92,6 @@ struct Detail: Codable, CommonVehicleProtocol {
     }
     
     func getImagePath() -> String {
-        return "detail.png"
+        return "engine.png"
     }
 }

@@ -28,6 +28,8 @@ PODS:
   - CHIPageControl/Jaloro (0.1.7)
   - CHIPageControl/Paprika (0.1.7)
   - CHIPageControl/Puya (0.1.7)
+  - Cloudinary (2.4.0):
+    - Alamofire (~> 4.7.2)
   - DCKit (1.0.12)
   - DefaultsKit (0.0.9)
   - Differentiator (3.1.0)
@@ -104,6 +106,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - CardParts
   - CHIPageControl (~> 0.1.3)
+  - Cloudinary (~> 2.0)
   - DCKit
   - DefaultsKit
   - EGFormValidator
@@ -129,6 +132,7 @@ SPEC REPOS:
     - Bolts
     - CardParts
     - CHIPageControl
+    - Cloudinary
     - DCKit
     - DefaultsKit
     - Differentiator
@@ -163,6 +167,7 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CardParts: 4b091fcbd9a602c3b1843fd81c3730e1363b60bb
   CHIPageControl: bbe1ddd0c688c02ec65b7f7e7d34551a3d16f37c
+  Cloudinary: d87b545d6a5d00c4022bec964839fdaf359d7c53
   DCKit: 30036e7ef4ea37f397280e2f722b962c99b59a18
   DefaultsKit: e47d11c54a53c66f9e5c65a1992dead90bc7144f
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
@@ -192,6 +197,6 @@ SPEC CHECKSUMS:
   SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
   TextFieldEffects: 7d372f58aeaf9acd9626bbf962680aef926b085d
 
-PODFILE CHECKSUM: 2f2813fac93b487865a95bdcb5d0e21cbaa59e83
+PODFILE CHECKSUM: 486ceb7cab4621d8c97ae1e9bae9cabe9e00563a
 
 COCOAPODS: 1.5.3

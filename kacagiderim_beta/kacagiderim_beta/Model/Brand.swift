@@ -11,7 +11,7 @@ import Foundation
 protocol CommonVehicleProtocol {
     func getId() -> String;
     func getName() -> String;
-    
+    func getImagePath() -> String;
 }
 
 struct Brand: Codable, CommonVehicleProtocol {
@@ -34,5 +34,9 @@ struct Brand: Codable, CommonVehicleProtocol {
     
     func getName() -> String {
         return self.name ?? ""
+    }
+    
+    func getImagePath() -> String {
+        return K.Constants.cloudinaryLogoPath + (self.imageName ?? "")
     }
 }

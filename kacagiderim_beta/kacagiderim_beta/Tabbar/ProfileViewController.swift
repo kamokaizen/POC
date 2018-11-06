@@ -994,33 +994,14 @@ class ProfileViewModel : LocationUpdateDelegate {
                 
                 self.imageURL.value = profile.imageURL ?? ""
                 
-                ImageCache.default.retrieveImage(forKey: "profile_image", options: nil) {
-                    image, cacheType in
-                    if let image = image {
-                        print("Get image \(image), cacheType: \(cacheType).")
-                        //In this code snippet, the `cacheType` is .disk
-                        self.profileImage.value = image
-                    } else {
-                        print("Not exist in cache.")
-                        if(!self.imageURL.value.isEmpty){
-                            let url = URL(string: self.imageURL.value)!
-                            ImageDownloader.default.downloadImage(with: url, options: [], progressBlock: nil) {
-                                (image, error, url, data) in
-                                if let image = image {
-                                    ImageCache.default.store(image, forKey: "profile_image")
-                                    self.profileImage.value = image
-                                }
-                                else{
-                                    self.profileImage.value = self.defaultProfileImage!
-                                }
-                            }
-                        }
-                        else{
-                            self.profileImage.value = self.defaultProfileImage!
-                        }
+                ImageManager.getImage(imageUrl: self.imageURL.value, completion: { (response) in
+                    if(response != nil){
+                        self.profileImage.value = response!
                     }
-                }
-                
+                    else{
+                        self.profileImage.value = self.defaultProfileImage!
+                    }
+                })
                 self.loginType.value = profile.loginType.rawValue
             case .failure(let error):
                 print((error as! CustomError).localizedDescription)

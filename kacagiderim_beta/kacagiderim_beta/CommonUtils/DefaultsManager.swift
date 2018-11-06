@@ -23,6 +23,9 @@ class DefaultManager {
         static let selectedCities = Key<[String]>("selectedCities")
         static let brands = Key<[Brand]>("brands")
         static let models = Key<Dictionary<String, [Model]>>("models")
+        static let engines = Key<Dictionary<String, [Engine]>>("engines")
+        static let versions = Key<Dictionary<String, [Version]>>("versions")
+        static let details = Key<Dictionary<String, [Detail]>>("details")
     }
     
     static func clear(){
@@ -36,6 +39,9 @@ class DefaultManager {
         defaults.clear(Keys.selectedCities)
         defaults.clear(Keys.brands)
         defaults.clear(Keys.models)
+        defaults.clear(Keys.engines)
+        defaults.clear(Keys.versions)
+        defaults.clear(Keys.details)
     }
     
     //Mark get methods
@@ -71,6 +77,18 @@ class DefaultManager {
         let dictionary = defaults.get(for: Keys.models) ?? Dictionary()
         return dictionary[brandId] ?? [] 
     }
+    static func getEngines(modelId: String) -> [Engine] {
+        let dictionary = defaults.get(for: Keys.engines) ?? Dictionary()
+        return dictionary[modelId] ?? []
+    }
+    static func getVersions(engineId: String) -> [Version] {
+        let dictionary = defaults.get(for: Keys.versions) ?? Dictionary()
+        return dictionary[engineId] ?? []
+    }
+    static func getDetails(versionId: String) -> [Detail] {
+        let dictionary = defaults.get(for: Keys.details) ?? Dictionary()
+        return dictionary[versionId] ?? []
+    }
     
     //Mark set methods
     
@@ -105,5 +123,20 @@ class DefaultManager {
         var dictionary = defaults.get(for: Keys.models) ?? Dictionary()
         dictionary.updateValue(models, forKey: brandId)
         defaults.set(dictionary, for: Keys.models)
+    }
+    static func setEngines(modelId: String, engines:[Engine]){
+        var dictionary = defaults.get(for: Keys.engines) ?? Dictionary()
+        dictionary.updateValue(engines, forKey: modelId)
+        defaults.set(dictionary, for: Keys.engines)
+    }
+    static func setVersions(engineId: String, versions:[Version]){
+        var dictionary = defaults.get(for: Keys.versions) ?? Dictionary()
+        dictionary.updateValue(versions, forKey: engineId)
+        defaults.set(dictionary, for: Keys.versions)
+    }
+    static func setDetails(versionId: String, details:[Detail]){
+        var dictionary = defaults.get(for: Keys.details) ?? Dictionary()
+        dictionary.updateValue(details, forKey: versionId)
+        defaults.set(dictionary, for: Keys.details)
     }
 }

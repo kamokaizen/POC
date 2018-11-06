@@ -15,5 +15,5 @@ struct AccountVehicle: Codable {
     let customConsumption: Bool
     let customConsumptionType: String?
     let averageCustomConsumptionLocal, averageCustomConsumptionOut: Double
-    let vehicle: Vehicle
+    let vehicle: Detail
 }

@@ -48,6 +48,9 @@ struct K {
         static let imageURL = "imageURL"
         static let expirationDate = "expirationDate"
         static let brandId = "bid"
+        static let modelId = "mid"
+        static let engineId = "eid"
+        static let versionId = "vid"
         static let pageNumber = "pn"
         static let pageSize = "ps"
     }
@@ -56,6 +59,9 @@ struct K {
         static let googleAPIKey = "AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws"
         static let googleSigninClientId = "383413793224-hbqr1tr5qarn89roo5agfi97anp9bfdt.apps.googleusercontent.com"
         static let loginAuthorizationValue = "Basic bW9iaWxlOg=="
+        static let cloudinaryCloudName =  "kacagiderim"
+        static let cloudinaryLogoPath =  "logo/thumb/"
+        static let cloudinaryCarPath =  "cars/"
         static let requestTimeoutInterval = 10 // seconds
         static let kacagiderimColor = UIColor(red: 89.0/255.0, green: 151.0/255.0, blue: 181.0/255.0, alpha: 1.0)
         static let kacagiderimColorWarning = UIColor(red: 255/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
@@ -128,7 +134,7 @@ enum LoginType: String, Codable {
 }
 
 enum BrandType: Int, Codable {
-    case AUTOMOBILE = 0
-    case MINIVAN = 1
+    case MINIVAN = 0
+    case AUTOMOBILE = 1
     case SUV = 2
 }

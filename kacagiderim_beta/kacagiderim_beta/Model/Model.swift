@@ -9,14 +9,17 @@
 import Foundation
 
 struct Model: Codable, CommonVehicleProtocol {
+
     let brandId: String?
     let modelId: String?
     let name: String?
+    let brandName: String?
     
-    init(name: String, modelId: String, brandId: String) {
+    init(name: String, modelId: String, brandId: String, brandName: String) {
         self.name = name
         self.modelId = modelId
         self.brandId = brandId
+        self.brandName = brandName
     }
     
     func getId() -> String {
@@ -25,5 +28,9 @@ struct Model: Codable, CommonVehicleProtocol {
     
     func getName() -> String {
         return self.name ?? ""
+    }
+    
+    func getImagePath() -> String {
+        return K.Constants.cloudinaryCarPath + (self.brandName ?? "") + "/thumb/" + (self.name ?? "")
     }
 }
