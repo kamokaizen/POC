@@ -17,14 +17,13 @@ class CarViewController: CardsViewController {
     
     let cardPartTextView = CardPartTextView(type: .normal)
     let carTableVievModel = CarTableViewModel()
-    let carCreateViewModel = CarCreateViewModel()
+//    let carCreateViewModel = CarCreateViewModel()
     var cards: [CardController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cards = [CarCreateViewController(viewModel:carCreateViewModel),
-                      CarTableViewController(viewModel:carTableVievModel)]
+        self.cards = [CarTableViewController(viewModel:carTableVievModel)]
         loadCards(cards: cards)
         carTableVievModel.getVehicles()
     }

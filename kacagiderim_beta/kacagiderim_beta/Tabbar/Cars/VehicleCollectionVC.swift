@@ -10,6 +10,7 @@ import Foundation
 import CardParts
 import RxDataSources
 import NVActivityIndicatorView
+import SwiftEntryKit
 
 class VehicleCollectionVC: CardPartsViewController {
     
@@ -37,6 +38,11 @@ class VehicleCollectionVC: CardPartsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.darkGray
+        refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+        collectionViewCardPart.collectionView.refreshControl = refreshControl
+        
         collectionViewCardPart.collectionView.register(VehicleCollectionViewCell.self, forCellWithReuseIdentifier: "VehicleCollectionViewCell")
         collectionViewCardPart.collectionView.backgroundColor = .clear
         collectionViewCardPart.collectionView.showsHorizontalScrollIndicator = false
@@ -155,10 +161,30 @@ class VehicleCollectionVC: CardPartsViewController {
             viewModel.getEngines(model: cell.data as! Model)
         }
         else if(cell.data != nil && cell.data is Engine){
-            viewModel.getVersions(engine: cell.data as! Engine)
+            let engine = cell.data as! Engine
+            if(engine.hasAnyChild()){
+                viewModel.getVersions(engine: cell.data as! Engine)
+            }
+            else{
+                viewModel.getDetails(version: nil, engine: (cell.data as! Engine))
+            }
         }
         else if(cell.data != nil && cell.data is Version){
-            viewModel.getDetails(version: cell.data as! Version)
+            viewModel.getDetails(version: (cell.data as! Version), engine: nil)
         }
+        else if(cell.data != nil && cell.data is Detail){
+            let detail = cell.data as! Detail
+            PopupHandler.showVehicleAddForm(detail: detail, style: .dark, buttonCompletion: {
+                vehicleAddForm in
+                    self.viewModel.addVehicle(detail: detail, options: vehicleAddForm)
+            })
+        }
+    }
+    
+    @objc func refreshData(sender: UIButton){
+        print("refresh")
+        Utils.delayWithSeconds(1, completion: {
+            self.collectionViewCardPart.collectionView.refreshControl?.endRefreshing()
+        })
     }
 }

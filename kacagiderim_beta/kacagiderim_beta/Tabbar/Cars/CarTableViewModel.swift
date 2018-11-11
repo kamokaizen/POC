@@ -45,4 +45,9 @@ class CarTableViewModel {
             })
         }
     }
+    
+    @objc func refreshData(_ sender: Any) {
+        // Fetch Data
+        getVehicles()
+    }
 }

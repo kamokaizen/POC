@@ -15,6 +15,7 @@ class ImageManager {
     
     static func getImageFromCloudinary(path: String, completion:@escaping (UIImage?) -> Void){
         let imageURL = ImageManager.cloudinary.createUrl().generate(path)
+        print("image URL \(imageURL ?? "")")
         ImageCache.default.retrieveImage(forKey: imageURL!, options: nil) {
             image, cacheType in
             if let image = image {

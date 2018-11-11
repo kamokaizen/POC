@@ -80,7 +80,14 @@ class TokenController {
                         completion(TokenControl.success);
                     case .failure(let error):
                         print("API refresh token getting unexpected error: \(error).")
-                        (error as! CustomError).isRequestTimeout ? completion(TokenControl.timeout) : completion(TokenControl.connectionProblem)
+                        
+                        if((error as! CustomError).statusCode == 400 || (error as! CustomError).statusCode == 401){
+                            print("API refresh token invalid. Need to re login")
+                            completion(TokenControl.fail);
+                        }
+                        else{
+                            (error as! CustomError).isRequestTimeout ? completion(TokenControl.timeout) : completion(TokenControl.connectionProblem)
+                        }
                     }
                 })
             }

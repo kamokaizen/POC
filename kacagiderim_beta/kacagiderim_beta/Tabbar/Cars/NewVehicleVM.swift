@@ -66,6 +66,10 @@ class NewVehicleVM {
         self.filterBrands(type: self.selectedVehicleType)
     }
     
+    @objc func refresh(){
+        
+    }
+    
     func filterBrands(type: Int){
         self.selectedVehicleType = type
         self.state.value = .loading
@@ -208,21 +212,24 @@ class NewVehicleVM {
         }
     }
     
-    func getDetails(version: Version){
+    func getDetails(version: Version?, engine: Engine?){
         self.state.value = .loading
         self.selectedVersion = version
+        self.selectedEngine = engine
+        let id = version != nil ? version?.getId() : (engine != nil) ? engine?.getId() : ""
+        let selectedName = version != nil ? version?.getName() : (engine != nil) ? engine?.getName() : ""
         
-        let details = DefaultManager.getDetails(versionId: version.getId())
+        let details = DefaultManager.getDetails(versionId: id!)
         if(details.count < 1){
-            APIClient.getDetails(versionId: version.getId(), completion: { result in
+            APIClient.getDetails(versionId: id!, completion: { result in
                 switch result {
                 case .success(let response):
                     let details = response.value?.pageResult ?? []
-                    DefaultManager.setDetails(versionId: version.getId(), details: details)
+                    DefaultManager.setDetails(versionId: id!, details: details)
                     self.data.value = [VehicleCollectionStruct(items: details)]
                     self.dataStack.append(self.data.value)
                     self.state.value = details.count >= 1 ? .hasData : .empty
-                    self.selectionStringArray.append(version.getName())
+                    self.selectionStringArray.append(selectedName!)
                     self.selectionString.value = self.selectionStringArray.joined(separator: ">")
                     self.isBackButtonHide.value = false
                     return
@@ -237,10 +244,40 @@ class NewVehicleVM {
             self.data.value = [VehicleCollectionStruct(items: details)]
             self.dataStack.append(self.data.value)
             self.state.value = details.count >= 1 ? .hasData : .empty
-            self.selectionStringArray.append(version.getName())
+            self.selectionStringArray.append(selectedName!)
             self.selectionString.value = self.selectionStringArray.joined(separator: ">")
             self.isBackButtonHide.value = false
             return
         }
+    }
+    
+    func addVehicle(detail: Detail, options: VehicleAddFormStruct){
+        let user = DefaultManager.getUser()
+        let newVehicle = AccountVehicle(accountVehicleId: nil,
+                                        vehicleDetailId: detail.getId(),
+                                        userId: user?.userId,
+                                        vehiclePlate: options.vehiclePlate,
+                                        customVehicle: false,
+                                        customVehicleName: nil,
+                                        customConsumption: false,
+                                        customConsumptionType: nil,
+                                        averageCustomConsumptionLocal: 0,
+                                        averageCustomConsumptionOut: 0,
+                                        vehicle: detail)
+        Utils.showLoadingIndicator(message: "Vehicles are updating", size: CGSize(width: 100, height: 100))
+        
+        APIClient.createVehicle(accountVehicle: newVehicle, completion: { result in
+            switch result {
+            case .success(let createResponse):
+                print(createResponse.reason)
+                Utils.dismissLoadingIndicator()
+                self.rootViewController!.dismiss(animated: true, completion: {})
+                PopupHandler.successPopup(title: "Success", description: "New vehicle is added")
+            case .failure(let error):
+                Utils.dismissLoadingIndicator()
+                print((error as! CustomError).localizedDescription)
+                PopupHandler.errorPopup(title: "Error", description: "Something went wrong while adding new vehicle")
+            }
+        })
     }
 }

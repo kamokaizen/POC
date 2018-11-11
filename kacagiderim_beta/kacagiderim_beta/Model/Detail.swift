@@ -12,6 +12,8 @@ struct Detail: Codable, CommonVehicleProtocol {
     let detailId: String?
     let versionId: String?
     let brandName: String?
+    let brandImageName: String?
+    let modelImageName: String?
     let modelDescription: String?
     let longModelDescription: String?
     let width: Int
@@ -93,5 +95,22 @@ struct Detail: Codable, CommonVehicleProtocol {
     
     func getImagePath() -> String {
         return "engine.png"
+    }
+    
+    func hasAnyChild() -> Bool {
+        return false
+    }
+    
+    func getFuelType() -> FuelType {
+        switch self.fuelType {
+        case "D":
+            return FuelType.DIZEL
+        case "O":
+            return FuelType.BENZIN
+        case "E":
+            return FuelType.HIBRIT
+        default:
+            return FuelType.BENZIN
+        }
     }
 }

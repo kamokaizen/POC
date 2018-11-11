@@ -15,5 +15,25 @@ struct AccountVehicle: Codable {
     let customConsumption: Bool
     let customConsumptionType: String?
     let averageCustomConsumptionLocal, averageCustomConsumptionOut: Double
-    let vehicle: Detail
+    let vehicle: Detail?
+    
+    init(accountVehicleId: String?, vehicleDetailId:String?, userId: String?, vehiclePlate: String?,
+    customVehicle: Bool,
+    customVehicleName: String?,
+    customConsumption: Bool,
+    customConsumptionType: String?,
+    averageCustomConsumptionLocal: Double, averageCustomConsumptionOut: Double,
+    vehicle: Detail?){
+        self.accountVehicleId = accountVehicleId
+        self.vehicleDetailId = vehicleDetailId
+        self.userId = userId
+        self.vehiclePlate = vehiclePlate
+        self.customVehicle = customVehicle
+        self.customVehicleName = customVehicleName
+        self.customConsumption = customConsumption
+        self.customConsumptionType = customConsumptionType
+        self.averageCustomConsumptionOut = averageCustomConsumptionOut
+        self.averageCustomConsumptionLocal = averageCustomConsumptionLocal
+        self.vehicle = vehicle
+    }
 }

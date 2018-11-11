@@ -51,6 +51,13 @@ struct K {
         static let modelId = "mid"
         static let engineId = "eid"
         static let versionId = "vid"
+        static let vehicleDetailId = "vehicleDetailId"
+        static let customVehicle = "customVehicle"
+        static let vehiclePlate = "vehiclePlate"
+        static let customConsumption = "customConsumption"
+        static let averageCustomConsumptionLocal = "averageCustomConsumptionLocal"
+        static let averageCustomConsumptionOut = "averageCustomConsumptionOut"
+        static let customVehicleName = "customVehicleName"
         static let pageNumber = "pn"
         static let pageSize = "ps"
     }
@@ -137,4 +144,11 @@ enum BrandType: Int, Codable {
     case MINIVAN = 0
     case AUTOMOBILE = 1
     case SUV = 2
+}
+
+enum FuelType: Int, Codable {
+    case BENZIN = 0
+    case DIZEL = 1
+    case BENZIN_LPG = 2
+    case HIBRIT = 3
 }

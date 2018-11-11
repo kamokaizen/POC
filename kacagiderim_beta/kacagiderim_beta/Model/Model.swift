@@ -14,12 +14,14 @@ struct Model: Codable, CommonVehicleProtocol {
     let modelId: String?
     let name: String?
     let brandName: String?
+    let hasChild: Bool
     
-    init(name: String, modelId: String, brandId: String, brandName: String) {
+    init(name: String, modelId: String, brandId: String, brandName: String, hasChild: Bool) {
         self.name = name
         self.modelId = modelId
         self.brandId = brandId
         self.brandName = brandName
+        self.hasChild = hasChild
     }
     
     func getId() -> String {
@@ -32,5 +34,9 @@ struct Model: Codable, CommonVehicleProtocol {
     
     func getImagePath() -> String {
         return K.Constants.cloudinaryCarPath + (self.brandName ?? "") + "/thumb/" + (self.name ?? "")
+    }
+    
+    func hasAnyChild() -> Bool {
+        return self.hasChild
     }
 }

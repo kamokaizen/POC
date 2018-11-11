@@ -12,6 +12,7 @@ protocol CommonVehicleProtocol {
     func getId() -> String;
     func getName() -> String;
     func getImagePath() -> String;
+    func hasAnyChild() -> Bool;
 }
 
 struct Brand: Codable, CommonVehicleProtocol {
@@ -20,12 +21,14 @@ struct Brand: Codable, CommonVehicleProtocol {
     let imageName: String?
     let brandId: String?
     let type: Int
+    let hasChild: Bool
     
-    init(name: String, imageName: String, brandId: String, type: Int) {
+    init(name: String, imageName: String, brandId: String, type: Int, hasChild: Bool) {
         self.name = name
         self.imageName = imageName
         self.brandId = brandId
         self.type = type
+        self.hasChild = hasChild
     }
     
     func getId() -> String {
@@ -38,5 +41,9 @@ struct Brand: Codable, CommonVehicleProtocol {
     
     func getImagePath() -> String {
         return K.Constants.cloudinaryLogoPath + (self.imageName ?? "")
+    }
+    
+    func hasAnyChild() -> Bool {
+        return self.hasChild
     }
 }

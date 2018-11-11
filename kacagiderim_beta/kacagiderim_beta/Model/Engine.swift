@@ -14,12 +14,14 @@ struct Engine: Codable, CommonVehicleProtocol {
     let modelId: String?
     let name: String?
     let modelName: String?
+    let hasChild: Bool
     
-    init(name: String, modelId: String, engineId: String, modelName: String) {
+    init(name: String, modelId: String, engineId: String, modelName: String, hasChild: Bool) {
         self.name = name
         self.modelId = modelId
         self.engineId = engineId
         self.modelName = modelName
+        self.hasChild = hasChild
     }
     
     func getId() -> String {
@@ -32,5 +34,9 @@ struct Engine: Codable, CommonVehicleProtocol {
     
     func getImagePath() -> String {
         return "engine.png"
+    }
+    
+    func hasAnyChild() -> Bool {
+        return self.hasChild
     }
 }

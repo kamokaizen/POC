@@ -11,17 +11,22 @@ import Alamofire
 
 enum AccountEndpoint: APIConfiguration {
  
+    case createVehicle(accountVehicle: AccountVehicle)
     case getVehicles(userId: String)
     
     var method: HTTPMethod {
         switch self {
         case .getVehicles:
             return .get
+        case .createVehicle:
+            return .post
         }
     }
     
     var path: String {
         switch self {
+        case .createVehicle:
+            return "/accounts/api/vehicle/create"
         case .getVehicles(let userId):
             return "/accounts/api/vehicle/" + userId
         }
@@ -29,6 +34,15 @@ enum AccountEndpoint: APIConfiguration {
     
     var parameters: Parameters? {
         switch self {
+        case .createVehicle(let accountVehicle):
+            return [K.APIParameterKey.userId: accountVehicle.userId!,
+                    K.APIParameterKey.vehicleDetailId: accountVehicle.vehicleDetailId as Any,
+                    K.APIParameterKey.customVehicle: accountVehicle.customVehicle,
+                    K.APIParameterKey.vehiclePlate: accountVehicle.vehiclePlate as Any,
+                    K.APIParameterKey.customConsumption: accountVehicle.customConsumption,
+                    K.APIParameterKey.averageCustomConsumptionLocal: accountVehicle.averageCustomConsumptionLocal,
+                    K.APIParameterKey.averageCustomConsumptionOut: accountVehicle.averageCustomConsumptionOut,
+                    K.APIParameterKey.customVehicleName: accountVehicle.customVehicleName as Any]
         case .getVehicles:
             return nil
         }
