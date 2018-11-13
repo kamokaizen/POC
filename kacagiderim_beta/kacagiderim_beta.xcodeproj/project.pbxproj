@@ -29,6 +29,8 @@
 		D645B9E72191B0C9005135C7 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9E62191B0C9005135C7 /* Engine.swift */; };
 		D645B9E92191BB4B005135C7 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9E82191BB4B005135C7 /* Version.swift */; };
 		D645B9ED21983729005135C7 /* FormFieldPresetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9EC21983729005135C7 /* FormFieldPresetFactory.swift */; };
+		D645B9EF219A0305005135C7 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9EE219A0305005135C7 /* AuthManager.swift */; };
+		D645B9F1219B688C005135C7 /* UIButton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9F0219B688C005135C7 /* UIButton+Utils.swift */; };
 		D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */; };
 		D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */; };
 		D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */; };
@@ -110,6 +112,8 @@
 		D645B9E62191B0C9005135C7 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D645B9E82191BB4B005135C7 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		D645B9EC21983729005135C7 /* FormFieldPresetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldPresetFactory.swift; sourceTree = "<group>"; };
+		D645B9EE219A0305005135C7 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		D645B9F0219B688C005135C7 /* UIButton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Utils.swift"; sourceTree = "<group>"; };
 		D695B7266CA73A8F19F59151 /* Pods-kacagiderim_beta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.debug.xcconfig"; sourceTree = "<group>"; };
 		D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelEndpoint.swift; sourceTree = "<group>"; };
 		D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrice.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 				D63FE2DB21860C92007F0946 /* DefaultsManager.swift */,
 				D645B9E421903351005135C7 /* ImageManager.swift */,
 				D645B9EC21983729005135C7 /* FormFieldPresetFactory.swift */,
+				D645B9EE219A0305005135C7 /* AuthManager.swift */,
+				D645B9F0219B688C005135C7 /* UIButton+Utils.swift */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -588,10 +594,12 @@
 				D8A92A78218C313700F2C4EE /* VehicleTypeSelectionVC.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
 				D63FE2C821753A18007F0946 /* PopupHandler.swift in Sources */,
+				D645B9EF219A0305005135C7 /* AuthManager.swift in Sources */,
 				D63FE2C2216FDE78007F0946 /* UIScreen+Utils.swift in Sources */,
 				D838A66C213FED7B003E034E /* FuelPrices.swift in Sources */,
 				D8A92A7C218C37DB00F2C4EE /* Model.swift in Sources */,
 				D6C29B2121407EC000054110 /* CustomCardPartTheme.swift in Sources */,
+				D645B9F1219B688C005135C7 /* UIButton+Utils.swift in Sources */,
 				D63FE2D221848EB0007F0946 /* Brands.swift in Sources */,
 				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,

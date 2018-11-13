@@ -22,8 +22,8 @@ class APIClient {
                 performRequest(route: route, completion: completion)
             case .fail:
                 // means that can not refresh token and so delete user from user defaults then go to login page
-                TokenController.deleteUserFromUserDefaults()
-                Switcher.updateRootVC()
+                AuthManager.logout()
+                PopupHandler.errorPopup(title: "Session Expired", description: "Your session has expired. Please sign in kacagiderim again!")
             }
         })
     }

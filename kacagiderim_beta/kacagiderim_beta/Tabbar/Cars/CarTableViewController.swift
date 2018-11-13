@@ -13,6 +13,7 @@ import NVActivityIndicatorView
 class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, TableViewDetailClick, CardPartTableViewDelegte {
 
     weak var viewModel: CarTableViewModel!
+    var cardPartTableView = CardPartTableView()
     
     public init(viewModel: CarTableViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -44,8 +45,9 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cardPartTableView = CardPartTableView()
+        
         cardPartTableView.delegate = self
+//        cardPartTableView.tableView.delegate = self
         cardPartTableView.tableView.register(CarTableViewCell.self, forCellReuseIdentifier: "CarTableViewCell")
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         
@@ -58,6 +60,12 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
         
             return cell
             }.disposed(by: bag)
+        
+        cardPartTableView.tableView.rx.itemDeleted
+            .subscribe {
+                print($0)
+            }
+            .disposed(by: bag)
         
 //        cardPartTableView.tableView.rx
 //            .itemSelected
@@ -102,6 +110,13 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
         newButton.setImage(addImage, for: .normal)
         newButton.addTarget(self, action: #selector(self.createButtonTapped), for: .touchUpInside)
        
+        let editImage = Utils.imageWithImage(image: UIImage(named: "edit.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let editButton = CardPartButtonView()
+        editButton.frame.size = CGSize(width: 30, height: 30);
+        editButton.contentHorizontalAlignment = .right
+        editButton.setImage(editImage, for: .normal)
+        editButton.addTarget(self, action: #selector(self.editItemTapped), for: .touchUpInside)
+        
         let refreshImage = Utils.imageWithImage(image: UIImage(named: "refresh.png")!, scaledToSize: CGSize(width: 20, height: 20))
         let refreshButton = CardPartButtonView()
         refreshButton.frame.size = CGSize(width: 30, height: 30);
@@ -114,6 +129,7 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
         sv.distribution = .fill
         sv.alignment = .center
         sv.addArrangedSubview(titlePart)
+        sv.addArrangedSubview(editButton)
         sv.addArrangedSubview(refreshButton)
         sv.addArrangedSubview(newButton)
         
@@ -146,14 +162,28 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
         self.present(vc!, animated: true, completion: {})
     }
     
+    @objc func editItemTapped(sender: UIButton) {
+        cardPartTableView.tableView.setEditing(!cardPartTableView.tableView.isEditing, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let carDetailViewController = CarDetailViewController()
         self.navigationController?.pushViewController(carDetailViewController, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 100
     }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath: IndexPath){
+//        if (editingStyle == .delete) {
+//            // handle delete (by removing the data from your array and updating the tableview)
+//        }
+//    }
 }
 
 protocol TableViewDetailClick{

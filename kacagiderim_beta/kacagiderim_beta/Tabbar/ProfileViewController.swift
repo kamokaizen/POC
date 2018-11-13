@@ -335,18 +335,7 @@ class LoggedInCardController: CardPartsViewController, ShadowCardTrait, RoundedC
         let okButtonLabel = EKProperty.LabelContent(text: "Sign out", style: okButtonLabelStyle)
         let okButton = EKProperty.ButtonContent(label: okButtonLabel, backgroundColor: .clear, highlightedBackgroundColor:  EKColor.Teal.a600.withAlphaComponent(0.05)) {
             SwiftEntryKit.dismiss()
-            TokenController.deleteUserFromUserDefaults()
-
-            // Google Logout
-            GIDSignIn.sharedInstance().signOut()
-
-            // Facebook logout
-            let loginManager = LoginManager()
-            loginManager.logOut()
-
-            Switcher.updateRootVC()
-            // From both memory and disk
-            ImageCache.default.removeImage(forKey: "profile_image")
+            AuthManager.logout()
         }
         
         Utils.showAlertView(attributes: attributes, title: "Confirmation", desc: "Are you sure you want to sign out?", textColor: .black, imageName: "logo.png", imagePosition: .left, customButton: okButton)

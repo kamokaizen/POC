@@ -38,23 +38,27 @@ class ImageManager {
         }
     }
     
-    static func getImage(imageUrl: String, completion:@escaping (UIImage?) -> Void) {
-        ImageCache.default.retrieveImage(forKey: imageUrl, options: nil) {
+    static func getImage(imageUrl: String?, completion:@escaping (UIImage?) -> Void) {
+        if(imageUrl == nil || (imageUrl != nil && imageUrl!.isEmpty)){
+            return completion(nil)
+        }
+        
+        ImageCache.default.retrieveImage(forKey: imageUrl!, options: nil) {
             image, cacheType in
             if let image = image {
                 print("Get image \(image), cacheType: \(cacheType).")
                 //In this code snippet, the `cacheType` is .disk
-                completion(image)
+                return completion(image)
             } else {
-                print("Not exist in cache.")
-                ImageDownloader.default.downloadImage(with: URL(string: imageUrl)!, options: [], progressBlock: nil) {
+                print(imageUrl! + " Not exist in cache.")
+                ImageDownloader.default.downloadImage(with: URL(string: imageUrl!)!, options: [], progressBlock: nil) {
                     (image, error, url, data) in
                     if let image = image {
-                        ImageCache.default.store(image, forKey: imageUrl)
-                        completion(image)
+                        ImageCache.default.store(image, forKey: imageUrl!)
+                        return completion(image)
                     }
                     else{
-                        completion(nil)
+                        return completion(nil)
                     }
                 }
             }

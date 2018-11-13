@@ -100,13 +100,13 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         self.plate.text = data.vehiclePlate
         self.name.text = data.customVehicle ? data.customVehicleName ?? "" : (data.vehicle != nil ? data.vehicle?.longModelDescription ?? "" : "")
         
-        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (self.brand.text ?? ""), completion:  { (response) in
+        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (data.vehicle?.brandImageName ?? ""), completion:  { (response) in
             if(response != nil){
                 self.logoImageView.image = response
             }
         })
         
-        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (self.brand.text ?? "") + "/thumb/" + (data.vehicle?.modelImageName ?? ""), completion:  { (response) in
+        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (data.vehicle?.brandImageName ?? "") + "/thumb/" + (data.vehicle?.modelImageName ?? ""), completion:  { (response) in
             if(response != nil){
                 self.modelImageView.image = response
             }
