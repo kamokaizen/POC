@@ -7,31 +7,33 @@
 //
 
 import Foundation
-import Cloudinary
 import Kingfisher
 
 class ImageManager {
-    static let cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudName: K.Constants.cloudinaryCloudName, secure: true))
     
     static func getImageFromCloudinary(path: String, completion:@escaping (UIImage?) -> Void){
-        let imageURL = ImageManager.cloudinary.createUrl().generate(path)
-        print("image URL \(imageURL ?? "")")
-        ImageCache.default.retrieveImage(forKey: imageURL!, options: nil) {
+        let imageURL = K.Constants.cloudinaryBasePath + path
+        let imageURLObject = URL(string: imageURL)
+        if(imageURLObject == nil){
+            return completion(nil)
+        }
+        print("image URL \(imageURL)")
+        ImageCache.default.retrieveImage(forKey: imageURL, options: nil) {
             image, cacheType in
             if let image = image {
                 print("Get image \(image), cacheType: \(cacheType).")
                 //In this code snippet, the `cacheType` is .disk
-                completion(image)
+                return completion(image)
             } else {
                 print("Not exist in cache.")
-                ImageDownloader.default.downloadImage(with: URL(string: imageURL!)!, options: [], progressBlock: nil) {
+                ImageDownloader.default.downloadImage(with: imageURLObject!, options: [], progressBlock: nil) {
                     (image, error, url, data) in
                     if let image = image {
-                        ImageCache.default.store(image, forKey: imageURL!)
-                        completion(image)
+                        ImageCache.default.store(image, forKey: imageURL)
+                        return completion(image)
                     }
                     else{
-                        completion(nil)
+                        return completion(nil)
                     }
                 }
             }

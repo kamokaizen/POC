@@ -28,7 +28,7 @@ class VehicleToolbarVC: CardPartsViewController {
         let cancelPart = CardPartButtonView()
         cancelPart.setImage(cancelImage, for: UIControl.State.normal)
         cancelPart.contentHorizontalAlignment = .left
-        cancelPart.addTarget(self.viewModel, action: #selector(self.viewModel.dismissTapped), for: .touchUpInside)
+        cancelPart.addTarget(self.viewModel, action: #selector(self.viewModel.dismiss), for: .touchUpInside)
         
         let title = CardPartTitleView(type: .titleOnly)
         title.title = "NEW VEHICLE"

@@ -28,7 +28,6 @@ def all_pods
     pod 'RxSwift',    '~> 4.0'
     pod 'RxCocoa',    '~> 4.0'
     pod 'DefaultsKit'
-    pod 'Cloudinary', '~> 2.0'
 end
 
 target 'kacagiderim_beta' do
@@ -40,12 +39,5 @@ post_install do |installer|
     installer.pods_project.build_configurations.each do |config|
         config.build_settings.delete('CODE_SIGNING_ALLOWED')
         config.build_settings.delete('CODE_SIGNING_REQUIRED')
-    end
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            if target.name == "Cloudinary" then
-                config.build_settings['SWIFT_VERSION'] = '4.0'
-            end
-        end
     end
 end

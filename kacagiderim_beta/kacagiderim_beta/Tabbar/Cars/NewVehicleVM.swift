@@ -11,6 +11,7 @@ import RxSwift
 import RxDataSources
 import RxCocoa
 import CardParts
+import SwiftEntryKit
 
 class NewVehicleVM {
     
@@ -43,7 +44,7 @@ class NewVehicleVM {
         self.dataStack = []
     }
         
-    @objc func dismissTapped(sender: UIButton) {
+    @objc func dismiss(sender: UIButton) {
         self.rootViewController!.dismiss(animated: true, completion: {})
     }
     
@@ -51,6 +52,30 @@ class NewVehicleVM {
         self.rootViewController!.dismiss(animated: true, completion: {})
     }
     
+    @objc func chooseVehicleType(sender: UIButton){
+        let attributes = Utils.getAttributes(element: EKAttributes.bottomToast,
+                                             duration: .infinity,
+                                             entryBackground: .gradient(gradient: .init(colors: [EKColor.Netflix.light, EKColor.Netflix.dark], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
+                                             screenBackground: .color(color: .dimmedLightBackground),
+                                             roundCorners: .all(radius: 25))
+        let buttonLabelStyle = EKProperty.LabelStyle(font: MainFont.medium.with(size: 20), color: EKColor.Netflix.dark)
+        
+        let automobileButton = EKProperty.ButtonContent(label: EKProperty.LabelContent(text: "Automobile", style: buttonLabelStyle), backgroundColor: .white, highlightedBackgroundColor:  EKColor.Gray.light) {
+            SwiftEntryKit.dismiss()
+            self.filterBrands(type: BrandType.AUTOMOBILE.rawValue)
+        }
+        let suvButton = EKProperty.ButtonContent(label: EKProperty.LabelContent(text: "SUV", style: buttonLabelStyle), backgroundColor: .white, highlightedBackgroundColor:  EKColor.Gray.light) {
+            SwiftEntryKit.dismiss()
+            self.filterBrands(type: BrandType.SUV.rawValue)
+        }
+        let minivanButton = EKProperty.ButtonContent(label: EKProperty.LabelContent(text: "Minivan & Panelvan", style: buttonLabelStyle), backgroundColor: .white, highlightedBackgroundColor:  EKColor.Gray.light) {
+            SwiftEntryKit.dismiss()
+            self.filterBrands(type: BrandType.MINIVAN.rawValue)
+        }
+        
+        Utils.showSelectionPopup(attributes: attributes, title: "Vehicle Type Selection", titleColor: .white, description: "Plese select at least a vehicle type from below types. Currently, There are three types of vehicle exist.", descriptionColor: .white, image: UIImage(named: "ic_success")!, buttons: [automobileButton, suvButton, minivanButton])
+    }
+        
     @objc func back(sender: UIButton) {
         if(self.dataStack.count > 1){
             self.dataStack.removeLast()
@@ -85,7 +110,9 @@ class NewVehicleVM {
                 case .success(let response):
                     let brands = response.value?.pageResult ?? []
                     DefaultManager.setBrands(brands: brands)
-                    self.data.value = [VehicleCollectionStruct(items: brands.filter { $0.type == type })]
+                    // to be sorted for the first time use Default Manager
+                    let sortedBrands = DefaultManager.getBrands()
+                    self.data.value = [VehicleCollectionStruct(items: sortedBrands.filter { $0.type == type })]
                     self.dataStack.append(self.data.value)
                     self.state.value = brands.count >= 1 ? .hasData : .empty
                     return
@@ -115,7 +142,8 @@ class NewVehicleVM {
                 case .success(let response):
                     let models = response.value?.pageResult ?? []
                     DefaultManager.setModels(brandId: brandId, models: models)
-                    self.data.value = [VehicleCollectionStruct(items: models)]
+                    let sortedModels = DefaultManager.getModels(brandId: brandId)
+                    self.data.value = [VehicleCollectionStruct(items: sortedModels)]
                     self.dataStack.append(self.data.value)
                     self.state.value = models.count >= 1 ? .hasData : .empty
                     self.selectionStringArray.append(brand.getName())
@@ -151,7 +179,8 @@ class NewVehicleVM {
                 case .success(let response):
                     let engines = response.value?.pageResult ?? []
                     DefaultManager.setEngines(modelId: model.getId(), engines: engines)
-                    self.data.value = [VehicleCollectionStruct(items: engines)]
+                    let sortedEngines = DefaultManager.getEngines(modelId: model.getId())
+                    self.data.value = [VehicleCollectionStruct(items: sortedEngines)]
                     self.dataStack.append(self.data.value)
                     self.state.value = engines.count >= 1 ? .hasData : .empty
                     self.selectionStringArray.append(model.getName())
@@ -187,7 +216,8 @@ class NewVehicleVM {
                 case .success(let response):
                     let versions = response.value?.pageResult ?? []
                     DefaultManager.setVersions(engineId: engine.getId(), versions: versions)
-                    self.data.value = [VehicleCollectionStruct(items: versions)]
+                    let sortedVersions = DefaultManager.getVersions(engineId: engine.getId())
+                    self.data.value = [VehicleCollectionStruct(items: sortedVersions)]
                     self.dataStack.append(self.data.value)
                     self.state.value = versions.count >= 1 ? .hasData : .empty
                     self.selectionStringArray.append(engine.getName())
@@ -226,7 +256,8 @@ class NewVehicleVM {
                 case .success(let response):
                     let details = response.value?.pageResult ?? []
                     DefaultManager.setDetails(versionId: id!, details: details)
-                    self.data.value = [VehicleCollectionStruct(items: details)]
+                    let sortedDetails = DefaultManager.getDetails(versionId: id!)
+                    self.data.value = [VehicleCollectionStruct(items: sortedDetails)]
                     self.dataStack.append(self.data.value)
                     self.state.value = details.count >= 1 ? .hasData : .empty
                     self.selectionStringArray.append(selectedName!)

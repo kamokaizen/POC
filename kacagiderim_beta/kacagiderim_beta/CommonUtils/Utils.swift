@@ -123,4 +123,26 @@ class Utils {
         let contentView = EKPopUpMessageView(with: message)
         SwiftEntryKit.display(entry: contentView, using: attributes)
     }
+    
+    static func showSelectionPopup(attributes: EKAttributes, title: String, titleColor: UIColor, description: String, descriptionColor: UIColor, image: UIImage? = nil, buttons: [EKProperty.ButtonContent]? = nil) {
+        
+        // Generate textual content
+        let title = EKProperty.LabelContent(text: title, style: .init(font: MainFont.medium.with(size: 20), color: titleColor, alignment: .center))
+        let description = EKProperty.LabelContent(text: description, style: .init(font: MainFont.light.with(size: 15), color: descriptionColor, alignment: .center))
+        let simpleMessage = EKSimpleMessage(title: title, description: description)
+        
+        var buttonsBarContent = EKProperty.ButtonBarContent(separatorColor: EKColor.Gray.light, expandAnimatedly: true)
+        if(buttons != nil && (buttons?.count)! > 0){
+            for button in buttons! {
+                buttonsBarContent.content.append(button)
+            }
+        }
+        
+        let alertMessage = EKAlertMessage(simpleMessage: simpleMessage, imagePosition: EKAlertMessage.ImagePosition.top, buttonBarContent:buttonsBarContent)
+        
+        // Setup the view itself
+        let contentView = EKAlertMessageView(with: alertMessage)
+        
+        SwiftEntryKit.display(entry: contentView, using: attributes)
+    }
 }

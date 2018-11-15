@@ -117,26 +117,41 @@ class DefaultManager {
         defaults.set(cities, for: Keys.selectedCities)
     }
     static func setBrands(brands: [Brand]){
-        defaults.set(brands, for: Keys.brands)
+        let sortedBrands = brands.sorted {
+            $0.name ?? "" < $1.name ?? ""
+        }
+        defaults.set(sortedBrands, for: Keys.brands)
     }
     static func setModels(brandId: String, models:[Model]){
         var dictionary = defaults.get(for: Keys.models) ?? Dictionary()
-        dictionary.updateValue(models, forKey: brandId)
+        let sortedModels = models.sorted {
+            $0.name ?? "" < $1.name ?? ""
+        }
+        dictionary.updateValue(sortedModels, forKey: brandId)
         defaults.set(dictionary, for: Keys.models)
     }
     static func setEngines(modelId: String, engines:[Engine]){
         var dictionary = defaults.get(for: Keys.engines) ?? Dictionary()
-        dictionary.updateValue(engines, forKey: modelId)
+        let sortedEngines = engines.sorted {
+            $0.name ?? "" < $1.name ?? ""
+        }
+        dictionary.updateValue(sortedEngines, forKey: modelId)
         defaults.set(dictionary, for: Keys.engines)
     }
     static func setVersions(engineId: String, versions:[Version]){
         var dictionary = defaults.get(for: Keys.versions) ?? Dictionary()
-        dictionary.updateValue(versions, forKey: engineId)
+        let sortedVersions = versions.sorted {
+            $0.name ?? "" < $1.name ?? ""
+        }
+        dictionary.updateValue(sortedVersions, forKey: engineId)
         defaults.set(dictionary, for: Keys.versions)
     }
     static func setDetails(versionId: String, details:[Detail]){
         var dictionary = defaults.get(for: Keys.details) ?? Dictionary()
-        dictionary.updateValue(details, forKey: versionId)
+        let sortedDetails = details.sorted {
+            $0.modelDescription ?? "" < $1.modelDescription ?? ""
+        }
+        dictionary.updateValue(sortedDetails, forKey: versionId)
         defaults.set(dictionary, for: Keys.details)
     }
 }

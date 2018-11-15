@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 import SwiftEntryKit
 
 class VehicleCollectionVC: CardPartsViewController {
-    
+
     var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5
@@ -61,10 +61,14 @@ class VehicleCollectionVC: CardPartsViewController {
             
             return cell
         })
-        
+                
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         viewModel.data.asObservable().bind(to: collectionViewCardPart.collectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
-        collectionViewCardPart.collectionView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height - 200
+        collectionViewCardPart.collectionView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         
         let selectionMapTextView = CardPartTextView(type: .small)
         viewModel.selectionString.asObservable().bind(to: selectionMapTextView.rx.text).disposed(by: bag)
@@ -84,32 +88,45 @@ class VehicleCollectionVC: CardPartsViewController {
         let backButton = CardPartButtonView()
         backButton.contentHorizontalAlignment = .right
         backButton.setImage(image, for: .normal)
-        backButton.setTitle("Back", for: .normal)
-        backButton.titleLabel?.font = CardParts.theme.normalTextFont
-        backButton.setTitleColor(UIColor.darkDefault, for: .normal)
         backButton.addTarget(self.viewModel, action: #selector(self.viewModel.back), for: .touchUpInside)
         
-        let resetImage = Utils.imageWithImage(image: UIImage(named: "back.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let resetImage = Utils.imageWithImage(image: UIImage(named: "reset.png")!, scaledToSize: CGSize(width: 20, height: 20))
         let resetButton = CardPartButtonView()
         resetButton.contentHorizontalAlignment = .right
         resetButton.setImage(resetImage, for: .normal)
-        resetButton.setTitle("Reset", for: .normal)
-        resetButton.titleLabel?.font = CardParts.theme.normalTextFont
-        resetButton.setTitleColor(UIColor.darkDefault, for: .normal)
         resetButton.addTarget(self.viewModel, action: #selector(self.viewModel.reset), for: .touchUpInside)
-        let seperator = CardPartVerticalSeparatorView()
         
-        let centeredView = CardPartCenteredView(leftView: resetButton, centeredView: seperator, rightView: backButton)
-        viewModel.isBackButtonHide.asObservable().bind(to: centeredView.rx.isHidden).disposed(by: bag)
+        let carImage = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let carButton = CardPartButtonView()
+        carButton.contentHorizontalAlignment = .right
+        carButton.setImage(carImage, for: .normal)
+        carButton.addTarget(self.viewModel, action: #selector(self.viewModel.chooseVehicleType), for: .touchUpInside)
+        
+        let searchImage = Utils.imageWithImage(image: UIImage(named: "search.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let searchButton = CardPartButtonView()
+        searchButton.contentHorizontalAlignment = .right
+        searchButton.setImage(searchImage, for: .normal)
+        searchButton.addTarget(self.viewModel, action: #selector(self.viewModel.search), for: .touchUpInside)
+        
+        let closeImage = Utils.imageWithImage(image: UIImage(named: "close.png")!, scaledToSize: CGSize(width: 20, height: 20))
+        let closeButton = CardPartButtonView()
+        closeButton.contentHorizontalAlignment = .right
+        closeButton.setImage(closeImage, for: .normal)
+        closeButton.addTarget(self.viewModel, action: #selector(self.viewModel.dismiss), for: .touchUpInside)
+        
+        viewModel.isBackButtonHide.asObservable().bind(to: backButton.rx.isHidden).disposed(by: bag)
+        viewModel.isBackButtonHide.asObservable().bind(to: resetButton.rx.isHidden).disposed(by: bag)
         
         let sv = CardPartStackView()
         sv.spacing = 1
-        sv.distribution = .fillProportionally
+        sv.distribution = .fill
         sv.alignment = .center
         sv.addArrangedSubview(titlePart)
-        sv.addArrangedSubview(centeredView)
-        
-        sv.addConstraint(NSLayoutConstraint(item: titlePart, attribute: .width, relatedBy: .equal, toItem:centeredView , attribute: .width, multiplier: 1.2, constant: 0.0))
+        sv.addArrangedSubview(resetButton)
+        sv.addArrangedSubview(backButton)
+        sv.addArrangedSubview(carButton)
+        sv.addArrangedSubview(searchButton)
+        sv.addArrangedSubview(closeButton)
         
         return sv
     }

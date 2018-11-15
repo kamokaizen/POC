@@ -66,7 +66,7 @@ struct K {
         static let googleAPIKey = "AIzaSyCmG39jrBADwZXyq-3h3WSb67zRxXQUUws"
         static let googleSigninClientId = "383413793224-hbqr1tr5qarn89roo5agfi97anp9bfdt.apps.googleusercontent.com"
         static let loginAuthorizationValue = "Basic bW9iaWxlOg=="
-        static let cloudinaryCloudName =  "kacagiderim"
+        static let cloudinaryBasePath = "https://res.cloudinary.com/kacagiderim/image/upload/v1/"
         static let cloudinaryLogoPath =  "logo/thumb/"
         static let cloudinaryCarPath =  "cars/"
         static let requestTimeoutInterval = 10 // seconds

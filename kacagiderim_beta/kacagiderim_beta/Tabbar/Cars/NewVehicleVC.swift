@@ -19,9 +19,10 @@ class NewVehicleVC : CardsViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.viewModel = NewVehicleVM(rootViewController: self)
         
-        self.cards = [VehicleToolbarVC(viewModel: self.viewModel), VehicleTypeSelectionVC(viewModel: self.viewModel), VehicleCollectionVC(viewModel: self.viewModel)]
-        
+        self.cards = [VehicleCollectionVC(viewModel: self.viewModel)]
         loadCards(cards: cards)
+        
+        viewModel.filterBrands(type: BrandType.AUTOMOBILE.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,13 +42,5 @@ class NewVehicleVC : CardsViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @objc func didCloseTapped(sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func search(sender: UIButton) {
-        self.dismiss(animated: true, completion: {})
     }
 }

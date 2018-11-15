@@ -62,9 +62,9 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
             }.disposed(by: bag)
         
         cardPartTableView.tableView.rx.itemDeleted
-            .subscribe {
-                print($0)
-            }
+            .subscribe({indexPath in
+                self.viewModel.deleteRow(indexPath: (indexPath.element?.row)!)
+            })
             .disposed(by: bag)
         
 //        cardPartTableView.tableView.rx
