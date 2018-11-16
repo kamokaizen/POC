@@ -32,6 +32,17 @@ class NewVehicleVM {
     var selectionString: Variable<String> = Variable("")
     var selectionStringArray: [String] = []
     
+    var searchDataStack: Dictionary<Int, [Detail]>
+    var searchVehicles: Variable<[Detail]> = Variable([])
+    var searchString: Variable<String> = Variable("")
+    var searchResultString: Variable<String> = Variable("")
+    var currentPageNumber: Variable<Int> = Variable(1)
+    var totalItemCount: Variable<Int> = Variable(1)
+    var totalPageCount: Variable<Int> = Variable(1)
+    var isPaginationBackButtonHide: Variable<Bool> = Variable(true)
+    var isPaginationNextButtonHide: Variable<Bool> = Variable(true)
+    var isSearchResultsStackHide : Variable<Bool> = Variable(true)
+    
     init(rootViewController: NewVehicleVC) {
         self.rootViewController = rootViewController
         self.state.value = .none
@@ -42,14 +53,53 @@ class NewVehicleVM {
         self.selectedDetail = nil
         self.selectionStringArray = []
         self.dataStack = []
+        self.searchDataStack = Dictionary()
+        self.currentPageNumber.value = 1
+        self.totalItemCount.value = 0
+        self.totalPageCount.value = 0
     }
         
     @objc func dismiss(sender: UIButton) {
         self.rootViewController!.dismiss(animated: true, completion: {})
     }
     
+    @objc func dismissSearch(sender: UIButton) {
+        self.state.value = .hasData
+    }
+    
     @objc func search(sender: UIButton) {
-        self.rootViewController!.dismiss(animated: true, completion: {})
+        self.clearSearchFields()
+        self.isSearchResultsStackHide.value = true
+        self.state.value = .custom("search")
+    }
+
+    @objc func makeSearch(sender: UIButton) {
+        self.currentPageNumber.value = 1
+        self.searchDataStack.removeAll()
+        self.getDetailsWithSearchString()
+    }
+    
+    @objc func getNextPageDetails(){
+        self.currentPageNumber.value = self.currentPageNumber.value + 1
+        self.getDetailsWithSearchString()
+    }
+
+    @objc func getPreviousPageDetails(){
+        self.currentPageNumber.value = self.currentPageNumber.value - 1
+        self.getDetailsWithSearchString()
+    }
+    
+    func clearSearchFields(){
+        self.searchDataStack.removeAll()
+        self.searchVehicles.value.removeAll()
+        self.searchString.value = ""
+        self.searchResultString.value = "Search Results"
+        self.currentPageNumber.value = 1
+        self.totalItemCount.value = 0
+        self.totalPageCount.value = 1
+        self.isPaginationNextButtonHide.value = false
+        self.isPaginationBackButtonHide.value = false
+        self.isSearchResultsStackHide.value = true
     }
     
     @objc func chooseVehicleType(sender: UIButton){
@@ -300,15 +350,61 @@ class NewVehicleVM {
         APIClient.createVehicle(accountVehicle: newVehicle, completion: { result in
             switch result {
             case .success(let createResponse):
-                print(createResponse.reason)
+                
+                // update account vehicles on default
+                var accountVehicles = DefaultManager.getAccountVehicles()
+                accountVehicles.append(createResponse.value!)
+                DefaultManager.setAccountVehicles(accountVehicles: accountVehicles)
+                
                 Utils.dismissLoadingIndicator()
                 self.rootViewController!.dismiss(animated: true, completion: {})
-                PopupHandler.successPopup(title: "Success", description: "New vehicle is added")
+                
+                Utils.delayWithSeconds(1, completion: {
+                    PopupHandler.successPopup(title: "Success", description: "New vehicle is added")
+                })
             case .failure(let error):
                 Utils.dismissLoadingIndicator()
                 print((error as! CustomError).localizedDescription)
                 PopupHandler.errorPopup(title: "Error", description: "Something went wrong while adding new vehicle")
             }
         })
+    }
+    
+    func getDetailsWithSearchString(){
+        self.state.value = .loading
+        let details = self.searchDataStack[self.currentPageNumber.value] ?? []
+        
+        if(details.count > 0){
+            self.searchVehicles.value = details
+            self.state.value = .custom("search")
+            self.updateSearchResultStack()
+        }
+        else{
+            APIClient.vehicleSearch(searchText: self.searchString.value, pageNumber: self.currentPageNumber.value, completion: { result in
+                switch result {
+                case .success(let response):
+                    self.searchVehicles.value = response.value?.pageResult ?? []
+                    self.totalItemCount.value = response.value?.pagination?.totalItemCount ?? 0
+                    self.totalPageCount.value = response.value?.pagination?.totalPage ?? 0
+                    self.currentPageNumber.value = response.value?.pagination?.currentPage ?? 0
+                    self.searchDataStack.updateValue(self.searchVehicles.value, forKey: self.currentPageNumber.value);
+                    self.state.value = .custom("search")
+                    self.updateSearchResultStack()
+                    return
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+                    self.state.value = .custom("fail")
+                    return
+                }
+            })
+        }
+    }
+    
+    func updateSearchResultStack(){
+        self.isPaginationBackButtonHide.value = self.currentPageNumber.value <= 1
+        self.isPaginationNextButtonHide.value = self.currentPageNumber.value >= self.totalPageCount.value
+        self.isSearchResultsStackHide.value = false // first time search make visible
+        let currentPageShown = self.totalItemCount.value == 0 ? 0 : self.currentPageNumber.value
+        self.searchResultString.value = "\(self.totalItemCount.value) vehicles found | Page \(currentPageShown)/\(self.totalPageCount.value)"
     }
 }

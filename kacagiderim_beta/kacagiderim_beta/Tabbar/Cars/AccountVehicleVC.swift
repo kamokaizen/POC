@@ -10,12 +10,12 @@ import Foundation
 import CardParts
 import NVActivityIndicatorView
 
-class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, TableViewDetailClick, CardPartTableViewDelegte {
+class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, TableViewDetailClick, CardPartTableViewDelegte {
 
-    weak var viewModel: CarTableViewModel!
+    weak var viewModel: AccountVehicleVM!
     var cardPartTableView = CardPartTableView()
     
-    public init(viewModel: CarTableViewModel) {
+    public init(viewModel: AccountVehicleVM) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
@@ -47,7 +47,6 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
         super.viewDidLoad()
         
         cardPartTableView.delegate = self
-//        cardPartTableView.tableView.delegate = self
         cardPartTableView.tableView.register(CarTableViewCell.self, forCellReuseIdentifier: "CarTableViewCell")
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         
@@ -82,6 +81,11 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
         setupCardParts(getLoadingViews(title: title, text: "Vehicles are loading..."), forState: .loading)
         setupCardParts([getTitleViews(title: title) , CardPartSeparatorView(), cardPartTableView], forState: .hasData)
         setupCardParts(getViews(title: title, image: UIImage(named: "alert.png")!, text: "Something went wrong while getting vehicles"), forState: .custom("fail"))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getAccountVehicles()
     }
     
     func getViews(title: String, image: UIImage, text: String) -> [CardPartView] {
@@ -152,8 +156,8 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
     }
     
     func didDetailButtonClicked(item: AccountVehicle) {
-        let carDetailViewController = CarDetailViewController()
-        self.navigationController?.pushViewController(carDetailViewController, animated: true)
+        let accountVehicleDetailController = AccountVehicleDetailVC()
+        self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
     
     @objc func createButtonTapped(sender: UIButton) {
@@ -167,23 +171,13 @@ class CarTableViewController: CardPartsViewController, ShadowCardTrait, RoundedC
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let carDetailViewController = CarDetailViewController()
-        self.navigationController?.pushViewController(carDetailViewController, animated: true)
+        let accountVehicleDetailController = AccountVehicleDetailVC()
+        self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 100
     }
-    
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath: IndexPath){
-//        if (editingStyle == .delete) {
-//            // handle delete (by removing the data from your array and updating the tableview)
-//        }
-//    }
 }
 
 protocol TableViewDetailClick{

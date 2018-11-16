@@ -26,6 +26,7 @@ class DefaultManager {
         static let engines = Key<Dictionary<String, [Engine]>>("engines")
         static let versions = Key<Dictionary<String, [Version]>>("versions")
         static let details = Key<Dictionary<String, [Detail]>>("details")
+        static let accountVehicles = Key<[AccountVehicle]>("accountVehicles")
     }
     
     static func clear(){
@@ -42,6 +43,7 @@ class DefaultManager {
         defaults.clear(Keys.engines)
         defaults.clear(Keys.versions)
         defaults.clear(Keys.details)
+        defaults.clear(Keys.accountVehicles)
     }
     
     //Mark get methods
@@ -88,6 +90,9 @@ class DefaultManager {
     static func getDetails(versionId: String) -> [Detail] {
         let dictionary = defaults.get(for: Keys.details) ?? Dictionary()
         return dictionary[versionId] ?? []
+    }
+    static func getAccountVehicles() -> [AccountVehicle] {
+        return defaults.get(for: Keys.accountVehicles) ?? []
     }
     
     //Mark set methods
@@ -153,5 +158,8 @@ class DefaultManager {
         }
         dictionary.updateValue(sortedDetails, forKey: versionId)
         defaults.set(dictionary, for: Keys.details)
+    }
+    static func setAccountVehicles(accountVehicles: [AccountVehicle]){
+        defaults.set(accountVehicles, for: Keys.accountVehicles)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class PageResponse<T: Codable>: Codable {
-    let pagination: Pagination
+    let pagination: Pagination?
     let pageResult: [T]
     
     init(pagination: Pagination, pageResult: [T]) {

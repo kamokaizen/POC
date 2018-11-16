@@ -154,6 +154,10 @@ class APIClient {
     static func getDetails(versionId: String, completion:@escaping (Result<ServerResponse<PageResponse<Detail>>>) -> Void) {
         checkTokenExpired(route: CarEndpoint.details(versionId: versionId, pageNumber: 1, pageSize: 1000), completion: completion)
     }
+
+    static func vehicleSearch(searchText: String, pageNumber:Int, completion:@escaping (Result<ServerResponse<PageResponse<Detail>>>) -> Void){
+        checkTokenExpired(route: CarEndpoint.details(versionId: searchText, pageNumber: pageNumber, pageSize: 20), completion: completion)
+    }
     
     static func getUserVehicles(userId: String, completion:@escaping (Result<ServerResponse<VehicleResponse>>) -> Void){
         checkTokenExpired(route: AccountEndpoint.getVehicles(userId: userId), completion: completion)

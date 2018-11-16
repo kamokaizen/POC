@@ -1,22 +1,27 @@
 //
-//  CarDetailViewController.swift
+//  CarsViewController.swift
 //  kacagiderim_beta
 //
-//  Created by Comodo on 30.10.2018.
+//  Created by Comodo on 16.07.2018.
 //  Copyright © 2018 kacagiderim. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import SwiftEntryKit
 import CardParts
+import RxSwift
+import RxCocoa
 
-class CarDetailViewController: CardsViewController {
+class VehiclesVC: CardsViewController {
     
+    let cardPartTextView = CardPartTextView(type: .normal)
+    let accountVehicleVM = AccountVehicleVM()
     var cards: [CardController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cards = []
+        self.cards = [AccountVehicleVC(viewModel:accountVehicleVM)]
         loadCards(cards: cards)
     }
     

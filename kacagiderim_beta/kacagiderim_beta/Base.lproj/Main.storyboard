@@ -913,17 +913,17 @@
             </objects>
             <point key="canvasLocation" x="2456" y="1330"/>
         </scene>
-        <!--Cars-->
+        <!--Vehicles-->
         <scene sceneID="QZ2-WV-1kG">
             <objects>
-                <viewController id="Lg3-ai-59f" customClass="CarViewController" customModule="kacagiderim_beta" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lg3-ai-59f" customClass="VehiclesVC" customModule="kacagiderim_beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ctL-no-Cj3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Y8f-Ty-baa"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Cars" image="car" id="D9M-Ku-tcY"/>
+                    <tabBarItem key="tabBarItem" title="Vehicles" image="car" id="D9M-Ku-tcY"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vTO-hL-fBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

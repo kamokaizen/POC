@@ -26,6 +26,9 @@ class VehicleCollectionVC: CardPartsViewController {
     
     weak  var viewModel: NewVehicleVM!
     
+    var searchTextField = CardPartTextField()
+    var searchTableView = CardPartTableView()
+    
     public init(viewModel: NewVehicleVM) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -61,7 +64,7 @@ class VehicleCollectionVC: CardPartsViewController {
             
             return cell
         })
-                
+        
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         viewModel.data.asObservable().bind(to: collectionViewCardPart.collectionView.rx.items(dataSource: dataSource)).disposed(by: bag)
         
@@ -73,11 +76,24 @@ class VehicleCollectionVC: CardPartsViewController {
         let selectionMapTextView = CardPartTextView(type: .small)
         viewModel.selectionString.asObservable().bind(to: selectionMapTextView.rx.text).disposed(by: bag)
         
+        searchTableView.tableView.register(CarSearchTableViewCell.self, forCellReuseIdentifier: "CarSearchTableViewCell")
+        
+        viewModel.searchVehicles.asObservable().bind(to: searchTableView.tableView.rx.items) { tableView, index, detail in
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CarSearchTableViewCell", for: IndexPath(item: index, section: 0)) as? CarSearchTableViewCell else { return UITableViewCell() }
+            
+            cell.setData(data:detail)
+            
+            return cell
+            }.disposed(by: bag)
+        
+        
         setupCardParts(getViews(title: "Choose Vehicle", image: UIImage(named: "novehicle.png")!, text: "No data to shown"), forState: .none)
         setupCardParts(getViews(title: "Choose Vehicle", image: UIImage(named: "novehicle.png")!, text: "No data to shown"), forState: .empty)
         setupCardParts(getLoadingViews(title: "Choose Vehicle", text: "Vehicles are loading..."), forState: .loading)
         setupCardParts([getTitleStack(title: "Choose Vehicle"), CardPartSeparatorView(), selectionMapTextView, CardPartSeparatorView(), collectionViewCardPart], forState: .hasData)
         setupCardParts(getViews(title: "Choose Vehicle", image: UIImage(named: "alert.png")!, text: "Something went wrong while getting vehicles"), forState: .custom("fail"))
+        setupCardParts(getSearchViews(showTable: true), forState: .custom("search"))
     }
     
     func getTitleStack(title: String) -> CardPartStackView {
@@ -150,6 +166,21 @@ class VehicleCollectionVC: CardPartsViewController {
         return [getTitleStack(title: title),CardPartSeparatorView(), selectionMapTextView, CardPartSeparatorView(), stack]
     }
     
+    func getNoDataStack() -> CardPartView{
+        let imageView = CardPartImageView(image: UIImage(named: "novehicle.png"))
+        imageView.contentMode = .scaleAspectFit;
+        let textView = CardPartTextView(type: .normal)
+        textView.text = "No data to shown"
+        let stack = CardPartStackView()
+        stack.axis = .vertical
+        stack.spacing = 10
+        stack.distribution = .equalSpacing
+        stack.alignment = UIStackView.Alignment.center
+        stack.addArrangedSubview(imageView);
+        stack.addArrangedSubview(textView);
+        return stack
+    }
+    
     func getLoadingViews(title: String, text: String) -> [CardPartView]{
         let loadingIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: K.Constants.default_spinner, color:UIColor.black , padding: 0)
         let loadingTextView = CardPartTextView(type: .normal)
@@ -162,7 +193,79 @@ class VehicleCollectionVC: CardPartsViewController {
         stack.alignment = UIStackView.Alignment.center
         stack.addArrangedSubview(loadingIndicator);
         stack.addArrangedSubview(loadingTextView);
-        return [getTitleStack(title: title), CardPartSeparatorView(), stack]
+        return [stack]
+    }
+    
+    func getSearchViews(showTable: Bool) -> [CardPartView]{
+        searchTextField.placeholder = "Type any vehicle..."
+        
+        let searchTitleView = CardPartTitleView(type:.titleOnly)
+        searchTitleView.title = "Vehicle Search"
+
+        let searchResultTitleView = CardPartTitleView(type:.titleOnly)
+        searchResultTitleView.title = "Search Results"
+
+        let backImage = Utils.imageWithImage(image: UIImage(named: "back.png")!, scaledToSize: CGSize(width: 50, height: 50))
+        let backButton = CardPartButtonView()
+        backButton.contentHorizontalAlignment = .right
+        backButton.setImage(backImage, for: .normal)
+        backButton.addTarget(self.viewModel, action: #selector(self.viewModel.getPreviousPageDetails), for: .touchUpInside)
+        
+        let nextImage = Utils.imageWithImage(image: UIImage(named: "forward.png")!, scaledToSize: CGSize(width: 50, height: 50))
+        let nextButton = CardPartButtonView()
+        nextButton.contentHorizontalAlignment = .right
+        nextButton.setImage(nextImage, for: .normal)
+        nextButton.addTarget(self.viewModel, action: #selector(self.viewModel.getNextPageDetails), for: .touchUpInside)
+        
+        let stackPage = CardPartStackView()
+        stackPage.axis = .horizontal
+        stackPage.spacing = 10
+        stackPage.distribution = .fill
+        stackPage.addArrangedSubview(searchResultTitleView);
+        stackPage.addArrangedSubview(backButton);
+        stackPage.addArrangedSubview(nextButton);
+        
+        let stackResultsPage = CardPartStackView()
+        stackResultsPage.axis = .vertical
+        stackResultsPage.spacing = 10
+        stackResultsPage.distribution = .fill
+        stackResultsPage.addArrangedSubview(stackPage);
+        stackResultsPage.addArrangedSubview(CardPartSeparatorView());
+        
+        viewModel.searchString.asObservable().bind(to: searchTextField.rx.text).disposed(by: bag)
+        viewModel.searchResultString.asObservable().bind(to: searchResultTitleView.rx.title).disposed(by: bag)
+        searchTextField.rx.text.orEmpty.bind(to: viewModel.searchString).disposed(by: bag)
+        viewModel.isPaginationNextButtonHide.asObservable().bind(to: nextButton.rx.isHidden).disposed(by: bag)
+        viewModel.isPaginationBackButtonHide.asObservable().bind(to: backButton.rx.isHidden).disposed(by: bag)
+        viewModel.isSearchResultsStackHide.asObservable().bind(to: stackResultsPage.rx.isHidden).disposed(by: bag)
+        
+        let searchImage = Utils.imageWithImage(image: UIImage(named: "search.png")!, scaledToSize: CGSize(width: 50, height: 50))
+        let searchButton = CardPartButtonView()
+        searchButton.contentHorizontalAlignment = .right
+        searchButton.setImage(searchImage, for: .normal)
+        searchButton.addTarget(self.viewModel, action: #selector(self.viewModel.makeSearch), for: .touchUpInside)
+        
+        let closeImage = Utils.imageWithImage(image: UIImage(named: "close.png")!, scaledToSize: CGSize(width: 50, height: 50))
+        let closeButton = CardPartButtonView()
+        closeButton.contentHorizontalAlignment = .right
+        closeButton.setImage(closeImage, for: .normal)
+        closeButton.addTarget(self.viewModel, action: #selector(self.viewModel.dismissSearch), for: .touchUpInside)
+        
+        let stackTitle = CardPartStackView()
+        stackTitle.axis = .horizontal
+        stackTitle.spacing = 10
+        stackTitle.distribution = .fill
+        stackTitle.addArrangedSubview(searchTitleView);
+        stackTitle.addArrangedSubview(closeButton);
+        
+        let stack = CardPartStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.distribution = .fill
+        stack.addArrangedSubview(searchTextField);
+        stack.addArrangedSubview(searchButton);
+        
+        return [stackTitle, CardPartSeparatorView(), stack, CardPartSeparatorView(), stackResultsPage, searchTableView]
     }
     
     @objc func filterBrands(sender: UIButton) {
