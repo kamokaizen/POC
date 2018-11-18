@@ -32,9 +32,6 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
         return 10.0
     }
     
-    // The value can be from 0.0 to 1.0.
-    // 0.0 => lighter shadow
-    // 1.0 => darker shadow
     func shadowOpacity() -> Float {
         return 1.0
     }
@@ -175,9 +172,9 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
         self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        return 100
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+//        return 100
+//    }
 }
 
 protocol TableViewDetailClick{

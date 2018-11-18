@@ -33,6 +33,7 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         brand.textColor = CardParts.theme.buttonTitleColor
         logoImageView.image = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 20, height: 20))
         modelImageView.image = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 50, height: 50))
+                
         year.textAlignment = .right
         
         mainSV.axis = .horizontal
@@ -43,7 +44,7 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         imageStack.axis = .horizontal
         imageStack.spacing = 5
         imageStack.distribution = .fill
-        imageStack.alignment = UIStackView.Alignment.top
+        imageStack.alignment = UIStackView.Alignment.center
         imageStack.addArrangedSubview(logoImageView)
         imageStack.addArrangedSubview(brand);
         
@@ -76,10 +77,9 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         mainSV.addArrangedSubview(modelImageStack)
         mainSV.addArrangedSubview(stack)
         mainSV.addArrangedSubview(showDetailButton)
-        mainSV.margins = UIEdgeInsets(top: 2.0, left: 25.0, bottom: 2.0, right: 30.0)
         
-        imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 20))
-        imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 20))
+        imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 30))
+        imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 30))
         
         modelImageStack.addConstraint(NSLayoutConstraint(item: modelImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 75))
         modelImageStack.addConstraint(NSLayoutConstraint(item: modelImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 50))
@@ -95,9 +95,9 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         self.logoImageView.image = nil
         self.modelImageView.image = nil
         self.data = data
-        self.brand.text = data.vehicle?.brandImageName
+        self.brand.text = data.vehicle?.brandImageName?.uppercased()
         self.year.text = data.vehicle != nil ? ((data.vehicle?.startYear!)! + "-" + (data.vehicle?.endYear!)!) : ""
-        self.plate.text = data.vehiclePlate
+        self.plate.text = data.vehiclePlate?.uppercased()
         self.name.text = data.customVehicle ? data.customVehicleName ?? "" : (data.vehicle != nil ? data.vehicle?.longModelDescription ?? "" : "")
         
         ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (data.vehicle?.brandImageName ?? ""), completion:  { (response) in
@@ -109,6 +109,8 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (data.vehicle?.brandImageName ?? "") + "/thumb/" + (data.vehicle?.modelImageName ?? ""), completion:  { (response) in
             if(response != nil){
                 self.modelImageView.image = response
+                self.modelImageView.layer.cornerRadius = 5.0;
+                self.modelImageView.clipsToBounds = true;
             }
         })
     }

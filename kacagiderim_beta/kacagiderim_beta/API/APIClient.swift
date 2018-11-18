@@ -166,4 +166,8 @@ class APIClient {
     static func createVehicle(accountVehicle: AccountVehicle, completion:@escaping (Result<ServerResponse<AccountVehicle>>) -> Void){
         checkTokenExpired(route: AccountEndpoint.createVehicle(accountVehicle: accountVehicle), completion: completion)
     }
+    
+    static func deleteVehicle(accountVehicleId: String, completion:@escaping (Result<ServerResponse<AccountVehicle>>) -> Void){
+        checkTokenExpired(route: AccountEndpoint.deleteVehicle(accountVehicleId: accountVehicleId), completion: completion)
+    }
 }

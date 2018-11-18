@@ -12,7 +12,7 @@ import RxDataSources
 import NVActivityIndicatorView
 import SwiftEntryKit
 
-class VehicleCollectionVC: CardPartsViewController {
+class VehicleCollectionVC: CardPartsViewController, CardPartTableViewDelegte {
 
     var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -77,6 +77,7 @@ class VehicleCollectionVC: CardPartsViewController {
         viewModel.selectionString.asObservable().bind(to: selectionMapTextView.rx.text).disposed(by: bag)
         
         searchTableView.tableView.register(CarSearchTableViewCell.self, forCellReuseIdentifier: "CarSearchTableViewCell")
+        searchTableView.delegate = self
         
         viewModel.searchVehicles.asObservable().bind(to: searchTableView.tableView.rx.items) { tableView, index, detail in
             
@@ -305,6 +306,14 @@ class VehicleCollectionVC: CardPartsViewController {
         print("refresh")
         Utils.delayWithSeconds(1, completion: {
             self.collectionViewCardPart.collectionView.refreshControl?.endRefreshing()
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detail = self.viewModel.searchVehicles.value[indexPath.row]
+        PopupHandler.showVehicleAddForm(detail: detail, style: .dark, buttonCompletion: {
+            vehicleAddForm in
+            self.viewModel.addVehicle(detail: detail, options: vehicleAddForm)
         })
     }
 }

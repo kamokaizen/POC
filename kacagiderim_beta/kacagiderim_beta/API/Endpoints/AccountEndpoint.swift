@@ -13,10 +13,11 @@ enum AccountEndpoint: APIConfiguration {
  
     case createVehicle(accountVehicle: AccountVehicle)
     case getVehicles(userId: String)
+    case deleteVehicle(accountVehicleId: String)
     
     var method: HTTPMethod {
         switch self {
-        case .getVehicles:
+        case .getVehicles, .deleteVehicle:
             return .get
         case .createVehicle:
             return .post
@@ -29,6 +30,8 @@ enum AccountEndpoint: APIConfiguration {
             return "/accounts/api/vehicle/create"
         case .getVehicles(let userId):
             return "/accounts/api/vehicle/" + userId
+        case .deleteVehicle(let accountVehicleId):
+            return "/accounts/api/vehicle/delete/" + accountVehicleId
         }
     }
     
@@ -44,6 +47,8 @@ enum AccountEndpoint: APIConfiguration {
                     K.APIParameterKey.averageCustomConsumptionOut: accountVehicle.averageCustomConsumptionOut,
                     K.APIParameterKey.customVehicleName: accountVehicle.customVehicleName as Any]
         case .getVehicles:
+            return nil
+        case .deleteVehicle:
             return nil
         }
     }

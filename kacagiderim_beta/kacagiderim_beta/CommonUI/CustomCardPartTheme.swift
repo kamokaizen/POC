@@ -18,8 +18,8 @@ public class CustomCardPartTheme: CardPartsTheme {
     public var cardsLineSpacing: CGFloat = 12
     
     public var cardShadow: Bool = true
-    public var cardCellMargins: UIEdgeInsets = UIEdgeInsets(top: 9.0, left: 12.0, bottom: 12.0, right: 12.0)
-    public var cardPartMargins: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0)
+    public var cardCellMargins: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+    public var cardPartMargins: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 28.0, bottom: 5.0, right: 28.0)
     
     // CardPartSeparatorView
     public var separatorColor: UIColor = UIColor.color(221, green: 221, blue: 221)
@@ -55,7 +55,7 @@ public class CustomCardPartTheme: CardPartsTheme {
     public var showTodayLine: Bool = true
     
     // CardPartTableView
-    public var tableViewMargins: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 14.0, bottom: 0.0, right: 14.0)
+    public var tableViewMargins: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 28.0, bottom: 0.0, right: 28.0)
     
     // CardPartTableViewCell and CardPartTitleDescriptionView
     public var leftTitleFont: UIFont = UIFont(name: "HelveticaNeue", size: CGFloat(17))!

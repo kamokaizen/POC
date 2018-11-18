@@ -27,6 +27,7 @@ class DefaultManager {
         static let versions = Key<Dictionary<String, [Version]>>("versions")
         static let details = Key<Dictionary<String, [Detail]>>("details")
         static let accountVehicles = Key<[AccountVehicle]>("accountVehicles")
+        static let accountVehiclesFetched = Key<Bool>("accountVehiclesFetched")
     }
     
     static func clear(){
@@ -44,6 +45,7 @@ class DefaultManager {
         defaults.clear(Keys.versions)
         defaults.clear(Keys.details)
         defaults.clear(Keys.accountVehicles)
+        defaults.clear(Keys.accountVehiclesFetched)
     }
     
     //Mark get methods
@@ -93,6 +95,9 @@ class DefaultManager {
     }
     static func getAccountVehicles() -> [AccountVehicle] {
         return defaults.get(for: Keys.accountVehicles) ?? []
+    }
+    static func isAccountVehiclesFetched() -> Bool {
+        return defaults.get(for: Keys.accountVehiclesFetched) ?? false
     }
     
     //Mark set methods
@@ -161,5 +166,8 @@ class DefaultManager {
     }
     static func setAccountVehicles(accountVehicles: [AccountVehicle]){
         defaults.set(accountVehicles, for: Keys.accountVehicles)
+    }
+    static func setIsAccountVehiclesFetched(isAccountVehiclesFetched: Bool) {
+        defaults.set(isAccountVehiclesFetched, for: Keys.accountVehiclesFetched)
     }
 }
