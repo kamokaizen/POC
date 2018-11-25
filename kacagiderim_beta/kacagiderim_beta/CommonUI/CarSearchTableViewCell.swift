@@ -87,7 +87,7 @@ class CarSearchTableViewCell: CardPartTableViewCardPartsCell {
         self.logoImageView.image = nil
         self.modelImageView.image = nil
         self.data = data
-        self.brand.text = data.brandImageName
+        self.brand.text = data.brandImageName?.uppercased()
         self.year.text = (data.startYear!) + "-" + (data.endYear!)
         self.name.text = data.longModelDescription ?? ""
         

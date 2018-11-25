@@ -103,6 +103,7 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
     func getTitleViews(title: String) -> CardPartStackView {
         let titlePart = CardPartTitleView(type: .titleOnly)
         titlePart.label.text = title
+        titlePart.label.font = CardParts.theme.headerTextFont
         
         let addImage = Utils.imageWithImage(image: UIImage(named: "add.png")!, scaledToSize: CGSize(width: 20, height: 20))
         let newButton = CardPartButtonView()
@@ -153,7 +154,7 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
     }
     
     func didDetailButtonClicked(item: AccountVehicle) {
-        let accountVehicleDetailController = AccountVehicleDetailVC()
+        let accountVehicleDetailController = AccountVehicleDetailVC(accountVehicle: item)
         self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
     
@@ -168,7 +169,8 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let accountVehicleDetailController = AccountVehicleDetailVC()
+        let selectedAccountVehicle = self.viewModel.accountVehicles.value[indexPath.row]
+        let accountVehicleDetailController = AccountVehicleDetailVC(accountVehicle: selectedAccountVehicle)
         self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
 

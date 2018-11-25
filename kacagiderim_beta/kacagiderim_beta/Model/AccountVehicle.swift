@@ -16,14 +16,14 @@ struct AccountVehicle: Codable {
     let customConsumptionType: String?
     let averageCustomConsumptionLocal, averageCustomConsumptionOut: Double
     let vehicle: Detail?
-    
-    init(accountVehicleId: String?, vehicleDetailId:String?, userId: String?, vehiclePlate: String?,
+        
+    init(accountVehicleId: String? = nil, vehicleDetailId:String? = nil, userId: String? = nil, vehiclePlate: String? = nil,
     customVehicle: Bool,
-    customVehicleName: String?,
+    customVehicleName: String? = nil,
     customConsumption: Bool,
-    customConsumptionType: String?,
+    customConsumptionType: String? = nil,
     averageCustomConsumptionLocal: Double, averageCustomConsumptionOut: Double,
-    vehicle: Detail?){
+    vehicle: Detail? = nil){
         self.accountVehicleId = accountVehicleId
         self.vehicleDetailId = vehicleDetailId
         self.userId = userId

@@ -86,7 +86,7 @@ class PopupHandler {
         
         let title = EKProperty.LabelContent(text: detail.modelDescription ?? "", style: style.title)
         var textFields = FormFieldPresetFactory.fields(by: [.vehiclePlate], style: style)
-        let button = EKProperty.ButtonContent(label: .init(text: "Add", style: style.buttonTitle), backgroundColor: style.buttonBackground, highlightedBackgroundColor: style.buttonBackground.withAlphaComponent(0.8)) {
+        let button = EKProperty.ButtonContent(label: .init(text: "Select This Vehicle", style: style.buttonTitle), backgroundColor: style.buttonBackground, highlightedBackgroundColor: style.buttonBackground.withAlphaComponent(0.8)) {
             SwiftEntryKit.dismiss()
             buttonCompletion(VehicleAddFormStruct(vehiclePlate: textFields[0].textContent, vehicleConsumptionLocal: "", vehicleConsumptionOut: ""))
         }

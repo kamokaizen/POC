@@ -27,6 +27,9 @@ struct Detail: Codable, CommonVehicleProtocol {
     let udc: String?
     let eudc: String?
     let vehicleType: Int
+    let newVehicleType: String?
+    let categoryId: Int
+    let newBody: String?
     let autoClass: String?
     let startYear: String?
     let seats: Int
@@ -111,6 +114,19 @@ struct Detail: Codable, CommonVehicleProtocol {
             return FuelType.HIBRIT
         default:
             return FuelType.BENZIN
+        }
+    }
+    
+    func getFuelTypeString() -> String {
+        switch self.fuelType {
+        case "D":
+            return FuelTypeString.DIZEL.rawValue
+        case "O":
+            return FuelTypeString.BENZIN.rawValue
+        case "E":
+            return FuelTypeString.HIBRIT.rawValue
+        default:
+            return FuelTypeString.BENZIN.rawValue
         }
     }
 }

@@ -152,3 +152,10 @@ enum FuelType: Int, Codable {
     case BENZIN_LPG = 2
     case HIBRIT = 3
 }
+
+enum FuelTypeString: String, Codable {
+    case BENZIN = "Benzin"
+    case DIZEL = "Dizel"
+    case BENZIN_LPG = "LPG"
+    case HIBRIT = "Hibrit"
+}

@@ -31,6 +31,8 @@
 		D645B9ED21983729005135C7 /* FormFieldPresetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9EC21983729005135C7 /* FormFieldPresetFactory.swift */; };
 		D645B9EF219A0305005135C7 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9EE219A0305005135C7 /* AuthManager.swift */; };
 		D645B9F1219B688C005135C7 /* UIButton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645B9F0219B688C005135C7 /* UIButton+Utils.swift */; };
+		D65A85D721A80DE60020D3DE /* CardPartsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65A85D621A80DE60020D3DE /* CardPartsUtil.swift */; };
+		D667F80321A4990A00819B56 /* AccountVehicleDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667F80221A4990A00819B56 /* AccountVehicleDetailVM.swift */; };
 		D6A0D7AC211F2A530019C7FA /* FuelEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */; };
 		D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */; };
 		D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0D7AF211F3F460019C7FA /* FuelPriceCollectionViewCell.swift */; };
@@ -113,6 +115,8 @@
 		D645B9EC21983729005135C7 /* FormFieldPresetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldPresetFactory.swift; sourceTree = "<group>"; };
 		D645B9EE219A0305005135C7 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		D645B9F0219B688C005135C7 /* UIButton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Utils.swift"; sourceTree = "<group>"; };
+		D65A85D621A80DE60020D3DE /* CardPartsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPartsUtil.swift; sourceTree = "<group>"; };
+		D667F80221A4990A00819B56 /* AccountVehicleDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVehicleDetailVM.swift; sourceTree = "<group>"; };
 		D695B7266CA73A8F19F59151 /* Pods-kacagiderim_beta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.debug.xcconfig"; sourceTree = "<group>"; };
 		D6A0D7AB211F2A530019C7FA /* FuelEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelEndpoint.swift; sourceTree = "<group>"; };
 		D6A0D7AD211F2FAC0019C7FA /* FuelPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrice.swift; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				D63FE2DF218610ED007F0946 /* AccountVehicleVM.swift */,
 				D63FE2E4218612E2007F0946 /* AccountVehicleVC.swift */,
 				D8A92A6D218896E000F2C4EE /* AccountVehicleDetailVC.swift */,
+				D667F80221A4990A00819B56 /* AccountVehicleDetailVM.swift */,
 				D8A92A6F2189DB4000F2C4EE /* NewVehicleVC.swift */,
 				D8A92A75218C2FFB00F2C4EE /* NewVehicleVM.swift */,
 				D6200AD4218F750900FDFB26 /* VehicleCollectionVC.swift */,
@@ -279,6 +284,7 @@
 				D63FE2D72185F77C007F0946 /* CarTableViewCell.swift */,
 				D6DD2455219D5C190016945E /* CarSearchTableViewCell.swift */,
 				D6200AD6218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift */,
+				D65A85D621A80DE60020D3DE /* CardPartsUtil.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -578,9 +584,11 @@
 				D63FE2DA2185FAF5007F0946 /* Detail.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
 				D63FE2D42184925C007F0946 /* PageResponse.swift in Sources */,
+				D65A85D721A80DE60020D3DE /* CardPartsUtil.swift in Sources */,
 				D6200AD7218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift in Sources */,
 				D6A0D7B0211F3F460019C7FA /* FuelPriceCollectionViewCell.swift in Sources */,
 				D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */,
+				D667F80321A4990A00819B56 /* AccountVehicleDetailVM.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6C29B2321407FF700054110 /* ExtensionUIColor.swift in Sources */,
 				D6200AD5218F750900FDFB26 /* VehicleCollectionVC.swift in Sources */,
