@@ -26,6 +26,14 @@ class CardPartsUtil {
         sv.addArrangedSubview(menu)
         return sv
     }
+
+    static func generateCenteredItem(letfLabelText:String, rightLabel: CardPartTextView) -> UIView {
+        let leftLabel = CardPartTextView(type: .title)
+        leftLabel.textAlignment = .left
+        leftLabel.text = letfLabelText
+        let item = CardPartCenteredView(leftView: leftLabel, centeredView: CardPartVerticalSeparatorView(), rightView: rightLabel)
+        return item as UIView
+    }
     
     static func generateCenteredItem(letfLabelText:String, rightLabelText: String) -> UIView {
         let leftLabel = CardPartTextView(type: .title)

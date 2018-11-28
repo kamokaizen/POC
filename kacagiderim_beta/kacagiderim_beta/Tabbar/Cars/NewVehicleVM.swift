@@ -338,13 +338,16 @@ class NewVehicleVM {
                                         vehicleDetailId: detail.getId(),
                                         userId: user?.userId,
                                         vehiclePlate: options.vehiclePlate,
+                                        vehicleUsage: 0,
+                                        vehicleBrand: detail.brandImageName,
+                                        vehicleModel: detail.modelImageName,
+                                        vehicleDescription: "\(detail.startYear ?? "") - \(detail.endYear ?? "") | \(detail.longModelDescription ?? "")",
                                         customVehicle: false,
                                         customVehicleName: nil,
                                         customConsumption: false,
                                         customConsumptionType: nil,
                                         averageCustomConsumptionLocal: 0,
-                                        averageCustomConsumptionOut: 0,
-                                        vehicle: detail)
+                                        averageCustomConsumptionOut: 0)
         Utils.showLoadingIndicator(message: "Vehicles are updating", size: CGSize(width: 100, height: 100))
         
         APIClient.createVehicle(accountVehicle: newVehicle, completion: { result in

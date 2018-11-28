@@ -95,18 +95,18 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         self.logoImageView.image = nil
         self.modelImageView.image = nil
         self.data = data
-        self.brand.text = data.vehicle?.brandImageName?.uppercased()
-        self.year.text = data.vehicle != nil ? ((data.vehicle?.startYear!)! + "-" + (data.vehicle?.endYear!)!) : ""
+        self.brand.text = (data.vehicleBrand ?? "").uppercased()
+//        self.year.text = data.vehicle != nil ? ((data.vehicle?.startYear!)! + "-" + (data.vehicle?.endYear!)!) : ""
         self.plate.text = data.vehiclePlate?.uppercased()
-        self.name.text = data.customVehicle ? data.customVehicleName ?? "" : (data.vehicle != nil ? data.vehicle?.longModelDescription ?? "" : "")
+        self.name.text = data.customVehicle ? data.customVehicleName ?? "" : (data.vehicleDescription ?? "")
         
-        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (data.vehicle?.brandImageName ?? ""), completion:  { (response) in
+        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (data.vehicleBrand ?? ""), completion:  { (response) in
             if(response != nil){
                 self.logoImageView.image = response
             }
         })
         
-        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (data.vehicle?.brandImageName ?? "") + "/thumb/" + (data.vehicle?.modelImageName ?? ""), completion:  { (response) in
+        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (data.vehicleBrand ?? "") + "/thumb/" + (data.vehicleModel ?? ""), completion:  { (response) in
             if(response != nil){
                 self.modelImageView.image = response
                 self.modelImageView.layer.cornerRadius = 5.0;

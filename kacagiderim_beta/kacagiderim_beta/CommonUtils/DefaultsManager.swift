@@ -27,6 +27,7 @@ class DefaultManager {
         static let versions = Key<Dictionary<String, [Version]>>("versions")
         static let details = Key<Dictionary<String, [Detail]>>("details")
         static let accountVehicles = Key<[AccountVehicle]>("accountVehicles")
+        static let accountVehicleDetails = Key<Dictionary<String, Detail>>("accountVehicleDetails")
         static let accountVehiclesFetched = Key<Bool>("accountVehiclesFetched")
     }
     
@@ -45,6 +46,7 @@ class DefaultManager {
         defaults.clear(Keys.versions)
         defaults.clear(Keys.details)
         defaults.clear(Keys.accountVehicles)
+        defaults.clear(Keys.accountVehicleDetails)
         defaults.clear(Keys.accountVehiclesFetched)
     }
     
@@ -95,6 +97,10 @@ class DefaultManager {
     }
     static func getAccountVehicles() -> [AccountVehicle] {
         return defaults.get(for: Keys.accountVehicles) ?? []
+    }
+    static func getAccountVehicleDetail(detailId: String) -> Detail? {
+        let dictionary = defaults.get(for: Keys.accountVehicleDetails) ?? Dictionary()
+        return dictionary[detailId]
     }
     static func isAccountVehiclesFetched() -> Bool {
         return defaults.get(for: Keys.accountVehiclesFetched) ?? false
@@ -166,6 +172,19 @@ class DefaultManager {
     }
     static func setAccountVehicles(accountVehicles: [AccountVehicle]){
         defaults.set(accountVehicles, for: Keys.accountVehicles)
+    }
+    static func setAccountVehicleDetail(detailId: String, detail: Detail){
+        var dictionary = defaults.get(for: Keys.accountVehicleDetails) ?? Dictionary()
+        dictionary.updateValue(detail, forKey: detailId)
+        defaults.set(dictionary, for: Keys.accountVehicleDetails)
+    }
+    static func updateAccountVehicle(accountVehicle: AccountVehicle){
+        var accountVehicles = getAccountVehicles()
+        let index = accountVehicles.firstIndex(where: {$0.accountVehicleId == accountVehicle.accountVehicleId}) ?? -1
+        if(index != -1){
+            accountVehicles[index] = accountVehicle
+            defaults.set(accountVehicles, for: Keys.accountVehicles)
+        }
     }
     static func setIsAccountVehiclesFetched(isAccountVehiclesFetched: Bool) {
         defaults.set(isAccountVehiclesFetched, for: Keys.accountVehiclesFetched)

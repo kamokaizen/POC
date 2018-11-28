@@ -45,7 +45,7 @@ class AccountVehicleDetailVC: CardsViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    class MainVC : CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
+    class MainVC : BaseCardPartsViewController {
         weak  var viewModel: AccountVehicleDetailVM!
         
         public init(_ viewModel: AccountVehicleDetailVM) {
@@ -57,81 +57,62 @@ class AccountVehicleDetailVC: CardsViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func shadowColor() -> CGColor {
-            return UIColor.lightGray.cgColor
-        }
-        
-        func shadowRadius() -> CGFloat {
-            return 10.0
-        }
-        
-        func shadowOpacity() -> Float {
-            return 1.0
-        }
-        
-        func cornerRadius() -> CGFloat {
-            return 10.0
-        }
-        
         override func viewDidLoad() {
             super.viewDidLoad()
-            let detail = self.viewModel.accountVehicle.vehicle
             
-            if (detail != nil) {
-                let brand = CardPartTextView(type: .title)
-                brand.label.font = CardParts.theme.headerTextFont
-                brand.label.text = detail?.brandImageName?.uppercased()
-                
-                let model = CardPartTextView(type: .title)
-                model.label.font = CardParts.theme.normalTextFont
-                model.label.text = detail?.longModelDescription?.uppercased()
-                
-                let brandLogo = CardPartImageView()
-                ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (detail?.brandImageName ?? ""), completion:  { (response) in
-                    if(response != nil){
-                        brandLogo.image = response
-                    }
-                })
-                
-                let modelImage = CardPartImageView()
-                ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (detail?.brandImageName ?? "") + "/" + (detail?.modelImageName ?? ""), completion:  { (response) in
-                    if(response != nil){
-                        modelImage.image = response
-                        modelImage.layer.cornerRadius = 5.0;
-                        modelImage.clipsToBounds = true;
-                    }
-                })
-                
-                let titleSVHorizontal = CardPartStackView()
-                titleSVHorizontal.spacing = 10
-                titleSVHorizontal.distribution = .fill
-                titleSVHorizontal.alignment = .center
-                titleSVHorizontal.contentMode = .center
-                titleSVHorizontal.axis = .horizontal
-                titleSVHorizontal.addArrangedSubview(brandLogo)
-                titleSVHorizontal.addArrangedSubview(brand)
-                
-                let mainSVVertical = CardPartStackView()
-                mainSVVertical.spacing = 10
-                mainSVVertical.distribution = .fill
-                mainSVVertical.axis = .vertical
-                mainSVVertical.alignment = .center
-                mainSVVertical.addArrangedSubview(titleSVHorizontal)
-                mainSVVertical.addArrangedSubview(modelImage)
-                mainSVVertical.addArrangedSubview(model)
-                
-                mainSVVertical.addConstraint(NSLayoutConstraint(item: modelImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 360))
-                mainSVVertical.addConstraint(NSLayoutConstraint(item: modelImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 240))
-                
-                titleSVHorizontal.addConstraint(NSLayoutConstraint(item: brandLogo, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 50))
-                titleSVHorizontal.addConstraint(NSLayoutConstraint(item: brandLogo, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 50))
+            let brand = CardPartTextView(type: .title)
+            brand.label.font = CardParts.theme.headerTextFont
+            brand.label.text = (viewModel.accountVehicle.vehicleBrand ?? "").uppercased()
+            
+            let model = CardPartTextView(type: .title)
+            model.label.font = CardParts.theme.normalTextFont
+            model.label.text = (viewModel.accountVehicle.vehicleDescription ?? "").uppercased()
+            
+            let brandLogo = CardPartImageView()
+            ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (viewModel.accountVehicle.vehicleBrand ?? ""), completion:  { (response) in
+                if(response != nil){
+                    brandLogo.image = response
+                }
+            })
+            
+            let modelImage = CardPartImageView()
+            ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (viewModel.accountVehicle.vehicleBrand ?? "") + "/" + (viewModel.accountVehicle.vehicleModel ?? ""), completion:  { (response) in
+                if(response != nil){
+                    modelImage.image = response
+                    modelImage.layer.cornerRadius = 5.0;
+                    modelImage.clipsToBounds = true;
+                }
+            })
+            
+            let titleSVHorizontal = CardPartStackView()
+            titleSVHorizontal.spacing = 10
+            titleSVHorizontal.distribution = .fill
+            titleSVHorizontal.alignment = .center
+            titleSVHorizontal.contentMode = .center
+            titleSVHorizontal.axis = .horizontal
+            titleSVHorizontal.addArrangedSubview(brandLogo)
+            titleSVHorizontal.addArrangedSubview(brand)
+            
+            let mainSVVertical = CardPartStackView()
+            mainSVVertical.spacing = 10
+            mainSVVertical.distribution = .fill
+            mainSVVertical.axis = .vertical
+            mainSVVertical.alignment = .center
+            mainSVVertical.addArrangedSubview(titleSVHorizontal)
+            mainSVVertical.addArrangedSubview(modelImage)
+            mainSVVertical.addArrangedSubview(model)
+            
+            mainSVVertical.addConstraint(NSLayoutConstraint(item: modelImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 360))
+            mainSVVertical.addConstraint(NSLayoutConstraint(item: modelImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 240))
+            
+            titleSVHorizontal.addConstraint(NSLayoutConstraint(item: brandLogo, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 50))
+            titleSVHorizontal.addConstraint(NSLayoutConstraint(item: brandLogo, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 50))
 
-                setupCardParts([mainSVVertical])
-            }
+            setupCardParts([mainSVVertical])
         }
     }
     
-    class OptionalsVC : CardPartsViewController, ShadowCardTrait, RoundedCardTrait {
+    class OptionalsVC : BaseCardPartsViewController {
         weak  var viewModel: AccountVehicleDetailVM!
         
         let buttonStack = CardPartTitleView(type: .titleWithMenu)
@@ -150,22 +131,6 @@ class AccountVehicleDetailVC: CardsViewController {
         
         required public init(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
-        }
-        
-        func shadowColor() -> CGColor {
-            return UIColor.lightGray.cgColor
-        }
-        
-        func shadowRadius() -> CGFloat {
-            return 10.0
-        }
-        
-        func shadowOpacity() -> Float {
-            return 1.0
-        }
-        
-        func cornerRadius() -> CGFloat {
-            return 10.0
         }
         
         override func viewDidLoad() {
@@ -280,7 +245,7 @@ class AccountVehicleDetailVC: CardsViewController {
         }
     }
     
-    class OverallDetailVC : CardPartsViewController {
+    class OverallDetailVC : BaseCardPartsViewController {
         weak  var viewModel: AccountVehicleDetailVM!
         
         public init(_ viewModel: AccountVehicleDetailVM) {
@@ -294,7 +259,6 @@ class AccountVehicleDetailVC: CardsViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            let detail = self.viewModel.accountVehicle.vehicle
             
             let overall = CardPartTextView(type: .title)
             overall.label.font = CardParts.theme.headerTextFont
@@ -305,24 +269,31 @@ class AccountVehicleDetailVC: CardsViewController {
             mainSVVertical.spacing = 10
             mainSVVertical.distribution = .fill
             mainSVVertical.axis = .vertical
-            
-            if(detail != nil){
-                let vehicleType = "\(detail?.newVehicleType ?? "-") / \(detail?.autoClass ?? "-") Segment"
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Vehicle Type", rightLabelText: vehicleType))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Body Type / Door Number", rightLabelText: "\(detail?.body ?? "-") Doors"))
-                let engineType = "\(detail?.getFuelTypeString() ?? "-") / \(detail?.cylinders ?? 0) Cylinders"
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Type", rightLabelText: engineType))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Power", rightLabelText: "\(detail?.hp ?? 0) Hp"))
-                let yearsOfProduction = "\(detail?.startYear ?? "-") / \(detail?.endYear ?? "-")"
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Year Of Production(Begin/End)", rightLabelText: yearsOfProduction))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Transmission", rightLabelText: detail?.transmission ?? "-"))
-            }
-            
+        
+            let vehicleTypeLabel = CardPartTextView(type: .normal)
+            let bodyTypeLabel = CardPartTextView(type: .normal)
+            let engineTypeLabel = CardPartTextView(type: .normal)
+            let enginePowerLabel = CardPartTextView(type: .normal)
+            let productionYearLabel = CardPartTextView(type: .normal)
+            let transmissionLabel = CardPartTextView(type: .normal)
+            self.viewModel.vehicleType.asObservable().bind(to: vehicleTypeLabel.rx.text).disposed(by: bag)
+            self.viewModel.bodyType.asObservable().bind(to: bodyTypeLabel.rx.text).disposed(by: bag)
+            self.viewModel.engineType.asObservable().bind(to: engineTypeLabel.rx.text).disposed(by: bag)
+            self.viewModel.enginePower.asObservable().bind(to: enginePowerLabel.rx.text).disposed(by: bag)
+            self.viewModel.productionYear.asObservable().bind(to: productionYearLabel.rx.text).disposed(by: bag)
+            self.viewModel.transmission.asObservable().bind(to: transmissionLabel.rx.text).disposed(by: bag)
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Vehicle Type", rightLabel: vehicleTypeLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Body Type / Door Number", rightLabel: bodyTypeLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Type", rightLabel: engineTypeLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Power", rightLabel: enginePowerLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Year Of Production(Begin/End)", rightLabel: productionYearLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Transmission", rightLabel: transmissionLabel))
+                        
             setupCardParts([overall, seperator, mainSVVertical])
         }
     }
     
-    class EnginePerformanceDetailVC : CardPartsViewController {
+    class EnginePerformanceDetailVC : BaseCardPartsViewController {
         weak  var viewModel: AccountVehicleDetailVM!
         
         public init(_ viewModel: AccountVehicleDetailVM) {
@@ -336,7 +307,6 @@ class AccountVehicleDetailVC: CardsViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            let detail = self.viewModel.accountVehicle.vehicle
             
             let title = CardPartTextView(type: .title)
             title.label.font = CardParts.theme.headerTextFont
@@ -348,21 +318,30 @@ class AccountVehicleDetailVC: CardsViewController {
             mainSVVertical.distribution = .fill
             mainSVVertical.axis = .vertical
             
-            if(detail != nil){
-                let engineType = "\(detail?.getFuelTypeString() ?? "-") / \(detail?.cylinders ?? 0) Cylinders"
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Type", rightLabelText: engineType))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Capacity", rightLabelText: "\(detail?.ccm ?? 0) cc"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Maximum Power", rightLabelText: "\(detail?.hp ?? 0) hp (\(detail?.kw ?? 0) kw) / \(detail?.rpm1 ?? 0) rpm"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Maximum Tork", rightLabelText: "\(detail?.torque ?? 0) nm / \(detail?.rpm2 ?? 0) rpm"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Acceleration(0-100 km/h)", rightLabelText: "\(detail?.acceleration ?? "-") seconds"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Top Speed", rightLabelText: "\(detail?.topSpeed ?? 0) km/h"))
-            }
+            let engineTypeLabel = CardPartTextView(type: .normal)
+            let engineCapacityLabel = CardPartTextView(type: .normal)
+            let maximumPowerLabel = CardPartTextView(type: .normal)
+            let maximumTorkLabel = CardPartTextView(type: .normal)
+            let accelerationLabel = CardPartTextView(type: .normal)
+            let topSpeedLabel = CardPartTextView(type: .normal)
+            self.viewModel.engineType.asObservable().bind(to: engineTypeLabel.rx.text).disposed(by: bag)
+            self.viewModel.engineCapacity.asObservable().bind(to: engineCapacityLabel.rx.text).disposed(by: bag)
+            self.viewModel.maximumPower.asObservable().bind(to: maximumPowerLabel.rx.text).disposed(by: bag)
+            self.viewModel.maximumTork.asObservable().bind(to: maximumTorkLabel.rx.text).disposed(by: bag)
+            self.viewModel.acceleration.asObservable().bind(to: accelerationLabel.rx.text).disposed(by: bag)
+            self.viewModel.topSpeed.asObservable().bind(to: topSpeedLabel.rx.text).disposed(by: bag)
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Type", rightLabel: engineTypeLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Engine Capacity", rightLabel: engineCapacityLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Maximum Power", rightLabel: maximumPowerLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Maximum Tork", rightLabel: maximumTorkLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Acceleration(0-100 km/h)", rightLabel: accelerationLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Top Speed", rightLabel: topSpeedLabel))
             
             setupCardParts([title, seperator, mainSVVertical])
         }
     }
     
-    class FuelConsumptionDetailVC : CardPartsViewController {
+    class FuelConsumptionDetailVC : BaseCardPartsViewController {
         weak  var viewModel: AccountVehicleDetailVM!
         
         public init(_ viewModel: AccountVehicleDetailVM) {
@@ -376,7 +355,6 @@ class AccountVehicleDetailVC: CardsViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            let detail = self.viewModel.accountVehicle.vehicle
             
             let title = CardPartTextView(type: .title)
             title.label.font = CardParts.theme.headerTextFont
@@ -388,20 +366,27 @@ class AccountVehicleDetailVC: CardsViewController {
             mainSVVertical.distribution = .fill
             mainSVVertical.axis = .vertical
             
-            if(detail != nil){
-                let fuelType = "\(detail?.getFuelTypeString() ?? "") / \(detail?.emission ?? "-")"
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Fuel Type", rightLabelText: fuelType))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Local (100 km/h)", rightLabelText: "\(detail?.udc ?? "-") lt"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Intercity (100 km/h)", rightLabelText: "\(detail?.eudc ?? "-") lt"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Average (100 km/h)", rightLabelText: "\(detail?.nedc ?? "-") lt"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Fuel Depot Capacity", rightLabelText: "\(detail?.fuelcap ?? 0) lt"))
-            }
+            let fuelTypeLabel = CardPartTextView(type: .normal)
+            let udcLabel = CardPartTextView(type: .normal)
+            let eudcLabel = CardPartTextView(type: .normal)
+            let nedcLabel = CardPartTextView(type: .normal)
+            let fuelCapLabel = CardPartTextView(type: .normal)
+            self.viewModel.fuelType.asObservable().bind(to: fuelTypeLabel.rx.text).disposed(by: bag)
+            self.viewModel.udc.asObservable().bind(to: udcLabel.rx.text).disposed(by: bag)
+            self.viewModel.eudc.asObservable().bind(to: eudcLabel.rx.text).disposed(by: bag)
+            self.viewModel.nedc.asObservable().bind(to: nedcLabel.rx.text).disposed(by: bag)
+            self.viewModel.fuelCap.asObservable().bind(to: fuelCapLabel.rx.text).disposed(by: bag)
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Fuel Type", rightLabel: fuelTypeLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Local (100 km/h)", rightLabel: udcLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Out (100 km/h)", rightLabel: eudcLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Average (100 km/h)", rightLabel: nedcLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Fuel Depot Capacity", rightLabel: fuelCapLabel))
             
             setupCardParts([title, seperator, mainSVVertical])
         }
     }
     
-    class DimensionsDetailVC : CardPartsViewController {
+    class DimensionsDetailVC : BaseCardPartsViewController {
         weak  var viewModel: AccountVehicleDetailVM!
         
         public init(_ viewModel: AccountVehicleDetailVM) {
@@ -415,7 +400,6 @@ class AccountVehicleDetailVC: CardsViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            let detail = self.viewModel.accountVehicle.vehicle
             
             let title = CardPartTextView(type: .title)
             title.label.font = CardParts.theme.headerTextFont
@@ -427,16 +411,30 @@ class AccountVehicleDetailVC: CardsViewController {
             mainSVVertical.distribution = .fill
             mainSVVertical.axis = .vertical
             
-            if(detail != nil){
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Number of Seats", rightLabelText: "\(detail?.seats ?? 0) Seats"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Length", rightLabelText: "\(detail?.length ?? 0) mm"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Width", rightLabelText: "\(detail?.width ?? 0) mm"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Height", rightLabelText: "\(detail?.height ?? 0) mm"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Net Weight", rightLabelText: "\(detail?.loadedWeight ?? 0) kg"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Carrying Capacity", rightLabelText: "\(detail?.unloadedWeight ?? 0) kg"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Luggage Capacity", rightLabelText: "\(detail?.luggageCapacity ?? 0) lt"))
-                mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Wheel Dimensions", rightLabelText: "\(detail?.tyresFront ?? "-")"))
-            }
+            let numberOfSeatsLabel = CardPartTextView(type: .normal)
+            let lengthLabel = CardPartTextView(type: .normal)
+            let widthLabel = CardPartTextView(type: .normal)
+            let heightLabel = CardPartTextView(type: .normal)
+            let loadedWeightLabel = CardPartTextView(type: .normal)
+            let unloadedWeightLabel = CardPartTextView(type: .normal)
+            let luggageLabel = CardPartTextView(type: .normal)
+            let tyresLabel = CardPartTextView(type: .normal)
+            self.viewModel.seats.asObservable().bind(to: numberOfSeatsLabel.rx.text).disposed(by: bag)
+            self.viewModel.length.asObservable().bind(to: lengthLabel.rx.text).disposed(by: bag)
+            self.viewModel.width.asObservable().bind(to: widthLabel.rx.text).disposed(by: bag)
+            self.viewModel.height.asObservable().bind(to: heightLabel.rx.text).disposed(by: bag)
+            self.viewModel.loadedWeight.asObservable().bind(to: loadedWeightLabel.rx.text).disposed(by: bag)
+            self.viewModel.unloadedWeight.asObservable().bind(to: unloadedWeightLabel.rx.text).disposed(by: bag)
+            self.viewModel.luggageCapacity.asObservable().bind(to: luggageLabel.rx.text).disposed(by: bag)
+            self.viewModel.tyresFront.asObservable().bind(to: tyresLabel.rx.text).disposed(by: bag)
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Number of Seats", rightLabel: numberOfSeatsLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Length", rightLabel: lengthLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Width", rightLabel: widthLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Height", rightLabel: heightLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Net Weight", rightLabel: loadedWeightLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Carrying Capacity", rightLabel: unloadedWeightLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Luggage Capacity", rightLabel: luggageLabel))
+            mainSVVertical.addArrangedSubview(CardPartsUtil.generateCenteredItem(letfLabelText: "Wheel Dimensions", rightLabel: tyresLabel))
             
             setupCardParts([title, seperator, mainSVVertical])
         }

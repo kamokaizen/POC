@@ -12,6 +12,7 @@ import Alamofire
 enum AccountEndpoint: APIConfiguration {
  
     case createVehicle(accountVehicle: AccountVehicle)
+    case updateVehicle(accountVehicle: AccountVehicle)
     case getVehicles(userId: String)
     case deleteVehicle(accountVehicleId: String)
     
@@ -19,7 +20,7 @@ enum AccountEndpoint: APIConfiguration {
         switch self {
         case .getVehicles, .deleteVehicle:
             return .get
-        case .createVehicle:
+        case .createVehicle, .updateVehicle:
             return .post
         }
     }
@@ -28,6 +29,8 @@ enum AccountEndpoint: APIConfiguration {
         switch self {
         case .createVehicle:
             return "/accounts/api/vehicle/create"
+        case .updateVehicle:
+            return "/accounts/api/vehicle/update"
         case .getVehicles(let userId):
             return "/accounts/api/vehicle/" + userId
         case .deleteVehicle(let accountVehicleId):
@@ -42,7 +45,26 @@ enum AccountEndpoint: APIConfiguration {
                     K.APIParameterKey.vehicleDetailId: accountVehicle.vehicleDetailId as Any,
                     K.APIParameterKey.customVehicle: accountVehicle.customVehicle,
                     K.APIParameterKey.vehiclePlate: accountVehicle.vehiclePlate as Any,
+                    K.APIParameterKey.vehicleUsage: accountVehicle.vehicleUsage as Any,
+                    K.APIParameterKey.vehicleBrand: accountVehicle.vehicleBrand as Any,
+                    K.APIParameterKey.vehicleModel: accountVehicle.vehicleModel as Any,
+                    K.APIParameterKey.vehicleDescription: accountVehicle.vehicleDescription as Any,
                     K.APIParameterKey.customConsumption: accountVehicle.customConsumption,
+                    K.APIParameterKey.averageCustomConsumptionLocal: accountVehicle.averageCustomConsumptionLocal,
+                    K.APIParameterKey.averageCustomConsumptionOut: accountVehicle.averageCustomConsumptionOut,
+                    K.APIParameterKey.customVehicleName: accountVehicle.customVehicleName as Any]
+        case .updateVehicle(let accountVehicle):
+            return [K.APIParameterKey.userId: accountVehicle.userId!,
+                    K.APIParameterKey.accountVehicleId: accountVehicle.accountVehicleId as Any,
+                    K.APIParameterKey.vehicleDetailId: accountVehicle.vehicleDetailId as Any,
+                    K.APIParameterKey.customVehicle: accountVehicle.customVehicle,
+                    K.APIParameterKey.vehiclePlate: accountVehicle.vehiclePlate as Any,
+                    K.APIParameterKey.vehicleUsage: accountVehicle.vehicleUsage as Any,
+                    K.APIParameterKey.vehicleBrand: accountVehicle.vehicleBrand as Any,
+                    K.APIParameterKey.vehicleModel: accountVehicle.vehicleModel as Any,
+                    K.APIParameterKey.vehicleDescription: accountVehicle.vehicleDescription as Any,
+                    K.APIParameterKey.customConsumption: accountVehicle.customConsumption,
+                    K.APIParameterKey.customConsumptionType: accountVehicle.customConsumptionType as Any,
                     K.APIParameterKey.averageCustomConsumptionLocal: accountVehicle.averageCustomConsumptionLocal,
                     K.APIParameterKey.averageCustomConsumptionOut: accountVehicle.averageCustomConsumptionOut,
                     K.APIParameterKey.customVehicleName: accountVehicle.customVehicleName as Any]

@@ -10,7 +10,7 @@ import Foundation
 import CardParts
 import NVActivityIndicatorView
 
-class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTrait, TableViewDetailClick, CardPartTableViewDelegte {
+class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardPartTableViewDelegte {
 
     weak var viewModel: AccountVehicleVM!
     var cardPartTableView = CardPartTableView()
@@ -22,22 +22,6 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
     
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func shadowColor() -> CGColor {
-        return UIColor.lightGray.cgColor
-    }
-    
-    func shadowRadius() -> CGFloat {
-        return 10.0
-    }
-    
-    func shadowOpacity() -> Float {
-        return 1.0
-    }
-    
-    func cornerRadius() -> CGFloat {
-        return 10.0
     }
     
     override func viewDidLoad() {
@@ -73,8 +57,8 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
 
         let title = "Vehicles"
         
-        setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles, lets click 'New' button to add new vehicle into your profile."), forState: .none)
-        setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles, lets click 'New' button to add new vehicle into your profile."), forState: .empty)
+        setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles"), forState: .none)
+        setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles"), forState: .empty)
         setupCardParts(getLoadingViews(title: title, text: "Vehicles are loading..."), forState: .loading)
         setupCardParts([getTitleViews(title: title) , CardPartSeparatorView(), cardPartTableView], forState: .hasData)
         setupCardParts(getViews(title: title, image: UIImage(named: "alert.png")!, text: "Something went wrong while getting vehicles"), forState: .custom("fail"))
@@ -100,42 +84,22 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
         return [getTitleViews(title: title), CardPartSeparatorView(), stack]
     }
     
-    func getTitleViews(title: String) -> CardPartStackView {
-        let titlePart = CardPartTitleView(type: .titleOnly)
-        titlePart.label.text = title
-        titlePart.label.font = CardParts.theme.headerTextFont
-        
-        let addImage = Utils.imageWithImage(image: UIImage(named: "add.png")!, scaledToSize: CGSize(width: 20, height: 20))
-        let newButton = CardPartButtonView()
-        newButton.frame.size = CGSize(width: 30, height: 30);
-        newButton.contentHorizontalAlignment = .right
-        newButton.setImage(addImage, for: .normal)
-        newButton.addTarget(self, action: #selector(self.createButtonTapped), for: .touchUpInside)
-       
-        let editImage = Utils.imageWithImage(image: UIImage(named: "edit.png")!, scaledToSize: CGSize(width: 20, height: 20))
-        let editButton = CardPartButtonView()
-        editButton.frame.size = CGSize(width: 30, height: 30);
-        editButton.contentHorizontalAlignment = .right
-        editButton.setImage(editImage, for: .normal)
-        editButton.addTarget(self, action: #selector(self.editItemTapped), for: .touchUpInside)
-        
-        let refreshImage = Utils.imageWithImage(image: UIImage(named: "refresh.png")!, scaledToSize: CGSize(width: 20, height: 20))
-        let refreshButton = CardPartButtonView()
-        refreshButton.frame.size = CGSize(width: 30, height: 30);
-        refreshButton.contentHorizontalAlignment = .right
-        refreshButton.setImage(refreshImage, for: .normal)
-        refreshButton.addTarget(self.viewModel, action: #selector(self.viewModel.refreshData(_:)), for: .touchUpInside)
-        
-        let sv = CardPartStackView()
-        sv.spacing = 10
-        sv.distribution = .fill
-        sv.alignment = .center
-        sv.addArrangedSubview(titlePart)
-        sv.addArrangedSubview(editButton)
-        sv.addArrangedSubview(refreshButton)
-        sv.addArrangedSubview(newButton)
-        
-        return sv
+    func getTitleViews(title: String) -> CardPartView {
+        let buttonStack = CardPartTitleView(type: .titleWithMenu)
+        buttonStack.menuTitle = "Actions"
+        buttonStack.menuOptions = ["New", "Refresh"]
+        buttonStack.menuOptionObserver  = {[weak self] (title, index) in
+            if index == 0 {
+                let storyboard = UIStoryboard(name: "NewVehicleVC", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController() as? NewVehicleVC
+                self?.present(vc!, animated: true, completion: {})
+            }
+            else if index == 1 {
+                self?.viewModel.refreshAccountVehicles()
+            }
+        }
+        let titlePart = CardPartsUtil.titleWithMenu(leftTitleText: title, menu: buttonStack)
+        return titlePart
     }
     
     func getLoadingViews(title: String, text: String) -> [CardPartView]{
@@ -158,15 +122,9 @@ class AccountVehicleVC: CardPartsViewController, ShadowCardTrait, RoundedCardTra
         self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
     
-    @objc func createButtonTapped(sender: UIButton) {
-        let storyboard = UIStoryboard(name: "NewVehicleVC", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as? NewVehicleVC
-        self.present(vc!, animated: true, completion: {})
-    }
-    
-    @objc func editItemTapped(sender: UIButton) {
-        cardPartTableView.tableView.setEditing(!cardPartTableView.tableView.isEditing, animated: true)
-    }
+//    @objc func editItemTapped(sender: UIButton) {
+//        cardPartTableView.tableView.setEditing(!cardPartTableView.tableView.isEditing, animated: true)
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAccountVehicle = self.viewModel.accountVehicles.value[indexPath.row]

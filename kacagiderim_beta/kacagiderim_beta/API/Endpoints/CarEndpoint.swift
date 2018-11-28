@@ -16,10 +16,11 @@ enum CarEndpoint: APIConfiguration {
     case engines(modelId:String, pageNumber:Int, pageSize:Int)
     case versions(engineId:String, pageNumber:Int, pageSize:Int)
     case details(versionId:String, pageNumber:Int, pageSize:Int)
+    case detail(detailId:String)
     
     var method: HTTPMethod {
         switch self {
-        case .brands, .models, .engines, .versions, .details:
+        case .brands, .models, .engines, .versions, .details, .detail:
             return .get
         }
     }
@@ -36,6 +37,8 @@ enum CarEndpoint: APIConfiguration {
                 return "cars/api/version/get"
             case .details:
                 return "cars/api/detail/get"
+            case .detail(let detailId):
+                return "cars/api/detail/get/" + detailId
         }
     }
     
@@ -52,6 +55,8 @@ enum CarEndpoint: APIConfiguration {
                 return [K.APIParameterKey.engineId: engineId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
             case .details(let versionId, let pageNumber, let pageSize):
                 return [K.APIParameterKey.versionId: versionId, K.APIParameterKey.pageNumber: pageNumber, K.APIParameterKey.pageSize: pageSize]
+            case .detail:
+                return nil
         }
     }
     
