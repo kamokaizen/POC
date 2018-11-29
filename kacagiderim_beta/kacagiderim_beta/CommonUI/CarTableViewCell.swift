@@ -16,7 +16,7 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
     
     let brand = CardPartTextView(type: .normal)
     let name = CardPartTextView(type: .normal)
-    let year = CardPartTextView(type: .detail)
+    let usage = CardPartTextView(type: .detail)
     let plate = CardPartTextView(type: .detail)
     let separator = CardPartVerticalSeparatorView()
     var showDetailButton = CardPartButtonView()
@@ -24,6 +24,8 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
     var modelImageView = CardPartImageView()
     var stack = CardPartStackView()
     var mainSV = CardPartStackView()
+    var defaultLogoImage = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 20, height: 20))
+    var defaultCarImage = Utils.imageWithImage(image: UIImage(named: "default_car.png")!, scaledToSize: CGSize(width: 75, height: 50))
     
     override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,10 +33,8 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         
         brand.font = CardParts.theme.titleFont
         brand.textColor = CardParts.theme.buttonTitleColor
-        logoImageView.image = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 20, height: 20))
-        modelImageView.image = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 50, height: 50))
-                
-        year.textAlignment = .right
+        logoImageView.image = defaultLogoImage
+        modelImageView.image = defaultCarImage
         
         mainSV.axis = .horizontal
         mainSV.spacing = 10
@@ -49,20 +49,18 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         imageStack.addArrangedSubview(brand);
         
         let detailStack = CardPartStackView()
-        detailStack.axis = .horizontal
+        detailStack.alignment = .trailing
+        detailStack.axis = .vertical
         detailStack.spacing = 5
-        detailStack.distribution = .fillEqually
-        detailStack.alignment = UIStackView.Alignment.center
+        detailStack.distribution = .fill
         detailStack.addArrangedSubview(plate)
-        detailStack.addArrangedSubview(year)
+        detailStack.addArrangedSubview(usage)
         
         stack.axis = .vertical
         stack.spacing = 5
-        stack.distribution = .fillEqually
-        stack.alignment = UIStackView.Alignment.leading
+        stack.distribution = .fill
         stack.addArrangedSubview(imageStack);
         stack.addArrangedSubview(name);
-        stack.addArrangedSubview(detailStack);
         
         showDetailButton.setImage(Utils.imageWithImage(image: UIImage(named: "forward.png")!, scaledToSize: CGSize(width: 30, height: 30)), for: .normal)
         showDetailButton.addTarget(self, action: #selector(showDetailTapped), for: .touchUpInside)
@@ -74,16 +72,19 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         modelImageStack.alignment = UIStackView.Alignment.center
         modelImageStack.addArrangedSubview(modelImageView)
         
-        mainSV.addArrangedSubview(modelImageStack)
+        mainSV.addArrangedSubview(modelImageView)
         mainSV.addArrangedSubview(stack)
-        mainSV.addArrangedSubview(showDetailButton)
+        mainSV.addArrangedSubview(detailStack)
+//        mainSV.addArrangedSubview(showDetailButton)
         
         imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 30))
         imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 30))
         
-        modelImageStack.addConstraint(NSLayoutConstraint(item: modelImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 75))
-        modelImageStack.addConstraint(NSLayoutConstraint(item: modelImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 50))
+        mainSV.addConstraint(NSLayoutConstraint(item: modelImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 75))
+        mainSV.addConstraint(NSLayoutConstraint(item: modelImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 50))
 
+        mainSV.addConstraint(NSLayoutConstraint(item: stack, attribute: .width, relatedBy: .equal, toItem: detailStack, attribute: .width, multiplier: 3, constant: 0))
+        
         setupCardParts([mainSV])
     }
     
@@ -96,7 +97,7 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
         self.modelImageView.image = nil
         self.data = data
         self.brand.text = (data.vehicleBrand ?? "").uppercased()
-//        self.year.text = data.vehicle != nil ? ((data.vehicle?.startYear!)! + "-" + (data.vehicle?.endYear!)!) : ""
+        self.usage.text = data.vehicleUsage != 0 ? String(data.vehicleUsage!) + " km" : ""
         self.plate.text = data.vehiclePlate?.uppercased()
         self.name.text = data.customVehicle ? data.customVehicleName ?? "" : (data.vehicleDescription ?? "")
         
@@ -104,11 +105,19 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
             if(response != nil){
                 self.logoImageView.image = response
             }
+            else{
+                self.logoImageView.image = self.defaultLogoImage
+            }
         })
         
         ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (data.vehicleBrand ?? "") + "/thumb/" + (data.vehicleModel ?? ""), completion:  { (response) in
             if(response != nil){
                 self.modelImageView.image = response
+                self.modelImageView.layer.cornerRadius = 5.0;
+                self.modelImageView.clipsToBounds = true;
+            }
+            else{
+                self.modelImageView.image = self.defaultCarImage
                 self.modelImageView.layer.cornerRadius = 5.0;
                 self.modelImageView.clipsToBounds = true;
             }

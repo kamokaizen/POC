@@ -173,16 +173,22 @@ class DefaultManager {
     static func setAccountVehicles(accountVehicles: [AccountVehicle]){
         defaults.set(accountVehicles, for: Keys.accountVehicles)
     }
-    static func setAccountVehicleDetail(detailId: String, detail: Detail){
+    static func setAccountVehicleDetail(detailId: String, detail: Detail?){
+        if(detail == nil){
+            return
+        }
         var dictionary = defaults.get(for: Keys.accountVehicleDetails) ?? Dictionary()
-        dictionary.updateValue(detail, forKey: detailId)
+        dictionary.updateValue(detail!, forKey: detailId)
         defaults.set(dictionary, for: Keys.accountVehicleDetails)
     }
-    static func updateAccountVehicle(accountVehicle: AccountVehicle){
+    static func updateAccountVehicle(accountVehicle: AccountVehicle?){
+        if(accountVehicle == nil){
+            return
+        }
         var accountVehicles = getAccountVehicles()
-        let index = accountVehicles.firstIndex(where: {$0.accountVehicleId == accountVehicle.accountVehicleId}) ?? -1
+        let index = accountVehicles.firstIndex(where: {$0.accountVehicleId == accountVehicle!.accountVehicleId}) ?? -1
         if(index != -1){
-            accountVehicles[index] = accountVehicle
+            accountVehicles[index] = accountVehicle!
             defaults.set(accountVehicles, for: Keys.accountVehicles)
         }
     }

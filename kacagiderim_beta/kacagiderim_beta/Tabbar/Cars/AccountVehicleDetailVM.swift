@@ -14,6 +14,7 @@ class AccountVehicleDetailVM {
     var accountVehicle : AccountVehicle
     var detail : Detail
     var plate: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var usage: BehaviorRelay<String> = BehaviorRelay(value: "")
     var customVehicle: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var customVehicleSelectedIndex: BehaviorRelay<Int> = BehaviorRelay(value: -1)
     var customConsumption: BehaviorRelay<Bool> = BehaviorRelay(value: false)
@@ -22,6 +23,11 @@ class AccountVehicleDetailVM {
     var averageCustomConsumptionOut: BehaviorRelay<String> = BehaviorRelay(value: "")
     var customVehicleName: BehaviorRelay<String> = BehaviorRelay(value: "")
     var customConsumptionTypeIndex: BehaviorRelay<Int> = BehaviorRelay(value: -1)
+    
+    // images
+    var brandLogo: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
+    var vehiclePhoto: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
+    var defaultCarImage = Utils.imageWithImage(image: UIImage(named: "default_car.png")!, scaledToSize: CGSize(width: 360, height: 240))
     
     // detail properties
     var fuelType: BehaviorRelay<String> = BehaviorRelay(value: "")
@@ -53,6 +59,7 @@ class AccountVehicleDetailVM {
         self.accountVehicle = accountVehicle
         self.detail = Detail()
         self.getDetail()
+        self.getImages()
         self.initValues()
     }
     
@@ -63,8 +70,8 @@ class AccountVehicleDetailVM {
             APIClient.getDetail(detailId: self.accountVehicle.vehicleDetailId ?? "", completion: { result in
                 switch result {
                 case .success(let response):
+                    DefaultManager.setAccountVehicleDetail(detailId: self.accountVehicle.vehicleDetailId ?? "", detail: response.value)
                     self.detail = response.value ?? Detail()
-                    DefaultManager.setAccountVehicleDetail(detailId: self.accountVehicle.vehicleDetailId ?? "", detail: self.detail)
                     self.initDetails()
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
@@ -75,6 +82,24 @@ class AccountVehicleDetailVM {
             self.detail = detail!
             initDetails()
         }
+    }
+    
+    func getImages(){
+        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (self.accountVehicle.vehicleBrand ?? ""), completion:  { (response) in
+            if(response != nil){
+                self.brandLogo.accept(response!)
+            }
+        })
+        ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (self.accountVehicle.vehicleBrand ?? "") + "/" + (self.accountVehicle.vehicleModel ?? ""), completion:  { (response) in
+            if(response != nil){
+//                response.layer.cornerRadius = 5.0;
+//                response.clipsToBounds = true;
+                self.vehiclePhoto.accept(response!)
+            }
+            else{
+                self.vehiclePhoto.accept(self.defaultCarImage)
+            }
+        })
     }
     
     func updateAccountVehicle() -> Void {
@@ -89,7 +114,7 @@ class AccountVehicleDetailVM {
                                             vehicleDetailId: self.accountVehicle.vehicleDetailId,
                                             userId: self.accountVehicle.userId,
                                             vehiclePlate: self.plate.value,
-                                            vehicleUsage: self.accountVehicle.vehicleUsage,
+                                            vehicleUsage: Int(self.usage.value),
                                             vehicleBrand: self.accountVehicle.vehicleBrand,
                                             vehicleModel: self.accountVehicle.vehicleModel,
                                             vehicleDescription: self.accountVehicle.vehicleDescription,
@@ -103,8 +128,8 @@ class AccountVehicleDetailVM {
             switch result {
             case .success(let response):
                 if response.status == true {
+                    DefaultManager.updateAccountVehicle(accountVehicle: response.value)
                     self.accountVehicle = response.value ?? self.accountVehicle
-                    DefaultManager.updateAccountVehicle(accountVehicle: response.value ?? self.accountVehicle)
                     PopupHandler.successPopup(title: "Success", description: "The vehicle updated")
                     return
                 }
@@ -117,6 +142,7 @@ class AccountVehicleDetailVM {
     
     func initValues(){
         self.plate.accept(accountVehicle.vehiclePlate ?? "")
+        self.usage.accept("\(accountVehicle.vehicleUsage ?? 0)")
         self.customVehicle.accept(accountVehicle.customVehicle)
         self.customVehicleSelectedIndex.accept(accountVehicle.customVehicle == true ? 1 : 0)
         self.customConsumption.accept(accountVehicle.customConsumption)

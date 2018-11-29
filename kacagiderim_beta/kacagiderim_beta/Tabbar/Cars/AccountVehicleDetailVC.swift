@@ -69,20 +69,10 @@ class AccountVehicleDetailVC: CardsViewController {
             model.label.text = (viewModel.accountVehicle.vehicleDescription ?? "").uppercased()
             
             let brandLogo = CardPartImageView()
-            ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (viewModel.accountVehicle.vehicleBrand ?? ""), completion:  { (response) in
-                if(response != nil){
-                    brandLogo.image = response
-                }
-            })
+            viewModel.brandLogo.asObservable().bind(to: brandLogo.rx.image).disposed(by: bag)
             
             let modelImage = CardPartImageView()
-            ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (viewModel.accountVehicle.vehicleBrand ?? "") + "/" + (viewModel.accountVehicle.vehicleModel ?? ""), completion:  { (response) in
-                if(response != nil){
-                    modelImage.image = response
-                    modelImage.layer.cornerRadius = 5.0;
-                    modelImage.clipsToBounds = true;
-                }
-            })
+            viewModel.vehiclePhoto.asObservable().bind(to: modelImage.rx.image).disposed(by: bag)
             
             let titleSVHorizontal = CardPartStackView()
             titleSVHorizontal.spacing = 10
@@ -117,6 +107,7 @@ class AccountVehicleDetailVC: CardsViewController {
         
         let buttonStack = CardPartTitleView(type: .titleWithMenu)
         let vehiclePlateTF = CardPartTextField(format: .none)
+        let vehicleUsageTF = CardPartTextField(format: .none)
         var customVehicleSC = UISegmentedControl(items: ["Custom Vehicle Off", "Custom Vehicle On"])
         var customConsumptionSC = UISegmentedControl(items: ["Custom Consumption Off", "Custom Consumption On"])
         let averageConsumptionLocalTF = CardPartTextField(format: .none)
@@ -164,6 +155,17 @@ class AccountVehicleDetailVC: CardsViewController {
             
             let vehiclePlateItem = CardPartsUtil.generateCenteredItemWithTextField(letfLabelText: "Vehicle Plate", rightTextField: vehiclePlateTF)
         
+            vehicleUsageTF.keyboardType = .default
+            vehicleUsageTF.placeholder = "Type your vehicle's usage"
+            vehicleUsageTF.font = CardParts.theme.normalTextFont
+            vehicleUsageTF.textColor = CardParts.theme.normalTextColor
+            // viewModel - textField bind
+            viewModel.usage.asObservable().bind(to: vehicleUsageTF.rx.text).disposed(by: bag)
+            // textField - viewModel bind
+            vehicleUsageTF.rx.text.orEmpty.bind(to: viewModel.usage).disposed(by: bag)
+            
+            let vehicleUsageItem = CardPartsUtil.generateCenteredItemWithTextField(letfLabelText: "Vehicle Usage", rightTextField: vehicleUsageTF)
+            
             // viewModel - selection bind
             viewModel.customVehicleSelectedIndex.asObservable().bind(to: customVehicleSC.rx.selectedSegmentIndex).disposed(by: bag)
             // selection - viewModel bind
@@ -237,6 +239,7 @@ class AccountVehicleDetailVC: CardsViewController {
             mainSVVertical.addArrangedSubview(customConsumptionSC as UIView)
             mainSVVertical.addArrangedSubview(customConsumptionTypeSC as UIView)
             mainSVVertical.addArrangedSubview(vehiclePlateItem as! UIView)
+            mainSVVertical.addArrangedSubview(vehicleUsageItem as! UIView)
             mainSVVertical.addArrangedSubview(vehicleNameItem as! UIView)
             mainSVVertical.addArrangedSubview(averageLocalItem as! UIView)
             mainSVVertical.addArrangedSubview(averageOutItem as! UIView)
