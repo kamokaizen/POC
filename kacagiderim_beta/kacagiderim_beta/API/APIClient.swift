@@ -44,6 +44,14 @@ class APIClient {
                 let timeout = response.error?._code == NSURLErrorTimedOut ? true : false
                 let statusCode = response.response?.statusCode != nil ? response.response?.statusCode : -1
                 
+                if(statusCode == 401){
+                    print("API refresh token invalid. Need to re login")
+                    // means that can not refresh token and so delete user from user defaults then go to login page
+                    AuthManager.logout()
+                    PopupHandler.errorPopup(title: "Session Expired", description: "Your session has expired. Please sign in kacagiderim again!")
+                    return
+                }
+                
                 if(response.error != nil){                    
                     do{
                         var customError = CustomError(error:response.error!, reason: (response.error?.localizedDescription)!, timeout:timeout, statusCode:statusCode!)
@@ -149,6 +157,10 @@ class APIClient {
     
     static func getVersions(engineId: String, completion:@escaping (Result<ServerResponse<PageResponse<Version>>>) -> Void) {
         checkTokenExpired(route: CarEndpoint.versions(engineId: engineId, pageNumber: 1, pageSize: 1000), completion: completion)
+    }
+    
+    static func getPackets(versionId: String, completion:@escaping (Result<ServerResponse<PageResponse<Packet>>>) -> Void) {
+        checkTokenExpired(route: CarEndpoint.packets(versionId: versionId, pageNumber: 1, pageSize: 1000), completion: completion)
     }
     
     static func getDetails(versionId: String, completion:@escaping (Result<ServerResponse<PageResponse<Detail>>>) -> Void) {

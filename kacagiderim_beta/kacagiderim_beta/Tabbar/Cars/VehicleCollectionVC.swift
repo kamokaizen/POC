@@ -287,11 +287,20 @@ class VehicleCollectionVC: CardPartsViewController, CardPartTableViewDelegte {
                 viewModel.getVersions(engine: cell.data as! Engine)
             }
             else{
-                viewModel.getDetails(version: nil, engine: (cell.data as! Engine))
+                viewModel.getDetails(version: nil, engine: (cell.data as! Engine), packet: nil)
             }
         }
         else if(cell.data != nil && cell.data is Version){
-            viewModel.getDetails(version: (cell.data as! Version), engine: nil)
+            let version = cell.data as! Version
+            if(version.hasAnyChild()){
+                viewModel.getPackets(version: cell.data as! Version)
+            }
+            else{
+                viewModel.getDetails(version: (cell.data as! Version), engine: nil, packet: nil)
+            }
+        }
+        else if(cell.data != nil && cell.data is Packet){
+            viewModel.getDetails(version: nil, engine: nil, packet: (cell.data as! Packet))
         }
         else if(cell.data != nil && cell.data is Detail){
             let detail = cell.data as! Detail

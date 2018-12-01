@@ -27,6 +27,7 @@ class NewVehicleVM {
     var selectedModel:Model?
     var selectedEngine:Engine?
     var selectedVersion:Version?
+    var selectedPacket:Packet?
     var selectedDetail:Detail?
     
     var selectionString: Variable<String> = Variable("")
@@ -50,6 +51,7 @@ class NewVehicleVM {
         self.selectedBrand = nil
         self.selectedModel = nil
         self.selectedVersion = nil
+        self.selectedPacket = nil
         self.selectedDetail = nil
         self.selectionStringArray = []
         self.dataStack = []
@@ -292,12 +294,50 @@ class NewVehicleVM {
         }
     }
     
-    func getDetails(version: Version?, engine: Engine?){
+    func getPackets(version: Version){
+        self.state.value = .loading
+        self.selectedVersion = version
+        
+        let packets = DefaultManager.getPackets(versionId: version.getId())
+        if(packets.count < 1){
+            APIClient.getPackets(versionId: version.getId(), completion: { result in
+                switch result {
+                case .success(let response):
+                    let packets = response.value?.pageResult ?? []
+                    DefaultManager.setPackets(versionId: version.getId(), packets: packets)
+                    let sortedVersions = DefaultManager.getPackets(versionId: version.getId())
+                    self.data.value = [VehicleCollectionStruct(items: sortedVersions)]
+                    self.dataStack.append(self.data.value)
+                    self.state.value = packets.count >= 1 ? .hasData : .empty
+                    self.selectionStringArray.append(version.getName())
+                    self.selectionString.value = self.selectionStringArray.joined(separator: ">")
+                    self.isBackButtonHide.value = false
+                    return
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+                    self.state.value = .custom("fail")
+                    return
+                }
+            })
+        }
+        else{
+            self.data.value = [VehicleCollectionStruct(items: packets)]
+            self.dataStack.append(self.data.value)
+            self.state.value = packets.count >= 1 ? .hasData : .empty
+            self.selectionStringArray.append(version.getName())
+            self.selectionString.value = self.selectionStringArray.joined(separator: ">")
+            self.isBackButtonHide.value = false
+            return
+        }
+    }
+    
+    func getDetails(version: Version?, engine: Engine?, packet: Packet?){
         self.state.value = .loading
         self.selectedVersion = version
         self.selectedEngine = engine
-        let id = version != nil ? version?.getId() : (engine != nil) ? engine?.getId() : ""
-        let selectedName = version != nil ? version?.getName() : (engine != nil) ? engine?.getName() : ""
+        self.selectedPacket = packet
+        let id = version != nil ? version?.getId() : (engine != nil) ? engine?.getId() : (packet != nil) ? packet?.getId() : ""
+        let selectedName = version != nil ? version?.getName() : (engine != nil) ? engine?.getName() : (packet != nil) ? packet?.getName() : ""
         
         let details = DefaultManager.getDetails(versionId: id!)
         if(details.count < 1){

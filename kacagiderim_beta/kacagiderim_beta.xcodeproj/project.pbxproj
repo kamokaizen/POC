@@ -51,6 +51,7 @@
 		D6D66A9320F9FB6E003B7C75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A9120F9FB6E003B7C75 /* LaunchScreen.storyboard */; };
 		D6D66AA220FA5909003B7C75 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66AA120FA5909003B7C75 /* LoginViewController.swift */; };
 		D6DD2456219D5C190016945E /* CarSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DD2455219D5C190016945E /* CarSearchTableViewCell.swift */; };
+		D6E8EC4C21B2BDCE001D68B1 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8EC4B21B2BDCE001D68B1 /* Packet.swift */; };
 		D6EBE951210331E30067CAB8 /* MessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE950210331E30067CAB8 /* MessageHelper.swift */; };
 		D6EBE9532103457B0067CAB8 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE9522103457B0067CAB8 /* CustomError.swift */; };
 		D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EBE95421035EA30067CAB8 /* Utils.swift */; };
@@ -139,6 +140,7 @@
 		D6D66A9420F9FB6E003B7C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6D66AA120FA5909003B7C75 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D6DD2455219D5C190016945E /* CarSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarSearchTableViewCell.swift; sourceTree = "<group>"; };
+		D6E8EC4B21B2BDCE001D68B1 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
 		D6EBE950210331E30067CAB8 /* MessageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHelper.swift; sourceTree = "<group>"; };
 		D6EBE9522103457B0067CAB8 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		D6EBE95421035EA30067CAB8 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				D8A92A7B218C37DB00F2C4EE /* Model.swift */,
 				D645B9E62191B0C9005135C7 /* Engine.swift */,
 				D645B9E82191BB4B005135C7 /* Version.swift */,
+				D6E8EC4B21B2BDCE001D68B1 /* Packet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				D667F80321A4990A00819B56 /* AccountVehicleDetailVM.swift in Sources */,
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6C29B2321407FF700054110 /* ExtensionUIColor.swift in Sources */,
+				D6E8EC4C21B2BDCE001D68B1 /* Packet.swift in Sources */,
 				D6200AD5218F750900FDFB26 /* VehicleCollectionVC.swift in Sources */,
 				D63FE2BE216FDCC8007F0946 /* Font.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,

@@ -25,6 +25,7 @@ class DefaultManager {
         static let models = Key<Dictionary<String, [Model]>>("models")
         static let engines = Key<Dictionary<String, [Engine]>>("engines")
         static let versions = Key<Dictionary<String, [Version]>>("versions")
+        static let packets = Key<Dictionary<String, [Packet]>>("packets")
         static let details = Key<Dictionary<String, [Detail]>>("details")
         static let accountVehicles = Key<[AccountVehicle]>("accountVehicles")
         static let accountVehicleDetails = Key<Dictionary<String, Detail>>("accountVehicleDetails")
@@ -44,6 +45,7 @@ class DefaultManager {
         defaults.clear(Keys.models)
         defaults.clear(Keys.engines)
         defaults.clear(Keys.versions)
+        defaults.clear(Keys.packets)
         defaults.clear(Keys.details)
         defaults.clear(Keys.accountVehicles)
         defaults.clear(Keys.accountVehicleDetails)
@@ -90,6 +92,10 @@ class DefaultManager {
     static func getVersions(engineId: String) -> [Version] {
         let dictionary = defaults.get(for: Keys.versions) ?? Dictionary()
         return dictionary[engineId] ?? []
+    }
+    static func getPackets(versionId: String) -> [Packet] {
+        let dictionary = defaults.get(for: Keys.packets) ?? Dictionary()
+        return dictionary[versionId] ?? []
     }
     static func getDetails(versionId: String) -> [Detail] {
         let dictionary = defaults.get(for: Keys.details) ?? Dictionary()
@@ -161,6 +167,14 @@ class DefaultManager {
         }
         dictionary.updateValue(sortedVersions, forKey: engineId)
         defaults.set(dictionary, for: Keys.versions)
+    }
+    static func setPackets(versionId: String, packets:[Packet]){
+        var dictionary = defaults.get(for: Keys.packets) ?? Dictionary()
+        let sortedVersions = packets.sorted {
+            $0.name ?? "" < $1.name ?? ""
+        }
+        dictionary.updateValue(sortedVersions, forKey: versionId)
+        defaults.set(dictionary, for: Keys.packets)
     }
     static func setDetails(versionId: String, details:[Detail]){
         var dictionary = defaults.get(for: Keys.details) ?? Dictionary()
