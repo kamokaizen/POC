@@ -251,7 +251,11 @@ struct Detail: Codable, CommonVehicleProtocol {
     }
     
     func getName() -> String {
-        return self.modelDescription ?? ""
+        return "\(self.longModelDescription ?? "")"
+    }
+    
+    func getDetail() -> String {
+        return "\(self.endYear ?? "0") - \(self.startYear ?? "0")"
     }
     
     func getImagePath() -> String {

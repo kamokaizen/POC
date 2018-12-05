@@ -94,7 +94,7 @@ class CarTableViewCell: CardPartTableViewCardPartsCell {
     
     func setData(data: AccountVehicle) {
         self.logoImageView.image = nil
-        self.modelImageView.image = nil
+        self.modelImageView.image = defaultCarImage
         self.data = data
         self.brand.text = (data.vehicleBrand ?? "").uppercased()
         self.usage.text = data.vehicleUsage != 0 ? String(data.vehicleUsage!) + " km" : ""

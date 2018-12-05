@@ -32,6 +32,10 @@ struct Model: Codable, CommonVehicleProtocol {
         return self.name ?? ""
     }
     
+    func getDetail() -> String {
+        return ""
+    }
+    
     func getImagePath() -> String {
         return K.Constants.cloudinaryCarPath + (self.brandName ?? "") + "/thumb/" + (self.name ?? "")
     }

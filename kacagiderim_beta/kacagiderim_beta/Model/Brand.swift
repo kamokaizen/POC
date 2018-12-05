@@ -11,6 +11,7 @@ import Foundation
 protocol CommonVehicleProtocol {
     func getId() -> String;
     func getName() -> String;
+    func getDetail() -> String;
     func getImagePath() -> String;
     func hasAnyChild() -> Bool;
 }
@@ -37,6 +38,10 @@ struct Brand: Codable, CommonVehicleProtocol {
     
     func getName() -> String {
         return self.name ?? ""
+    }
+    
+    func getDetail() -> String {
+        return ""
     }
     
     func getImagePath() -> String {

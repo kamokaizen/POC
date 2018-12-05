@@ -14,7 +14,7 @@ class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardP
 
     weak var viewModel: AccountVehicleVM!
     var cardPartTableView = CardPartTableView()
-    
+        
     public init(viewModel: AccountVehicleVM) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -29,6 +29,7 @@ class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardP
         
         cardPartTableView.delegate = self
         cardPartTableView.tableView.register(CarTableViewCell.self, forCellReuseIdentifier: "CarTableViewCell")
+        
         viewModel.state.asObservable().bind(to: self.rx.state).disposed(by: bag)
         
         viewModel.accountVehicles.asObservable().bind(to: cardPartTableView.tableView.rx.items) { tableView, index, vehicle in
@@ -56,6 +57,13 @@ class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardP
 //            .disposed(by: bag)
 
         let title = "Vehicles"
+        
+//        let stack = CardPartStackView()
+//        stack.axis = .vertical
+//        stack.spacing = 10
+//        stack.distribution = .fill
+//        stack.addSubview(searchController as UIView);
+//        stack.addArrangedSubview(cardPartTableView);
         
         setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles"), forState: .none)
         setupCardParts(getViews(title: title, image: UIImage(named: "novehicle.png")!, text: "You have no any vehicles"), forState: .empty)
@@ -87,15 +95,20 @@ class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardP
     func getTitleViews(title: String) -> CardPartView {
         let buttonStack = CardPartTitleView(type: .titleWithMenu)
         buttonStack.menuTitle = "Actions"
-        buttonStack.menuOptions = ["New", "Refresh"]
+        buttonStack.menuOptions = ["New", "Refresh", "Search"]
         buttonStack.menuOptionObserver  = {[weak self] (title, index) in
             if index == 0 {
-                let storyboard = UIStoryboard(name: "NewVehicleVC", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController() as? NewVehicleVC
+                let storyboard = UIStoryboard(name: "NewVehicleRootVC", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController() as? NewVehicleRootVC
                 self?.present(vc!, animated: true, completion: {})
             }
             else if index == 1 {
                 self?.viewModel.refreshAccountVehicles()
+            }
+            else if index == 2 {
+                let storyboard = UIStoryboard(name: "SearchVehicleRootVC", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController() as? SearchVehicleRootVC
+                self?.present(vc!, animated: true, completion: {})
             }
         }
         let titlePart = CardPartsUtil.titleWithMenu(leftTitleText: title, menu: buttonStack)
@@ -116,7 +129,7 @@ class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardP
         stack.addArrangedSubview(loadingTextView);
         return [getTitleViews(title: title), CardPartSeparatorView(), stack]
     }
-    
+        
     func didDetailButtonClicked(item: AccountVehicle) {
         let accountVehicleDetailController = AccountVehicleDetailVC(accountVehicle: item)
         self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
@@ -131,7 +144,7 @@ class AccountVehicleVC: BaseCardPartsViewController, TableViewDetailClick, CardP
         let accountVehicleDetailController = AccountVehicleDetailVC(accountVehicle: selectedAccountVehicle)
         self.navigationController?.pushViewController(accountVehicleDetailController, animated: true)
     }
-
+    
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
 //        return 100
 //    }

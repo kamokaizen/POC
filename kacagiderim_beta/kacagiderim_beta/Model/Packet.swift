@@ -32,6 +32,10 @@ struct Packet: Codable, CommonVehicleProtocol {
         return self.name ?? ""
     }
     
+    func getDetail() -> String {
+        return ""
+    }
+    
     func getImagePath() -> String {
         return "engine.png"
     }

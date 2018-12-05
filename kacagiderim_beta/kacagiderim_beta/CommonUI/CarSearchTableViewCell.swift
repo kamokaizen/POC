@@ -21,6 +21,7 @@ class CarSearchTableViewCell: CardPartTableViewCardPartsCell {
     var modelImageView = CardPartImageView()
     var stack = CardPartStackView()
     var mainSV = CardPartStackView()
+    var defaultCarImage = Utils.imageWithImage(image: UIImage(named: "default_car.png")!, scaledToSize: CGSize(width: 75, height: 50))
     
     override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,7 +30,7 @@ class CarSearchTableViewCell: CardPartTableViewCardPartsCell {
         brand.font = CardParts.theme.titleFont
         brand.textColor = CardParts.theme.buttonTitleColor
         logoImageView.image = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 20, height: 20))
-        modelImageView.image = Utils.imageWithImage(image: UIImage(named: "car.png")!, scaledToSize: CGSize(width: 50, height: 50))
+        modelImageView.image = defaultCarImage
         year.textAlignment = .right
         
         mainSV.axis = .horizontal
@@ -68,7 +69,6 @@ class CarSearchTableViewCell: CardPartTableViewCardPartsCell {
         
         mainSV.addArrangedSubview(modelImageStack)
         mainSV.addArrangedSubview(stack)
-        mainSV.margins = UIEdgeInsets(top: 2.0, left: 25.0, bottom: 2.0, right: 30.0)
         
         imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 0, constant: 20))
         imageStack.addConstraint(NSLayoutConstraint(item: logoImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 0, constant: 20))
@@ -88,7 +88,7 @@ class CarSearchTableViewCell: CardPartTableViewCardPartsCell {
         self.modelImageView.image = nil
         self.data = data
         self.brand.text = data.brandImageName?.uppercased()
-        self.year.text = (data.startYear!) + "-" + (data.endYear!)
+        self.year.text = (data.endYear!) + "-" + (data.startYear!)
         self.name.text = data.longModelDescription ?? ""
         
         ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryLogoPath + (data.brandImageName ?? ""), completion:  { (response) in
@@ -100,6 +100,13 @@ class CarSearchTableViewCell: CardPartTableViewCardPartsCell {
         ImageManager.getImageFromCloudinary(path: K.Constants.cloudinaryCarPath + (data.brandImageName ?? "") + "/thumb/" + (data.modelImageName ?? ""), completion:  { (response) in
             if(response != nil){
                 self.modelImageView.image = response
+                self.modelImageView.layer.cornerRadius = 5.0;
+                self.modelImageView.clipsToBounds = true;
+            }
+            else{
+                self.modelImageView.image = self.defaultCarImage
+                self.modelImageView.layer.cornerRadius = 5.0;
+                self.modelImageView.clipsToBounds = true;
             }
         })
     }

@@ -21,7 +21,6 @@ class NewVehicleVM {
     var state: Variable<CardState> = Variable(.none)
     var isBackButtonHide: Variable<Bool> = Variable(true)
     
-    weak var rootViewController:NewVehicleVC?
     var selectedVehicleType:Int
     var selectedBrand:Brand?
     var selectedModel:Model?
@@ -33,19 +32,9 @@ class NewVehicleVM {
     var selectionString: Variable<String> = Variable("")
     var selectionStringArray: [String] = []
     
-    var searchDataStack: Dictionary<Int, [Detail]>
-    var searchVehicles: Variable<[Detail]> = Variable([])
-    var searchString: Variable<String> = Variable("")
-    var searchResultString: Variable<String> = Variable("")
-    var currentPageNumber: Variable<Int> = Variable(1)
-    var totalItemCount: Variable<Int> = Variable(1)
-    var totalPageCount: Variable<Int> = Variable(1)
-    var isPaginationBackButtonHide: Variable<Bool> = Variable(true)
-    var isPaginationNextButtonHide: Variable<Bool> = Variable(true)
-    var isSearchResultsStackHide : Variable<Bool> = Variable(true)
+    var isLoading : BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    init(rootViewController: NewVehicleVC) {
-        self.rootViewController = rootViewController
+    init() {
         self.state.value = .none
         self.selectedVehicleType = -1
         self.selectedBrand = nil
@@ -55,56 +44,10 @@ class NewVehicleVM {
         self.selectedDetail = nil
         self.selectionStringArray = []
         self.dataStack = []
-        self.searchDataStack = Dictionary()
-        self.currentPageNumber.value = 1
-        self.totalItemCount.value = 0
-        self.totalPageCount.value = 0
+        self.isLoading.accept(false)
     }
-        
-    @objc func dismiss(sender: UIButton) {
-        self.rootViewController!.dismiss(animated: true, completion: {})
-    }
-    
-    @objc func dismissSearch(sender: UIButton) {
-        self.state.value = .hasData
-    }
-    
-    @objc func search(sender: UIButton) {
-        self.clearSearchFields()
-        self.isSearchResultsStackHide.value = true
-        self.state.value = .custom("search")
-    }
-
-    @objc func makeSearch(sender: UIButton) {
-        self.currentPageNumber.value = 1
-        self.searchDataStack.removeAll()
-        self.getDetailsWithSearchString()
-    }
-    
-    @objc func getNextPageDetails(){
-        self.currentPageNumber.value = self.currentPageNumber.value + 1
-        self.getDetailsWithSearchString()
-    }
-
-    @objc func getPreviousPageDetails(){
-        self.currentPageNumber.value = self.currentPageNumber.value - 1
-        self.getDetailsWithSearchString()
-    }
-    
-    func clearSearchFields(){
-        self.searchDataStack.removeAll()
-        self.searchVehicles.value.removeAll()
-        self.searchString.value = ""
-        self.searchResultString.value = "Search Results"
-        self.currentPageNumber.value = 1
-        self.totalItemCount.value = 0
-        self.totalPageCount.value = 1
-        self.isPaginationNextButtonHide.value = false
-        self.isPaginationBackButtonHide.value = false
-        self.isSearchResultsStackHide.value = true
-    }
-    
-    @objc func chooseVehicleType(sender: UIButton){
+            
+    func chooseVehicleType(){
         let attributes = Utils.getAttributes(element: EKAttributes.bottomToast,
                                              duration: .infinity,
                                              entryBackground: .gradient(gradient: .init(colors: [EKColor.Netflix.light, EKColor.Netflix.dark], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1))),
@@ -134,12 +77,12 @@ class NewVehicleVM {
             self.selectionStringArray.removeLast()
         }
         self.data.value = self.dataStack.last ?? []
-        self.selectionString.value = self.selectionStringArray.joined(separator: ">")
+        self.selectionString.value = self.selectionStringArray.count > 0 ? self.selectionStringArray.joined(separator: ">") : Utils.getBrandTypeString(value: self.selectedVehicleType)
         self.isBackButtonHide.value = self.dataStack.count > 1 ? false : true
-        self.state.value = .hasData
+//        self.state.value = .hasData
     }
     
-    @objc func reset(sender: UIButton) {
+    func reset() {
         self.filterBrands(type: self.selectedVehicleType)
     }
     
@@ -148,12 +91,12 @@ class NewVehicleVM {
     }
     
     func filterBrands(type: Int){
+        self.isLoading.accept(true)
         self.selectedVehicleType = type
-        self.state.value = .loading
         let brands = DefaultManager.getBrands()
         self.dataStack.removeAll()
         self.data.value = []
-        self.selectionString.value = ""
+        self.selectionString.value = Utils.getBrandTypeString(value: type)
         self.selectionStringArray.removeAll()
         
         if(brands.count < 1){
@@ -166,11 +109,11 @@ class NewVehicleVM {
                     let sortedBrands = DefaultManager.getBrands()
                     self.data.value = [VehicleCollectionStruct(items: sortedBrands.filter { $0.type == type })]
                     self.dataStack.append(self.data.value)
-                    self.state.value = brands.count >= 1 ? .hasData : .empty
+                    self.isLoading.accept(false)
                     return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+                    self.isLoading.accept(false)
                     return
                 }
             })
@@ -178,13 +121,13 @@ class NewVehicleVM {
         else{
             self.data.value = [VehicleCollectionStruct(items: brands.filter { $0.type == type })]
             self.dataStack.append(self.data.value)
-            self.state.value = brands.count >= 1 ? .hasData : .empty
+            self.isLoading.accept(false)
             return
         }
     }
     
     func getModels(brand:Brand){
-        self.state.value = .loading
+        self.isLoading.accept(true)
         self.selectedBrand = brand
         let brandId = brand.brandId ?? ""
         let models = DefaultManager.getModels(brandId: brandId)
@@ -197,14 +140,14 @@ class NewVehicleVM {
                     let sortedModels = DefaultManager.getModels(brandId: brandId)
                     self.data.value = [VehicleCollectionStruct(items: sortedModels)]
                     self.dataStack.append(self.data.value)
-                    self.state.value = models.count >= 1 ? .hasData : .empty
+                    self.isLoading.accept(false)
                     self.selectionStringArray.append(brand.getName())
                     self.selectionString.value = brand.getName()
                     self.isBackButtonHide.value = false
                     return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+                    self.isLoading.accept(false)
                     return
                 }
             })
@@ -212,7 +155,7 @@ class NewVehicleVM {
         else{
             self.data.value = [VehicleCollectionStruct(items: models)]
             self.dataStack.append(self.data.value)
-            self.state.value = models.count >= 1 ? .hasData : .empty
+            self.isLoading.accept(false)
             self.selectionStringArray.append(brand.getName())
             self.selectionString.value = brand.getName()
             self.isBackButtonHide.value = false
@@ -221,7 +164,7 @@ class NewVehicleVM {
     }
     
     func getEngines(model: Model){
-        self.state.value = .loading
+        self.isLoading.accept(true)
         self.selectedModel = model
         
         let engines = DefaultManager.getEngines(modelId: model.getId())
@@ -234,14 +177,14 @@ class NewVehicleVM {
                     let sortedEngines = DefaultManager.getEngines(modelId: model.getId())
                     self.data.value = [VehicleCollectionStruct(items: sortedEngines)]
                     self.dataStack.append(self.data.value)
-                    self.state.value = engines.count >= 1 ? .hasData : .empty
+                    self.isLoading.accept(false)
                     self.selectionStringArray.append(model.getName())
                     self.selectionString.value = (self.selectedModel?.brandName)! + ">" + (self.selectedModel?.name)!
                     self.isBackButtonHide.value = false
                     return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+                    self.isLoading.accept(false)
                     return
                 }
             })
@@ -249,7 +192,7 @@ class NewVehicleVM {
         else{
             self.data.value = [VehicleCollectionStruct(items: engines)]
             self.dataStack.append(self.data.value)
-            self.state.value = engines.count >= 1 ? .hasData : .empty
+            self.isLoading.accept(false)
             self.selectionStringArray.append(model.getName())
             self.selectionString.value = (self.selectedModel?.brandName)! + ">" + (self.selectedModel?.name)!
             self.isBackButtonHide.value = false
@@ -258,7 +201,7 @@ class NewVehicleVM {
     }
     
     func getVersions(engine: Engine){
-        self.state.value = .loading
+        self.isLoading.accept(true)
         self.selectedEngine = engine
         
         let versions = DefaultManager.getVersions(engineId: engine.getId())
@@ -271,14 +214,14 @@ class NewVehicleVM {
                     let sortedVersions = DefaultManager.getVersions(engineId: engine.getId())
                     self.data.value = [VehicleCollectionStruct(items: sortedVersions)]
                     self.dataStack.append(self.data.value)
-                    self.state.value = versions.count >= 1 ? .hasData : .empty
+                    self.isLoading.accept(false)
                     self.selectionStringArray.append(engine.getName())
                     self.selectionString.value = self.selectionStringArray.joined(separator: ">")
                     self.isBackButtonHide.value = false
                     return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+                    self.isLoading.accept(false)
                     return
                 }
             })
@@ -286,7 +229,7 @@ class NewVehicleVM {
         else{
             self.data.value = [VehicleCollectionStruct(items: versions)]
             self.dataStack.append(self.data.value)
-            self.state.value = versions.count >= 1 ? .hasData : .empty
+            self.isLoading.accept(false)
             self.selectionStringArray.append(engine.getName())
             self.selectionString.value = self.selectionStringArray.joined(separator: ">")
             self.isBackButtonHide.value = false
@@ -295,7 +238,7 @@ class NewVehicleVM {
     }
     
     func getPackets(version: Version){
-        self.state.value = .loading
+        self.isLoading.accept(true)
         self.selectedVersion = version
         
         let packets = DefaultManager.getPackets(versionId: version.getId())
@@ -308,14 +251,14 @@ class NewVehicleVM {
                     let sortedVersions = DefaultManager.getPackets(versionId: version.getId())
                     self.data.value = [VehicleCollectionStruct(items: sortedVersions)]
                     self.dataStack.append(self.data.value)
-                    self.state.value = packets.count >= 1 ? .hasData : .empty
+                    self.isLoading.accept(false)
                     self.selectionStringArray.append(version.getName())
                     self.selectionString.value = self.selectionStringArray.joined(separator: ">")
                     self.isBackButtonHide.value = false
                     return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+                    self.isLoading.accept(false)
                     return
                 }
             })
@@ -323,7 +266,7 @@ class NewVehicleVM {
         else{
             self.data.value = [VehicleCollectionStruct(items: packets)]
             self.dataStack.append(self.data.value)
-            self.state.value = packets.count >= 1 ? .hasData : .empty
+            self.isLoading.accept(false)
             self.selectionStringArray.append(version.getName())
             self.selectionString.value = self.selectionStringArray.joined(separator: ">")
             self.isBackButtonHide.value = false
@@ -332,7 +275,7 @@ class NewVehicleVM {
     }
     
     func getDetails(version: Version?, engine: Engine?, packet: Packet?){
-        self.state.value = .loading
+        self.isLoading.accept(true)
         self.selectedVersion = version
         self.selectedEngine = engine
         self.selectedPacket = packet
@@ -349,14 +292,14 @@ class NewVehicleVM {
                     let sortedDetails = DefaultManager.getDetails(versionId: id!)
                     self.data.value = [VehicleCollectionStruct(items: sortedDetails)]
                     self.dataStack.append(self.data.value)
-                    self.state.value = details.count >= 1 ? .hasData : .empty
+                    self.isLoading.accept(false)
                     self.selectionStringArray.append(selectedName!)
                     self.selectionString.value = self.selectionStringArray.joined(separator: ">")
                     self.isBackButtonHide.value = false
                     return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+                    self.isLoading.accept(false)
                     return
                 }
             })
@@ -364,7 +307,7 @@ class NewVehicleVM {
         else{
             self.data.value = [VehicleCollectionStruct(items: details)]
             self.dataStack.append(self.data.value)
-            self.state.value = details.count >= 1 ? .hasData : .empty
+            self.isLoading.accept(false)
             self.selectionStringArray.append(selectedName!)
             self.selectionString.value = self.selectionStringArray.joined(separator: ">")
             self.isBackButtonHide.value = false
@@ -400,7 +343,6 @@ class NewVehicleVM {
                 DefaultManager.setAccountVehicles(accountVehicles: accountVehicles)
                 
                 Utils.dismissLoadingIndicator()
-                self.rootViewController!.dismiss(animated: true, completion: {})
                 
                 Utils.delayWithSeconds(1, completion: {
                     PopupHandler.successPopup(title: "Success", description: "New vehicle is added")
@@ -411,43 +353,5 @@ class NewVehicleVM {
                 PopupHandler.errorPopup(title: "Error", description: "Something went wrong while adding new vehicle")
             }
         })
-    }
-    
-    func getDetailsWithSearchString(){
-        self.state.value = .loading
-        let details = self.searchDataStack[self.currentPageNumber.value] ?? []
-        
-        if(details.count > 0){
-            self.searchVehicles.value = details
-            self.state.value = .custom("search")
-            self.updateSearchResultStack()
-        }
-        else{
-            APIClient.vehicleSearch(searchText: self.searchString.value, pageNumber: self.currentPageNumber.value, completion: { result in
-                switch result {
-                case .success(let response):
-                    self.searchVehicles.value = response.value?.pageResult ?? []
-                    self.totalItemCount.value = response.value?.pagination?.totalItemCount ?? 0
-                    self.totalPageCount.value = response.value?.pagination?.totalPage ?? 0
-                    self.currentPageNumber.value = response.value?.pagination?.currentPage ?? 0
-                    self.searchDataStack.updateValue(self.searchVehicles.value, forKey: self.currentPageNumber.value);
-                    self.state.value = .custom("search")
-                    self.updateSearchResultStack()
-                    return
-                case .failure(let error):
-                    print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
-                    return
-                }
-            })
-        }
-    }
-    
-    func updateSearchResultStack(){
-        self.isPaginationBackButtonHide.value = self.currentPageNumber.value <= 1
-        self.isPaginationNextButtonHide.value = self.currentPageNumber.value >= self.totalPageCount.value
-        self.isSearchResultsStackHide.value = false // first time search make visible
-        let currentPageShown = self.totalItemCount.value == 0 ? 0 : self.currentPageNumber.value
-        self.searchResultString.value = "\(self.totalItemCount.value) vehicles found | Page \(currentPageShown)/\(self.totalPageCount.value)"
     }
 }

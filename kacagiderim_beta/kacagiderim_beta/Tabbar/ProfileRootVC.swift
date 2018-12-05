@@ -1,37 +1,30 @@
 //
-//  NewVehicleCreateController.swift
+//  ProfileVC.swift
 //  kacagiderim_beta
 //
-//  Created by Comodo on 31.10.2018.
+//  Created by kamilinal on 12/5/18.
 //  Copyright © 2018 kacagiderim. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import CardParts
 
-class NewVehicleVC : CardsViewController {
+class ProfileRootVC: CardsViewController {
     
+    let cardPartTextView = CardPartTextView(type: .normal)
+    let profileVM = ProfileVM()
     var cards: [CardController] = []
-    var viewModel: NewVehicleVM!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.viewModel = NewVehicleVM(rootViewController: self)
         
-        self.cards = [VehicleCollectionVC(viewModel: self.viewModel)]
+        self.cards = [ProfileVC(viewModel:profileVM)]
         loadCards(cards: cards)
-        
-        viewModel.filterBrands(type: BrandType.AUTOMOBILE.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {

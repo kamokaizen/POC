@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K6w-Si-hfR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K6w-Si-hfR">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -856,7 +856,7 @@
         <!--Profile-->
         <scene sceneID="CBR-re-AAe">
             <objects>
-                <viewController id="PJi-ex-wnO" customClass="ProfileViewController" customModule="kacagiderim_beta" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PJi-ex-wnO" customClass="ProfileRootVC" customModule="kacagiderim_beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lhR-ll-ZD3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -916,7 +916,7 @@
         <!--Vehicles-->
         <scene sceneID="QZ2-WV-1kG">
             <objects>
-                <viewController id="Lg3-ai-59f" customClass="VehiclesVC" customModule="kacagiderim_beta" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lg3-ai-59f" customClass="VehicleRootVC" customModule="kacagiderim_beta" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ctL-no-Cj3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1187,7 +1187,7 @@
     <resources>
         <image name="background_image" width="1920" height="1080"/>
         <image name="car" width="25" height="25"/>
-        <image name="diesel" width="100" height="100"/>
+        <image name="diesel" width="101.408447265625" height="101.408447265625"/>
         <image name="facebook-white" width="100" height="100"/>
         <image name="gasoline" width="85" height="100"/>
         <image name="google-white" width="100" height="100"/>
@@ -1196,6 +1196,6 @@
         <image name="map" width="25" height="25"/>
         <image name="profile" width="25" height="25"/>
         <image name="routes" width="25" height="25"/>
-        <image name="station" width="25" height="25"/>
+        <image name="station" width="3" height="3"/>
     </resources>
 </document>
