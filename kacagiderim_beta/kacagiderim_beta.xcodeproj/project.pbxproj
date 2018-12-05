@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		399FC8B1A6BDAE3824F3DCDA /* Pods_kacagiderim_beta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */; };
-		D6200AD5218F750900FDFB26 /* VehicleCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6200AD4218F750900FDFB26 /* VehicleCollectionVC.swift */; };
+		D6200AD5218F750900FDFB26 /* NewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6200AD4218F750900FDFB26 /* NewVehicleVC.swift */; };
 		D6200AD7218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6200AD6218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift */; };
 		D63FE2BE216FDCC8007F0946 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2BD216FDCC8007F0946 /* Font.swift */; };
 		D63FE2C0216FDD42007F0946 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */; };
@@ -101,7 +101,7 @@
 /* Begin PBXFileReference section */
 		3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kacagiderim_beta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D735496F795E5A69644DAB /* Pods-kacagiderim_beta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.release.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.release.xcconfig"; sourceTree = "<group>"; };
-		D6200AD4218F750900FDFB26 /* VehicleCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleCollectionVC.swift; sourceTree = "<group>"; };
+		D6200AD4218F750900FDFB26 /* NewVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVehicleVC.swift; sourceTree = "<group>"; };
 		D6200AD6218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D63FE2BD216FDCC8007F0946 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 				D667F80221A4990A00819B56 /* AccountVehicleDetailVM.swift */,
 				D8A92A6F2189DB4000F2C4EE /* NewVehicleRootVC.swift */,
 				D8A92A75218C2FFB00F2C4EE /* NewVehicleVM.swift */,
-				D6200AD4218F750900FDFB26 /* VehicleCollectionVC.swift */,
+				D6200AD4218F750900FDFB26 /* NewVehicleVC.swift */,
 				D6C73C2721B6B89D0058AB2D /* SearchVehicleVC.swift */,
 				D6C73C2921B6B9450058AB2D /* SearchVehicleVM.swift */,
 				D6C73C2D21B6DB570058AB2D /* SearchVehicleRootVC.swift */,
@@ -631,7 +631,7 @@
 				D8E69A0C2100E0BD005484CA /* LoginEndpoint.swift in Sources */,
 				D6C29B2321407FF700054110 /* ExtensionUIColor.swift in Sources */,
 				D6E8EC4C21B2BDCE001D68B1 /* Packet.swift in Sources */,
-				D6200AD5218F750900FDFB26 /* VehicleCollectionVC.swift in Sources */,
+				D6200AD5218F750900FDFB26 /* NewVehicleVC.swift in Sources */,
 				D63FE2BE216FDCC8007F0946 /* Font.swift in Sources */,
 				D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */,
 				D6C73C2A21B6B9450058AB2D /* SearchVehicleVM.swift in Sources */,

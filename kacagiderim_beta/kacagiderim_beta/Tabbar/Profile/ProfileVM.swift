@@ -232,6 +232,15 @@ class ProfileVM {
 
         self.imageURL.accept(self.user.imageURL ?? "")
         self.loginType.accept(self.user.loginType.rawValue)
+        
+        ImageManager.getImage(imageUrl: self.imageURL.value, completion: { (response) in
+            if(response != nil){
+                self.profileImage.accept(response!)
+            }
+            else{
+                self.profileImage.accept(self.defaultProfileImage!)
+            }
+        })
     }
     
 //    func updateProfileData(){
