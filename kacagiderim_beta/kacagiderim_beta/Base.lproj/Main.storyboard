@@ -1194,7 +1194,7 @@
         <image name="login_main_logo" width="175" height="175"/>
         <image name="lpg" width="100" height="100"/>
         <image name="map" width="25" height="25"/>
-        <image name="profile" width="25" height="25"/>
+        <image name="profile" width="100" height="100"/>
         <image name="routes" width="25" height="25"/>
         <image name="station" width="3" height="3"/>
     </resources>

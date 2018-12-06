@@ -12,7 +12,7 @@ import RxCocoa
 import CardParts
 
 class ProfileVM {
-    var state: Variable<CardState> = Variable(.none)
+//    var state: Variable<CardState> = Variable(.none)
     
     let typeList:[String] = [UserType.INDIVIDUAL.rawValue, UserType.COMPANY.rawValue]
     var user: User!
@@ -37,6 +37,10 @@ class ProfileVM {
     var distanceMetricImage: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
     var volumeMetric: BehaviorRelay<String> = BehaviorRelay(value: "")
     
+    var currencyIndex: BehaviorRelay<Int> = BehaviorRelay<Int>(value:0)
+    var distanceIndex: BehaviorRelay<Int> = BehaviorRelay<Int>(value:0)
+    var volumeIndex: BehaviorRelay<Int> = BehaviorRelay<Int>(value:0)
+    
     var countries:Countries?
     var cities: Cities?
     var citySelectionData: [[String]] = []
@@ -46,16 +50,10 @@ class ProfileVM {
     var profileImage: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
     var loginType: BehaviorRelay<String> = BehaviorRelay(value: "")
     
-    let defaultProfileImage = UIImage(named: "profile.png")
+    let defaultProfileImage = Utils.imageWithImage(image: UIImage(named: "default_profile.png")!, scaledToSize: CGSize(width: 96, height: 96))
     
     init() {
-        refreshLocalData()
-        getProfileData()
     }
-    
-//    func saveAll() {
-//        self.updateProfileData()
-//    }
     
     func getCountryName(countryId: String) -> String {
         var countryName = countryId;
@@ -136,77 +134,59 @@ class ProfileVM {
         self.favouriteCities.accept(selectedCities.sorted(by: <))
     }
     
-    func getProfileData(){
-        let user = DefaultManager.getUser()
-        if(user == nil){
-            self.state.value = .loading
+    func getProfileData(forceRefresh: Bool){
+        if(forceRefresh){
+            Utils.showLoadingIndicator(message: "Profile Refreshing...", size: CGSize(width: 50, height: 50))
             APIClient.getCurrentUser(completion:{ result in
                 switch result {
                 case .success(let serverResponse):
                     self.user = serverResponse.value
                     DefaultManager.setUser(user: serverResponse.value!)
-                    self.state.value = .hasData
+//                    self.state.value = .hasData
                     self.initValues()
+                    Utils.dismissLoadingIndicator()
+                    PopupHandler.successPopup(title: "Success", description: "Profile refreshed")
+                    return
                 case .failure(let error):
                     print((error as! CustomError).localizedDescription)
-                    self.state.value = .custom("fail")
+//                    self.state.value = .custom("fail")
+                    Utils.dismissLoadingIndicator()
+                    return
+                }
+            })
+        }
+        
+        let user = DefaultManager.getUser()
+        if(user == nil){
+//            self.state.value = .loading
+            Utils.showLoadingIndicator(message: "Profile Refreshing...", size: CGSize(width: 100, height: 100))
+            APIClient.getCurrentUser(completion:{ result in
+                switch result {
+                case .success(let serverResponse):
+                    self.user = serverResponse.value
+                    DefaultManager.setUser(user: serverResponse.value!)
+//                    self.state.value = .hasData
+                    self.initValues()
+                    Utils.dismissLoadingIndicator()
+                    return
+                case .failure(let error):
+                    print((error as! CustomError).localizedDescription)
+//                    self.state.value = .custom("fail")
+                    Utils.dismissLoadingIndicator()
+                    return
                 }
             })
         }
         else{
             self.user = user;
-            self.state.value = .hasData
+//            self.state.value = .hasData
             self.initValues()
         }
-        
-        
-//        APIClient.getCurrentUser(completion:{ result in
-//            switch result {
-//            case .success(let userResponse):
-//                let profile = userResponse.value
-//                DefaultManager.setUser(user: profile)
-//                self.usernameText.value = profile.username
-//                self.nameText.value = profile.name ?? ""
-//                self.surnameText.value = profile.surname ?? ""
-//                if(profile.socialSecurityNumber != nil){
-//                    self.ssnText.value = profile.socialSecurityNumber!
-//                }
-//                self.currencyMetric.value = profile.currencyMetric.rawValue
-//                self.currencyMetricImage.value = Utils.imageWithImage(image: UIImage(named: profile.currencyMetric.rawValue)!, scaledToSize: CGSize(width: 25.0, height: 25.0))
-//                
-//                self.distanceMetric.value = profile.distanceMetric.rawValue
-//                self.distanceMetricImage.value = Utils.imageWithImage(image: UIImage(named: profile.distanceMetric.rawValue)!, scaledToSize: CGSize(width: 25.0, height: 25.0))
-//                
-//                self.volumeMetric.value = profile.volumeMetric.rawValue
-//                self.type.value = ProfileViewController.typeList.index(of: profile.userType.rawValue)!
-//                self.typeText.value = profile.userType.rawValue
-//                
-//                self.homeLatitude.value = "\(profile.homeLatitude!)"
-//                self.homeLongitude.value = "\(profile.homeLongitude!)"
-//                self.workLatitude.value = "\(profile.workLatitude!)"
-//                self.workLongitude.value = "\(profile.workLongitude!)"
-//                
-//                self.countryId.value = profile.countryId
-//                self.countryName.value = self.getCountryName(countryId: profile.countryId)
-//                
-//                self.imageURL.value = profile.imageURL ?? ""
-//                
-//                ImageManager.getImage(imageUrl: self.imageURL.value, completion: { (response) in
-//                    if(response != nil){
-//                        self.profileImage.value = response!
-//                    }
-//                    else{
-//                        self.profileImage.value = self.defaultProfileImage!
-//                    }
-//                })
-//                self.loginType.value = profile.loginType.rawValue
-//            case .failure(let error):
-//                print((error as! CustomError).localizedDescription)
-//            }
-//        })
     }
  
     func initValues(){
+        refreshLocalData()
+        
         self.username.accept(self.user.username)
         self.name.accept(self.user.name ?? "")
         self.surname.accept(self.user.surname ?? "")
@@ -222,6 +202,10 @@ class ProfileVM {
         self.type.accept(self.typeList.index(of: self.user.userType.rawValue)!)
         self.typeText.accept(self.user.userType.rawValue)
 
+        self.currencyIndex.accept(Utils.getCurrencyIndex(metric: self.user.currencyMetric).rawValue)
+        self.distanceIndex.accept(Utils.getDistanceIndex(metric: self.user.distanceMetric).rawValue)
+        self.volumeIndex.accept(Utils.getVolumeIndex(metric: self.user.volumeMetric).rawValue)
+        
         self.homeLatitude.accept("\(self.user.homeLatitude!)")
         self.homeLongitude.accept("\(self.user.homeLongitude!)")
         self.workLatitude.accept("\(self.user.workLatitude!)")
@@ -235,44 +219,52 @@ class ProfileVM {
         
         ImageManager.getImage(imageUrl: self.imageURL.value, completion: { (response) in
             if(response != nil){
-                self.profileImage.accept(response!)
+                let resized = Utils.imageWithImage(image: response!, scaledToSize: CGSize(width: 96, height: 96))
+                self.profileImage.accept(resized)
             }
             else{
-                self.profileImage.accept(self.defaultProfileImage!)
+                self.profileImage.accept(self.defaultProfileImage)
             }
         })
     }
     
-//    func updateProfileData(){
-//        let user = User(username: self.usernameText.value,
-//                        name: self.nameText.value,
-//                        surname: self.surnameText.value,
-//                        countryId: self.countryId.value,
-//                        homeLatitude: Double(self.homeLatitude.value) ?? nil,
-//                        homeLongitude: Double(self.homeLongitude.value) ?? nil,
-//                        workLatitude: Double(self.workLatitude.value) ?? nil,
-//                        workLongitude: Double(self.workLongitude.value) ?? nil,
-//                        currencyMetric: CurrencyMetrics(rawValue: self.currencyMetric.value)!,
-//                        distanceMetric: DistanceMetrics(rawValue: self.distanceMetric.value)!,
-//                        volumeMetric: VolumeMetrics(rawValue: self.volumeMetric.value)!,
-//                        userType: UserType(rawValue: ProfileViewController.typeList[self.type.value])!,
-//                        socialSecurityNumber: self.ssnText.value,
-//                        loginType: LoginType(rawValue: self.loginType.value)!,
-//                        imageURL: self.imageURL.value)
-//
-//        Utils.showLoadingIndicator(message: "Profile Updating", size: CGSize(width: 100, height: 100))
-//
-//        APIClient.updateAccount(user: user, completion: { result in
-//            switch result {
-//            case .success(let updateResponse):
-//                Utils.dismissLoadingIndicator()
-//                PopupHandler.successPopup(title: "Success", description: updateResponse.reason)
-//                self.getProfileData()
-//            case .failure(let error):
-//                print((error as! CustomError).localizedDescription)
-//                Utils.dismissLoadingIndicator()
-//                PopupHandler.errorPopup(title: "Error", description: "Something went wrong")
-//            }
-//        })
-//    }
+    func reset(){
+        self.initValues()
+        PopupHandler.successPopup(title: "Success", description: "Changes have been reverted")
+    }
+    
+    func save(){
+        let user = User(username: self.username.value,
+                        name: self.name.value,
+                        surname: self.surname.value,
+                        countryId: self.countryId.value,
+                        homeLatitude: Double(self.homeLatitude.value) ?? nil,
+                        homeLongitude: Double(self.homeLongitude.value) ?? nil,
+                        workLatitude: Double(self.workLatitude.value) ?? nil,
+                        workLongitude: Double(self.workLongitude.value) ?? nil,
+                        currencyMetric: Utils.getCurrencyMetric(index: CurrencyMetricsIndex(rawValue: self.currencyIndex.value)!),
+                        distanceMetric: Utils.getDistanceMetric(index: DistanceMetricsIndex(rawValue: self.distanceIndex.value)!),
+                        volumeMetric: Utils.getVolumeMetric(index: VolumeMetricsIndex(rawValue: self.volumeIndex.value)!),
+                        userType: UserType(rawValue: ProfileViewController.typeList[self.type.value])!,
+                        socialSecurityNumber: self.ssn.value,
+                        loginType: LoginType(rawValue: self.loginType.value)!,
+                        imageURL: self.imageURL.value)
+
+        Utils.showLoadingIndicator(message: "Profile Updating...", size: CGSize(width: 100, height: 100))
+
+        APIClient.updateAccount(user: user, completion: { result in
+            switch result {
+            case .success(let updateResponse):
+                Utils.dismissLoadingIndicator()
+                PopupHandler.successPopup(title: "Success", description: "Profile updated")
+                self.user = updateResponse.value
+                DefaultManager.setUser(user: updateResponse.value!)
+                self.initValues()
+            case .failure(let error):
+                print((error as! CustomError).localizedDescription)
+                Utils.dismissLoadingIndicator()
+                PopupHandler.errorPopup(title: "Error", description: "Something went wrong while updating profile")
+            }
+        })
+    }
 }

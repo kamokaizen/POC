@@ -19,19 +19,6 @@ class Utils {
         }
     }
     
-    static func getBrandTypeString(value: Int) -> String{
-        switch value {
-        case BrandType.AUTOMOBILE.rawValue:
-            return "Automobile"
-            case BrandType.MINIVAN.rawValue:
-            return "Minivan"
-        case BrandType.SUV.rawValue:
-            return "SUV"
-        default:
-            return ""
-        }
-    }
-    
     static func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
@@ -157,5 +144,80 @@ class Utils {
         let contentView = EKAlertMessageView(with: alertMessage)
         
         SwiftEntryKit.display(entry: contentView, using: attributes)
+    }
+    
+    static func getBrandTypeString(value: Int) -> String{
+        switch value {
+        case BrandType.AUTOMOBILE.rawValue:
+            return "Automobile"
+        case BrandType.MINIVAN.rawValue:
+            return "Minivan"
+        case BrandType.SUV.rawValue:
+            return "SUV"
+        default:
+            return ""
+        }
+    }
+    
+    static func getCurrencyIndex(metric:CurrencyMetrics) -> CurrencyMetricsIndex{
+        switch metric{
+        case .TRY:
+            return CurrencyMetricsIndex.TRY
+        case .EUR:
+            return CurrencyMetricsIndex.EUR
+        case .USD:
+            return CurrencyMetricsIndex.USD
+        }
+    }
+    
+    static func getDistanceIndex(metric:DistanceMetrics) -> DistanceMetricsIndex{
+        switch metric{
+        case .KM:
+            return DistanceMetricsIndex.KM
+        case .M:
+            return DistanceMetricsIndex.M
+        case .MILE:
+            return DistanceMetricsIndex.MILE
+        }
+    }
+    
+    static func getVolumeIndex(metric:VolumeMetrics) -> VolumeMetricsIndex{
+        switch metric{
+        case .LITER:
+            return VolumeMetricsIndex.LITER
+        case .GALLON:
+            return VolumeMetricsIndex.GALLON
+        }
+    }
+    
+    static func getCurrencyMetric(index: CurrencyMetricsIndex) -> CurrencyMetrics {
+        switch index {
+        case .TRY:
+            return CurrencyMetrics.TRY
+        case .USD:
+            return CurrencyMetrics.USD
+        case .EUR:
+            return CurrencyMetrics.EUR
+        }
+    }
+    
+    static func getDistanceMetric(index: DistanceMetricsIndex) -> DistanceMetrics {
+        switch index {
+        case .KM:
+            return DistanceMetrics.KM
+        case .M:
+            return DistanceMetrics.M
+        case .MILE:
+            return DistanceMetrics.MILE
+        }
+    }
+    
+    static func getVolumeMetric(index: VolumeMetricsIndex) -> VolumeMetrics {
+        switch index {
+        case .LITER:
+            return VolumeMetrics.LITER
+        case .GALLON:
+            return VolumeMetrics.GALLON
+        }
     }
 }

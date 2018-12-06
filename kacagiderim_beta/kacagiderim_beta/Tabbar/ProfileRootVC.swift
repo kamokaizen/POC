@@ -18,7 +18,7 @@ class ProfileRootVC: CardsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cards = [ProfileVC(viewModel:profileVM)]
+        self.cards = [ProfileVC(viewModel:profileVM), ProfileMetricsVC(viewModel: profileVM), ProfileLocationVC(viewModel: profileVM), ProfileFavouriteVC(viewModel: profileVM)]
         loadCards(cards: cards)
     }
     

@@ -51,6 +51,9 @@
 		D6C73C3221B855B80058AB2D /* ProfileRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C73C3121B855B80058AB2D /* ProfileRootVC.swift */; };
 		D6C73C3421B856250058AB2D /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C73C3321B856250058AB2D /* ProfileVM.swift */; };
 		D6C73C3621B856E00058AB2D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C73C3521B856E00058AB2D /* ProfileVC.swift */; };
+		D6C73C3821B962410058AB2D /* ProfileMetricsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C73C3721B962410058AB2D /* ProfileMetricsVC.swift */; };
+		D6C73C3A21B97ECB0058AB2D /* ProfileLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C73C3921B97ECB0058AB2D /* ProfileLocationVC.swift */; };
+		D6C73C3C21B9800D0058AB2D /* ProfileFavouriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C73C3B21B9800D0058AB2D /* ProfileFavouriteVC.swift */; };
 		D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */; };
 		D6D66A8B20F9FB6E003B7C75 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */; };
 		D6D66A8E20F9FB6E003B7C75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D66A8C20F9FB6E003B7C75 /* Main.storyboard */; };
@@ -145,6 +148,9 @@
 		D6C73C3121B855B80058AB2D /* ProfileRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRootVC.swift; sourceTree = "<group>"; };
 		D6C73C3321B856250058AB2D /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		D6C73C3521B856E00058AB2D /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		D6C73C3721B962410058AB2D /* ProfileMetricsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMetricsVC.swift; sourceTree = "<group>"; };
+		D6C73C3921B97ECB0058AB2D /* ProfileLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLocationVC.swift; sourceTree = "<group>"; };
+		D6C73C3B21B9800D0058AB2D /* ProfileFavouriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFavouriteVC.swift; sourceTree = "<group>"; };
 		D6D66A8520F9FB6E003B7C75 /* kacagiderim_beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kacagiderim_beta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D66A8820F9FB6E003B7C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6D66A8A20F9FB6E003B7C75 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +253,9 @@
 			children = (
 				D6C73C3321B856250058AB2D /* ProfileVM.swift */,
 				D6C73C3521B856E00058AB2D /* ProfileVC.swift */,
+				D6C73C3721B962410058AB2D /* ProfileMetricsVC.swift */,
+				D6C73C3921B97ECB0058AB2D /* ProfileLocationVC.swift */,
+				D6C73C3B21B9800D0058AB2D /* ProfileFavouriteVC.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -609,6 +618,7 @@
 				D63FE2E0218610ED007F0946 /* AccountVehicleVM.swift in Sources */,
 				D8E69A062100A0D4005484CA /* Constants.swift in Sources */,
 				D63FE2DC21860C92007F0946 /* DefaultsManager.swift in Sources */,
+				D6C73C3A21B97ECB0058AB2D /* ProfileLocationVC.swift in Sources */,
 				D8A92A6E218896E000F2C4EE /* AccountVehicleDetailVC.swift in Sources */,
 				D800077F20FE280300B1128A /* L10n.swift in Sources */,
 				D8B4236821022C7C009A5B7B /* LoginSuccessResponse.swift in Sources */,
@@ -647,6 +657,7 @@
 				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D63FE2D621849B80007F0946 /* AccountEndpoint.swift in Sources */,
+				D6C73C3821B962410058AB2D /* ProfileMetricsVC.swift in Sources */,
 				D6A0D7BA2120837B0019C7FA /* Cities.swift in Sources */,
 				D800076720FCC7DB00B1128A /* Switcher.swift in Sources */,
 				D645B9E72191B0C9005135C7 /* Engine.swift in Sources */,
@@ -679,6 +690,7 @@
 				D800077220FCD9D300B1128A /* VehicleRootVC.swift in Sources */,
 				D63FE2E5218612E2007F0946 /* AccountVehicleVC.swift in Sources */,
 				D8E69A0020FF80D7005484CA /* Country.swift in Sources */,
+				D6C73C3C21B9800D0058AB2D /* ProfileFavouriteVC.swift in Sources */,
 				D8B26418211B2055000E814F /* TokenController.swift in Sources */,
 				D63FE2D82185F77C007F0946 /* CarTableViewCell.swift in Sources */,
 				D8A92A702189DB4000F2C4EE /* NewVehicleRootVC.swift in Sources */,

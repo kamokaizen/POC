@@ -24,18 +24,13 @@ class ProfileVC: BaseCardPartsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        let mainSVVertical = CardPartStackView()
-        mainSVVertical.spacing = 10
-        mainSVVertical.distribution = .fill
-        mainSVVertical.axis = .vertical
         
         let usernameItem = CardPartsUtil.generateCenteredItem(letfLabelText: "Username", rightLabelText: "")
         let nameItem = CardPartsUtil.generateCenteredItemWithTextField(letfLabelText: "Name", rightTextFieldPlaceHolder: "Type your name")
         let surnameItem = CardPartsUtil.generateCenteredItemWithTextField(letfLabelText: "Surname", rightTextFieldPlaceHolder: "Type your surname")
         let ssnItem = CardPartsUtil.generateCenteredItemWithTextField(letfLabelText: "Social Security Number", rightTextFieldPlaceHolder: "Type your ssn number")
         let countryItem = CardPartsUtil.generateCenteredItem(letfLabelText:  "Country", rightLabelText: "")
-        
+        let userTypeItem = CardPartsUtil.generateCenteredItem(letfLabelText:  "User Type", rightLabelText: "")
         
         let profileLogo = CardPartImageView()
         profileLogo.contentMode = .scaleAspectFit
@@ -54,10 +49,15 @@ class ProfileVC: BaseCardPartsViewController {
         viewModel.surname.asObservable().bind(to: surnameItem.1.rx.text).disposed(by: bag)
         viewModel.ssn.asObservable().bind(to: ssnItem.1.rx.text).disposed(by: bag)
         viewModel.countryName.asObservable().bind(to: countryItem.1.rx.text).disposed(by: bag)
+        viewModel.typeText.asObservable().bind(to: userTypeItem.1.rx.text).disposed(by: bag)
         nameItem.1.rx.text.orEmpty.bind(to: viewModel.name).disposed(by: bag)
         surnameItem.1.rx.text.orEmpty.bind(to: viewModel.surname).disposed(by: bag)
         ssnItem.1.rx.text.orEmpty.bind(to: viewModel.ssn).disposed(by: bag)
         
+        let mainSVVertical = CardPartStackView()
+        mainSVVertical.spacing = 10
+        mainSVVertical.distribution = .fill
+        mainSVVertical.axis = .vertical
         mainSVVertical.addArrangedSubview(profileLogo)
         mainSVVertical.addArrangedSubview(loggedOutButton)
         mainSVVertical.addArrangedSubview(usernameItem.0)
@@ -65,8 +65,14 @@ class ProfileVC: BaseCardPartsViewController {
         mainSVVertical.addArrangedSubview(surnameItem.0 as! UIView)
         mainSVVertical.addArrangedSubview(ssnItem.0 as! UIView)
         mainSVVertical.addArrangedSubview(countryItem.0)
+        mainSVVertical.addArrangedSubview(userTypeItem.0)
         
         setupCardParts([getTitleStack(title: "Profile"), CardPartSeparatorView(), mainSVVertical])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getProfileData(forceRefresh: false)
     }
     
     func getTitleStack(title: String) -> CardPartStackView {
@@ -98,19 +104,19 @@ class ProfileVC: BaseCardPartsViewController {
         let resetButton = EKProperty.ButtonContent(label: EKProperty.LabelContent(text: "Reset", style: buttonLabelStyle), backgroundColor: .white, highlightedBackgroundColor:  EKColor.Gray.light) {
             SwiftEntryKit.dismiss()
             Utils.delayWithSeconds(0.5, completion: {
-//                self.viewModel.reset()
+                self.viewModel.reset()
             })
         }
         let saveButton = EKProperty.ButtonContent(label: EKProperty.LabelContent(text: "Save", style: buttonLabelStyle), backgroundColor: .white, highlightedBackgroundColor:  EKColor.Gray.light) {
             SwiftEntryKit.dismiss()
             Utils.delayWithSeconds(0.5, completion: {
-//                self.viewModel.chooseVehicleType()
+                self.viewModel.save()
             })
         }
         let refreshButton = EKProperty.ButtonContent(label: EKProperty.LabelContent(text: "Refresh", style: buttonLabelStyle), backgroundColor: .white, highlightedBackgroundColor:  EKColor.Gray.light) {
             SwiftEntryKit.dismiss()
             Utils.delayWithSeconds(0.5, completion: {
-//                self.viewModel.chooseVehicleType()
+                self.viewModel.getProfileData(forceRefresh: true)
             })
         }
         

@@ -134,11 +134,11 @@ class SignInViewController: ValidatorViewController, UITextFieldDelegate {
                 switch result {
                 case .success(let loginResponse):
                     self.loadingIndicator.stopAnimating()
+                    TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text)
+                    TokenController.getAndPersistCountries()
+                    TokenController.getAndPersistCurrentUser()
                     PopupHandler.showLoginSuccessPopup {
-                        TokenController.saveUserToUserDefaults(response: loginResponse, user: self.emailField.text)
                         Switcher.updateRootVC()
-                        TokenController.getAndPersistCurrentUser()
-                        TokenController.getAndPersistCountries()
                     }
                 case .failure(let error):
                     self.loadingIndicator.stopAnimating()

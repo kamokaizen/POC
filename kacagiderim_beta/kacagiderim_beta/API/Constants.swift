@@ -124,15 +124,32 @@ enum CurrencyMetrics: String, Codable {
     case USD = "USD"
 }
 
+enum CurrencyMetricsIndex: Int, Codable {
+    case TRY = 0
+    case EUR = 1
+    case USD = 2
+}
+
 enum DistanceMetrics: String, Codable {
     case KM = "KM"
     case M = "M"
     case MILE = "MILE"
 }
 
+enum DistanceMetricsIndex: Int, Codable {
+    case KM = 0
+    case M = 1
+    case MILE = 2
+}
+
 enum VolumeMetrics: String , Codable {
     case LITER = "LITER"
     case GALLON = "GALLON"
+}
+
+enum VolumeMetricsIndex: Int, Codable {
+    case LITER = 0
+    case GALLON = 1
 }
 
 enum UserType: String , Codable {

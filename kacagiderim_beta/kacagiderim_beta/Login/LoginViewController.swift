@@ -80,11 +80,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                 case .success(let createResponse):
                     Utils.dismissLoadingIndicator()
                     if(createResponse.value != nil){
+                        TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
+                        TokenController.getAndPersistCountries()
+                        TokenController.getAndPersistCurrentUser()
                         PopupHandler.showLoginSuccessPopup {
-                            TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
                             Switcher.updateRootVC()
-                            TokenController.getAndPersistCurrentUser()
-                            TokenController.getAndPersistCountries()
                         }
                     }
                     else{
@@ -155,11 +155,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                                 case .success(let createResponse):
                                     Utils.dismissLoadingIndicator()
                                     if(createResponse.value != nil){
+                                        TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
+                                        TokenController.getAndPersistCountries()
+                                        TokenController.getAndPersistCurrentUser()
                                         PopupHandler.showLoginSuccessPopup {
-                                            TokenController.saveUserToUserDefaults(response: createResponse.value!, user: email)
                                             Switcher.updateRootVC()
-                                            TokenController.getAndPersistCurrentUser()
-                                            TokenController.getAndPersistCountries()
                                         }
                                     }
                                     else{
