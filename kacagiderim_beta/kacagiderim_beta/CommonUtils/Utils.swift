@@ -36,6 +36,16 @@ class Utils {
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating(K.Constants.DEFAULT_FADE_OUT_ANIMATION)
     }
     
+    static func returnSafeAreaParameters() -> (CGFloat, CGFloat){
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let topPadding = window?.safeAreaInsets.top ?? 0.0
+            let bottomPadding = window?.safeAreaInsets.bottom ?? 0.0
+            return (topPadding:topPadding, bottomPadding:bottomPadding)
+        }
+        return (topPadding:0.0, bottomPadding:0.0)
+    }
+    
     static func getAttributes(element: EKAttributes, duration: Double, entryBackground: EKAttributes.BackgroundStyle, screenBackground: EKAttributes.BackgroundStyle, roundCorners: EKAttributes.RoundCorners) -> EKAttributes{
         var ekAttribute = element
         ekAttribute.hapticFeedbackType = .success

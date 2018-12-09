@@ -52,6 +52,9 @@ class ProfileVM {
     
     let defaultProfileImage = Utils.imageWithImage(image: UIImage(named: "default_profile.png")!, scaledToSize: CGSize(width: 96, height: 96))
     
+    var homeLocationConfigured: BehaviorRelay<Bool> = BehaviorRelay(value:false)
+    var workLocationConfigured: BehaviorRelay<Bool> = BehaviorRelay(value:false)
+    
     init() {
     }
     
@@ -79,59 +82,12 @@ class ProfileVM {
 //        }
 //    }
     
-//    func getCitiesOfCountryPopoper(countryId: String, viewController: UIViewController, sourceView: UIView){
-//        APIClient.getCitiesOfCountry(countryId: countryId, completion:{ result in
-//            switch result {
-//            case .success(let citiesResponse):
-//                self.cities = citiesResponse.value;
-//                var list: [String] = []
-//                for city in (self.cities?.cities!)! {
-//                    list.append(city.cityName!)
-//                }
-//                self.citySelectionData.removeAll()
-//                self.citySelectionData.append(list.sorted(by: <))
-//                
-//                if(list.count > 0){
-//                    let mcPicker = McPicker(data: self.citySelectionData)
-//                    let fixedSpace = McPickerBarButtonItem.fixedSpace(width: 20.0)
-//                    let flexibleSpace = McPickerBarButtonItem.flexibleSpace()
-//                    let fireButton = McPickerBarButtonItem.done(mcPicker: mcPicker, title: "Ok")
-//                    let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
-//                    mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
-//                    
-//                    mcPicker.showAsPopover(fromViewController: viewController,sourceView: sourceView, doneHandler: { (selections: [Int : String]) -> Void in
-//                        if let name = selections[0] {
-//                            print("Selected:" + name)
-//                            var selectedCities = DefaultManager.getSelectedCities()
-//                            selectedCities.append(name)
-//                            selectedCities = Array(Set(selectedCities))
-//                            DefaultManager.setSelectedCities(cities: selectedCities)
-//                            self.favouriteCities.value = selectedCities.sorted(by:<);
-//                        }})
-//                }
-//                else{
-//                    // show error
-//                }
-//            case .failure(let error):
-//                print((error as! CustomError).localizedDescription)
-//            }
-//        })
-//    }
-    
-//    func deleteCityFromSelectedCities(cityName: String) -> Void {
-//        // remove from userdefaults
-//        var selectedCities = DefaultManager.getSelectedCities()
-//        if let indexInSelectedCities = selectedCities.index(of:cityName) {
-//            selectedCities.remove(at: indexInSelectedCities)
-//        }
-//        DefaultManager.setSelectedCities(cities: selectedCities)
-//        self.favouriteCities.value = selectedCities.sorted(by: <)
-//    }
+
     
     func refreshLocalData(){
         self.countries = DefaultManager.getCountries()
-        let selectedCities = DefaultManager.getSelectedCities()
-        self.favouriteCities.accept(selectedCities.sorted(by: <))
+//        let selectedCities = DefaultManager.getSelectedCities()
+//        self.favouriteCities.accept(selectedCities.sorted(by: <))
     }
     
     func getProfileData(forceRefresh: Bool){
@@ -211,6 +167,9 @@ class ProfileVM {
         self.workLatitude.accept("\(self.user.workLatitude!)")
         self.workLongitude.accept("\(self.user.workLongitude!)")
 
+        self.homeLocationConfigured.accept(self.user.homeLatitude != 0 && self.user.homeLongitude != 0)
+        self.workLocationConfigured.accept(self.user.workLatitude != 0 && self.user.workLongitude != 0)
+        
         self.countryId.accept(self.user.countryId)
         self.countryName.accept(self.getCountryName(countryId: self.user.countryId))
 

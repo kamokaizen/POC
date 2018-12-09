@@ -69,6 +69,14 @@ class CardPartsUtil {
         return [titlePart, CardPartSeparatorView(), stack]
     }
     
+    static func generateCenteredItemWithButton(letfLabelText:String, rightButton: CardPartButtonView) -> (UIView, CardPartButtonView) {
+        let leftLabel = CardPartTextView(type: .title)
+        leftLabel.textAlignment = .left
+        leftLabel.text = letfLabelText
+        let item = CardPartCenteredView(leftView: leftLabel, centeredView: CardPartVerticalSeparatorView(), rightView: rightButton)
+        return (item as UIView, rightButton)
+    }
+    
     static func generateCenteredItem(letfLabelText:String, rightLabel: CardPartTextView) -> UIView {
         let leftLabel = CardPartTextView(type: .title)
         leftLabel.textAlignment = .left

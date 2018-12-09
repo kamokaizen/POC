@@ -20,7 +20,8 @@ class DefaultManager {
         static let refreshToken = Key<String>("refreshToken")
         static let expireDate = Key<Int>("expireDate")
         static let countries = Key<Countries>("countries")
-        static let selectedCities = Key<[String]>("selectedCities")
+        static let cities = Key<[City]?>("cities")
+        static let selectedCities = Key<[City]>("selectedCities")
         static let brands = Key<[Brand]>("brands")
         static let models = Key<Dictionary<String, [Model]>>("models")
         static let engines = Key<Dictionary<String, [Engine]>>("engines")
@@ -40,6 +41,7 @@ class DefaultManager {
         defaults.clear(Keys.refreshToken)
         defaults.clear(Keys.expireDate)
         defaults.clear(Keys.countries)
+        defaults.clear(Keys.cities)
         defaults.clear(Keys.selectedCities)
         defaults.clear(Keys.brands)
         defaults.clear(Keys.models)
@@ -75,7 +77,10 @@ class DefaultManager {
     static func getCountries() -> Countries {
         return defaults.get(for: Keys.countries) ?? Countries(countries: [])
     }
-    static func getSelectedCities() -> [String] {
+    static func getCities() -> [City]? {
+        return defaults.get(for: Keys.cities) ?? nil
+    }
+    static func getSelectedCities() -> [City] {
         return defaults.get(for: Keys.selectedCities) ?? []
     }
     static func getBrands() -> [Brand] {
@@ -135,8 +140,19 @@ class DefaultManager {
     static func setCountries(countries: Countries){
         defaults.set(countries, for: Keys.countries)
     }
-    static func setSelectedCities(cities: [String]){
-        defaults.set(cities, for: Keys.selectedCities)
+    static func setCities(cities: [City]?){
+        if(cities != nil && cities!.count > 0){
+            let sortedCities = cities!.sorted {
+                $0.cityName ?? "" < $1.cityName ?? ""
+            }
+            defaults.set(sortedCities, for: Keys.cities)
+        }
+    }
+    static func setSelectedCities(cities: [City]){
+        let sortedCities = cities.sorted {
+            $0.cityName ?? "" < $1.cityName ?? ""
+        }
+        defaults.set(sortedCities, for: Keys.selectedCities)
     }
     static func setBrands(brands: [Brand]){
         let sortedBrands = brands.sorted {

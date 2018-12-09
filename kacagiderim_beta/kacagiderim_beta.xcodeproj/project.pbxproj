@@ -10,6 +10,10 @@
 		399FC8B1A6BDAE3824F3DCDA /* Pods_kacagiderim_beta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC057F6869B00DA6B54F3C1 /* Pods_kacagiderim_beta.framework */; };
 		D6200AD5218F750900FDFB26 /* NewVehicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6200AD4218F750900FDFB26 /* NewVehicleVC.swift */; };
 		D6200AD7218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6200AD6218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift */; };
+		D63F811C21BBC58C00C62855 /* ProfileFavouriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F811B21BBC58C00C62855 /* ProfileFavouriteVM.swift */; };
+		D63F811E21BD65B000C62855 /* ProfileLocationSelectorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F811D21BD65B000C62855 /* ProfileLocationSelectorVM.swift */; };
+		D63F812021BD6F7900C62855 /* ProfileLocationSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F811F21BD6F7900C62855 /* ProfileLocationSelectorVC.swift */; };
+		D63F812221BD7E0300C62855 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F812121BD7E0300C62855 /* UIView+Utils.swift */; };
 		D63FE2BE216FDCC8007F0946 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2BD216FDCC8007F0946 /* Font.swift */; };
 		D63FE2C0216FDD42007F0946 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */; };
 		D63FE2C2216FDE78007F0946 /* UIScreen+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63FE2C1216FDE78007F0946 /* UIScreen+Utils.swift */; };
@@ -77,7 +81,7 @@
 		D800077F20FE280300B1128A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800077E20FE280300B1128A /* L10n.swift */; };
 		D838A66C213FED7B003E034E /* FuelPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66B213FED7B003E034E /* FuelPrices.swift */; };
 		D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66D214102DA003E034E /* PasswordViewController.swift */; };
-		D838A6702142BEAA003E034E /* MapLocationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66F2142BEAA003E034E /* MapLocationSelector.swift */; };
+		D838A6702142BEAA003E034E /* MapLocationSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D838A66F2142BEAA003E034E /* MapLocationSelectorVC.swift */; };
 		D838A6722142C0FC003E034E /* MapLocationSelector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */; };
 		D898649C2101BF7B00E46477 /* LoginFailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649B2101BF7B00E46477 /* LoginFailResponse.swift */; };
 		D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D898649E2101D3D900E46477 /* UserEndpoint.swift */; };
@@ -106,6 +110,10 @@
 		B1D735496F795E5A69644DAB /* Pods-kacagiderim_beta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kacagiderim_beta.release.xcconfig"; path = "Pods/Target Support Files/Pods-kacagiderim_beta/Pods-kacagiderim_beta.release.xcconfig"; sourceTree = "<group>"; };
 		D6200AD4218F750900FDFB26 /* NewVehicleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVehicleVC.swift; sourceTree = "<group>"; };
 		D6200AD6218F8A9B00FDFB26 /* VehicleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D63F811B21BBC58C00C62855 /* ProfileFavouriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFavouriteVM.swift; sourceTree = "<group>"; };
+		D63F811D21BD65B000C62855 /* ProfileLocationSelectorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLocationSelectorVM.swift; sourceTree = "<group>"; };
+		D63F811F21BD6F7900C62855 /* ProfileLocationSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLocationSelectorVC.swift; sourceTree = "<group>"; };
+		D63F812121BD7E0300C62855 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		D63FE2BD216FDCC8007F0946 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D63FE2BF216FDD42007F0946 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		D63FE2C1216FDE78007F0946 /* UIScreen+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Utils.swift"; sourceTree = "<group>"; };
@@ -176,7 +184,7 @@
 		D800077E20FE280300B1128A /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		D838A66B213FED7B003E034E /* FuelPrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelPrices.swift; sourceTree = "<group>"; };
 		D838A66D214102DA003E034E /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
-		D838A66F2142BEAA003E034E /* MapLocationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelector.swift; sourceTree = "<group>"; };
+		D838A66F2142BEAA003E034E /* MapLocationSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelectorVC.swift; sourceTree = "<group>"; };
 		D838A6712142C0FC003E034E /* MapLocationSelector.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapLocationSelector.storyboard; sourceTree = "<group>"; };
 		D898649B2101BF7B00E46477 /* LoginFailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFailResponse.swift; sourceTree = "<group>"; };
 		D898649E2101D3D900E46477 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
@@ -256,6 +264,9 @@
 				D6C73C3721B962410058AB2D /* ProfileMetricsVC.swift */,
 				D6C73C3921B97ECB0058AB2D /* ProfileLocationVC.swift */,
 				D6C73C3B21B9800D0058AB2D /* ProfileFavouriteVC.swift */,
+				D63F811B21BBC58C00C62855 /* ProfileFavouriteVM.swift */,
+				D63F811D21BD65B000C62855 /* ProfileLocationSelectorVM.swift */,
+				D63F811F21BD6F7900C62855 /* ProfileLocationSelectorVC.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -342,7 +353,7 @@
 				D800076F20FCD9C200B1128A /* RoutesViewController.swift */,
 				D800077120FCD9D300B1128A /* VehicleRootVC.swift */,
 				D838A66D214102DA003E034E /* PasswordViewController.swift */,
-				D838A66F2142BEAA003E034E /* MapLocationSelector.swift */,
+				D838A66F2142BEAA003E034E /* MapLocationSelectorVC.swift */,
 				D6C73C3121B855B80058AB2D /* ProfileRootVC.swift */,
 			);
 			path = Tabbar;
@@ -403,6 +414,7 @@
 				D645B9EC21983729005135C7 /* FormFieldPresetFactory.swift */,
 				D645B9EE219A0305005135C7 /* AuthManager.swift */,
 				D645B9F0219B688C005135C7 /* UIButton+Utils.swift */,
+				D63F812121BD7E0300C62855 /* UIView+Utils.swift */,
 			);
 			path = CommonUtils;
 			sourceTree = "<group>";
@@ -627,7 +639,7 @@
 				D8A92A76218C2FFB00F2C4EE /* NewVehicleVM.swift in Sources */,
 				D838A66E214102DA003E034E /* PasswordViewController.swift in Sources */,
 				D6C73C2E21B6DB570058AB2D /* SearchVehicleRootVC.swift in Sources */,
-				D838A6702142BEAA003E034E /* MapLocationSelector.swift in Sources */,
+				D838A6702142BEAA003E034E /* MapLocationSelectorVC.swift in Sources */,
 				D63FE2DA2185FAF5007F0946 /* Detail.swift in Sources */,
 				D6EBE95521035EA30067CAB8 /* Utils.swift in Sources */,
 				D63FE2D42184925C007F0946 /* PageResponse.swift in Sources */,
@@ -654,6 +666,7 @@
 				D6C29B2121407EC000054110 /* CustomCardPartTheme.swift in Sources */,
 				D645B9F1219B688C005135C7 /* UIButton+Utils.swift in Sources */,
 				D63FE2D221848EB0007F0946 /* Brands.swift in Sources */,
+				D63F811E21BD65B000C62855 /* ProfileLocationSelectorVM.swift in Sources */,
 				D6C29B1F213C940100054110 /* MyCustomTableViewCell.swift in Sources */,
 				D800076C20FCCF2900B1128A /* PricesViewController.swift in Sources */,
 				D63FE2D621849B80007F0946 /* AccountEndpoint.swift in Sources */,
@@ -677,14 +690,17 @@
 				D6A0D7AE211F2FAC0019C7FA /* FuelPrice.swift in Sources */,
 				D6D66A8920F9FB6E003B7C75 /* AppDelegate.swift in Sources */,
 				D898649F2101D3D900E46477 /* UserEndpoint.swift in Sources */,
+				D63F811C21BBC58C00C62855 /* ProfileFavouriteVM.swift in Sources */,
 				D63FE2CE218489F1007F0946 /* CarEndpoint.swift in Sources */,
 				D8E69A0A2100E065005484CA /* APIConfiguration.swift in Sources */,
 				D6C73C3621B856E00058AB2D /* ProfileVC.swift in Sources */,
 				D645B9E521903351005135C7 /* ImageManager.swift in Sources */,
+				D63F812021BD6F7900C62855 /* ProfileLocationSelectorVC.swift in Sources */,
 				D6EBE951210331E30067CAB8 /* MessageHelper.swift in Sources */,
 				D6EBE9592104DFDF0067CAB8 /* Countries.swift in Sources */,
 				D6DD2456219D5C190016945E /* CarSearchTableViewCell.swift in Sources */,
 				D63FE2C4216FDECC007F0946 /* CGRect+Utils.swift in Sources */,
+				D63F812221BD7E0300C62855 /* UIView+Utils.swift in Sources */,
 				D6A0D7B8212082C80019C7FA /* City.swift in Sources */,
 				D63FE2D021848E5E007F0946 /* Brand.swift in Sources */,
 				D800077220FCD9D300B1128A /* VehicleRootVC.swift in Sources */,

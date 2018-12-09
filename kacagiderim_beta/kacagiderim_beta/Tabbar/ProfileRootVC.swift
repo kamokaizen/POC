@@ -13,12 +13,13 @@ class ProfileRootVC: CardsViewController {
     
     let cardPartTextView = CardPartTextView(type: .normal)
     let profileVM = ProfileVM()
+    let profileFavouriteVM = ProfileFavouriteVM()
     var cards: [CardController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cards = [ProfileVC(viewModel:profileVM), ProfileMetricsVC(viewModel: profileVM), ProfileLocationVC(viewModel: profileVM), ProfileFavouriteVC(viewModel: profileVM)]
+        self.cards = [ProfileVC(viewModel:profileVM), ProfileMetricsVC(viewModel: profileVM), ProfileLocationVC(viewModel: profileVM), ProfileFavouriteVC(viewModel: profileFavouriteVM)]
         loadCards(cards: cards)
     }
     

@@ -34,15 +34,15 @@ final class FuelPriceCollectionViewCell: UICollectionViewCell {
         // Set custom toolbar items
         mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
         
-        mcPicker.showAsPopover(fromViewController: self.superViewController, sourceView: sender.customView, doneHandler: { (selections: [Int : String]) -> Void in
-            if let name = selections[0] {
-                print("Selected:" + name)
-                var selectedCities = DefaultManager.getSelectedCities()
-                selectedCities.append(name)
-                selectedCities = Array(Set(selectedCities))
-                DefaultManager.setSelectedCities(cities: selectedCities)
-                self.dataSource.getPrice(city:name, country: self.dataSource.countryCode)
-            }})
+//        mcPicker.showAsPopover(fromViewController: self.superViewController, sourceView: sender.customView, doneHandler: { (selections: [Int : String]) -> Void in
+//            if let name = selections[0] {
+//                print("Selected:" + name)
+//                var selectedCities = DefaultManager.getSelectedCities()
+//                selectedCities.append(name)
+//                selectedCities = Array(Set(selectedCities))
+//                DefaultManager.setSelectedCities(cities: selectedCities)
+//                self.dataSource.getPrice(city:name, country: self.dataSource.countryCode)
+//            }})
     }
     
     @IBAction func deleteButtonTapped(sender: UIBarButtonItem) {
@@ -50,14 +50,14 @@ final class FuelPriceCollectionViewCell: UICollectionViewCell {
             for (index, fuelPrice) in self.dataSource.fuelPrices!.enumerated() {
                 if(fuelPrice.fuelPriceItem.cityName == self.navigationItem.title){
                     print("will be deleted", self.navigationItem.title!)
-                    self.dataSource.fuelPrices?.remove(at: index);
-                    
-                    // remove from userdefaults
-                    var selectedCities = DefaultManager.getSelectedCities()
-                    if let indexInSelectedCities = selectedCities.index(of:self.navigationItem.title!) {
-                        selectedCities.remove(at: indexInSelectedCities)
-                    }
-                    DefaultManager.setSelectedCities(cities: selectedCities)
+//                    self.dataSource.fuelPrices?.remove(at: index);
+//                    
+//                    // remove from userdefaults
+//                    var selectedCities = DefaultManager.getSelectedCities()
+//                    if let indexInSelectedCities = selectedCities.index(of:self.navigationItem.title!) {
+//                        selectedCities.remove(at: indexInSelectedCities)
+//                    }
+//                    DefaultManager.setSelectedCities(cities: selectedCities)
                     break
                 }
             }

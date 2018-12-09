@@ -15,10 +15,10 @@ struct User: Codable {
     let name: String?
     let surname: String?
     let countryId: String
-    let homeLatitude: Double?
-    let homeLongitude: Double?
-    let workLatitude: Double?
-    let workLongitude: Double?
+    var homeLatitude: Double?
+    var homeLongitude: Double?
+    var workLatitude: Double?
+    var workLongitude: Double?
     let currencyMetric: CurrencyMetrics
     let distanceMetric: DistanceMetrics
     let volumeMetric: VolumeMetrics

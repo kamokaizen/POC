@@ -1,8 +1,8 @@
 //
-//  MapLocationSelector.swift
+//  ProfileLocationSelectorVC.swift
 //  kacagiderim_beta
 //
-//  Created by Comodo on 7.09.2018.
+//  Created by kamilinal on 12/9/18.
 //  Copyright © 2018 kacagiderim. All rights reserved.
 //
 
@@ -11,10 +11,10 @@ import UIKit
 import GoogleMaps
 import CardParts
 
-class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class ProfileLocationSelectorVC : CardPartsFullScreenViewController, GMSMapViewDelegate {
     
-    @IBOutlet fileprivate weak var mapView: GMSMapView!
-    let locationManager = CLLocationManager()
+    var viewModel: ProfileLocationSelectorVM!
+    var mapView: GMSMapView!
     var workMarker = GMSMarker()
     var homeMarker = GMSMarker()
     var currentPosition = GMSMarker()
@@ -34,12 +34,64 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
     let offsetClickMarker: CGFloat = 40
     let offsetOtherMarker: CGFloat = 20
     
-    //MARK: Create a delegate property here, don't forget to make it weak!
-    weak var delegate: LocationUpdateDelegate? = nil
+    var topPadding:CGFloat = 0.0
+    var bottomPadding:CGFloat = 0.0
+    var width:CGFloat = 0.0
+    var height:CGFloat = 0.0
+    
+    let toolbarHeight:CGFloat = 44.0
+    let zoomButtonHeight:CGFloat = 50.0
+    
+    public init(viewModel: ProfileLocationSelectorVM) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        calculateViewProperties()
+        createToolbar()
+        initializeMapView()
+        bindMapButtons()
+        createMarkers(homePosition: viewModel!.homePosition.value, workPosition: viewModel!.workPosition.value)
+        focusMapToShowAllMarkers()    
+    }
+    
+    func calculateViewProperties(){
+        let params = Utils.returnSafeAreaParameters()
+        topPadding = params.0
+        bottomPadding = params.1
+        width = self.view.bounds.width
+        height = self.view.bounds.height
+    }
+    
+    func initializeMapView(){
+        let lat = currentPosition.position.latitude
+        let lon = currentPosition.position.longitude
         
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: zoom)
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: topPadding + toolbarHeight, width: width, height: height-bottomPadding-toolbarHeight), camera: camera)
+        self.mapView.delegate = self
+        self.view.addSubview(mapView)
+    }
+    
+    func createToolbar(){
+        let toolbar = UIToolbar(frame: CGRect(x:0, y: topPadding, width: width, height: toolbarHeight))
+        toolbar.barStyle = UIBarStyle.default
+        let titleView = UIBarButtonItem.init(title: "Configure Locations", style: UIBarButtonItem.Style.plain, target: nil, action: nil)
+        titleView.tintColor = UIColor.darkDefault
+        let doneButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(didSaveTapped(sender:)))
+        let cancelButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(didCancelTapped(sender:)))
+        let fixedSpace = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([cancelButton,fixedSpace, titleView, fixedSpace, doneButton], animated: true)
+        self.view.addSubview(toolbar)
+    }
+    
+    func bindMapButtons(){
         homeChangeButton.setImage(homeImage, for: UIControl.State.normal)
         homeChangeButton.imageView?.contentMode = .scaleAspectFit;
         homeChangeButton.addTarget(self, action:#selector(setCurrentToHomeTapped), for: .touchUpInside)
@@ -47,25 +99,17 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         workChangeButton.imageView?.contentMode = .scaleAspectFit;
         workChangeButton.addTarget(self, action:#selector(setCurrentToWorkTapped), for: .touchUpInside)
         
-        // Ask for Authorisation from the User.
-        self.locationManager.requestAlwaysAuthorization()
+        let zoomInButton = CardPartButtonView()
+        zoomInButton.frame = CGRect(x: width-zoomButtonHeight, y: height-bottomPadding-toolbarHeight-(zoomButtonHeight*2), width: zoomButtonHeight, height: zoomButtonHeight)
+        zoomInButton.setImage(Utils.imageWithImage(image: UIImage(named: "plus.png")!, scaledToSize: CGSize(width: zoomButtonHeight, height: zoomButtonHeight)), for: UIControl.State.normal)
+        zoomInButton.addTarget(self, action: #selector(btnZoomIn(_:)), for: .touchUpInside)
         
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-        
-        let lat = currentPosition.position.latitude
-        let lon = currentPosition.position.longitude
-        
-        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: zoom)
-        mapView.camera = camera
-        createMarkers(homePosition: (delegate?.getHomePosition())!, workPosition: (delegate?.getWorkPosition())!)
-        focusMapToShowAllMarkers()
+        let zoomOutButton = CardPartButtonView()
+        zoomOutButton.frame = CGRect(x: width-zoomButtonHeight, y: height-bottomPadding-toolbarHeight-zoomButtonHeight, width: zoomButtonHeight, height: zoomButtonHeight)
+        zoomOutButton.setImage(Utils.imageWithImage(image: UIImage(named: "minus.png")!, scaledToSize: CGSize(width: zoomButtonHeight, height: zoomButtonHeight)), for: UIControl.State.normal)
+        zoomOutButton.addTarget(self, action: #selector(btnZoomOut(_:)), for: .touchUpInside)
+        self.view.addSubview(zoomInButton)
+        self.view.addSubview(zoomOutButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,7 +129,7 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
         homeMarker.isDraggable = true
         homeMarker.map = mapView
         homeMarker.icon = homeImage
-
+        
         workMarker.position = workPosition
         workMarker.title = "Work"
         workMarker.snippet = "Your work position"
@@ -206,24 +250,30 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
     
     // MARK: - Actions
     
-    @IBAction func didSaveTapped(sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+    @objc func didSaveTapped(sender: UIButton) {
         Utils.delayWithSeconds(0.5, completion: {
-            self.delegate?.homePositionChanged(lat: self.homeMarker.position.latitude, lon: self.homeMarker.position.longitude)
-            self.delegate?.workPositionChanged(lat: self.workMarker.position.latitude, lon: self.workMarker.position.longitude)
-            self.delegate?.saveAll()
+            var user = DefaultManager.getUser()
+            if(user != nil){
+                user?.homeLatitude = self.homeMarker.position.latitude
+                user?.homeLongitude = self.homeMarker.position.longitude
+                user?.workLatitude = self.workMarker.position.latitude
+                user?.workLongitude = self.workMarker.position.longitude
+                DefaultManager.setUser(user: user!)
+                PopupHandler.successPopup(title: "Success", description: "Positions updated, please click save to persistent always.")
+            }
+            self.dismiss(animated: true, completion: nil)
         })
     }
     
-    @IBAction func didCancelTapped(sender: UIButton) {
+    @objc func didCancelTapped(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func btnZoomIn(_ sender: Any) {
+    @objc func btnZoomIn(_ sender: Any) {
         self.mapView.animate(with: GMSCameraUpdate.zoomIn())
     }
     
-    @IBAction func btnZoomOut(_ sender: Any) {
+    @objc func btnZoomOut(_ sender: Any) {
         self.mapView.animate(with: GMSCameraUpdate.zoomOut())
     }
     
@@ -273,14 +323,5 @@ class MapLocationSelector : UIViewController, GMSMapViewDelegate, CLLocationMana
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         infoWindow.removeFromSuperview()
         clickMarker.position = coordinate
-    }
-    
-    //MARK - CLLocation methods
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-        currentPosition.position = locValue
-        focusMapToShowAllMarkers()
     }
 }

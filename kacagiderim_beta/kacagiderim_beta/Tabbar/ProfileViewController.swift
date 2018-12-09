@@ -54,8 +54,8 @@ class ProfileViewController: CardsViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "mapLocationSelectorSegue"){
-            let destinationViewController = segue.destination as? MapLocationSelector
-            destinationViewController?.delegate = self.viewModel
+            let destinationViewController = segue.destination as? MapLocationSelectorVC
+//            destinationViewController?.delegate = self.viewModel
         }
     }
 }
@@ -916,15 +916,15 @@ class ProfileViewModel : LocationUpdateDelegate {
                     let cancelButton = McPickerBarButtonItem.cancel(mcPicker: mcPicker, barButtonSystemItem: .cancel)
                     mcPicker.setToolbarItems(items: [fixedSpace, cancelButton, flexibleSpace, fireButton, fixedSpace])
                     
-                    mcPicker.showAsPopover(fromViewController: viewController,sourceView: sourceView, doneHandler: { (selections: [Int : String]) -> Void in
-                        if let name = selections[0] {
-                            print("Selected:" + name)
-                            var selectedCities = DefaultManager.getSelectedCities()
-                            selectedCities.append(name)
-                            selectedCities = Array(Set(selectedCities))
-                            DefaultManager.setSelectedCities(cities: selectedCities)
-                            self.favouriteCities.value = selectedCities.sorted(by:<);
-                        }})
+//                    mcPicker.showAsPopover(fromViewController: viewController,sourceView: sourceView, doneHandler: { (selections: [Int : String]) -> Void in
+//                        if let name = selections[0] {
+//                            print("Selected:" + name)
+//                            var selectedCities = DefaultManager.getSelectedCities()
+//                            selectedCities.append(name)
+//                            selectedCities = Array(Set(selectedCities))
+//                            DefaultManager.setSelectedCities(cities: selectedCities)
+//                            self.favouriteCities.value = selectedCities.sorted(by:<);
+//                        }})
                 }
                 else{
                     // show error
@@ -936,19 +936,19 @@ class ProfileViewModel : LocationUpdateDelegate {
     }
     
     func deleteCityFromSelectedCities(cityName: String) -> Void {
-        // remove from userdefaults
-        var selectedCities = DefaultManager.getSelectedCities()
-        if let indexInSelectedCities = selectedCities.index(of:cityName) {
-            selectedCities.remove(at: indexInSelectedCities)
-        }
-        DefaultManager.setSelectedCities(cities: selectedCities)
-        self.favouriteCities.value = selectedCities.sorted(by: <)
+//        // remove from userdefaults
+//        var selectedCities = DefaultManager.getSelectedCities()
+//        if let indexInSelectedCities = selectedCities.index(of:cityName) {
+//            selectedCities.remove(at: indexInSelectedCities)
+//        }
+//        DefaultManager.setSelectedCities(cities: selectedCities)
+//        self.favouriteCities.value = selectedCities.sorted(by: <)
     }
     
     func refreshLocalData(){
-        self.countries = DefaultManager.getCountries()
-        let selectedCities = DefaultManager.getSelectedCities()
-        self.favouriteCities.value = selectedCities.sorted(by: <)
+//        self.countries = DefaultManager.getCountries()
+//        let selectedCities = DefaultManager.getSelectedCities()
+//        self.favouriteCities.value = selectedCities.sorted(by: <)
     }
     
     func getProfileData(){
