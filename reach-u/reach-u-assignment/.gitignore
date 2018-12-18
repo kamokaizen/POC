@@ -1,0 +1,7 @@
+# Dummy Files
+*.*~
+# project files
+.metadata
+.recommenders
+/RemoteSystemsTempFiles
+target/*

@@ -1,0 +1,14 @@
+# Dummy Files
+*.*~
+# project files
+.idea/
+.metadata
+.recommenders
+/RemoteSystemsTempFiles
+RemoteSystemsTempFiles
+Servers
+ssh_dsa
+target/*
+
+
+.DS_Store
