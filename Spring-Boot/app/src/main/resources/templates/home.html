@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Inventory Home</title>
+<script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+	<div id="app">
+		{{ message }}
+		<p v-if="seen">Now you see me</p>
+	</div>
+	<div id="app-4">
+		<ol>
+			<li v-for="todo in todos">{{ todo.text }}</li>
+		</ol>
+	</div>
+	<div id="app-5">
+		<p>{{ message }}</p>
+		<button v-on:click="reverseMessage">Reverse Message</button>
+	</div>
+
+	<div id="app-6">
+		<p>{{ message }}</p>
+		<input v-model="message"></input>
+	</div>
+
+	<div id="app-7">
+		<ol>
+			<!-- Now we provide each todo-item with the todo object    -->
+			<!-- it's representing, so that its content can be dynamic -->
+			<todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+		</ol>
+	</div>
+	<script src="/scripts/home.js"></script>
+</body>
+</html>
