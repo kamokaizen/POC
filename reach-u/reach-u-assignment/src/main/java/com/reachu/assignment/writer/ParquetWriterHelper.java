@@ -1,4 +1,4 @@
-package com.reachu.assignment.util;
+package com.reachu.assignment.writer;
 
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
@@ -11,6 +11,7 @@ import org.apache.parquet.hadoop.metadata.CompressionCodecName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by kamilinal on 12/18/18.
@@ -27,7 +28,7 @@ public class ParquetWriterHelper<E> {
         this.converter = new BeanToRecordConverter<>(cls, schema);
     }
 
-    public void write(Iterable<E> objects, String file) throws IOException {
+    public void write(List<E> objects, String file) {
         Path path = new Path(file);
         ParquetWriter<GenericRecord> writer = null;
         // Creating ParquetWriter using builder

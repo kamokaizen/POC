@@ -1,12 +1,12 @@
-package com.reachu.assignment.util;
+package com.reachu.assignment.writer;
 
 import org.apache.avro.Schema;
-        import org.apache.avro.generic.GenericData;
-        import org.apache.avro.generic.GenericRecord;
-        import org.apache.avro.reflect.ReflectData;
+import org.apache.avro.generic.GenericData;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.reflect.ReflectData;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kamilinal on 12/18/18.
@@ -100,6 +100,12 @@ public class BeanToRecordConverter<E> {
             return true;
         }
         if(type.equals(Schema.Type.DOUBLE)){
+            return true;
+        }
+        if(type.equals(Schema.Type.BOOLEAN)){
+            return true;
+        }
+        if(type.equals(Schema.Type.BYTES)){
             return true;
         }
 

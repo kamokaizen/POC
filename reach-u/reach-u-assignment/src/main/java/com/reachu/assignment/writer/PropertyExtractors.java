@@ -1,4 +1,4 @@
-package com.reachu.assignment.util;
+package com.reachu.assignment.writer;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;

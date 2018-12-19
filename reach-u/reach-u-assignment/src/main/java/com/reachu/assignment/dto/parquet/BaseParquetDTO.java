@@ -1,4 +1,4 @@
-package com.reachu.assignment.dto;
+package com.reachu.assignment.dto.parquet;
 
 import java.io.Serializable;
 
