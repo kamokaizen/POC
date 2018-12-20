@@ -121,4 +121,20 @@ public class PartitionUtil {
             return false;
         }
     }
+
+    public double getPartitionTime() {
+        return partitionTime;
+    }
+
+    public void setPartitionTime(double partitionTime) {
+        this.partitionTime = partitionTime;
+    }
+
+    public String getPartitionsPath() {
+        return partitionsPath;
+    }
+
+    public void setPartitionsPath(String partitionsPath) {
+        this.partitionsPath = partitionsPath;
+    }
 }
