@@ -1,16 +1,25 @@
 package com.reachu.assignment.writer;
 
+import com.reachu.assignment.dto.parquet.SampleParquetDTO1;
 import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.reflect.ReflectData;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.parquet.avro.AvroParquetReader;
 import org.apache.parquet.avro.AvroParquetWriter;
+import org.apache.parquet.avro.AvroReadSupport;
+import org.apache.parquet.hadoop.ParquetFileWriter;
+import org.apache.parquet.hadoop.ParquetReader;
 import org.apache.parquet.hadoop.ParquetWriter;
 import org.apache.parquet.hadoop.metadata.CompressionCodecName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +44,7 @@ public class ParquetWriterHelper<E> {
         try{
             writer = AvroParquetWriter.
                     <GenericRecord>builder(path)
+                    .withWriteMode(ParquetFileWriter.Mode.CREATE)
                     .withRowGroupSize(ParquetWriter.DEFAULT_BLOCK_SIZE)
                     .withPageSize(ParquetWriter.DEFAULT_PAGE_SIZE)
                     .withSchema(schema)
@@ -65,4 +75,23 @@ public class ParquetWriterHelper<E> {
         }
     }
 
+    public List<E> read(String path, Class<E> clazz) throws IOException {
+        Path dataFile = new Path(path);
+        Configuration conf = new Configuration();
+
+        List<E> parquets = new ArrayList<E>();
+        try (ParquetReader<E> reader = AvroParquetReader.<E>builder(dataFile)
+                .withDataModel(new ReflectData(clazz.getClassLoader()))
+                .disableCompatibility() // always use this (since this is a new project)
+                .withConf(conf)
+                .build()) {
+            E parquet;
+            while ((parquet = reader.read()) != null) {
+                LOGGER.debug("All records: " + parquet);
+                parquets.add(parquet);
+            }
+        }
+
+        return parquets;
+    }
 }

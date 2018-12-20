@@ -1,12 +1,15 @@
 package com.reachu.assignment.dto;
 
+import com.reachu.assignment.dto.parquet.BaseParquetDTO;
+
 /**
  * Created by kamili on 18/12/2018.
  */
-public class StatusDto implements BaseRestResponse {
+public class StatusDto<T extends BaseParquetDTO> implements BaseRestResponse {
     private boolean status;
     private int statusCode;
     private String reason;
+    private T[] values;
 
     public StatusDto() {
 
@@ -21,6 +24,13 @@ public class StatusDto implements BaseRestResponse {
         this.status = status;
         this.reason = reason;
         this.statusCode = statusCode;
+    }
+
+    public StatusDto(boolean status, int statusCode, String reason, T[] values) {
+        this.status = status;
+        this.reason = reason;
+        this.statusCode = statusCode;
+        this.values = values;
     }
 
     public boolean isStatus() {
@@ -45,5 +55,13 @@ public class StatusDto implements BaseRestResponse {
 
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public T[] getValues() {
+        return values;
+    }
+
+    public void setValues(T[] values) {
+        this.values = values;
     }
 }
