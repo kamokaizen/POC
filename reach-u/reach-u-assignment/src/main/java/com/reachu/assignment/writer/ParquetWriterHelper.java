@@ -1,5 +1,6 @@
 package com.reachu.assignment.writer;
 
+import com.reachu.assignment.dto.base.BeanToRecordConverter;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.reflect.ReflectData;

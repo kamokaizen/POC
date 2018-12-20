@@ -1,4 +1,4 @@
-package com.reachu.assignment.controller.base;
+package com.reachu.assignment.writer.base;
 import com.reachu.assignment.dto.parquet.BaseParquetDTO;
 import com.reachu.assignment.util.PartitionUtil;
 import com.reachu.assignment.writer.ParquetWriterHelper;

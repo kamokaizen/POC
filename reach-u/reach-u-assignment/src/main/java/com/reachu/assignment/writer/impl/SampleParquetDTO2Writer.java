@@ -1,7 +1,7 @@
-package com.reachu.assignment.controller.impl;
+package com.reachu.assignment.writer.impl;
 
-import com.reachu.assignment.controller.base.AbstractPartitionWriter;
-import com.reachu.assignment.controller.base.PartitionWriter;
+import com.reachu.assignment.writer.base.AbstractPartitionWriter;
+import com.reachu.assignment.writer.base.PartitionWriter;
 import com.reachu.assignment.dto.parquet.SampleParquetDTO2;
 import org.springframework.context.annotation.Configuration;
 
